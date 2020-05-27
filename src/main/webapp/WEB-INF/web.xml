@@ -4,9 +4,9 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<!-- 실행시 index.jsp로 처음실행 -->
-	<!-- <welcome-file-list>
+	<welcome-file-list>
 		<welcom-file>index.jsp</welcom-file>
-	</welcome-file-list> -->
+	</welcome-file-list> 
 	
 	<!-- Encoding UTF-8 -->
 	<filter>

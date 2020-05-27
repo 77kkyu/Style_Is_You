@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="goods">
+
+	<select id="goodsList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				goods_no, goods_category, goods_name,
+				goods_sell_price, goods_keyword, goods_readcnt
+			FROM 
+				goods
+			ORDER BY goods_date desc
+		]]>
+	</select>
+
+</mapper>
