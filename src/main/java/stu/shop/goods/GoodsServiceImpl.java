@@ -1,4 +1,4 @@
-package stu.goods.service;
+package stu.shop.goods;
 
 import java.util.List;
 import java.util.Map;
@@ -7,8 +7,6 @@ import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-
-import stu.goods.dao.GoodsDao;
 
 @Service("goodsService")
 public class GoodsServiceImpl implements GoodsService {
@@ -19,9 +17,15 @@ public class GoodsServiceImpl implements GoodsService {
 	private GoodsDao goodsDao;
 
 	@Override
-	public List<Map<String, Object>> goodCateList(Map<String, Object> map) throws Exception {
+	public List<Map<String, Object>> newGoodsList(Map<String, Object> map) throws Exception { // 카테고리 상품 리스트 
 		
 		return goodsDao.GoodsList(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> bestGoodsList(Map<String, Object> map) throws Exception {
+		
+		return goodsDao.bestGoodsList(map);
 	}
 
 }

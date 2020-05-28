@@ -4,14 +4,45 @@
 
 <mapper namespace="goods">
 
-	<select id="goodsList" parameterType="hashmap" resultType="hashmap">
+	<select id="goodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최근순 상품리스트 -->
 		<![CDATA[
 			SELECT
-				goods_no, goods_category, goods_name,
-				goods_sell_price, goods_keyword, goods_readcnt
-			FROM 
-				goods
-			ORDER BY goods_date desc
+				gs.GOODS_NO,
+				gs.GOODS_CATEGORY,
+				gs.GOODS_NAME,
+				gs.GOODS_CONTENT,
+				gs.GOODS_ORIGIN_PRICE,
+				gs.GOODS_SELL_PRICE,
+				gs.GOODS_SALE_PRICE,
+				gs.GOODS_DATE,
+				gs.GOODS_KEYWORD,
+				gs.GOODS_READCNT,
+				up.UPLOAD_SAVE_NAME
+			FROM
+				goods gs ,upload up
+			WHERE gs.GOODS_NO = up.GOODS_NO
+			ORDER BY GOODS_DATE desc
+		]]>
+	</select>
+	
+	<select id="bestGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- best 상품리스트 -->
+		<![CDATA[
+			SELECT
+				gs.GOODS_NO,
+				gs.GOODS_CATEGORY,
+				gs.GOODS_NAME,
+				gs.GOODS_CONTENT,
+				gs.GOODS_ORIGIN_PRICE,
+				gs.GOODS_SELL_PRICE,
+				gs.GOODS_SALE_PRICE,
+				gs.GOODS_DATE,
+				gs.GOODS_KEYWORD,
+				gs.GOODS_READCNT,
+				up.UPLOAD_SAVE_NAME
+			FROM
+				goods gs ,upload up
+			WHERE gs.GOODS_NO = up.GOODS_NO
+			ORDER BY GOODS_READCNT desc
 		]]>
 	</select>
 
