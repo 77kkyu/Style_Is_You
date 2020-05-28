@@ -19,6 +19,10 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+
+</script>
+
 
 </head>
 <body>
