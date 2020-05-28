@@ -1,4 +1,4 @@
-package stu.basket.dao;
+package stu.shop.basket;
 
 import java.util.List;
 import java.util.Map;

@@ -40,58 +40,112 @@
       </div>
 
       <!-- tables -->
-      
+      <form action="">
           <div class="table-responsive">
+          	<p><b>내가 담은 장바구니 상품리스트</b></p>
             <table class="table table-striped">
+            <colgroup>
+				<col width="5%" />
+				<col width="10" />
+				<col width="*" />
+				<col width="7%" />
+				<col width="10%" />
+				<col width="10%" />
+				<col width="10%" />
+				<col width="10%" />
+			</colgroup>
               <thead>
                 <tr>
-                  <th>주문번호</th>
-                  <th>주문상품</th>
-                  <th>총 수량</th>
-                  <th>총 금액</th>
-                  <th>주문상태</th>
+                  <th style="text-align:center">
+                  	<input type="checkbox" name="allchk" id="allchk" onclick="fn_allchk()">
+                  </th>
+                  <th colspan="2" style="text-align:center">상품명/옵션</th>
+                  <th style="text-align:center">수량</th>
+                  <th style="text-align:center">상품가</th>
+                  <th style="text-align:center">주문금액</th>
+                  <th style="text-align:center">배송비</th>
+                  <th style="text-align:center">주문</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>반짝반짝 작으별 티셔트</td>
-                  <td>2</td>
-                  <td>100,000</td>
-                  <td>신규주문</td>
-                </tr>
-                <tr>
-                  <td>1,001</td>
-                  <td>반짝반짝 작으별 티셔트</td>
-                  <td>2</td>
-                  <td>100,000</td>
-                  <td>신규주문</td>
-                </tr>
-                <tr>
-                  <td>1,001</td>
-                  <td>반짝반짝 작으별 티셔트</td>
-                  <td>2</td>
-                  <td>100,000</td>
-                  <td>신규주문</td>
-                </tr>
-                <tr>
-                  <td>1,001</td>
-                  <td>반짝반짝 작으별 티셔트</td>
-                  <td>2</td>
-                  <td>100,000</td>
-                  <td>신규주문</td>
-                </tr>
-                <tr>
-                  <td>1,001</td>
-                  <td>반짝반짝 작으별 티셔트</td>
-                  <td>2</td>
-                  <td>100,000</td>
-                  <td>신규주문</td>
-                </tr>
-
+              	<c:choose>
+				<c:when test="${fn:length(list) > 0}">
+					<c:forEach items="${list }" var="row">
+						<tr>
+							<td style="text-align:center">
+                  				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
+                  			</td>
+                  			<td>
+                  				<img src="${row.UPLOAD_SAVE_NAME }" width="50" height="50">
+                  			</td>
+							<td>
+				  				<a href="#">${row.GOODS_NAME }</a> <br>
+				  				색상: ${row.GOODS_ATT_COLOR } <br> 
+				  				사이즈:${row.GOODS_ATT_SIZE } <br>
+				  			</td>
+				  			<td style="text-align:center">
+                  				<input type="text" name="basket_goods_amount" value="${row.BASKET_GOODS_AMOUNT }" style="width:20px">
+                  			</td>
+							<td style="text-align:center">${row.GOODS_SELL_PRICE }원</td>
+							<td style="text-align:center">${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }원</td>
+							<td style="text-align:center">
+								<input type="text" name="order_fee" value="3000원" style="width:100px">
+							</td>
+							<td style="text-align:center">
+                  				<input type="button" name="amount_modify" value="수정"><br>
+                  				<input type="button" name="basket_delete" value="삭제">
+                  			</td>
+						</tr>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<tr>
+						<td colspan="7">조회된 결과가 없습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
               </tbody>
             </table>
           </div>
+          <div style="text-align:right">
+          	<input type="button" name="select_like" value="찜하기">
+            <input type="button" name="all_basket_delete" value="모두삭제">
+          </div>
+          <br>
+          <br>
+          <div class="table-responsive">
+          	<table class="table table-striped">
+          		<tr>
+          			<td>주문금액</td>
+          			<td></td>
+          			<td>- 할인금액</td>
+          			<td>0원</td>
+          			<td> = 결제예정금액</td>
+          			<td></td>
+          		</tr>
+          		<tr>
+          			<td colspan="4">
+          				상품금액 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          				
+          				<br>
+          				선결제배송비 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          				
+          			</td>
+          			<td>
+          				적립혜택 <br>
+          				포인트적립 
+          			</td>
+          			<td></td>
+          		</tr>
+          	</table>
+          </div>
+          <div style="text-align:right">
+          	<input type="button" name="all_order" value="전체주문">
+            <input type="button" name="select_order" value="선택상품주문">
+          </div>
+          
+      
+     </form>
 
       <!-- Example row of columns -->
       <div class="row">
@@ -101,16 +155,7 @@
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
         </div>
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-lg-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-          <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-        </div>
+        
       </div>
 
       <!-- Site footer -->
