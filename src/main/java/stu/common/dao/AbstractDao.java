@@ -28,7 +28,10 @@ public class AbstractDao {
 		return sqlSession.selectList(queryId,params);
 	}
 	
-	
+	public List<Map<String,Object>> basketList(String queryId, Object params) {
+		printQueryId(queryId);
+		return sqlSession.selectList(queryId,params);
+	}
 	
 
 }
