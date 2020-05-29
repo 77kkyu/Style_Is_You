@@ -54,4 +54,9 @@
         <param-value>classpath*:config/spring/context-*.xml</param-value>
   	</context-param>
 
+	<!-- 세션 지속 시간 30분 -->
+	<session-config>
+  		<session-timeout>30</session-timeout>
+	</session-config>
+
 </web-app>
