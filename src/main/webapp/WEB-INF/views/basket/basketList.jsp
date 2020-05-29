@@ -21,6 +21,30 @@
 
 <script type="text/javascript">
 
+function fn_allchk(){
+	
+	var chk = document.getElementById("allchk").checked; //값: true,false
+	var arraychk = document.getElementsByName("chk"); //가격
+	var len = arraychk.length;
+		for(var i=0; i<len; i++){
+			arraychk[i].checked = chk; //chk가 true면 arraychk도 true
+		}
+}
+
+function fn_amount(index){
+	
+	var array1 = document.getElementsByName("basket_goods_amount"); //수량
+	var array2 = document.getElementsByName("goods_sell_price"); //가격
+	var array3 = document.getElementsByName("order_price"); //주문금액(수량*가격)
+	var amount = array1[index].value;
+	var sell = array2[index].value;
+	var order = array3[index].value;
+	order = amount*sell;
+	order = order.toLocaleString();
+	array3[index].value = order;
+}
+
+
 </script>
 
 
@@ -74,7 +98,7 @@
               <tbody>
               	<c:choose>
 				<c:when test="${fn:length(list) > 0}">
-					<c:forEach items="${list }" var="row">
+					<c:forEach items="${list }" var="row" varStatus="status">
 						<tr>
 							<td style="text-align:center">
                   				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
@@ -90,13 +114,16 @@
 				  			<td style="text-align:center">
                   				<input type="text" name="basket_goods_amount" value="${row.BASKET_GOODS_AMOUNT }" style="width:20px">
                   			</td>
-							<td style="text-align:center">${row.GOODS_SELL_PRICE }원</td>
-							<td style="text-align:center">${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }원</td>
 							<td style="text-align:center">
-								<input type="text" name="order_fee" value="3000원" style="width:100px">
+								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }" style="width:80px">원
+							<td style="text-align:center">
+								<input type="text" name="order_price" value="${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }" style="width:80px">원
 							</td>
 							<td style="text-align:center">
-                  				<input type="button" name="amount_modify" value="수정"><br>
+								<input type="text" name="order_fee" value="3000원" style="width:80px">
+							</td>
+							<td style="text-align:center">
+                  				<input type="button" name="amount_modify" value="수정" onclick="fn_amount(${status.index})"><br>
                   				<input type="button" name="basket_delete" value="삭제">
                   			</td>
 						</tr>
