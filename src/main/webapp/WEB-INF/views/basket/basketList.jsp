@@ -65,21 +65,22 @@ function fn_allPrice(){
 	document.getElementById("all_price").value = hap;
 	document.getElementById("pay_price").value = pay;
 	document.getElementById("all_order_price").value = pay;
-	
+
+	 //등급별 적립율
 	var array7 = document.getElementsByName("member_grade");
 	var grade = array7[0].value;
-	var val = 0;
-	if(("nomal").equals(grade)){
-		val=0.03;
-	}else if(("gold").equals(grade)){
-		val=0.05;
+	var point = 0;
+
+	if("nomal".equals(grade)){
+		point = Number(hap)*0.03;
+	}else if("gold".equals(grade)){
+		point = Number(hap)*0.05;
 	}else{
-		val=0.1;
+		point = Number(hap)*0.1;
 	}
-	var point = Number(hap)*Number(val); //등급별 적립율
+	
 	document.getElementById("point").value = point;
 
-	alert(grade);
 	
 }
 
