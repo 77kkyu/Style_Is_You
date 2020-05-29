@@ -19,9 +19,76 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+
+function fn_allchk(){
+	
+	var chk = document.getElementById("allchk").checked; //값: true,false
+	var arraychk = document.getElementsByName("chk"); //가격
+	var len = arraychk.length;
+		for(var i=0; i<len; i++){
+			arraychk[i].checked = chk; //chk가 true면 arraychk도 true
+		}
+}
+
+function fn_amount(index){
+	
+	var array1 = document.getElementsByName("basket_goods_amount"); //수량
+	var array2 = document.getElementsByName("goods_sell_price"); //가격
+	var array3 = document.getElementsByName("order_price"); //주문금액(수량*가격)
+	var amount = array1[index].value;
+	var sell = array2[index].value;
+	var order = array3[index].value;
+	order = amount*sell;
+	//order = Number(order).toLocaleString();
+	array3[index].value = order;
+	fn_allPrice();
+}
+
+function fn_allPrice(){
+	
+	var array = document.getElementsByName("order_price");
+	var len = array.length;
+	var hap = 0;
+	var pay = 0;
+	for (var i=0; i<len; i++){
+		pri = array[i].value;
+		hap = Number(hap)+Number(pri);
+	}
+	
+	
+	var fee = document.getElementById("order_fee").value;
+	pay = Number(hap)+Number(fee);
+	
+	hap = Number(hap).toLocaleString();
+	pay = Number(pay).toLocaleString();
+	document.getElementById("all_price").value = hap;
+	document.getElementById("pay_price").value = pay;
+	document.getElementById("all_order_price").value = pay;
+	
+	var array7 = document.getElementsByName("member_grade");
+	var grade = array7[0].value;
+	var val = 0;
+	if(("nomal").equals(grade)){
+		val=0.03;
+	}else if(("gold").equals(grade)){
+		val=0.05;
+	}else{
+		val=0.1;
+	}
+	var point = Number(hap)*Number(val); //등급별 적립율
+	document.getElementById("point").value = point;
+
+	alert(grade);
+	
+}
+
+
+</script>
+
 
 </head>
-<body>
+<body onload="fn_allPrice()">
 
     <div class="container">
 
@@ -49,8 +116,8 @@
 				<col width="10" />
 				<col width="*" />
 				<col width="7%" />
-				<col width="10%" />
-				<col width="10%" />
+				<col width="13%" />
+				<col width="13%" />
 				<col width="10%" />
 				<col width="10%" />
 			</colgroup>
@@ -63,14 +130,15 @@
                   <th style="text-align:center">수량</th>
                   <th style="text-align:center">상품가</th>
                   <th style="text-align:center">주문금액</th>
-                  <th style="text-align:center">배송비</th>
                   <th style="text-align:center">주문</th>
                 </tr>
               </thead>
               <tbody>
+              
               	<c:choose>
 				<c:when test="${fn:length(list) > 0}">
-					<c:forEach items="${list }" var="row">
+					<c:forEach items="${list }" var="row" varStatus="status">
+						<input type="hidden" id="member_grade" value="${row.MEMBER_GRADE }">
 						<tr>
 							<td style="text-align:center">
                   				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
@@ -84,15 +152,15 @@
 				  				사이즈:${row.GOODS_ATT_SIZE } <br>
 				  			</td>
 				  			<td style="text-align:center">
-                  				<input type="text" name="basket_goods_amount" value="${row.BASKET_GOODS_AMOUNT }" style="width:20px">
+                  				<input type="text" name="basket_goods_amount" value="${row.BASKET_GOODS_AMOUNT }" style="width:20px; text-align:right">
                   			</td>
-							<td style="text-align:center">${row.GOODS_SELL_PRICE }원</td>
-							<td style="text-align:center">${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }원</td>
 							<td style="text-align:center">
-								<input type="text" name="order_fee" value="3000원" style="width:100px">
+								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }" style="width:80px; text-align:right">원
+							<td style="text-align:center">
+								<input type="text" name="order_price" value="${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }" style="width:80px; text-align:right">원
 							</td>
 							<td style="text-align:center">
-                  				<input type="button" name="amount_modify" value="수정"><br>
+                  				<input type="button" name="amount_modify" value="수정" onclick="fn_amount(${status.index})"><br>
                   				<input type="button" name="basket_delete" value="삭제">
                   			</td>
 						</tr>
@@ -117,25 +185,31 @@
           	<table class="table table-striped">
           		<tr>
           			<td>주문금액</td>
-          			<td></td>
+          			<td>
+          				<input type="text" id="all_order_price" style="width:100px; text-align:right">원
+          			</td>
           			<td>- 할인금액</td>
           			<td>0원</td>
           			<td> = 결제예정금액</td>
-          			<td></td>
+          			<td>
+          				<input type="text" id="pay_price" value="" style="width:100px; text-align:right">원
+          			</td>
           		</tr>
           		<tr>
           			<td colspan="4">
-          				상품금액 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          				
+          				상품금액 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          				<input type="text" id="all_price" style="width:100px; text-align:right">원
           				<br>
           				선결제배송비 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          				
+          				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right" readonly>원
           			</td>
           			<td>
           				적립혜택 <br>
           				포인트적립 
           			</td>
-          			<td></td>
+          			<td>
+          				<input type="text" id="point" style="width:100px; text-align:right" readonly> P
+          			</td>
           		</tr>
           	</table>
           </div>

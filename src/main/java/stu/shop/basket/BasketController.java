@@ -26,10 +26,10 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		
 		List<Map<String,Object>> list = basketService.basketList(commandMap);
 		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
-		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, UPLOAD_SAVE_NAME
+		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
 		
 		mv.addObject("list", list);
-		
+		System.out.println(list);
 		return mv;
 		
 	}
