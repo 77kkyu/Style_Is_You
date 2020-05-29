@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import stu.common.common.CommandMap;
+
 
 @Controller
 public class BasketController {
@@ -20,7 +22,7 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	private BasketService basketService;
 	
 	@RequestMapping(value="/basket/basketList.do")
-	public ModelAndView basketList(Map<String,Object> commandMap) throws Exception {
+	public ModelAndView basketList(CommandMap commandMap) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("basket/basketList");
 		
@@ -31,6 +33,12 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		mv.addObject("list", list);
 		System.out.println(list);
 		return mv;
+		
+	}
+	
+	@RequestMapping(value="/basket/basketModify.do")
+	public void basketModify(CommandMap commandMap) throws Exception {
+		basketService.basketModify(commandMap);
 		
 	}
 

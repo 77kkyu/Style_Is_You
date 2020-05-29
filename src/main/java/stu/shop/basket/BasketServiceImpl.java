@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import stu.common.common.CommandMap;
+
 
 
 @Service("basketService")
@@ -20,9 +22,15 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	private BasketDao basketDao;
 
 	@Override
-	public List<Map<String, Object>> basketList(Map<String, Object> map) throws Exception {
+	public List<Map<String, Object>> basketList(CommandMap map) throws Exception {
 
 		return (List<Map<String, Object>>) basketDao.basketList(map);
+	}
+
+	@Override
+	public void basketModify(CommandMap map) {
+		basketDao.basketModify(map);
+		
 	}
 
 	

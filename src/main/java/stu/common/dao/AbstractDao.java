@@ -38,6 +38,13 @@ public class AbstractDao {
 		return sqlSession.selectList(queryId,params);
 	}
 	
+	public int basketModify(String queryId, Object params) {
+		printQueryId(queryId);
+		return sqlSession.update(queryId,params);
+	}
+	
+	
+	
 	// 특정 레코드 한줄 출력
 		public Object selectOne(String queryId) {
 			printQueryId(queryId);

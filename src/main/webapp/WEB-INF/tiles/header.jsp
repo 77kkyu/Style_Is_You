@@ -111,7 +111,7 @@ li {
 			<td><a href="/stu/joinForm.do">회원가입</a></td> <td>|</td>
 			<td><a href="">마이페이지</a></td> <td>|</td>
 			<td><a href="">고객센터</a></td> <td>|</td>
-			<td><a href="">장바구니</a></td>
+			<td><a href="/stu/basket/basketList.do">장바구니</a></td>
 			<td><a href="">쿠폰</a></td>
 		</tr>
 	</table>

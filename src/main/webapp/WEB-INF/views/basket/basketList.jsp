@@ -18,6 +18,7 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
+<script src="/stu/js/common.js'/>" charset="utf-8"></script>
 
 <script type="text/javascript">
 
@@ -36,13 +37,21 @@ function fn_amount(index){
 	var array1 = document.getElementsByName("basket_goods_amount"); //수량
 	var array2 = document.getElementsByName("goods_sell_price"); //가격
 	var array3 = document.getElementsByName("order_price"); //주문금액(수량*가격)
+	var array4 = document.getElementsByName("chk");
 	var amount = array1[index].value;
 	var sell = array2[index].value;
 	var order = array3[index].value;
+	var basket_no = array4[index].value;
 	order = amount*sell;
 	//order = Number(order).toLocaleString();
 	array3[index].value = order;
 	fn_allPrice();
+
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/basket/basketModify.do' />");
+	comSubmit.addParam("BASKET_GOODS_AMOUNT", amount);
+	comSubmit.addParam("BASKET_no", basket_no);
+	comSubmit.submit();
 }
 
 function fn_allPrice(){
@@ -60,8 +69,8 @@ function fn_allPrice(){
 	var fee = document.getElementById("order_fee").value;
 	pay = Number(hap)+Number(fee);
 	
-	hap = Number(hap).toLocaleString();
-	pay = Number(pay).toLocaleString();
+	//hap = Number(hap).toLocaleString();
+	//pay = Number(pay).toLocaleString();
 	document.getElementById("all_price").value = hap;
 	document.getElementById("pay_price").value = pay;
 	document.getElementById("all_order_price").value = pay;
@@ -69,17 +78,15 @@ function fn_allPrice(){
 	var array7 = document.getElementsByName("member_grade");
 	var grade = array7[0].value;
 	var val = 0;
-	if(("nomal").equals(grade)){
+	if("nomal" == grade){
 		val=0.03;
-	}else if(("gold").equals(grade)){
+	}else if("gold" == grade){
 		val=0.05;
 	}else{
 		val=0.1;
 	}
 	var point = Number(hap)*Number(val); //등급별 적립율
 	document.getElementById("point").value = point;
-
-	alert(grade);
 	
 }
 
@@ -138,7 +145,7 @@ function fn_allPrice(){
               	<c:choose>
 				<c:when test="${fn:length(list) > 0}">
 					<c:forEach items="${list }" var="row" varStatus="status">
-						<input type="hidden" id="member_grade" value="${row.MEMBER_GRADE }">
+						<input type="hidden" name="member_grade" value="${row.MEMBER_GRADE }">
 						<tr>
 							<td style="text-align:center">
                   				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
