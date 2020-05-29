@@ -23,8 +23,8 @@ public class GoodsController {
 	@RequestMapping(value="/shop/newGoodsList.do") // url 
 	public ModelAndView goodsCateList(Map<String,Object> commandMap) throws Exception { // 최신상품 리스트 출력
 		
-		ModelAndView mv = new ModelAndView("shop/newGoodsList"); // 보낼 url
-		
+		ModelAndView mv = new ModelAndView("shop/goodsList"); // 보낼 url
+
 		List<Map<String,Object>> list = goodsService.newGoodsList(commandMap);
 		
 		mv.addObject("list", list);
@@ -36,14 +36,24 @@ public class GoodsController {
 	@RequestMapping(value="/shop/bestGoodsList.do") // url 
 	public ModelAndView bestGoodsList(Map<String,Object> commandMap) throws Exception { // 베스트 상품 리스트 출력
 		
-		ModelAndView mv = new ModelAndView("shop/bestGoodsList"); // 보낼 url
+		ModelAndView mv = new ModelAndView("shop/goodsList"); // 보낼 url
 		
 		List<Map<String,Object>> list = goodsService.bestGoodsList(commandMap);
-		
+		list.get(0);
+		System.out.println("index"+ list.get(0));
+		System.out.println("get!!!!!!!!!!!!!"+commandMap.get("GOODS_NAME"));
 		mv.addObject("list", list);
 		
 		return mv;
 		
+	}
+	
+	@RequestMapping(value="/shop/cateList.do")
+	public ModelAndView cateList(Map<String,Object> commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		return mv;
 	}
 
 }

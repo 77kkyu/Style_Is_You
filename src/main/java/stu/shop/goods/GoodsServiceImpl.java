@@ -19,7 +19,7 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<Map<String, Object>> newGoodsList(Map<String, Object> map) throws Exception { // 카테고리 상품 리스트 
 		
-		return goodsDao.GoodsList(map);
+		return goodsDao.newGoodsList(map);
 	}
 
 	@Override

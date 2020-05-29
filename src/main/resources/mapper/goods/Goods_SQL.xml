@@ -6,7 +6,11 @@
 
 	<select id="goodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최근순 상품리스트 -->
 		<![CDATA[
-			SELECT
+SELECT
+				AAA.* 
+			FROM( select count(*) over() as total_count, AA.*
+			FROM(
+				select ROW_NUMBER() OVER (ORDER BY GOODS_DATE desc) RNUM,
 				gs.GOODS_NO,
 				gs.GOODS_CATEGORY,
 				gs.GOODS_NAME,
@@ -17,17 +21,26 @@
 				gs.GOODS_DATE,
 				gs.GOODS_KEYWORD,
 				gs.GOODS_READCNT,
-				up.UPLOAD_SAVE_NAME
+                gs.GOODS_PICK,
+				up.UPLOAD_SAVE_NAME,
+				att.GOODS_ATT_COLOR
 			FROM
-				goods gs ,upload up
-			WHERE gs.GOODS_NO = up.GOODS_NO
-			ORDER BY GOODS_DATE desc
+				goods gs ,upload up, goods_attribute att
+				WHERE gs.GOODS_NO = up.GOODS_NO AND gs.GOODS_NO = att.GOODS_NO
+                AND up.GOODS_NO = att.GOODS_NO
+				) AA
+		      ) AAA
+		      WHERE AAA.RNUM BETWEEN 0 AND 12 
 		]]>
 	</select>
 	
 	<select id="bestGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- best 상품리스트 -->
 		<![CDATA[
 			SELECT
+			AAA.* 
+			FROM( select count(*) over() as total_count, AA.*
+			FROM(
+				select ROW_NUMBER() OVER (ORDER BY GOODS_READCNT desc) RNUM,
 				gs.GOODS_NO,
 				gs.GOODS_CATEGORY,
 				gs.GOODS_NAME,
@@ -38,12 +51,19 @@
 				gs.GOODS_DATE,
 				gs.GOODS_KEYWORD,
 				gs.GOODS_READCNT,
-				up.UPLOAD_SAVE_NAME
+				gs.GOODS_PICK,
+				up.UPLOAD_SAVE_NAME,
+				att.GOODS_ATT_COLOR
 			FROM
-				goods gs ,upload up
-			WHERE gs.GOODS_NO = up.GOODS_NO
-			ORDER BY GOODS_READCNT desc
+				goods gs ,upload up, goods_attribute att
+			WHERE gs.GOODS_NO = up.GOODS_NO AND gs.GOODS_NO = att.GOODS_NO
+                AND up.GOODS_NO = att.GOODS_NO
+			) AA
+		      ) AAA
+		      WHERE AAA.RNUM BETWEEN 0 AND 28
+		       
 		]]>
 	</select>
+	
 
 </mapper>

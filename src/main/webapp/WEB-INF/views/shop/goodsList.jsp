@@ -7,17 +7,17 @@
 <html>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title>메인화면</title>
+<title>상품리스트</title>
 <head>
 <script type="text/javascript">
  var img=new Array();
-img[0]=new Image(); img[0].src="/stu/img/옷1.JPG";
-img[1]=new Image(); img[1].src="/stu/img/옷2.JPG";
-img[2]=new Image(); img[2].src="/stu/img/옷3.JPG"; 
+img[0]=new Image(); img[0].src="../img/옷1.JPG";
+img[1]=new Image(); img[1].src="../img/옷2.JPG";
+img[2]=new Image(); img[2].src="../img/옷3.JPG"; 
 var interval=1500;
 var n=0;
 
-var imgs = new Array("/stu/img/옷1.JPG","/stu/img/옷2.JPG","/stu/img/옷3.JPG","/stu/img/옷4.JPG");
+var imgs = new Array("../img/옷1.JPG","../img/옷2.JPG","../img/옷3.JPG","../img/옷4.JPG");
 
 function rotate() {
 	
@@ -105,17 +105,48 @@ setTimeout("rotate()",interval);
 </head>
 <body onload="rotate()">
 
-<br><br><br>
-<div align="center">
-<h3>NEW ITEM</h3>
+<div align="right" style="margin-right:160px">
+<form>
+	<table>
+		<tr>
+			<td><a href="">신상품순</a></td> <td>|</td>
+			<td><a href="">인기상품순</a></td> <td>|</td>
+			<td><a href="">낮은가격순</a></td> <td>|</td>
+			<td><a href="">높은가격순</a></td> <td>|</td>
+			<td><a href="">판매량순</a></td>
+		</tr>
+	</table>
+</form>
 </div>
+
+<%-- <div align="center">
+ <div id="pattern" class="pattern">
+  	<ul class="list img-list">
+  	
+  	<c:forEach items="${list}" var="list">
+  		
+			<li>
+				<a href="" class="inner">
+					<div class="li-img">
+						<img src="../img/옷1.JPG" id="slide"/>
+					</div>
+					<div align="left">
+						${list.GOODS_NAME }<br><br>
+						${list.GOODS_SELL_PRICE }원
+					</div>
+				</a>
+			</li>
+	</c:forEach>
+		</ul>
+	</div>
+</div> --%>
 
 <c:set var="i" value="0" />
  <c:set var="j" value="4" />
  <table style="padding:200px; margin-top:-150px;">
   <c:choose>
-   <c:when test="${newList != null && fn:length(newList) > 0 }">
-    <c:forEach items="${newList}" var="newList">
+   <c:when test="${list != null && fn:length(list) > 0 }">
+    <c:forEach items="${list}" var="list">
      <c:if test="{i%j == 0}">
       <tr>
      </c:if>
@@ -123,19 +154,18 @@ setTimeout("rotate()",interval);
      <div class="list img-list">
      <a href="" class="inner">
      <div class="li-img">
-		<img src="/stu/img/옷1.JPG" id="slide"/>
+		<img src="../img/옷1.JPG" id="slide"/>
 	</div>
 	<div align="left">
-	<!-- 반복문으로 뽑아서 배열 인덱스로 여러가지 추가? 해야함 -->
 		<c:choose>
-			<c:when test="${newList.GOODS_PICK == '0' }"></c:when>
-			<c:when test="${newList.GOODS_PICK == '1' }">BEST</c:when>
-			<c:when test="${newList.GOODS_PICK == '2' }">MD PICK</c:when>
-			<c:when test="${newList.GOODS_PICK == '3' }">MUSTHAVE</c:when>
+			<c:when test="${list.GOODS_PICK == '0' }"></c:when>
+			<c:when test="${list.GOODS_PICK == '1' }">BEST</c:when>
+			<c:when test="${list.GOODS_PICK == '2' }">MD PICK</c:when>
+			<c:when test="${list.GOODS_PICK == '3' }">MUSTHAVE</c:when>
 		</c:choose>
 		<br><br>
-		${newList.GOODS_NAME }<br><br>
-		${newList.GOODS_SELL_PRICE }원
+		${list.GOODS_NAME }<br><br>
+		${list.GOODS_SELL_PRICE }원
 	</div>
 	</a>
 	</div>
@@ -154,54 +184,6 @@ setTimeout("rotate()",interval);
   </c:choose>
  </table>
 
-
-
-<div align="center" style="margin-top:-150px;">
-<h3>BEST ITEM</h3>
-</div>
-
-<c:set var="i" value="0" />
- <c:set var="j" value="4" />
- <table style="padding:200px; margin-top:-150px;">
-  <c:choose>
-   <c:when test="${bestList != null && fn:length(bestList) > 0 }">
-    <c:forEach items="${bestList}" var="bestList">
-     <c:if test="{i%j == 0}">
-      <tr>
-     </c:if>
-     <td>
-     <div class="list img-list">
-     <a href="" class="inner">
-     <div class="li-img">
-		<img src="/stu/img/옷1.JPG" id="slide"/>
-	</div>
-	<div align="left">
-		<c:choose>
-			<c:when test="${bestList.GOODS_PICK == '0' }"> </c:when>
-			<c:when test="${bestList.GOODS_PICK == '1' }">BEST</c:when>
-			<c:when test="${bestList.GOODS_PICK == '2' }">MD PICK</c:when>
-			<c:when test="${bestList.GOODS_PICK == '3' }">MUSTHAVE</c:when>
-		</c:choose>
-		<br><br>
-		${bestList.GOODS_NAME }<br><br>
-		${bestList.GOODS_SELL_PRICE }원
-	</div>
-	</a>
-	</div>
-	</td>
-    <c:if test="${i%j == j-1}">
-     </tr>
-    </c:if> 
-   <c:set var="i" value="${i+1}" />
-    </c:forEach>
-   </c:when>
-  <c:otherwise>
-   <tr>
-    <td>존재하지 않습니다.</td>
-   </tr>
-  </c:otherwise>
-  </c:choose>
- </table>
 
 
 </body>

@@ -23,10 +23,17 @@ public class AbstractDao {
 		
 	}
 	
-	public List<Map<String,Object>> goodsList(String queryId, Object params) { // 상품리스트 
+	public List<Map<String,Object>> bestGoodsList(String queryId, Object params) { // 베스트(조회수) 상품
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
+	
+	public List<Map<String,Object>> newGoodsList(String queryId, Object params) { // 최근 상품 
+		printQueryId(queryId);
+		return sqlSession.selectList(queryId,params);
+	}
+	
+	
 	
 	public List<Map<String,Object>> basketList(String queryId, Object params) {
 		printQueryId(queryId);
