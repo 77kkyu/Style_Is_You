@@ -3,6 +3,7 @@
     <wb-module deploy-name="stu">
                 
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+<<<<<<< Updated upstream
         		
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         		
@@ -17,4 +18,12 @@
         	
     </wb-module>
     
+=======
+		<wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+		<property name="java-output-path" value="target/classes"/>
+        <property name="context-root" value="first"/>
+	</wb-module>
+>>>>>>> Stashed changes
 </project-modules>
