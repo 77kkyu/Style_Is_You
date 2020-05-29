@@ -23,22 +23,37 @@ public class AbstractDao {
 		
 	}
 	
-	public List<Map<String,Object>> bestGoodsList(String queryId, Object params) { // 베스트(조회수) 상품
+	public List<Map<String,Object>> bestGoodsList(String queryId, Object params) { // 踰좎뒪�듃(議고쉶�닔) �긽�뭹
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
 	
-	public List<Map<String,Object>> newGoodsList(String queryId, Object params) { // 최근 상품 
+	public List<Map<String,Object>> newGoodsList(String queryId, Object params) { // 理쒓렐 �긽�뭹 
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
-	
-	
-	
+
 	public List<Map<String,Object>> basketList(String queryId, Object params) {
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
 	
+	// 특정 레코드 한줄 출력
+		public Object selectOne(String queryId) {
+			printQueryId(queryId);
+			return sqlSession.selectOne(queryId);
+		}
+		
+		// 특정 레코드 한줄 출력
+		public Object selectOne(String queryId, Object params) {
+			printQueryId(queryId);
+			return sqlSession.selectOne(queryId, params);
+		}
+		
+		// 레코드 추가
+		public Object insert(String queryId, Object params) {
+			printQueryId(queryId);
+			return sqlSession.insert(queryId, params);
+		}
 
 }

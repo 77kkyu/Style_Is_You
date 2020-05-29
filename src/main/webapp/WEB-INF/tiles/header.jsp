@@ -107,8 +107,8 @@ li {
 <form>
 	<table>
 		<tr>
-			<td><a href="">로그인</a></td> <td>|</td>
-			<td><a href="">회원가입</a></td> <td>|</td>
+			<td><a href="/stu/loginForm.do">로그인</a></td> <td>|</td>
+			<td><a href="/stu/joinForm.do">회원가입</a></td> <td>|</td>
 			<td><a href="">마이페이지</a></td> <td>|</td>
 			<td><a href="">고객센터</a></td> <td>|</td>
 			<td><a href="">장바구니</a></td>
