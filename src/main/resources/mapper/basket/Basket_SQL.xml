@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="basket">
+
+	<select id="basketList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT DISTINCT
+				A.GOODS_NO, A.BASKET_NO, A.MEMBER_NO,
+				A.BASKET_GOODS_AMOUNT, A.GOODS_ATT_NO,
+				E.GOODS_ATT_SIZE, E.GOODS_ATT_COLOR,
+				D.GOODS_NAME, D.GOODS_SELL_PRICE,
+				U.UPLOAD_SAVE_NAME, M.MEMBER_GRADE
+			FROM 
+				BASKET A, GOODS D, GOODS_ATTRIBUTE E, UPLOAD U, MEMBER M 
+			WHERE 
+				A.MEMBER_NO=1
+		    		AND A.GOODS_NO=D.GOODS_NO
+        				AND A.GOODS_ATT_NO=E.GOODS_ATT_NO
+				AND A.GOODS_NO=U.GOODS_NO
+		]]>
+	</select>
+	
+	
+
+
+
+
+</mapper>
+
+

@@ -4,15 +4,66 @@
 
 <mapper namespace="goods">
 
-	<select id="goodsList" parameterType="hashmap" resultType="hashmap">
+	<select id="goodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최근순 상품리스트 -->
 		<![CDATA[
-			SELECT
-				goods_no, goods_category, goods_name,
-				goods_sell_price, goods_keyword, goods_readcnt
-			FROM 
-				goods
-			ORDER BY goods_date desc
+SELECT
+				AAA.* 
+			FROM( select count(*) over() as total_count, AA.*
+			FROM(
+				select ROW_NUMBER() OVER (ORDER BY GOODS_DATE desc) RNUM,
+				gs.GOODS_NO,
+				gs.GOODS_CATEGORY,
+				gs.GOODS_NAME,
+				gs.GOODS_CONTENT,
+				gs.GOODS_ORIGIN_PRICE,
+				gs.GOODS_SELL_PRICE,
+				gs.GOODS_SALE_PRICE,
+				gs.GOODS_DATE,
+				gs.GOODS_KEYWORD,
+				gs.GOODS_READCNT,
+                gs.GOODS_PICK,
+				up.UPLOAD_SAVE_NAME,
+				att.GOODS_ATT_COLOR
+			FROM
+				goods gs ,upload up, goods_attribute att
+				WHERE gs.GOODS_NO = up.GOODS_NO AND gs.GOODS_NO = att.GOODS_NO
+                AND up.GOODS_NO = att.GOODS_NO
+				) AA
+		      ) AAA
+		      WHERE AAA.RNUM BETWEEN 0 AND 12 
 		]]>
 	</select>
+	
+	<select id="bestGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- best 상품리스트 -->
+		<![CDATA[
+			SELECT
+			AAA.* 
+			FROM( select count(*) over() as total_count, AA.*
+			FROM(
+				select ROW_NUMBER() OVER (ORDER BY GOODS_READCNT desc) RNUM,
+				gs.GOODS_NO,
+				gs.GOODS_CATEGORY,
+				gs.GOODS_NAME,
+				gs.GOODS_CONTENT,
+				gs.GOODS_ORIGIN_PRICE,
+				gs.GOODS_SELL_PRICE,
+				gs.GOODS_SALE_PRICE,
+				gs.GOODS_DATE,
+				gs.GOODS_KEYWORD,
+				gs.GOODS_READCNT,
+				gs.GOODS_PICK,
+				up.UPLOAD_SAVE_NAME,
+				att.GOODS_ATT_COLOR
+			FROM
+				goods gs ,upload up, goods_attribute att
+			WHERE gs.GOODS_NO = up.GOODS_NO AND gs.GOODS_NO = att.GOODS_NO
+                AND up.GOODS_NO = att.GOODS_NO
+			) AA
+		      ) AAA
+		      WHERE AAA.RNUM BETWEEN 0 AND 28
+		       
+		]]>
+	</select>
+	
 
 </mapper>
