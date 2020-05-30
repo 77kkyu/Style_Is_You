@@ -105,7 +105,12 @@ setTimeout("rotate()",interval);
 </head>
 <body onload="rotate()">
 
-<div align="right" style="margin-right:160px">
+<br><br>
+<div align="center">
+<h2>${titleMain}</h2>
+</div>
+
+<div align="right" style="margin-right:210px">
 <form>
 	<table>
 		<tr>

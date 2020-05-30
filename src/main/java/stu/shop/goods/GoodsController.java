@@ -28,6 +28,7 @@ public class GoodsController {
 		List<Map<String,Object>> list = goodsService.newGoodsList(commandMap);
 		
 		mv.addObject("list", list);
+		mv.addObject("titleMain", "새상품");
 		
 		return mv;
 		
@@ -43,6 +44,7 @@ public class GoodsController {
 		System.out.println("index"+ list.get(0));
 		System.out.println("get!!!!!!!!!!!!!"+commandMap.get("GOODS_NAME"));
 		mv.addObject("list", list);
+		mv.addObject("titleMain", "베스트");
 		
 		return mv;
 		

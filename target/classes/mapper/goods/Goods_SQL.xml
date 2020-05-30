@@ -4,7 +4,7 @@
 
 <mapper namespace="goods">
 
-	<select id="goodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최근순 상품리스트 -->
+	<select id="newGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최근순 상품리스트 -->
 		<![CDATA[
 SELECT
 				AAA.* 

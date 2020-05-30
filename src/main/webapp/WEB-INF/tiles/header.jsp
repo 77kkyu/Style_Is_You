@@ -123,8 +123,8 @@ li {
   <div class="wrapper2">
     <h1>스타일너다</h1>
     <ul class="flex-menu">
-      <li><a href="http://localhost:8080/stu/shop/newGoodsList.do">BEST</a></li>
-      <li><a href="http://localhost:8080/stu/shop/bestGoodsList.do">NEW</a></li>
+      <li><a href="http://localhost:8080/stu/shop/bestGoodsList.do">BEST</a></li>
+      <li><a href="http://localhost:8080/stu/shop/newGoodsList.do">NEW</a></li>
       <li><a href="">OUTER</a></li>
       <li><a href="">TOP</a></li>
       <li><a href="">ONE-PIECE</a></li>

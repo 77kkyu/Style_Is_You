@@ -13,7 +13,7 @@ public class GoodsDao extends AbstractDao{
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> newGoodsList(Map<String,Object> map) throws Exception { //상품리스트출력 
 		
-		return (List<Map<String,Object>>) newGoodsList("goods.goodsList", map);
+		return (List<Map<String,Object>>) newGoodsList("goods.newGoodsList", map);
 	}
 	
 	@SuppressWarnings("unchecked")
