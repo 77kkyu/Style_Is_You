@@ -28,4 +28,14 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.bestGoodsList(map);
 	}
 
+	@Override
+	public List<Map<String, Object>> cateGoodsList(Map<String, Object> map) throws Exception {
+		
+		return goodsDao.cateGoodsList(map);
+	}
+
+
+
+
+
 }

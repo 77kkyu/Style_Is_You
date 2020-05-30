@@ -16,7 +16,7 @@ img[2]=new Image(); img[2].src="../img/옷3.JPG";
 var interval=1500;
 var n=0;
 // each 함수 반복문 DB에서 이미지 뽑아오기..?
-var imgs = new Array("../img/옷1.JPG","../img/옷2.JPG","../img/옷3.JPG","../img/옷4.JPG");
+var imgs = new Array("/stu/img/옷1.JPG","/stu/img/옷2.JPG","/stu/옷3.JPG","/stu/옷4.JPG");
 
 function rotate() {
 	
@@ -153,7 +153,7 @@ setTimeout("rotate()",interval);
      <div class="list img-list">
      <a href="" class="inner">
      <div class="li-img">
-		<img src="../img/옷1.JPG" id="slide"/>
+		<img src="/stu/img/옷1.JPG" id="slide"/>
 	</div>
 	<div align="left">
 		${list.GOODS_NAME }<br><br>

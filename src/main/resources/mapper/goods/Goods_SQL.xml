@@ -65,5 +65,40 @@ SELECT
 		]]>
 	</select>
 	
+	
+	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 카테고리별 순서출력 -->
+		<![CDATA[
+			SELECT AAA.* FROM(
+				SELECT COUNT(*) OVER() AS TOTAL_COUNT, AA.* FROM(
+					SELECT ROW_NUMBER() OVER (ORDER BY GS.GOODS_NO DESC) RNUM,
+						gs.GOODS_NO,
+						gs.GOODS_CATEGORY,
+						gs.GOODS_NAME,
+						gs.GOODS_CONTENT,
+						gs.GOODS_ORIGIN_PRICE,
+						gs.GOODS_SELL_PRICE,
+						gs.GOODS_SALE_PRICE, 
+						gs.GOODS_DATE,
+						gs.GOODS_KEYWORD,
+						gs.GOODS_READCNT, 
+						gs.GOODS_PICK, 
+						up.UPLOAD_SAVE_NAME,
+						att.GOODS_ATT_COLOR
+						FROM
+							GOODS GS ,UPLOAD UP, GOODS_ATTRIBUTE ATT
+								WHERE GS.GOODS_NO = UP.GOODS_NO AND GS.GOODS_NO = ATT.GOODS_NO
+	               					  AND UP.GOODS_NO = ATT.GOODS_NO
+	               					  AND GS.GOODS_CATEGORY = #{cate}
+	               					  ) AA
+	               					  	) AAA
+	               					  		WHERE AAA.RNUM BETWEEN 0 AND 28
+		]]>
+		<if test="orderBy != '' and orderBy != 'null'">
+			<![CDATA[
+				ORDER BY AAA.${orderBy} ${orderSort} 
+			]]>
+		</if> 
+	</select>
+	
 
 </mapper>

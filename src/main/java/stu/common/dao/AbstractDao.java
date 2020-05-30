@@ -38,6 +38,12 @@ public class AbstractDao {
 		return sqlSession.selectList(queryId,params);
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public List selectList(String queryId, Object params) {
+		printQueryId(queryId);
+		return sqlSession.selectList(queryId, params);
+	}
+	
 	// 특정 레코드 한줄 출력
 		public Object selectOne(String queryId) {
 			printQueryId(queryId);

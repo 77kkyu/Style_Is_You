@@ -21,5 +21,12 @@ public class GoodsDao extends AbstractDao{
 		
 		return (List<Map<String,Object>>) bestGoodsList("goods.bestGoodsList", map);
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> cateGoodsList(Map<String, Object> map) throws Exception {
+		
+		   return (List<Map<String,Object>>) selectList("goods.cateGoodsList" , map); 
+	}
 
 }
