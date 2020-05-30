@@ -16,7 +16,7 @@ img[2]=new Image(); img[2].src="../img/옷3.JPG";
 var interval=1500;
 var n=0;
 // each 함수 반복문 DB에서 이미지 뽑아오기..?
-var imgs = new Array("/stu/img/옷1.JPG","/stu/img/옷2.JPG","/stu/옷3.JPG","/stu/옷4.JPG");
+var imgs = new Array("/stu/img/옷1.JPG","/stu/img/옷2.JPG","/stu/img/옷3.JPG","/stu/img/옷4.JPG");
 
 function rotate() {
 	
@@ -104,19 +104,25 @@ setTimeout("rotate()",interval);
 </head>
 <body onload="rotate()">
 
-<div align="right" style="margin-right:160px">
+<br>
+<div align="right" style="margin-right:210px">
 <form>
 	<table>
 		<tr>
-			<td><a href="">신상품순</a></td> <td>|</td>
-			<td><a href="">인기상품순</a></td> <td>|</td>
-			<td><a href="">낮은가격순</a></td> <td>|</td>
-			<td><a href="">높은가격순</a></td> <td>|</td>
-			<td><a href="">판매량순</a></td>
+			<td>
+			<div style="margin-right:930px">
+				총 ${total} 개의 상품이 있습니다
+			</div>
+			</td>
+			<td><a href="http://localhost:8080/stu/shop/cateGoodsList/${category}/NewItem.do">신상품순</a></td> <td>|</td>
+			<td><a href="http://localhost:8080/stu/shop/cateGoodsList/${category}/favorite.do">인기상품순</a></td> <td>|</td>
+			<td><a href="http://localhost:8080/stu/shop/cateGoodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
+			<td><a href="http://localhost:8080/stu/shop/cateGoodsList/${category}/high.do">높은가격순</a></td> <td>|</td>
 		</tr>
 	</table>
 </form>
 </div>
+
 
 <%-- <div align="center">
  <div id="pattern" class="pattern">
@@ -142,7 +148,7 @@ setTimeout("rotate()",interval);
 
 <c:set var="i" value="0" />
  <c:set var="j" value="4" />
- <table style="padding:200px; margin-top:-150px;">
+ <table style="padding:200px; margin-top:-200px;">
   <c:choose>
    <c:when test="${list != null && fn:length(list) > 0 }">
     <c:forEach items="${list}" var="list">

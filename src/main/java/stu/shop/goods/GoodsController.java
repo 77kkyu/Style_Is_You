@@ -67,20 +67,33 @@ public class GoodsController {
 		commandMap.put("cate", cate);
 		
 		// order by
-		if( orderBy == null ||  "NewItem".equals(orderBy)) { // 신상품순
+		if( "NewItem".equals(orderBy) ) { // 신상품순
 			commandMap.put("orderBy", "GOODS_DATE");
+			commandMap.put("orderSort", "DESC");
+		}else if( "favorite".equals(orderBy) ) { //인기상품
+			commandMap.put("orderBy", "GOODS_READCNT");
+			commandMap.put("orderSort", "DESC");
+		}else if( "low".equals(orderBy) ) { // 낮은가격순
+			commandMap.put("orderBy", "GOODS_SELL_PRICE");
+			commandMap.put("orderSort", "ASC");
+		}else if( "high".equals(orderBy) ) { // 높은가격순
+			commandMap.put("orderBy", "GOODS_SELL_PRICE");
 			commandMap.put("orderSort", "DESC");
 		}
 		
 		
-		
 		list = goodsService.cateGoodsList(commandMap.getMap());
 		
+		
+		System.out.println("dd"+list.get(0).get("TOTAL_COUNT"));
+		
+		list.get(0).get("TOTAL_COUNT"); 
+
+		
+		mv.addObject("total", list.get(0).get("TOTAL_COUNT"));
 		mv.addObject("list", list);
-		
-		
-		
-		
+		mv.addObject("category", cate);
+
 		return mv;
 	}
 

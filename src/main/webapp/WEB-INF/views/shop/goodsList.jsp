@@ -111,19 +111,6 @@ setTimeout("rotate()",interval);
 <h2>${titleMain}</h2>
 </div>
 
-<div align="right" style="margin-right:210px">
-<form>
-	<table>
-		<tr>
-			<td><a href="">신상품순</a></td> <td>|</td>
-			<td><a href="">인기상품순</a></td> <td>|</td>
-			<td><a href="">낮은가격순</a></td> <td>|</td>
-			<td><a href="">높은가격순</a></td> <td>|</td>
-			<td><a href="">판매량순</a></td>
-		</tr>
-	</table>
-</form>
-</div>
 
 <%-- <div align="center">
  <div id="pattern" class="pattern">
