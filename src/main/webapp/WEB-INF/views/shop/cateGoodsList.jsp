@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <title>상품리스트</title>
+<script type="text/javascript"  src="js/jquery-3.1.1.min.js"></script>
 <head>
 <script type="text/javascript">
  var img=new Array();
@@ -99,6 +100,41 @@ setTimeout("rotate()",interval);
     width: 33.33333333%;
   }
 }
+
+
+
+
+
+form {
+    width: 500px;
+}
+table {
+    border-collapse:collapse;
+    margin-bottom: 10px;
+}
+th, td {
+    padding: 3px 10px;
+}
+.off-screen {
+    display: none;
+}
+#nav {
+    width: 500px;
+    text-align: center;
+}
+#nav a {
+    display: inline-block;
+    padding: 3px 5px;
+    margin-right: 10px;
+    font-family:Tahoma;
+    background: #ccc;
+    color: #000;
+    text-decoration: none;
+}
+#nav a.active {
+    background: #333;
+    color: #fff;
+}
 </style>
 
 </head>
@@ -182,7 +218,13 @@ setTimeout("rotate()",interval);
   </c:choose>
  </table>
 
+<br><br>
+
 
 
 </body>
 </html>
+
+<script>
+
+</script>
