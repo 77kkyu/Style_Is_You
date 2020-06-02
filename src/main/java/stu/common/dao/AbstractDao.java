@@ -44,6 +44,11 @@ public class AbstractDao {
 		return sqlSession.selectList(queryId, params);
 	}
 	
+	public Object update(String queryId, Object params) {
+		printQueryId(queryId);
+		return sqlSession.update(queryId, params);
+	}
+	
 	// 특정 레코드 한줄 출력
 		public Object selectOne(String queryId) {
 			printQueryId(queryId);
@@ -61,5 +66,18 @@ public class AbstractDao {
 			printQueryId(queryId);
 			return sqlSession.insert(queryId, params);
 		}
+		
+		//adminDao
+		public List<Map<String,Object>> dashBoard(String queryId, Object params) { // adminMain대쉬보드 
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}	
+		
+		public List<Map<String,Object>> order_admin_a(String queryId, Object params) { // 주문/배송-신규주문 
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}
+		
+		
 
 }

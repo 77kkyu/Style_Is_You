@@ -8,6 +8,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <title>상품리스트</title>
 <script type="text/javascript"  src="js/jquery-3.1.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/common.js'/>" charset="utf-8"></script>
 <head>
 <script type="text/javascript">
  var img=new Array();
@@ -101,46 +103,12 @@ setTimeout("rotate()",interval);
   }
 }
 
-
-
-
-
-form {
-    width: 500px;
-}
-table {
-    border-collapse:collapse;
-    margin-bottom: 10px;
-}
-th, td {
-    padding: 3px 10px;
-}
-.off-screen {
-    display: none;
-}
-#nav {
-    width: 500px;
-    text-align: center;
-}
-#nav a {
-    display: inline-block;
-    padding: 3px 5px;
-    margin-right: 10px;
-    font-family:Tahoma;
-    background: #ccc;
-    color: #000;
-    text-decoration: none;
-}
-#nav a.active {
-    background: #333;
-    color: #fff;
-}
 </style>
 
 </head>
 <body onload="rotate()">
 
-<br>
+<br><br><br><br>
 <div align="right" style="margin-right:210px">
 <form>
 	<table>
@@ -184,7 +152,7 @@ th, td {
 
 <c:set var="i" value="0" />
  <c:set var="j" value="4" />
- <table style="padding:200px; margin-top:-200px;">
+ <table style="padding:200px; margin-top:-190px;">
   <c:choose>
    <c:when test="${list != null && fn:length(list) > 0 }">
     <c:forEach items="${list}" var="list">
@@ -193,11 +161,19 @@ th, td {
      </c:if>
      <td>
      <div class="list img-list">
-     <a href="" class="inner">
+     <a href="#this" name="title" class="inner">
      <div class="li-img">
 		<img src="/stu/img/옷1.JPG" id="slide"/>
+	<input type="hidden" id="IDX" value="${list.GOODS_NO }">
 	</div>
 	<div align="left">
+		<c:choose>
+			<c:when test="${list.GOODS_PICK == '0' }"></c:when>
+			<c:when test="${list.GOODS_PICK == '1' }">BEST</c:when>
+			<c:when test="${list.GOODS_PICK == '2' }">MD PICK</c:when>
+			<c:when test="${list.GOODS_PICK == '3' }">MUSTHAVE</c:when>
+		</c:choose>
+		<br><br>
 		${list.GOODS_NAME }<br><br>
 		${list.GOODS_SELL_PRICE }원
 	</div>
@@ -220,11 +196,83 @@ th, td {
 
 <br><br>
 
-
+<form id="commonForm" name="commonForm"></form>
 
 </body>
 </html>
 
-<script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$("#write").on("click", function(e){ //글쓰기버튼 #write id가 write인걸 찾는다
+		e.preventDefault();
+		fn_openBoardWrite();
+	});
+
+	$("a[name='title']").on("click", function(e){ //제목 //name 이 title인거
+		e.preventDefault();
+		fn_openBoardDetail($(this));
+	});
+});
+
+function fn_openBoardWrite() {
+
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/sample/openBoardWrite.do' />");//이동할 url
+	comSubmit.submit(); //전송
+	
+}
+
+function fn_openBoardDetail(obj) {
+
+	var comSubmit = new ComSubmit(); // 객체생성
+	comSubmit.setUrl("<c:url value='/shop/goodsDetail.do' />"); // url설정
+	comSubmit.addParam("IDX", obj.parent().find("#IDX").val()); // IDX; id로 값을넘김
+	comSubmit.submit();
+	
+}
+
+
+function fn_selectBoardList(pageNo){ 
+	
+	var comAjax = new ComAjax(); 
+	comAjax.setUrl("<c:url value='/sample/selectBoardList.do' />"); 
+	comAjax.setCallback("fn_selectBoardListCallback"); 
+	comAjax.addParam("PAGE_INDEX",pageNo); 
+	comAjax.addParam("PAGE_ROW", 15); 
+	comAjax.ajax(); 
+	
+} 
+
+function fn_selectBoardListCallback(data){ 
+	var total = data.TOTAL; 
+	var body = $("table>tbody"); 
+	body.empty(); 
+	if(total == 0){ 
+		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>" + "</tr>"; 
+		body.append(str); 
+	} else{ 
+		var params = { 
+				divId : "PAGE_NAVI", 
+				pageIndex : "PAGE_INDEX", 
+				totalCount : total, 
+				eventName : "fn_selectBoardList" 
+					}; 
+		
+			gfn_renderPaging(params); 
+			var str = ""; 
+			$.each(data.list, function(key, value){
+				 str += "<tr>" + "<td>" + value.IDX + "</td>" + "<td class='title'>" + "<a href='#this' name='title'>" + value.TITLE + "</a>" + "<input type='hidden' name='title' value=" + value.IDX + ">" + "</td>" + "<td>" + value.HIT_CNT + "</td>" + "<td>" + value.CREA_DTM + "</td>" + "</tr>"; 
+				 }); 
+			     body.append(str); 
+				 $("a[name='title']").on("click", function(e){ //제목 
+					 e.preventDefault(); 
+					 fn_openBoardDetail($(this)); 
+					 
+				}); 
+			} 
+}
+
 
 </script>
