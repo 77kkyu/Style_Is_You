@@ -24,7 +24,6 @@
 
 <script type="text/javascript">
 
-//상품선택
 function fn_allchk(){
 	
 	var chk = document.getElementById("allchk").checked; //값: true,false
@@ -35,26 +34,24 @@ function fn_allchk(){
 		}
 }
 
-//장바구니 상품수량 변경
 function fn_amount(index){
 
 	var array8 = document.getElementsByName("goods_att_amount"); //재고수량
 	var array1 = document.getElementsByName("basket_goods_amount"); //수량
 	var array4 = document.getElementsByName("chk");
 
-	var att = Number(array8[index].value); 
-	var amount = Number(array1[index].value);
+	var att = array8[index].value; 
+	var amount = array1[index].value;
 	var basket_no = array4[index].value;
-	var result = (amount<=att);
-	
+
 	if(amount=!null && amount>0){
-		if(result==true){
+		if(amount<=att){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/basket/basketModify.do' />");
 			comSubmit.addParam("BASKET_GOODS_AMOUNT", array1[index].value);
 			comSubmit.addParam("BASKET_NO", basket_no);
 			comSubmit.submit();
-		}else{
+		}else if(amount>att){
 			alert("재고가 부족합니다.");	
 			return false;
 		}
@@ -66,34 +63,6 @@ function fn_amount(index){
 	
 }
 
-//상품 삭제
-function fn_delete(index){
-	var array4 = document.getElementsByName("chk");
-	var basket_no = array4[index].value;
-
-	if(confirm("삭제하시겠습니까?")){
-		var comSubmit = new ComSubmit();
-		comSubmit.setUrl("<c:url value='/basket/basketDelete.do' />");
-		comSubmit.addParam("BASKET_NO", basket_no);
-		comSubmit.submit();
-	}
-	return false;
-}
-//전체삭제
-function fn_allDelete(){
-	var array9 = document.getElementsByName("member_no");
-	var member_no = array9[0].value;
-
-	if(confirm("삭제하시겠습니까?")){
-		var comSubmit = new ComSubmit();
-		comSubmit.setUrl("<c:url value='/basket/basketAllDelete.do' />");
-		comSubmit.addParam("MEMBER_NO", member_no);
-		comSubmit.submit();
-	}
-	return false;
-}
-
-//전체주문금액구하기
 function fn_allPrice(){
 	
 	var array = document.getElementsByName("order_price");
@@ -104,6 +73,7 @@ function fn_allPrice(){
 		pri = array[i].value;
 		hap = Number(hap)+Number(pri);
 	}
+	
 	
 	var fee = document.getElementById("order_fee").value;
 	pay = Number(hap)+Number(fee);
@@ -126,13 +96,6 @@ function fn_allPrice(){
 	}
 	var point = Number(hap)*Number(val); //등급별 적립율
 	document.getElementById("point").value = point;
-	
-}
-
-
-function fn_like(){
-	var arraycode = document.getElementsByName("chk");
-	// 찜하기 버튼 클릭 > 선택한 상품만 Controller로 전송
 	
 }
 
@@ -161,7 +124,7 @@ function fn_like(){
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
-      <form name="basket" >
+      <form action="">
           <div class="table-responsive">
           	<p><b>내가 담은 장바구니 상품리스트</b></p>
             <table class="table table-striped">
@@ -194,7 +157,6 @@ function fn_like(){
 					<c:forEach items="${list }" var="row" varStatus="status">
 						<input type="hidden" name="goods_att_amount" value="${row.GOODS_ATT_AMOUNT }">
 						<input type="hidden" name="member_grade" value="${row.MEMBER_GRADE }">
-						<input type="hidden" name="member_no" value="${row.MEMBER_NO }">
 						<tr>
 							<td style="text-align:center">
                   				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
@@ -216,29 +178,25 @@ function fn_like(){
 								<input type="text" name="order_price" value="${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }" style="width:80px; text-align:right">원
 							</td>
 							<td style="text-align:center">
-                  				<input type="button" name="amount_modify" value="수정" onclick="fn_amount(${status.index}); return false;"><br>
-                  				<input type="button" name="basket_delete" value="삭제" onclick="fn_delete(${status.index})">
+                  				<input type="button" name="amount_modify" value="수정" onclick="fn_amount(${status.index})"><br>
+                  				<input type="button" name="basket_delete" value="삭제">
                   			</td>
 						</tr>
 					</c:forEach>
-					</tbody>
-            	</table>
-          	</div>
-          	<div style="text-align:right">
-          		<input type="button" name="select_like" value="찜하기" onclick="fn_like()">
-            	<input type="button" name="all_basket_delete" value="모두삭제" onclick="fn_allDelete()">
-         	</div>
 				</c:when>
 				<c:otherwise>
 					<tr>
 						<td colspan="7">조회된 결과가 없습니다.</td>
 					</tr>
-				</tbody>
-            	</table>
-          	</div>
 				</c:otherwise>
 			</c:choose>
-             
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align:right">
+          	<input type="button" name="select_like" value="찜하기">
+            <input type="button" name="all_basket_delete" value="모두삭제">
+          </div>
           <br>
           <br>
           <div class="table-responsive">

@@ -8,7 +8,7 @@
 			SELECT DISTINCT
 				A.GOODS_NO, A.BASKET_NO, A.MEMBER_NO,
 				A.BASKET_GOODS_AMOUNT, A.GOODS_ATT_NO,
-				E.GOODS_ATT_SIZE, E.GOODS_ATT_COLOR,
+				E.GOODS_ATT_SIZE, E.GOODS_ATT_COLOR, E.GOODS_ATT_AMOUNT, 
 				D.GOODS_NAME, D.GOODS_SELL_PRICE,
 				U.UPLOAD_SAVE_NAME, M.MEMBER_GRADE
 			FROM 
@@ -30,9 +30,20 @@
 				BASKET_NO = #{BASKET_NO}
 		]]>
 	</update>
-
-
-
+	
+	<delete id="basketDelete" parameterType="hashmap">
+		<![CDATA[
+			DELETE FROM BASKET
+			WHERE BASKET_NO = ${BASKET_NO}
+		]]>
+	</delete>
+	
+	<delete id="basketAllDelete" parameterType="hashmap">
+		<![CDATA[
+			DELETE FROM BASKET
+			WHERE MEMBER_NO = ${MEMBER_NO}
+		]]>
+	</delete>
 
 </mapper>
 

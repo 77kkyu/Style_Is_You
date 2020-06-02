@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	private BasketService basketService;
 	
 	@RequestMapping(value="/basket/basketList.do")
-	public ModelAndView basketList(CommandMap commandMap) throws Exception {
+	public ModelAndView basketList(Map<String,Object> commandMap) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("basket/basketList");
 		
@@ -37,9 +38,36 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	}
 	
 	@RequestMapping(value="/basket/basketModify.do")
-	public void basketModify(CommandMap commandMap) throws Exception {
-		basketService.basketModify(commandMap);
+	public ModelAndView basketModify(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		
+		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
+		System.out.println(commandMap.get("BASKET_GOODS_AMOUNT"));
+		System.out.println(commandMap.get("BASKET_NO"));
+		/*
+		 * commandMap.put("BASKET_GOODS_AMOUNT",
+		 * request.getParameter("BASKET_GOODS_AMOUNT")); commandMap.put("BASKET_NO",
+		 * request.getParameter("BASKET_NO"));
+		 */
+		basketService.basketModify(commandMap, request);
+		return mv;
+	}
+	
+	@RequestMapping(value="/basket/basketDelete.do")
+	public ModelAndView basketDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
+		System.out.println(commandMap.get("BASKET_NO"));
+		basketService.basketDelete(commandMap, request);
+		return mv;
+	}
+	
+	@RequestMapping(value="/basket/basketAllDelete.do")
+	public ModelAndView basketAllDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
+		System.out.println(commandMap.get("MEMBER_NO"));
+		basketService.basketAllDelete(commandMap, request);
+		return mv;
 	}
 
 }

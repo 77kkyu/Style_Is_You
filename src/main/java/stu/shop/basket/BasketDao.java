@@ -12,13 +12,23 @@ import stu.common.dao.AbstractDao;
 public class BasketDao extends AbstractDao{
 
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> basketList(CommandMap map) throws Exception{
-		return (List<Map<String,Object>>) basketList("basket.basketList", map);
+	public List<Map<String, Object>> basketList(Map<String, Object> commandMap) throws Exception{
+		return (List<Map<String,Object>>) basketList("basket.basketList", commandMap);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void basketModify(CommandMap map) {
-		basketModify("basket.basketModify", map);
+	public void basketModify(CommandMap commandMap) {
+		basketModify("basket.basketModify", commandMap.getMap());
+	}
+	
+	public void basketDelete(CommandMap commandMap) {
+		basketDelete("basket.basketDelete", commandMap.getMap());
+		
+	}
+
+	public void basketAllDelete(CommandMap commandMap) {
+		System.out.println(commandMap.get("MEMBER_NO"));
+		basketAllDelete("basket.basketAllDelete", commandMap.getMap());
+		
 	}
 
 
