@@ -1,7 +1,9 @@
 package stu.common.util;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -83,4 +85,30 @@ public class FileUtils {
 		}
 			return list;	
 	}
+	
+
+	
+	/*
+	 * Map<String,Object> upload1(Map<String,Object> map,MultipartHttpServletRequest
+	 * request) throws Exception {
+	 * 
+	 * String uploadPath = "D:\\sts4File\\"; String fileOriginName = ""; String
+	 * fileMultiName = ""; for(int i=0; i<GOODS_IMG.length; i++) { fileOriginName =
+	 * GOODS_IMG[i].getOriginalFilename(); SimpleDateFormat formatter = new
+	 * SimpleDateFormat("YYYYMMDD_HHMMSS_" + i); Calendar now =
+	 * Calendar.getInstance();
+	 * 
+	 * String extension = fileOriginName.split("\\.")[1];
+	 * 
+	 * fileOriginName = formatter.format(now.getTime())+"."+extension;
+	 * 
+	 * File f = new File(uploadPath+"\\"+fileOriginName);
+	 * GOODS_IMG[i].transferTo(f); if(i==0) { fileMultiName += fileOriginName; }else
+	 * { fileMultiName += ","+fileOriginName; } }
+	 * 
+	 * 
+	 * return map;
+	 * 
+	 * }
+	 */
 }

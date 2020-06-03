@@ -157,7 +157,8 @@ SELECT
 								GOODS_SALE_PRICE,
 								GOODS_DATE,
 								GOODS_KEYWORD,
-								GOODS_PICK
+								GOODS_PICK,
+								GOODS_IMG
 							 )
 						VALUES(
 								#{GOODS_NO},
@@ -169,7 +170,8 @@ SELECT
 								#{GOODS_SALE_PRICE},
 								sysdate,
 								#{GOODS_KEYWORD},
-								#{GOODS_PICK}
+								#{GOODS_PICK},
+								#{GOODS_IMG}
 							  )				
 		]]>
 	</insert>

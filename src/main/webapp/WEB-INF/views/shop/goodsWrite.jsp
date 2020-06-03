@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
+
+
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
@@ -13,6 +15,7 @@
 <script src="http://code.jquery.com/jquery-1.7.js"></script>
 <script src="<c:url value='/js/common.js'/>" charset="utf-8"></script>
 <head>
+<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
 </head>
 <style>
 @CHARSET "UTF-8";
@@ -47,17 +50,18 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 </div>
 
 <br><br>
-<form name="frm" id="frm" enctype="multipart/form-data">
+<form name="frm" id="frm" enctype="multipart/form-data" method="post">
 		<table align="center" border="0">
 				
 				<tr>
 					<th>상품이름 </th>
-					<td><input type="text" name="GOODS_NAME" placeholder="상품이름입력" size="40" style="padding:10px;"></td>
+					<td><input type="text" id="GOODS_TITLE" name="GOODS_TITLE" placeholder="상품이름입력" size="40" style="padding:10px;"></td>
 				</tr>
-
+				
+				
 				<tr>
 					<th>상품내용 </th>
-					<td><textarea rows="20" cols="100" title="내용" id="GOODS_CONTENT" name="GOODS_CONTENT"></textarea></td>
+					<td><textarea rows="30" cols="100" id="GOODS_CONTENT" name="GOODS_CONTENT"></textarea></td>
 				</tr>
 
 				<tr>
@@ -119,18 +123,11 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 				</tr>
 				
 		</table>
-		
-			<!-- 파일 다중 업로드 -->
- 	<div id="fileDiv" align="center">
-	<p>
-		<input type="file" id="file" multiple="multiple" name="file_O">
-		<a href="#this" class="btn" id="delete" name="delete">삭제</a>
-	</p>
-	</div> 
+	
+
 	
 			<br />
 			<br />
-	<a href="#this" class="btn" id="addFile">파일추가</a>
 	<a href="#this" class="btn" id="write">작성하기</a>
 	<a href="#this" class="btn" id="list">목록으로</a>
 </form>
@@ -139,6 +136,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 <form id="commonForm" name="commonForm"></form>
 
 <script type="text/javascript">
+
 
 	var gfv_count = 1;
 
@@ -162,15 +160,6 @@ $(document).ready(function() {
 		fn_insertBoard();
 	});
 
-	$("#addFile").on("click", function(e){ // 파일추가 버튼
-		e.preventDefault();
-		fn_addFile();
-	});
-
-	$("a[name='delete']").on("click", function(e){ // 삭제 버튼
-		e.preventDefault();
-		fn_deleteFile($(this));
-	});
 	
 	
 });
@@ -192,21 +181,15 @@ function fn_insertBoard() {
 	
 }
 
-function fn_addFile() {
-
-	var str = "<p><input type='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></p>";
-
-	$("#fileDiv").append(str);
-	$("a[name='delete']").on("click", function(e){ // 삭제버튼
-		e.preventDefault();
-		fn_deleteFile($(this));
+$(function(){
+	CKEDITOR.replace('GOODS_CONTENT',{
+        width:'100%',
+        height:'600px',
+		filebrowserUploadUrl: '${pageContext.request.contextPath }/ckeditor/fileupload'
 	});
-	
-}
+});
 
-function fn_deleteFile(obj) { // 삭제
-	obj.parent().remove();
-}
+
 
 </script>
 

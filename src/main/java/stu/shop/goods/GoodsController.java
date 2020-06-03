@@ -128,7 +128,7 @@ public class GoodsController {
 		mv.addObject("list", map); // 상품 상세 정보
 		
 		return mv;
-		
+		 
 	}
 	
 	
@@ -146,6 +146,9 @@ public class GoodsController {
 	public ModelAndView goodsWrite(CommandMap commandMap, HttpServletRequest request) throws Exception { // 글쓰기 작성완료
 		
 		ModelAndView mv = new ModelAndView("redirect:http://localhost:8080/stu/main.do"); // 보낼 url
+		
+		
+		
 		goodsService.goodsInsert(commandMap.getMap(), request);
 		
 		return mv;

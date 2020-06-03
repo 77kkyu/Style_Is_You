@@ -61,10 +61,13 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		goodsDao.goodsAttribute(map);
 		
-		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(map, request);
-		for(int i=0, size=list.size(); i<size; i++) {
-			goodsDao.insertFile(list.get(i));
-		}
+		/*
+		 * List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(map, request);
+		 * for(int i=0, size=list.size(); i<size; i++) {
+		 * goodsDao.insertFile(list.get(i)); }
+		 */
+		
+		
 		
 		//HttpServletRequest를 MultipartHttpServletRequest로 변형
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
