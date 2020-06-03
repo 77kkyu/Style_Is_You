@@ -121,46 +121,42 @@ function fn_allPrice(){
           </ul>
         </nav>
       </div>
+      
+      <div style="width:1000px; height:50px; margin:10px; padding:12px; border:1px solid #dcdcdc">
+      	<table>
+      		<tr>
+      			<td style="text-align:left; font-size:17px; font-weight:bold;">주문작성/결제</td>
+      		</tr>
+      	</table>
+      </div>
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
       <form action="">
           <div class="table-responsive">
-          	<p><b>내가 담은 장바구니 상품리스트</b></p>
+          	<p><b>주문작성/결제</b></p>
             <table class="table table-striped">
             <colgroup>
-				<col width="5%" />
 				<col width="10" />
 				<col width="*" />
 				<col width="10%" />
 				<col width="13%" />
 				<col width="13%" />
-				<col width="10%" />
-				<col width="10%" />
 			</colgroup>
               <thead>
                 <tr>
-                  <th style="text-align:center">
-                  	<input type="checkbox" name="allchk" id="allchk" onclick="fn_allchk()">
-                  </th>
                   <th colspan="2" style="text-align:center">상품명/옵션</th>
                   <th style="text-align:center">수량</th>
                   <th style="text-align:center">상품가</th>
                   <th style="text-align:center">주문금액</th>
-                  <th style="text-align:center">주문</th>
                 </tr>
               </thead>
               <tbody>
               
-              	<c:choose>
-				<c:when test="${fn:length(list) > 0}">
 					<c:forEach items="${list }" var="row" varStatus="status">
 						<input type="hidden" name="goods_att_amount" value="${row.GOODS_ATT_AMOUNT }">
 						<input type="hidden" name="member_grade" value="${row.MEMBER_GRADE }">
 						<tr>
-							<td style="text-align:center">
-                  				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
-                  			</td>
                   			<td>
                   				<img src="${row.UPLOAD_SAVE_NAME }" width="50" height="50">
                   			</td>
@@ -183,20 +179,11 @@ function fn_allPrice(){
                   			</td>
 						</tr>
 					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<td colspan="7">조회된 결과가 없습니다.</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
+				
               </tbody>
             </table>
           </div>
-          <div style="text-align:right">
-          	<input type="button" name="select_like" value="찜하기">
-            <input type="button" name="all_basket_delete" value="모두삭제">
-          </div>
+          
           <br>
           <br>
           <div class="table-responsive">
@@ -204,22 +191,30 @@ function fn_allPrice(){
           		<tr>
           			<td>주문금액</td>
           			<td>
-          				<input type="text" id="all_order_price" style="width:100px; text-align:right">원
+          				<input type="text" id="all_order_price" style="width:100px; text-align:right; border:none;">원
           			</td>
           			<td>- 할인금액</td>
-          			<td>0원</td>
+          			<td>
+          				<input type="text">원
+          			</td>
           			<td> = 결제예정금액</td>
           			<td>
-          				<input type="text" id="pay_price" value="" style="width:100px; text-align:right">원
+          				<input type="text" id="pay_price" value="" style="width:100px; text-align:right; border:none;">원
           			</td>
           		</tr>
           		<tr>
           			<td colspan="4">
-          				상품금액 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="text" id="all_price" style="width:100px; text-align:right">원
+          				쿠폰할인 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          				<input type="text" id="all_price" style="width:100px; text-align:right">원 &nbsp;&nbsp;&nbsp;&nbsp;
+          				<input type="button" value="쿠폰적용">
+          				<br>
+          				포인트 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right" readonly>P &nbsp;&nbsp;&nbsp;&nbsp;
+          				<input type="button" value="사용">
           				<br>
           				선결제배송비 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right" readonly>원
+          			
           			</td>
           			<td>
           				적립혜택 <br>

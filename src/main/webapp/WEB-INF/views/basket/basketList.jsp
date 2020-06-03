@@ -183,6 +183,14 @@ function fn_like(){
           </ul>
         </nav>
       </div>
+      
+      <div style="width:1000px; height:50px; margin:10px; padding:12px; border:1px solid #dcdcdc">
+      	<table>
+      		<tr>
+      			<td style="text-align:left; font-size:17px; font-weight:bold;">장바구니</td>
+      		</tr>
+      	</table>
+      </div>
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
@@ -241,15 +249,15 @@ function fn_like(){
 								<c:set var="price" value="${row.GOODS_SALE_PRICE }" />
 								<c:choose>
     								<c:when test="${price eq null}">
-        								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }"style="width:60px; text-align:right">원
+        								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }"style="width:60px; text-align:right; border:none;">원
    					 				</c:when>
    					 				<c:when test="${price ne null}">
-        								<input type="text" name="goods_sell_price" value="${row.GOODS_SALE_PRICE }"style="width:60px; text-align:right">원
+        								<input type="text" name="goods_sell_price" value="${row.GOODS_SALE_PRICE }"style="width:60px; text-align:right; border:none;">원
    					 				</c:when>
 								</c:choose>
 							</td>
 							<td style="text-align:center">
-								<input type="text" name="order_price" value="${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }" style="width:60px; text-align:right">원
+								<input type="text" name="order_price" value="" style="width:60px; text-align:right; border:none;">원
 							</td>
 							<td style="text-align:center">
                   				<input type="button" name="amount_modify" value="수정" onclick="fn_amount(${status.index}); return false;"><br>
@@ -282,29 +290,29 @@ function fn_like(){
           		<tr>
           			<td>주문금액</td>
           			<td>
-          				<input type="text" id="all_order_price" style="width:100px; text-align:right">원
+          				<input type="text" id="all_order_price" style="width:100px; text-align:right; border:none;">원
           			</td>
           			<td>- 할인금액</td>
-          			<td>0원</td>
+          			<td>0 원</td>
           			<td> = 결제예정금액</td>
           			<td>
-          				<input type="text" id="pay_price" value="" style="width:100px; text-align:right">원
+          				<input type="text" id="pay_price" value="" style="width:100px; text-align:right; border:none;"> 원
           			</td>
           		</tr>
           		<tr>
           			<td colspan="4">
-          				상품금액 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="text" id="all_price" style="width:100px; text-align:right">원
+          				상품금액 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          				<input type="text" id="all_price" style="width:80px; text-align:right; border:none;"> 원
           				<br>
-          				선결제배송비 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right" readonly>원
+          				선결제배송비 &nbsp;&nbsp;&nbsp;
+          				<input type="text" id="order_fee" value="3000" style="width:80px; text-align:right; border:none;" readonly>원
           			</td>
           			<td>
           				적립혜택 <br>
           				포인트적립 
           			</td>
           			<td>
-          				<input type="text" id="point" style="width:100px; text-align:right" readonly> P
+          				<input type="text" id="point" style="width:100px; text-align:right; border:none;" readonly> P
           			</td>
           		</tr>
           	</table>
