@@ -5,17 +5,27 @@
 
 	<select id="selectQnaList" parameterType="hashmap" resultType="hashmap">/>	
 		<![CDATA[
-			SELECT * FROM QNA
+			SELECT 
+				QNA_NO, QNA_TITLE, QNA_NAME, QNA_DATE
+			FROM QNA
 		]]>
 	</select>
-	
+<!-- 	제목 문의유형 글쓴이 이메일 내용-->
 	<insert id="insertQna" parameterType="hashmap"
 	useGeneratedKeys="true" keyProperty="QNA_NO">
-no, 제목 글쓴이 등록일
 		<![CDATA[
-			INSERT INTO QNA
-			( QNA_NO, MEMBER_NO, QNA_NAME, QNA_LEVEL, QNA_CATEGORY, QNA_TITLE, QNA_CONTENT, QNA_DATE, QNA_SECRET, QNA_PASSWD )
-			VALUES
+		INSERT INTO QNA
+			( QNA_NO, 
+			MEMBER_NO, 
+			QNA_TITLE, 
+			QNA_CATEGORY,  
+			QNA_NAME, 
+			 QNA_LEVEL,   
+			 QNA_CONTENT, 
+			 QNA_DATE, 
+			 QNA_SECRET, 
+			 QNA_PASSWD )
+		VALUES
 			( QNA_NO_SEQ.nextval ,
 			MEMBER_NO_SEQ.nextval ,
 			#{QNA_NAME} ,
@@ -28,23 +38,22 @@ no, 제목 글쓴이 등록일
 			#{QNA_PASSWD} )
 		]]>
 	</insert>
-	
+<!-- 	글제목 작성일 작성자id 글내용 답변(작성일, 답변내용) -->
 	<select id="selectQnaDetail" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT 
-				NOTICE_NO,
-				NOTICE_TITLE,
-				NOTICE_CONTENT,
-				TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD') AS NOTICE_DATE,
-				MEMBER_NO
-				FROM NOTICE
+				QNA_TITLE,
+				TO_CHAR(QNA_DATE, 'YYYY-MM-DD') AS QNA_DATE,
+				QNA_CONTENT
+			FROM 
+				QNA
 			WHERE
-				NOTICE_NO = #{NOTICE_NO}
+				MEMBER_NO = #{MEMBER_NO}
 		]]>
 	</select>
 	
 	
-	<update id="updateQna" parameterType="hashmap">
+ 	<update id="updateQna" parameterType="hashmap">
 		<![CDATA[
 			UPDATE QNA
 			SET
@@ -53,7 +62,7 @@ no, 제목 글쓴이 등록일
 			WHERE
 				QNA_NO = #{QNA_NO}
 		]]>
-	</update>
+ 		</update>
 	
 	
 	<delete id="deleteQna" parameterType="hashmap">

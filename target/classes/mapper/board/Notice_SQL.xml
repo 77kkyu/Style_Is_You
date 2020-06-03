@@ -50,7 +50,7 @@
 			FROM
 				NOTICE
 			WHERE
-				NOTICE_NO = 1
+				NOTICE_NO = #{NOTICE_NO}
 		]]>
 	</select>
 	
@@ -67,7 +67,7 @@
 	
 	<update id="deleteNotice" parameterType="hashmap">
 		<![CDATA[
-			UPDATE NOTICE
+			DELETE NOTICE
 			WHERE
 				NOTICE_NO = #{NOTICE_NO}
 		]]>

@@ -25,7 +25,7 @@
 	</table>
 	
 	<div id="PAGE_NAVI"></div>
-	<input type="hidden" id="NOTICE_NO" name="NOTICE_NO"/>
+	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
 	
 	<br/>
 	<a href="#this" class="btn" id="write">글쓰기</a>
@@ -42,7 +42,7 @@
 			
 			$("a[name='notice_title']").on("click", function(e){ //제목 
 				e.preventDefault();
-				fn_openNoticeDetail($(this));
+				fn_openNoticeDetail($(this).parent()[0].getElementsByTagName('input')[0].value);
 			});
 		});
 		
@@ -53,9 +53,11 @@
 			comSubmit.submit();
 		}
 		
-		function fn_openNoticeDetail(){
+		function fn_openNoticeDetail(notice_no){
 			var comSubmit = new ComSubmit();
+			
 			comSubmit.setUrl("<c:url value='/board/openNoticeDetail.do' />");
+			comSubmit.addParam("NOTICE_NO", notice_no);
 			comSubmit.submit();
 		}
 		
@@ -63,9 +65,9 @@
 			var comAjax = new ComAjax();
 			comAjax.setUrl("<c:url value='/board/selectNoticeList.do' />");
 			comAjax.setCallback("fn_selectNoticeListCallback");
-			comAjax.addParam("NOTICE_NO",$("#NOTICE_NO").val());
+			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
 			comAjax.addParam("PAGE_ROW", 15);
-			comAjax.addParam("NOTICE_NO", $("#NOTICE_NO").val());
+			comAjax.addParam("NOTICE_NO",$("#NOTICE_NO").val());
 			comAjax.ajax();
 		}
 		

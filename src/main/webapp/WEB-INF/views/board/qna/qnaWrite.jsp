@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
+<%@ include file="../include/include-header.jspf" %>
 </head>
 <body>
 	<form id="frm" name="frm" enctype="multipart/form-data">
@@ -11,15 +11,15 @@
 				<col width="15%">
 				<col width="*"/>
 			</colgroup>
-			<caption>게시글 작성</caption>
+			<caption>문의하기</caption>
 			<tbody>
 				<tr>
 					<th scope="row">제목</th>
-					<td><input type="text" id="NOTICE_TITLE" name="NOTICE_TITLE" class="wdp_90"></input></td>
+					<td><input type="text" id="Qna_TITLE" name="Qna_TITLE" class="wdp_90"></input></td>
 				</tr>
 				<tr>
 					<td colspan="2" class="view_text">
-						<textarea rows="20" cols="100" title="내용" id="NOTICE_CONTENT" name="NOTICE_CONTENT"></textarea>
+						<textarea rows="20" cols="100" title="내용" id="Qna_CONTENT" name="Qna_CONTENT"></textarea>
 					</td>
 				</tr>
 			</tbody>
@@ -29,32 +29,32 @@
 		<a href="#this" class="btn" id="list">목록으로</a>
 	</form>
 	
-
+	<%@ include file="../include/include-body.jspf" %>
 	<script type="text/javascript">
 		var gfv_count = 1;
 	
 		$(document).ready(function(){
 			$("#list").on("click", function(e){ //목록으로 버튼
 				e.preventDefault();
-				fn_openNoticeList();
+				fn_openQnaList();
 			});
 			
 			$("#write").on("click", function(e){ //작성하기 버튼
 				e.preventDefault();
-				fn_insertNotice();
+				fn_insertQna();
 			});
 
 		});
 		
-		function fn_openNoticeList(){
+		function fn_openQnaList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openNoticeList.do' />");
+			comSubmit.setUrl("<c:url value='/board/openQnaList.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_insertNotice(){
+		function fn_insertQna(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/insertNotice.do' />");
+			comSubmit.setUrl("<c:url value='/board/insertQna.do' />");
 			comSubmit.submit();
 		}
 

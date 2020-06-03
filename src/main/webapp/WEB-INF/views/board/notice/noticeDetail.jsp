@@ -5,6 +5,7 @@
 <%@ include file="../include/include-header.jspf" %>
 </head>
 <body>
+<form method="post">
 	<table class="board_view">
 		<colgroup>
 			<col width="15%"/>
@@ -35,8 +36,8 @@
 			</tr>
 		</tbody>
 	</table>
+</form>
 	<br/>
-	
 	
 	<a href="#this" class="btn" id="list">목록으로</a>
 	<a href="#this" class="btn" id="update">수정하기</a>
