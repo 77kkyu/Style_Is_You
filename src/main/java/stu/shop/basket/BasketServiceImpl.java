@@ -28,21 +28,33 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	}
 
 	@Override
-	public void basketModify(CommandMap commandMap, HttpServletRequest request) {
+	public void basketModify(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		basketDao.basketModify(commandMap);
 		
 	}
 
 	@Override
-	public void basketDelete(CommandMap commandMap, HttpServletRequest request) {
+	public void basketDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		basketDao.basketDelete(commandMap);
 		
 	}
 
 	@Override
-	public void basketAllDelete(CommandMap commandMap, HttpServletRequest request) {
+	public void basketAllDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		basketDao.basketAllDelete(commandMap);
 	}
+
+	@Override
+	public Map<String, Object> selectGoodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		return basketDao.selectGoodsLike(commandMap);
+	}
+
+	@Override
+	public void insertGoodsLike(CommandMap commandMap, HttpServletRequest request) {
+		basketDao.insertGoodsLike(commandMap);
+		
+	}
+
 	
 	
 

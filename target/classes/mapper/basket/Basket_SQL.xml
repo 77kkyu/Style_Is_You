@@ -8,8 +8,8 @@
 			SELECT DISTINCT
 				A.GOODS_NO, A.BASKET_NO, A.MEMBER_NO,
 				A.BASKET_GOODS_AMOUNT, A.GOODS_ATT_NO,
-				E.GOODS_ATT_SIZE, E.GOODS_ATT_COLOR, E.GOODS_ATT_AMOUNT, 
-				D.GOODS_NAME, D.GOODS_SELL_PRICE,
+				E.GOODS_ATT_SIZE, E.GOODS_ATT_COLOR, E.GOODS_ATT_AMOUNT,
+				D.GOODS_NAME, D.GOODS_SELL_PRICE, D.GOODS_SALE_PRICE,
 				U.UPLOAD_SAVE_NAME, M.MEMBER_GRADE
 			FROM 
 				BASKET A, GOODS D, GOODS_ATTRIBUTE E, UPLOAD U, MEMBER M 
@@ -44,6 +44,39 @@
 			WHERE MEMBER_NO = ${MEMBER_NO}
 		]]>
 	</delete>
+	
+	<select id="selectGoodsLike" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT COUNT(LIKE_NO) LIKE_CNT
+			FROM 
+				GOODS_LIKE 
+			WHERE 
+				MEMBER_NO=1
+		    AND GOODS_NO=${GOODS_NO}
+		]]>
+	</select>
+	
+	<insert id="insertGoodsLike" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO GOODS_LIKE
+			(
+				LIKE_NO,
+			    GOODS_NO, 
+			    MEMBER_NO, 
+			    LIKE_DATE
+			)
+			VALUES
+			(
+				LIKE_NO_SEQ.NEXTVAL,
+				#{GOODS_NO},
+				1,
+				SYSDATE
+			)
+		]]>
+	</insert>
+	
+	
+	
 
 </mapper>
 

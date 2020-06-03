@@ -28,7 +28,7 @@
 function fn_allchk(){
 	
 	var chk = document.getElementById("allchk").checked; //값: true,false
-	var arraychk = document.getElementsByName("chk"); //가격
+	var arraychk = document.getElementsByName("chk"); //basket_no
 	var len = arraychk.length;
 		for(var i=0; i<len; i++){
 			arraychk[i].checked = chk; //chk가 true면 arraychk도 true
@@ -96,13 +96,17 @@ function fn_allDelete(){
 //전체주문금액구하기
 function fn_allPrice(){
 	
-	var array = document.getElementsByName("order_price");
-	var len = array.length;
+	var array1 = document.getElementsByName("goods_sell_price");
+	var array2 = document.getElementsByName("basket_goods_amount");
+	var array3 = document.getElementsByName("order_price");
+	
+	var len = array1.length;
 	var hap = 0;
-	var pay = 0;
 	for (var i=0; i<len; i++){
-		pri = array[i].value;
-		hap = Number(hap)+Number(pri);
+		var sell = array1[i].value;
+		var amt = array2[i].value;
+		array3[i].value = Number(sell)*Number(amt);
+		hap = hap+Number(array3[i].value);
 	}
 	
 	var fee = document.getElementById("order_fee").value;
@@ -129,13 +133,34 @@ function fn_allPrice(){
 	
 }
 
-
+//선택상품 찜하기
 function fn_like(){
 	var arraycode = document.getElementsByName("chk");
-	// 찜하기 버튼 클릭 > 선택한 상품만 Controller로 전송
+	var len = arraycode.length;
+	var val = 0;
+	for(var i=0; i<len; i++){
+		if(arraycode[i].checked==true){
+			val++;
+			var no = document.getElementsByName("goods_no");
+			var attno = document.getElementsByName("goods_att_no");
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/basket/like.do' />");
+			comSubmit.addParam("GOODS_NO", no[i].value);
+			comSubmit.addParam("GOODS_ATT_NO", attno[i].value);
+			comSubmit.submit();
+		}
+	// 찜하기 버튼 클릭 > 
+	//선택한 상품만 Controller로 전송(찜하기insert실행): list? map(member_no,chk(BASKET_NO))?
+	}
+	if(val==0){
+		alert("상품을 선택해 주세요.");
+	}else{
+		alert("찜하기에 넣었습니다.");
+	}
 	
 }
-
+	
+	
 
 </script>
 
@@ -195,6 +220,8 @@ function fn_like(){
 						<input type="hidden" name="goods_att_amount" value="${row.GOODS_ATT_AMOUNT }">
 						<input type="hidden" name="member_grade" value="${row.MEMBER_GRADE }">
 						<input type="hidden" name="member_no" value="${row.MEMBER_NO }">
+						<input type="hidden" name="goods_no" value="${row.GOODS_NO }">
+						<input type="hidden" name="goods_att_no" value="${row.GOODS_ATT_NO }">
 						<tr>
 							<td style="text-align:center">
                   				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
@@ -211,9 +238,18 @@ function fn_like(){
                   				<input type="number" name="basket_goods_amount" value="${row.BASKET_GOODS_AMOUNT }" min="1" max="${row.GOODS_ATT_AMOUNT }" style="width:50px; text-align:right" >
                   			</td>
 							<td style="text-align:center">
-								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }" style="width:80px; text-align:right">원
+								<c:set var="price" value="${row.GOODS_SALE_PRICE }" />
+								<c:choose>
+    								<c:when test="${price eq null}">
+        								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }"style="width:60px; text-align:right">원
+   					 				</c:when>
+   					 				<c:when test="${price ne null}">
+        								<input type="text" name="goods_sell_price" value="${row.GOODS_SALE_PRICE }"style="width:60px; text-align:right">원
+   					 				</c:when>
+								</c:choose>
+							</td>
 							<td style="text-align:center">
-								<input type="text" name="order_price" value="${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }" style="width:80px; text-align:right">원
+								<input type="text" name="order_price" value="${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }" style="width:60px; text-align:right">원
 							</td>
 							<td style="text-align:center">
                   				<input type="button" name="amount_modify" value="수정" onclick="fn_amount(${status.index}); return false;"><br>

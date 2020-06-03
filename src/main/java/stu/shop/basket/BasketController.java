@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		
 		List<Map<String,Object>> list = basketService.basketList(commandMap);
 		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
-		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
+		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
 		
 		mv.addObject("list", list);
 		System.out.println(list);
@@ -69,5 +70,18 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		basketService.basketAllDelete(commandMap, request);
 		return mv;
 	}
+	
+	@RequestMapping(value="/basket/like.do")
+	public ModelAndView goodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
+		  Map<String,Object> map = basketService.selectGoodsLike(commandMap, request);
+		  String like_cnt = String.valueOf(map.get("LIKE_CNT"));
+		  
+		  if(like_cnt.equals("0")) { 
+			  basketService.insertGoodsLike(commandMap, request);
+		  }
+		  return mv;
+	}
+	
 
 }
