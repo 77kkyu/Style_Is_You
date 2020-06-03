@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,26 +18,69 @@
 <link href="css/dashboard.css" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="css/justified-nav.css" rel="stylesheet">
+<script src="js/jquery-3.5.1.js"></script>
 
+<!-- 
 <script type="text/javascript">
 
 	/* 필요한거 이페이지가 돌아왔을때 order_state값이 0이면  id="o1"에 추가class="active" */
+	
+function gfn_isNull(str) {
+	if (str == null) return true;
+	if (str == "NaN") return true;
+	if (new String(str).valueOf() == "undefined") return true;    
+    var chkStr = new String(str);
+    if( chkStr.valueOf() == "undefined" ) return true;
+    if (chkStr == null) return true;    
+    if (chkStr.toString().length == 0 ) return true;   
+    return false; 
+}
+
+function ComSubmit(opt_formId) {
+	alert(opt_formId);
+	this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
+	this.url = "";
+	
+	
+	if(this.formId == "commonForm"){
+		$("#commonForm")[0].reset();
+	}
+	
+	this.setUrl = function setUrl(url){
+		this.url = url;
+	};
+	
+	this.addParam = function addParam(key, value){
+		$("#"+this.formId).append($("<input type='hidden' name='"+key+"' id='"+key+"' value='"+value+"' >"));
+	};
+	
+	this.submit = function submit(){
+		var frm = $("#"+this.formId)[0];
+		frm.action = this.url;
+		frm.method = "post";
+		frm.submit();	
+	};
+}	
+	
 
 
 	$(document).ready(function(){
-		$("#od_detail").on("click", function(e){
+		$("#o1").on("click", function(e){
 			e.preventDefault();
 			fn_openBoardList();
 		});		
 	});
 	
 	function fn_openBoardList(){
+		
 		var comSubmit = new ComSubmit();
+		var state = 0;
 		comSubmit.setUrl("<c:url value='/stu/order_admin_a.do' />");
+		comSubmit.addParam("order_state", state);
 		comSubmit.submit();
 	}
 </script>
-
+ -->
 </head>
 <body>
 <div class="container">
@@ -44,11 +88,12 @@
 		<h3 class="text-muted">Project name</h3>
 		<nav>
 			<ul class="nav nav-justified">
-				<li id="o1"><a href="/stu/order_admin_a.do">신규주문</a></li>
-				<li id="o2"><a href="#">입금확인</a></li>
-				<li id="o3"><a href="#">배송준비</a></li>
-				<li id="o4"><a href="#">수취확인</a></li>
-				<li id="o5"><a href="#">거래완료</a></li>
+				<li><a id="os" href="/stu/order_admin_a" value="0">신규주문</a></li>
+				<li><a id="os" href="/stu/order_admin_a" value="1">입금확인</a></li>
+				<li><a id="os" href="/stu/order_admin_a" value="2">배송준비</a></li>
+				<li><a id="os" href="/stu/order_admin_a" value="3">배송중</a></li>
+				<li><a id="os" href="/stu/order_admin_a" value="4">수취확인</a></li>
+				<li><a id="os" href="/stu/order_admin_a" value="5">거래완료</a></li>
 			</ul>
 		</nav>
 	</div>

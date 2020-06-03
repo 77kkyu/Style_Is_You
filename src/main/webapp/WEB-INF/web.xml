@@ -5,7 +5,7 @@
 
 	<!-- 실행시 index.jsp로 처음실행 -->
 	<welcome-file-list>
-		<welcom-file>index.jsp</welcom-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list> 
 	
 	<!-- Encoding UTF-8 -->

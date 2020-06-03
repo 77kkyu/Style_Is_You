@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -37,12 +38,20 @@ public class AdminMainController {
 	
 	// order_admin_a
 	@RequestMapping(value="/order_admin_a.do")
-	public ModelAndView order_admin_a(CommandMap commandMap) throws Exception {
+	public ModelAndView order_admin_a(CommandMap commandMap,HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("admin/order_admin_a");
 		
+		String order_state = "0";
+		System.out.println("뷰에서 받는값:"+request.getParameter("os"));
+		if(request.getParameter("os") != null && request.getParameter("os") != ""){
+
+			order_state = request.getParameter("os");
+        }
+		commandMap.put("order_state", order_state);
+		
 		List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
-		System.out.println(order_a);
+		System.out.println("order_a:"+order_a);
 		
 		mv.addObject("order_a", order_a);
 			

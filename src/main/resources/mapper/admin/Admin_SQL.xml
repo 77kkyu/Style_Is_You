@@ -25,7 +25,7 @@
 	<select id="order_admin_a" parameterType="hashmap" resultType="hashmap"> <!-- adminMain대쉬보드 -->
 		<![CDATA[
 			select l.order_date, d.order_no, m.member_no, m.member_id, m.member_name, g.goods_name,
-  			      l.order_total_order_price, l.order_total_pay_price,
+  			      l.order_total_order_price, l.order_total_pay_price, l.order_state,
 	        
 	        (select count(SD.order_no) from order_detail SD where SD.order_no = D.order_no ) as hap_cnt
 			
@@ -34,8 +34,9 @@
 			where m.member_no = l.member_no
 			and l.order_no = d.order_no
 			and d.goods_no = g.goods_no
-			and l.order_state = 0
 			
+			and l.order_state = #{order_state}
+						
 			and D.ORDER_DETAIL_NO in (select min(ORDER_DETAIL_NO) as Dno from order_detail group by order_no)
 		]]>
 	</select>

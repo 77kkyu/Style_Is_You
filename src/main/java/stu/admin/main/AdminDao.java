@@ -22,7 +22,7 @@ public class AdminDao extends AbstractDao{
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> order_admin_a(CommandMap map) throws Exception { //adminMain대쉬보드 
 		
-		return (List<Map<String,Object>>) order_admin_a("admin.order_admin_a",map);
+		return (List<Map<String,Object>>) order_admin_a("admin.order_admin_a",map.getMap());
 	}
 
 	
