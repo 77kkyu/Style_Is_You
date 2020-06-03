@@ -55,41 +55,45 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void goodsInsert(Map<String, Object> map, HttpServletRequest request) throws Exception {
+	public void insertGoods(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		
-		goodsDao.goodsInsert(map);
-		
-		goodsDao.goodsAttribute(map);
-		
-		/*
-		 * List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(map, request);
-		 * for(int i=0, size=list.size(); i<size; i++) {
-		 * goodsDao.insertFile(list.get(i)); }
-		 */
-		
-		
-		
-		//HttpServletRequest를 MultipartHttpServletRequest로 변형
-		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-				
-		//파일 이름 가져오기
-		Iterator<String> iterator = multipartHttpServletRequest.getFileNames(); 
-				
-		MultipartFile multipartFile = null;
-				
-		while(iterator.hasNext()) {//파일이 존재하는지 확인
-			multipartFile = multipartHttpServletRequest.getFile(iterator.next());//파일가져옴
-					
-			if(multipartFile.isEmpty() == false) {//파일이 존재하면
-						
-				log.debug("------------- file start -------------"); //로그찍기
-				log.debug("name : "+multipartFile.getName()); 
-				log.debug("filename : "+multipartFile.getOriginalFilename()); 
-				log.debug("size : "+multipartFile.getSize()); 
-				log.debug("-------------- file end --------------\n");
-					
+				// 내용에서 이미지 긁어오기 시작
+				String img_templist=""; // 이미지 링크를 ','를 기준으로 냐열해둠, 아직 사용 안함
+				String img_list[] = {}; // ','로 구분된 문자열을 나눠서 배열에 담음
+				String img_thumb=""; // img_list의 첫번째 경로를 저장함
+				String comp_text=" src=\"/stu/file/"; // 반복문 안에 temp와 비교될 텍스느. equals(" src=\"")는 안되길래 따로 빼둠
+				String content = (String)map.get("GOODS_CONTENT"); // 저장된 본문을 불러옴
+				int imgCount = 0;
+				for(int i = 0; i+16 < content.length(); i++) { // 텍스트 비교
+					String temp=""; // 잘라진 텍스트가 임시로 들어갈 공간
+					temp = content.substring(i,i+16); // content에서 잘라낸 텍스트를 temp에 저장
+					if(temp.equals(comp_text)) { // temp와 temp_text가 같을 경우
+						img_templist += content.substring(i+16, i+52)+","; // img_list에 잘라진 텍스트 추가 및 구분을 위한 쉼표 삽입
+						imgCount++;
 					}
-					
+				}
+				if(img_templist!="") { // img_list가 비어있지 않을 경우			
+					img_templist = img_templist.substring(0, img_templist.length()-1); // 경로 뒤에 남는 쉼표 제거
+					img_thumb = img_templist.substring(0, 36); // 이미지가 있을 경우 첫번째 경로를 썸네일로 저장해줌
+					map.put("GOODS_THUMBNAIL", img_thumb); // 썸네일 값 전달
+				} else { // img_list가 비어이을 경우
+					map.put("GOODS_THUMBNAIL",""); // 이미지 없음
+				}
+				// 내용에서 이미지 긁어오기 끝
+				
+				// 상품정보 등록 쿼리 실행
+				goodsDao.insertGoods(map);
+				System.out.println("****12132* " + map);
+				
+				// 상품 등록 시 IDX 값을 받아 이미지 테이블에 값들을 담아줌
+				if(img_templist!="") { // img_list가 비어있지 않을 경우			
+					img_list = img_templist.split(",");
+					for(int i = 0 ; i<imgCount; i++) {
+						map.put("FILES_STD", img_list[i]);
+						System.out.println((i+1)+"번째업로드 ==========================================");
+						goodsDao.insertFile(map); 
+						System.out.println((i+1)+"번째업로드끝=========================================");
+					}
 				}
 		
 	}

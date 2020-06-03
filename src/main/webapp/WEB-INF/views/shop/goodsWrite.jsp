@@ -15,7 +15,8 @@
 <script src="http://code.jquery.com/jquery-1.7.js"></script>
 <script src="<c:url value='/js/common.js'/>" charset="utf-8"></script>
 <head>
-<script type="text/javascript" src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
+
 </head>
 <style>
 @CHARSET "UTF-8";
@@ -55,7 +56,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 				
 				<tr>
 					<th>상품이름 </th>
-					<td><input type="text" id="GOODS_TITLE" name="GOODS_TITLE" placeholder="상품이름입력" size="40" style="padding:10px;"></td>
+					<td><input type="text" id="GOODS_NAME" name="GOODS_NAME" placeholder="상품이름입력" size="40" style="padding:10px;"></td>
 				</tr>
 				
 				
@@ -79,57 +80,62 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 				
 				<tr>
 					<th>상품원가 </th>
-					<td><input type="text" name="GOODS_ORIGIN_PRICE" placeholder="상품원가" size="40" style="padding:10px;"></td>
+					<td><input type="text" name="GOODS_ORIGIN_PRICE" id="GOODS_ORIGIN_PRICE" placeholder="상품원가" size="40" style="padding:10px;"></td>
 				</tr>
 				
 				<tr>
 					<th>상품할인가 </th>
-					<td><input type="text" name="GOODS_SALE_PRICE" placeholder="상품할인가" size="40" style="padding:10px;"></td>
+					<td><input type="text" name="GOODS_SALE_PRICE" id="GOODS_SALE_PRICE" placeholder="상품할인가" size="40" style="padding:10px;"></td>
 				</tr>
 				
 				<tr>
 					<th>상품판매가 </th>
-					<td><input type="text" name="GOODS_SELL_PRICE" placeholder="상품판매가" size="40" style="padding:10px;"></td>
+					<td><input type="text" name="GOODS_SELL_PRICE" id="GOODS_SELL_PRICE" placeholder="상품판매가" size="40" style="padding:10px;"></td>
 				</tr>
 				
 				<tr>
 					<th>키워드 </th>
-					<td><input type="text" name="GOODS_KEYWORD" placeholder="키워드" size="40" style="padding:10px;"></td>
+					<td><input type="text" name="GOODS_KEYWORD" id="GOODS_KEYWORD" placeholder="키워드" size="40" style="padding:10px;"></td>
 				</tr>
 				
 				<tr>
 					<th>PICK </th>
 					<td>
-						<input type="checkbox" name="GOODS_PICK" value="0" style="padding:10px;"> 공백
-						<input type="checkbox" name="GOODS_PICK" value="1" style="padding:10px;"> BEST
-						<input type="checkbox" name="GOODS_PICK" value="2" style="padding:10px;"> MD PICK
-						<input type="checkbox" name="GOODS_PICK" value="3" style="padding:10px;"> MUSTHAVE
+						<input type="checkbox" name="GOODS_PICK" id="GOODS_PICK" value=" " style="padding:10px;"> 공백
+						<input type="checkbox" name="GOODS_PICK" id="GOODS_PICK" value="BEST" style="padding:10px;"> BEST
+						<input type="checkbox" name="GOODS_PICK" id="GOODS_PICK" value="MD PICK" style="padding:10px;"> MD PICK
+						<input type="checkbox" name="GOODS_PICK" id="GOODS_PICK" value="MUSTHAVE" style="padding:10px;"> MUSTHAVE
 					</td>
 				</tr>
 				
 				<tr>
 					<th>상품사이즈 </th>
-					<td><input type="text" name="GOODS_ATT_SIZE" placeholder="상품사이즈" size="40" style="padding:10px;"></td>
+					<td>
+						<input type="checkbox" name="GOODS_ATT_SIZE" value="free" style="padding:10px;"> free
+						<input type="checkbox" name="GOODS_ATT_SIZE" value="S" style="padding:10px;"> S
+						<input type="checkbox" name="GOODS_ATT_SIZE" value="M" style="padding:10px;"> M
+						<input type="checkbox" name="GOODS_ATT_SIZE" value="L" style="padding:10px;"> L
+						<input type="checkbox" name="GOODS_ATT_SIZE" value="XL" style="padding:10px;"> XL
+					</td>
 				</tr>
 				
 				<tr>
 					<th>상품색상 </th>
-					<td><input type="text" name="GOODS_ATT_COLOR" placeholder="상품색상" size="40" style="padding:10px;"></td>
+					<td><input type="text" name="GOODS_ATT_COLOR" id="GOODS_ATT_COLOR" placeholder="컬러" size="40" style="padding:10px;"></td>
 				</tr>
 				
 				<tr>
 					<th>상품수량 </th>
-					<td><input type="text" name="GOODS_ATT_AMOUNT" placeholder="상품수량" size="40" style="padding:10px;"></td>
+					<td><input type="text" name="GOODS_ATT_AMOUNT" id="GOODS_ATT_AMOUNT" placeholder="상품수량" size="40" style="padding:10px;"></td>
 				</tr>
 				
 		</table>
 	
-
-	
-			<br />
-			<br />
+	<br>	
+	<div align="center">
 	<a href="#this" class="btn" id="write">작성하기</a>
 	<a href="#this" class="btn" id="list">목록으로</a>
+	</div>
 </form>
 
 <!-- commandForm  -->
@@ -137,6 +143,14 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 
 <script type="text/javascript">
 
+$(function(){
+	CKEDITOR.replace('GOODS_CONTENT',{
+        width:'120%',
+        height:'400px',
+		filebrowserUploadUrl: '${pageContext.request.contextPath }/ckeditor/fileupload.do'
+			
+	});
+});
 
 	var gfv_count = 1;
 
@@ -177,17 +191,69 @@ function fn_insertBoard() {
 
 	var comSubmit = new ComSubmit("frm"); // 객체생성
 	comSubmit.setUrl("<c:url value='/shop/goodsWrite.do' />"); // url설정
+
+    // 게시글 제목 필요
+    if(!$("#GOODS_NAME").val()){
+        alert("제목를 입력해주세요.");
+        $("#GOODS_NAME").focus();
+        return false;
+    }
+	 	// 게시글 내용 필요
+    if(CKEDITOR.instances.GOODS_CONTENT.getData() =='' 
+            || CKEDITOR.instances.GOODS_CONTENT.getData().length ==0){
+        alert("내용을 입력해주세요.");
+        $("#GOODS_CONTENT").focus();
+        return false;
+    }
+	 	
+ 	// 상품원가 
+    if(!$("#GOODS_ORIGIN_PRICE").val()){
+        alert("상품원가를 입력해주세요.");
+        $("#GOODS_ORIGIN_PRICE").focus();
+        return false;
+    }
+ 	// 할인가
+    if(!$("#GOODS_SALE_PRICE").val()){
+        alert("상품할인가를 입력해주세요.");
+        $("#GOODS_SALE_PRICE").focus();
+        return false;
+    }
+ 	// 판매가
+    if(!$("#GOODS_SELL_PRICE").val()){
+        alert("판매가를 입력해주세요.");
+        $("#GOODS_SELL_PRICE").focus();
+        return false;
+    }
+ 	// PICK
+/*     if(!$("#GOODS_PICK").val()){
+        alert("PICK을 선택해주세요.");
+        $("#GOODS_PICK").focus();
+        return false;
+    }
+ 	// 사이즈
+    if(!$("#GOODS_ATT_SIZE").val()){
+        alert("상품사이즈를 선택해주세요.");
+        $("#GOODS_ATT_SIZE").focus();
+        return false;
+    } */
+	 // 컬러
+    if(!$("#GOODS_ATT_COLOR").val()){
+        alert("상품컬러를 입력해주세요.");
+        $("#GOODS_ATT_COLOR").focus();
+        return false;
+    }
+	 // 상품 수량
+    if(!$("#GOODS_ATT_AMOUNT").val()){
+        alert("상품수량을 입력해주세요.");
+        $("#GOODS_ATT_AMOUNT").focus();
+        return false;
+    }
+
+
 	comSubmit.submit();
 	
 }
 
-$(function(){
-	CKEDITOR.replace('GOODS_CONTENT',{
-        width:'100%',
-        height:'600px',
-		filebrowserUploadUrl: '${pageContext.request.contextPath }/ckeditor/fileupload'
-	});
-});
 
 
 

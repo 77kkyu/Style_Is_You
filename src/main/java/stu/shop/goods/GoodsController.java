@@ -142,14 +142,12 @@ public class GoodsController {
 	}
 	
 	
-	@RequestMapping(value="/shop/goodsWrite.do") // url 
+	@RequestMapping(value="/shop/goodsWrite.do" ,method = RequestMethod.POST) // url 
 	public ModelAndView goodsWrite(CommandMap commandMap, HttpServletRequest request) throws Exception { // 글쓰기 작성완료
 		
 		ModelAndView mv = new ModelAndView("redirect:http://localhost:8080/stu/main.do"); // 보낼 url
 		
-		
-		
-		goodsService.goodsInsert(commandMap.getMap(), request);
+		goodsService.insertGoods(commandMap.getMap(), request);
 		
 		return mv;
 		

@@ -39,7 +39,7 @@ public class GoodsDao extends AbstractDao{
 		update("goods.goodsReadCntUp", map);
 	}
 	
-	public void goodsInsert(Map<String, Object> map) throws Exception { // 상품 등록
+	public void insertGoods(Map<String, Object> map) throws Exception { // 상품 등록
 		insert("goods.goodsInsert", map);
 	}
 	

@@ -142,8 +142,8 @@ SELECT
 	</update>
 	
 
-	<insert id="goodsInsert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="GOODS_NO">
-		<selectKey keyProperty="GOODS_NO" resultType="string" order="BEFORE">
+	<insert id="goodsInsert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="IDX">
+		<selectKey keyProperty="IDX" resultType="string" order="BEFORE">
 			SELECT GOODS_NO_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		<![CDATA[
@@ -158,10 +158,10 @@ SELECT
 								GOODS_DATE,
 								GOODS_KEYWORD,
 								GOODS_PICK,
-								GOODS_IMG
+								GOODS_THUMBNAIL
 							 )
 						VALUES(
-								#{GOODS_NO},
+								#{IDX},
 								#{GOODS_CATEGORY},
 								#{GOODS_NAME},
 								#{GOODS_CONTENT},
@@ -171,7 +171,7 @@ SELECT
 								sysdate,
 								#{GOODS_KEYWORD},
 								#{GOODS_PICK},
-								#{GOODS_IMG}
+								#{GOODS_THUMBNAIL}
 							  )				
 		]]>
 	</insert>
@@ -187,7 +187,7 @@ SELECT
 										)
 								values(
 										GOODS_ATT_NO_SEQ.NEXTVAL,
-										#{GOODS_NO},
+										#{IDX},
 										#{GOODS_ATT_SIZE},
 										#{GOODS_ATT_COLOR},
 										#{GOODS_ATT_AMOUNT}
@@ -198,54 +198,38 @@ SELECT
 	
 	<insert id="insertFile" parameterType="hashmap">
 		<![CDATA[
-			INSERT INTO UPLOAD
-			(
-				UPLOAD_NO,
-				GOODS_NO,
-				UPLOAD_ORIGIN_NAME,
-				UPLOAD_SAVE_NAME,
-				UPLOAD_SIZE
-			)
+			INSERT INTO GOODS_IMAGE
+					(
+						GOODS_IMAGE_NUM,
+						GOODS_NO,
+						GOODS_IMAGE_ORG,
+						GOODS_IMAGE_STD
+					)
 			VALUES
-			(
-				UPLOAD_NO_SEQ.NEXTVAL,
-				#{GOODS_NO},
-				#{UPLOAD_ORIGIN_NAME},
-				#{UPLOAD_SAVE_NAME},
-				#{UPLOAD_SIZE}
-			)
+					(
+						GOODS_IMAGE_SEQ.NEXTVAL,
+						#{IDX},
+						'Empty',
+						#{FILES_STD}
+					)
 		]]>
 	</insert>
 	
-	<select id="selectFileList" parameterType="hashmap" resultType="hashmap">
+	<update id="updateGoodsThumbnail" parameterType="hashmap">
 		<![CDATA[
-			SELECT
-			    UPLOAD_NO,
-			    UPLOAD_ORIGIN_NAME,
-			    ROUND(UPLOAD_SIZE/1024,1) AS UPLOAD_SIZE
-			FROM
-			    UPLOAD
-			WHERE
-			    GOODS_NO = #{GOODS_NO}
-			    AND UPLOAD_DELETE = '0'
-		]]>
-	</select>
-	
-	<update id="deleteFileList" parameterType="hashmap">
-		<![CDATA[
-			UPDATE UPLOAD
-				UPLOAD_DELETE = '1' 
-			WHERE 
-				GOODS_NO = #{GOODS_NO}	
-		]]>
-	</update>
-	
-	<update id="updateFile" parameterType="hashmap">
-		<![CDATA[
-			UPDATE UPLOAD SET
-				UPLOAD_DELETE = '0'
-			WHERE
-				UPLOAD_NO = #{FILE_IDX}	
+			UPDATE  GOODS 
+			SET     GOODS_THUMBNAIL = (
+			                    SELECT  GOODS_IMAGE_STD
+			                    FROM    (
+			                            SELECT  GOODS_IMAGE_STD 
+			                            FROM    GOODS_IMAGE 
+			                            WHERE   GOODS_NO = #{IDX}
+			                           			 AND GOODS_IMAGE_DEL_GB = 'N'
+			                            ORDER BY GOODS_IMAGE_NUM ASC
+			                            )
+			                    WHERE   ROWNUM <= 1
+			                    )
+			WHERE   GOODS_NO = #{IDX}
 		]]>
 	</update>
 	

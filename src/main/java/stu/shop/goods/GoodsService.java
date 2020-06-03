@@ -15,7 +15,7 @@ public interface GoodsService {
 	
 	Map<String, Object> goodsDetail(Map<String,Object> map) throws Exception; // 상품 디테일
 	
-	void goodsInsert(Map<String, Object> map, HttpServletRequest request) throws Exception; // 글쓰기
+	void insertGoods(Map<String, Object> map, HttpServletRequest request) throws Exception; // 글쓰기
 	
 
 }
