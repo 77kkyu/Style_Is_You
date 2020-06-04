@@ -35,44 +35,44 @@
 <%@ include file="../include/include-body.jspf" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			fn_selectqnaList(1);
+			fn_selectQnaList(1);
 			
 			$("#write").on("click", function(e){ //글쓰기 버튼
 				e.preventDefault();
-				fn_openqnaWrite();
+				fn_openQnaWrite();
 			});	
 			
 			$("a[name='qna_title']").on("click", function(e){ //제목 
 				e.preventDefault();
-				fn_openqnaDetail($(this));
+				fn_openQnaDetail($(this));
 			});
 		});
 		
 		
-		function fn_openqnaWrite(){
+		function fn_openQnaWrite(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openqnaWrite.do' />");
+			comSubmit.setUrl("<c:url value='/board/openQnaWrite.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_openqnaDetail(qna_no){
+		function fn_openQnaDetail(qna_no){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openqnaDetail.do' />");
+			comSubmit.setUrl("<c:url value='/board/openQnaDetail.do' />");
 			comSubmit.addParam("QNA_NO", qna_no);
 			comSubmit.submit();
 		}
 		
-		function fn_selectqnaList(pageNo){
+		function fn_selectQnaList(pageNo){
 			var comAjax = new ComAjax();
-			comAjax.setUrl("<c:url value='/board/selectqnaList.do' />");
-			comAjax.setCallback("fn_selectqnaListCallback");
+			comAjax.setUrl("<c:url value='/board/selectQnaList.do' />");
+			comAjax.setCallback("fn_selectQnaListCallback");
 			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
 			comAjax.addParam("PAGE_ROW", 15);
 			comAjax.addParam("qna_NO", $("#qna_NO").val());
 			comAjax.ajax();
 		}
 		
-		function fn_selectqnaListCallback(data){
+		function fn_selectQnaListCallback(data){
 			var total = data.TOTAL;
 			var body = $("table>tbody");
 			body.empty();
@@ -87,7 +87,7 @@
 					divId : "PAGE_NAVI",
 					pageIndex : "PAGE_INDEX",
 					totalCount : total,
-					eventName : "fn_selectqnaList"
+					eventName : "fn_selectQnaList"
 				};
 				gfn_renderPaging(params);
 				
@@ -106,7 +106,7 @@
 				
 				$("a[name='qna_title']").on("click", function(e){ //제목 
 					e.preventDefault();
-					fn_openqnaDetail($(this));
+					fn_openQnaDetail($(this));
 				});
 			}
 		}

@@ -1,84 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
+<%@ include file="../include/include-header.jspf" %>
 </head>
 <body>
-<%-- 
-
-	<h2>게시판 목록</h2>
-	<table class="board_list">
+<form method="post">
+	<table class="board_view">
 		<colgroup>
-			<col width="10%"/>
-			<col width="*"/>
 			<col width="15%"/>
-			<col width="20%"/>
+			<col width="35%"/>
+			<col width="15%"/>
+			<col width="35%"/>
 		</colgroup>
-		<thead>
-			<tr>
-				<th scope="col">글번호</th>
-				<th scope="col">제목</th>
-				<th scope="col">조회수</th>
-				<th scope="col">작성일</th>
-			</tr>
-		</thead>
+		<caption>공지사항</caption>
 		<tbody>
-			<c:choose>
-				<c:when test="${fn:length(list) > 0}">
-					<c:forEach items="${list }" var="row">
-						<tr>
-							<td>${row.IDX }</td>
-							<td class="title">
-								<a href="#this" name="title">${row.TITLE }</a>
-								<input type="hidden" id="IDX" value="${row.IDX }">
-							</td>
-							<td>${row.HIT_CNT }</td>
-							<td>${row.CREA_DTM }</td>
-						</tr>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<td colspan="4">조회된 결과가 없습니다.</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
+			<tr>
+				<th scope="row">글 번호</th>
+				<td>${map.NOTICE_NO }</td>
+				<th scope="row"></th>
+				<td></td>
+			</tr>
+			<tr>
+				<th scope="row">작성자</th>
+				<td>관리자</td>
+				<th scope="row">작성시간</th>
+				<td>${map.NOTICE_DATE }</td>
+			</tr>
+			<tr>
+				<th scope="row">제목</th>
+				<td colspan="3">${map.NOTICE_TITLE }</td>
+			</tr>
+			<tr>
+				<td colspan="4">${map.NOTICE_CONTENT }</td>
+			</tr>
 		</tbody>
 	</table>
+</form>
 	<br/>
-	<a href="#this" class="btn" id="write">글쓰기</a>
-	 --%>
-<!-- 
+	
+	<a href="#this" class="btn" id="list">목록으로</a>
+	<a href="#this" class="btn" id="update">수정하기</a>
+	
+	<%@ include file="../include/include-body.jspf" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("#write").on("click", function(e){ //글쓰기 버튼
+			$("#list").on("click", function(e){ //목록으로 버튼
 				e.preventDefault();
-				fn_openBoardWrite();
-			});	
-			
-			$("a[name='title']").on("click", function(e){ //제목 
-				e.preventDefault();
-				fn_openBoardDetail($(this));
+				fn_openNoticeList();
 			});
+			
+			$("#update").on("click", function(e){ //수정하기 버튼
+				e.preventDefault();
+				fn_openNoticeUpdate();
+			});
+
 		});
 		
-		
-		function fn_openBoardWrite(){
+		function fn_openNoticeList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/sample/openBoardWrite.do' />");
+			comSubmit.setUrl("<c:url value='/board/openNoticeList.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_openBoardDetail(obj){
+		function fn_openNoticeUpdate(){
+			var notice_no = "${map.NOTICE_NO}";
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/sample/openBoardDetail.do' />");
-			comSubmit.addParam("IDX", obj.parent().find("#IDX").val());
+			comSubmit.setUrl("<c:url value='/board/openNoticeUpdate.do' />");
+			comSubmit.addParam("NOTICE_NO", notice_no);
 			comSubmit.submit();
 		}
-	</script>	
-	 -->
-	
+		
+	</script>
 </body>
 </html>

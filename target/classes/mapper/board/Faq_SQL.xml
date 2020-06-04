@@ -7,23 +7,11 @@
 	<select id="selectFaqList" parameterType="hashmap" resultType="hashmap">	
 		<![CDATA[
 			SELECT 
-				NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT 
-			FROM 
-				NOTICE 
-			WHERE NOTICE_GUBUN = '1'
-		]]>
-	</select>
-	
-	<!-- FAQ 답변 불러오기 -->
-	<select id="selectFaqList2" parameterType="hashmap" resultType="hashmap">	
-		<![CDATA[
-			SELECT 
-				NOTICE_NO, NOTICE_CONTENT		
+				NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT		
 			FROM 
 				NOTICE
 			WHERE 
 				NOTICE_GUBUN = '1'
-			ORDER BY NOTICE_NO DESC
 		]]>
 	</select>
 	
@@ -33,50 +21,37 @@
 
 		<![CDATA[
 			INSERT INTO NOTICE
-				( NOTICE_NO, NOTICE_GUBUN, NOTICE_TITLE )
+				( NOTICE_NO, NOTICE_GUBUN, NOTICE_TITLE, NOTICE_CONTENT )
 			VALUES
-				( NOTICE_NO_SEQ.nextval ,
+				( #{NOTICE_NO} ,
 				'1' ,
-			#{NOTICE_TITLE})
-			ORDER BY NOTICE_NO DESC
+			#{NOTICE_TITLE}, 
+			#{NOTICE_CONTENT}
+			)
 		]]>
 	</insert>
 	
-	<!-- FAQ 답변 등록하기 -->
-	<insert id="insertFaq2" parameterType="hashmap"
-	useGeneratedKeys="true" keyProperty="NOTICE_NO">
-
-		<![CDATA[
-			INSERT INTO NOTICE
-			( NOTICE_NO, NOTICE_GUBUN, NOTICE_CONTENT )
-			VALUES
-			( NOTICE_NO_SEQ.nextval ,
-			1 ,
-			#{NOTICE_CONTENT} )
-			ORDER BY NOTICE_NO DESC	
-		]]>
-	</insert>
 	
 	<!-- FAQ 상세페이지 불러오기 -->
-	<!-- <select id="selectFaqDetail" parameterType="hashmap" resultType="hashmap">
+	 <select id="selectFaqDetail" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT 
 				NOTICE_NO,
 				NOTICE_TITLE,
 				NOTICE_CONTENT,
-				TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD') AS NOTICE_DATE,
-				MEMBER_NO
-				FROM NOTICE
+			FROM 
+				NOTICE
 			WHERE
 				NOTICE_NO = #{NOTICE_NO}
 		]]>
-	 	</select> -->
+	 	</select> 
 	
 	<!-- FAQ 답변 수정하기 -->
 	<update id="updateFaq" parameterType="hashmap">
 		<![CDATA[
 			UPDATE NOTICE
 			SET
+				NOTICE_TITLE = #{NOTICE_TITLE}, 
 				NOTICE_CONTENTS = #{NOTICE_CONTENTS}
 			WHERE
 				NOTICE_NO = #{NOTICE_NO}

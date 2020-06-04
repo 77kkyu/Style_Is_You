@@ -20,14 +20,14 @@ public class QnaController {
 	@Resource(name="qnaService")
 	private QnaService qnaService;
 	
-	@RequestMapping(value="/qna/openQnaList.do")
+	@RequestMapping(value="/board/openQnaList.do")
     public ModelAndView openQnaList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/board/qna/qnaList");
     	
     	return mv;
     }
 	
-	@RequestMapping(value="/qna/selectQnaList.do")
+	@RequestMapping(value="/board/selectQnaList.do")
     public ModelAndView selectQnaList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
     	
@@ -43,14 +43,14 @@ public class QnaController {
     	return mv;
     }
 	
-	@RequestMapping(value="/qna/openQnaWrite.do")
+	@RequestMapping(value="/board/openQnaWrite.do")
 	public ModelAndView openQnaWrite(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/qna/qnaWrite");
 		
 		return mv;
 	}
 	
-	@RequestMapping(value="/qna/insertQna.do")
+	@RequestMapping(value="/board/insertQna.do")
 	public ModelAndView insertQna(CommandMap commandMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/board/openQnaList.do");
 		
@@ -59,7 +59,7 @@ public class QnaController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/qna/openQnaDetail.do")
+	@RequestMapping(value="/board/openQnaDetail.do")
 	public ModelAndView openQnaDetail(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/qna/qnaDetail");
 		
@@ -70,7 +70,7 @@ public class QnaController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/qna/openQnaUpdate.do")
+	@RequestMapping(value="/board/openQnaUpdate.do")
 	public ModelAndView openQnaUpdate(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/qna/qnaUpdate");
 		
@@ -81,7 +81,7 @@ public class QnaController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/qna/updateQna.do")
+	@RequestMapping(value="/board/updateQna.do")
 	public ModelAndView updateQna(CommandMap commandMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/board/openQnaDetail.do");
 		
@@ -91,7 +91,7 @@ public class QnaController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/qna/deleteQna.do")
+	@RequestMapping(value="/board/deleteQna.do")
 	public ModelAndView deleteQna(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/board/openQnaList.do");
 		

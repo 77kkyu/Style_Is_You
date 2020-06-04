@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<%@ include file="../include/include-header.jspf" %>
 </head>
 <body>
 	<form id="frm" name="frm" enctype="multipart/form-data">
@@ -17,27 +18,25 @@
 				<tr>
 					<th scope="row">글 번호</th>
 					<td>
-						${map.IDX }
-						<input type="hidden" id="IDX" name="IDX" value="${map.IDX }">
+						${map.NOTICE_NO }
+						<input type="hidden" id="NOTICE_NO" name="NOTICE_NO" value="${map.NOTICE_NO }">
 					</td>
-					<th scope="row">조회수</th>
-					<td>${map.HIT_CNT }</td>
 				</tr>
 				<tr>
 					<th scope="row">작성자</th>
-					<td>${map.CREA_ID }</td>
+					<td>${map.MEMBER_NO }</td>
 					<th scope="row">작성시간</th>
-					<td>${map.CREA_DTM }</td>
+					<td>${map.NOTICE_DATE }</td>
 				</tr>
 				<tr>
 					<th scope="row">제목</th>
 					<td colspan="3">
-						<input type="text" id="TITLE" name="TITLE" class="wdp_90" value="${map.TITLE }"/>
+						<input type="text" id="NOTICE_TITLE" name="NOTICE_TITLE" class="wdp_90" value="${map.NOTICE_TITLE }"/>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="4" class="view_text">
-						<textarea rows="20" cols="100" title="내용" id="CONTENTS" name="CONTENTS">${map.CONTENTS }</textarea>
+						<textarea rows="20" cols="100" title="내용" id="NOTICE_CONTENT" name="NOTICE_CONTENT">${map.NOTICE_CONTENT }</textarea>
 					</td>
 				</tr>
 			</tbody>
@@ -48,47 +47,44 @@
 	<a href="#this" class="btn" id="update">저장하기</a>
 	<a href="#this" class="btn" id="delete">삭제하기</a>
 	
+	<%@ include file="../include/include-body.jspf" %>
 	<script type="text/javascript">
-		var gfv_count = '${fn:length(list)+1}';
 		$(document).ready(function(){
 			$("#list").on("click", function(e){ //목록으로 버튼
 				e.preventDefault();
-				fn_openBoardList();
+				fn_openNoticeList();
 			});
 			
 			$("#update").on("click", function(e){ //저장하기 버튼
 				e.preventDefault();
-				fn_updateBoard();
+				fn_updateNotice();
 			});
 			
 			$("#delete").on("click", function(e){ //삭제하기 버튼
 				e.preventDefault();
-				fn_deleteBoard();
+				fn_deleteNotice();
 			});
+			
 		});
 		
-		function fn_openBoardList(){
+		function fn_openNoticeList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openBoardList.do' />");
+			comSubmit.setUrl("<c:url value='/board/openNoticeList.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_updateBoard(){
+		function fn_updateNotice(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/updateBoard.do' />");
+			comSubmit.setUrl("<c:url value='/board/updateNotice.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_deleteBoard(){
+		function fn_deleteNotice(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/deleteBoard.do' />");
-			comSubmit.addParam("IDX", $("#IDX").val());
+			comSubmit.setUrl("<c:url value='/board/deleteNotice.do' />");
+			comSubmit.addParam("NOTICE_NO", $("#NOTICE_NO").val());
 			comSubmit.submit();
 			
-		}
-		
-		function fn_deleteFile(obj){
-			obj.parent().remove();
 		}
 	</script>
 </body>

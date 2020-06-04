@@ -53,36 +53,36 @@
 		$(document).ready(function(){
 			$("#list").on("click", function(e){ //목록으로 버튼
 				e.preventDefault();
-				fn_openqnaList();
+				fn_openQnaList();
 			});
 			
 			$("#update").on("click", function(e){ //저장하기 버튼
 				e.preventDefault();
-				fn_updateqna();
+				fn_updateQna();
 			});
 			
 			$("#delete").on("click", function(e){ //삭제하기 버튼
 				e.preventDefault();
-				fn_deleteqna();
+				fn_deleteQna();
 			});
 
 		});
 		
-		function fn_openqnaList(){
+		function fn_openQnaList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openqnaList.do' />");
+			comSubmit.setUrl("<c:url value='/board/openQnaList.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_updateqna(){
+		function fn_updateQna(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/updateqna.do' />");
+			comSubmit.setUrl("<c:url value='/board/updateQna.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_deleteqna(){
+		function fn_deleteQna(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/deleteqna.do' />");
+			comSubmit.setUrl("<c:url value='/board/deleteQna.do' />");
 			comSubmit.addParam("QNA_NO", $("#QNA_NO").val());
 			comSubmit.submit();
 			
