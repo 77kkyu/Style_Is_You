@@ -3,6 +3,7 @@
 
 <mapper namespace="Qna">
 
+	<!-- QNA 리스트 -->
 	<select id="selectQnaList" parameterType="hashmap" resultType="hashmap">/>	
 		<![CDATA[
 			SELECT 
@@ -10,7 +11,9 @@
 			FROM QNA
 		]]>
 	</select>
-<!-- 	제목 문의유형 글쓴이 이메일 내용-->
+	
+	<!-- 사용자 QNA질문하기 -->
+	<!-- 제목 문의유형 글쓴이 이메일 내용-->
 	<insert id="insertQna" parameterType="hashmap"
 	useGeneratedKeys="true" keyProperty="QNA_NO">
 		<![CDATA[
@@ -38,21 +41,24 @@
 			#{QNA_PASSWD} )
 		]]>
 	</insert>
-<!-- 	글제목 작성일 작성자id 글내용 답변(작성일, 답변내용) -->
+	
+	<!-- QNA 상세페이지 -->
+	<!-- 글제목 작성일 작성자id 글내용 답변(작성일, 답변내용) -->
 	<select id="selectQnaDetail" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT 
-				QNA_TITLE,
-				TO_CHAR(QNA_DATE, 'YYYY-MM-DD') AS QNA_DATE,
+				QNA_TITLE, 
+				QNA_DATE, 
+				QNA_NAME, 
 				QNA_CONTENT
 			FROM 
 				QNA
 			WHERE
-				MEMBER_NO = #{MEMBER_NO}
+				QNA_NO = #{QNA_NO}
 		]]>
 	</select>
 	
-	
+	<!-- 답변수정 -->
  	<update id="updateQna" parameterType="hashmap">
 		<![CDATA[
 			UPDATE QNA
@@ -62,9 +68,9 @@
 			WHERE
 				QNA_NO = #{QNA_NO}
 		]]>
- 		</update>
+ 	</update>
 	
-	
+	<!-- 답변삭제 -->
 	<delete id="deleteQna" parameterType="hashmap">
 		<![CDATA[
 			DELETE FROM QNA
