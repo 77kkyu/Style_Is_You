@@ -78,6 +78,11 @@ public class AbstractDao {
 			return sqlSession.selectList(queryId,params);
 		}
 		
+		public List<Map<String,Object>> order_state(String queryId, Object params) { // 주문상태 변경 
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}
+		
 		
 
 }

@@ -30,4 +30,10 @@ public class AdminMainServiceImpl implements AdminMainService {
 		return adminDao.order_admin_a(map);
 	}
 
+	@Override
+	public void order_state(CommandMap map) throws Exception { // 주문상태 변경
+		// TODO Auto-generated method stub
+		adminDao.order_state(map);
+	}
+
 }

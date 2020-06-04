@@ -59,6 +59,36 @@ public class AdminMainController {
 	}
 	
 	
+	  // state변경 
+	  
+	  @RequestMapping(value="/order_admin_a.do", method = RequestMethod.POST)
+	  public ModelAndView order_state(CommandMap commandMap,HttpServletRequest
+	  request) throws Exception {
+	  
+	  ModelAndView mv = new ModelAndView("admin/order_admin_a");
+	  
+	  String order_state = "0"; String order_no = "";
+	  //System.out.println("뷰에서 받는값:"+request.getParameter("os"));
+	  
+	  if(request.getParameter("os") != null && request.getParameter("os") != ""){	  
+		  order_state = request.getParameter("os"); 
+	  }
+	  if(request.getParameter("order_no") != null && request.getParameter("order_no") != ""){	  
+		  order_no = request.getParameter("order_no"); 
+	  }
+	  
+	  commandMap.put("order_state",order_no);
+	  commandMap.put("order_state",order_state);
+	  
+	  adminMainService.order_state(commandMap);
+	  //System.out.println("order_a:"+order_a);
+	  
+	  List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
+	  
+	  mv.addObject("order_a", order_a);
+	  
+	  return mv; }
+	 
 }
 
 
