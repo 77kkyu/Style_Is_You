@@ -51,10 +51,16 @@ public class AdminMainController {
 		commandMap.put("order_state", order_state);
 		
 		List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
-		System.out.println("order_a:"+order_a);
+		System.out.println("order_state:"+order_state);
 		
-		mv.addObject("order_a", order_a);
-			
+		if (order_a.isEmpty()) {
+			mv.addObject("order_a", order_a);
+			mv.addObject("order_state", order_state);
+		}else {
+			mv.addObject("order_a", order_a);
+		}
+
+		System.out.println("mv:"+mv);	
 		return mv;
 	}
 	
@@ -84,6 +90,10 @@ public class AdminMainController {
 	  //System.out.println("order_a:"+order_a);
 	  
 	  List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
+	  
+	  
+	  
+	  
 	  
 	  mv.addObject("order_a", order_a);
 	  

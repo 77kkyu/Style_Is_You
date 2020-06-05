@@ -23,12 +23,12 @@ public class AbstractDao {
 		
 	}
 	
-	public List<Map<String,Object>> bestGoodsList(String queryId, Object params) { // 踰좎뒪�듃(議고쉶�닔) �긽�뭹
+	public List<Map<String,Object>> bestGoodsList(String queryId, Object params) { // 
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
 	
-	public List<Map<String,Object>> newGoodsList(String queryId, Object params) { // 理쒓렐 �긽�뭹 
+	public List<Map<String,Object>> newGoodsList(String queryId, Object params) { // 
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
@@ -83,6 +83,10 @@ public class AbstractDao {
 			return sqlSession.selectList(queryId,params);
 		}
 		
-		
+		//myDao
+		public List<Map<String,Object>> myDash(String queryId, Object params) { // mypage대쉬보드 
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}
 
 }
