@@ -1,16 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
-<<<<<<< HEAD
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
-=======
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
-    
->>>>>>> origin/syk_06-05_1
-=======
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
->>>>>>> origin/05.29-K
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,11 +15,11 @@
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-<<<<<<< HEAD
+
 <link href="css/dashboard.css" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="css/justified-nav.css" rel="stylesheet">
-<<<<<<< HEAD
+
 
 <script type="text/javascript">
 
@@ -36,7 +28,7 @@
 
 	$(document).ready(function(){
 		$("li#o).on("click", function(e){
-=======
+
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
 <!-- 
@@ -151,7 +143,7 @@ function ComSubmit(opt_formId) {
 
  </script>
  
->>>>>>> origin/syk_06-05_1
+
 </head>
 <body>
 <div class="container">
@@ -169,15 +161,14 @@ function ComSubmit(opt_formId) {
 		<h3 class="text-muted">Project name</h3>
 		<nav>
 			<ul class="nav nav-justified">
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 				<li id="o1"><a href="/stu/order_admin_a.do">신규주문</a></li>
 				<li id="o2"><a href="#">입금확인</a></li>
 				<li id="o3"><a href="#">배송준비</a></li>
 				<li id="o4"><a href="#">수취확인</a></li>
 				<li id="o5"><a href="#">거래완료</a></li>
 			</ul>
-=======
+
 			<c:choose>
 				<c:when test="${fn:length(order_a) > 0}">
 					<c:forEach items="${order_a }" var="state" begin="0" end="0">
@@ -294,7 +285,6 @@ function ComSubmit(opt_formId) {
 				<li><a href="#">수취확인</a></li>
 				<li><a href="#">거래완료</a></li>
 			</ul>
->>>>>>> origin/05.29-K
 		</nav>
 	</div>
 
@@ -302,15 +292,15 @@ function ComSubmit(opt_formId) {
 		<table class="table table-striped">
 			<colgroup>
 			<col width="10%" />
-<<<<<<< HEAD
+
 			<col width="14%" />
 			<col width="*" />
 			<col width="10%" />
-=======
+
 			<col width="10%" />
 			<col width="*" />
 			<col width="5%" />
->>>>>>> origin/05.29-K
+
 			<col width="15%" />
 			<col width="15%" />
 			</colgroup>
@@ -324,7 +314,7 @@ function ComSubmit(opt_formId) {
 					<th scope="col">진행상황</th>
 				</tr>
 			</thead>
-<<<<<<< HEAD
+
 			<form id="order_select">
 			<tbody>
 			<c:choose>
@@ -337,14 +327,14 @@ function ComSubmit(opt_formId) {
 								<input type="hidden" id="member_no" value="${order.MEMBER_NO }"></td>
 							<td>${order.HAP_CNT }건</td>
 							<td>${order.ORDER_TOTAL_PAY_PRICE }원</td>
-<<<<<<< HEAD
 							<td><a href="#this" id="od_detail" >상세보기</a>
 							<br /><a href="#this" id="od_next" >주문확인</a></td>
-=======
 							<td><a href="#" id="od_detail" >상세보기</a>
 							<br /><input type="button" onclick="order_chk(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼"></td>
->>>>>>> origin/syk_06-05_1
-=======
+						</tr>
+					</c:forEach>
+				</c:when>
+			</c:choose>
 			<tbody>
 			<c:choose>
 				<c:when test="${fn:length(order_a) > 0}">
@@ -357,7 +347,6 @@ function ComSubmit(opt_formId) {
 							<td>${order_a.hap_cnt }건</td>
 							<td>${order_a.order_total_pay_price }원</td>
 							<td>[상세보기]<br />[주문확인]</td>
->>>>>>> origin/05.29-K
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -368,10 +357,7 @@ function ComSubmit(opt_formId) {
 				</c:otherwise>
 			</c:choose>
 		</tbody>
-<<<<<<< HEAD
 		</form>
-=======
->>>>>>> origin/05.29-K
 		</table>
 	</div>
 

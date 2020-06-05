@@ -3,11 +3,16 @@ package stu.member.my;
 import java.util.List;
 import java.util.Map;
 
-import stu.common.common.CommandMap;
-
-public interface MyService {
+public interface myService {
 	
-	List<Map<String, Object>> myDash(CommandMap commandMap) throws Exception; // Mypage대쉬보드
+	// 구매 목록
+	List<Map<String, Object>> orderList(Map<String, Object> map) throws Exception;
+	// 상품명, 상품속성번호
+	List<Map<String, Object>> orderList2(Map<String, Object> map) throws Exception;
+	// 회원 정보 수정
+	Map<String,Object> memberModify(Map<String, Object> map) throws Exception;
 	
+	void memberModifyAction(Map<String, Object> map) throws Exception;
 	
+	void memberDelete(Map<String, Object> map) throws Exception;
 }

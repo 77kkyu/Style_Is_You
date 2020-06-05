@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 function gfn_isNull(str) {
 	if (str == null) return true;
 	if (str == "NaN") return true;
@@ -32,7 +32,7 @@ function ComSubmit(opt_formId) {
 		frm.method = "post";
 		frm.submit();
 	};
-=======
+
 
 function gfn_isNull(str) {
    
@@ -201,5 +201,6 @@ function _movePage(value) {
    }else {
       eval(gfv_eventName + "(value);");
    }
->>>>>>> origin/05.29-K
+
+}
 }

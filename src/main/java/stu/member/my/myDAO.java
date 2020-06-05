@@ -13,12 +13,12 @@ public class myDAO extends AbstractDao {
 	// 구매 목록
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> orderList(Map<String,Object> map) { //  
-		return (List<Map<String,Object>>) orderList("my.selectOrderList",map);
+		return (List<Map<String,Object>>) selectList("my.selectOrderList",map);
 	}
 	// 상품명, 상품속성번호
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> orderList2(Map<String,Object> map) { //  
-		return (List<Map<String,Object>>) orderList("my.selectOrderList2",map);
+		return (List<Map<String,Object>>) selectList("my.selectOrderList2",map);
 	}
 	// 회원 정보 수정
 	@SuppressWarnings("unchecked")
