@@ -100,13 +100,16 @@ function fn_allPrice(){
 	var array2 = document.getElementsByName("basket_goods_amount");
 	var array3 = document.getElementsByName("order_price");
 	
-	var len = array1.length;
+	var len = array2.length;
 	var hap = 0;
+	
 	for (var i=0; i<len; i++){
 		var sell = array1[i].value;
 		var amt = array2[i].value;
-		array3[i].value = Number(sell)*Number(amt);
-		hap = hap+Number(array3[i].value);
+		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
+		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
+		array3[i].value = pri;
+		
 	}
 	
 	var fee = document.getElementById("order_fee").value;
@@ -159,15 +162,32 @@ function fn_like(){
 	}
 	
 }
-	
-	
 
+function fn_all_order(){
+	document.basket.submit();
+}
+
+function fn_select_order(){
+	var obj = $("[name=chk]");
+    var chkArray = new Array(); // 배열 선언
+
+    $('input:checkbox[name=chk]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+        chkArray.push(this.value);
+    });
+    var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/order/basketSelectOrder.do' />");
+	comSubmit.addParam("ARRAY_BASKET_NO", chkArray);
+	comSubmit.submit();
+}
+
+
+
+	
+	
 </script>
-
 
 </head>
 <body onload="fn_allPrice()">
-
     <div class="container">
 
       <div class="masthead">
@@ -194,7 +214,9 @@ function fn_like(){
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
-      <form name="basket" >
+      <form name="basket" action="/stu/order/basketAllOrderWrite.do">
+		<input type="hidden" name="list" value="${list }">
+	</form>
           <div class="table-responsive">
           	<p><b>내가 담은 장바구니 상품리스트</b></p>
             <table class="table table-striped">
@@ -221,7 +243,6 @@ function fn_like(){
                 </tr>
               </thead>
               <tbody>
-              
               	<c:choose>
 				<c:when test="${fn:length(list) > 0}">
 					<c:forEach items="${list }" var="row" varStatus="status">
@@ -282,7 +303,6 @@ function fn_like(){
           	</div>
 				</c:otherwise>
 			</c:choose>
-             
           <br>
           <br>
           <div class="table-responsive">
@@ -318,12 +338,9 @@ function fn_like(){
           	</table>
           </div>
           <div style="text-align:right">
-          	<input type="button" name="all_order" value="전체주문">
-            <input type="button" name="select_order" value="선택상품주문">
+          	<input type="button" name="all_order" value="전체주문" onclick="fn_all_order()">
+            <input type="button" name="select_order" value="선택상품주문" onclick="fn_select_order()">
           </div>
-          
-      
-     </form>
 
       <!-- Example row of columns -->
       <div class="row">
@@ -333,7 +350,6 @@ function fn_like(){
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
         </div>
-        
       </div>
 
       <!-- Site footer -->

@@ -24,63 +24,27 @@
 
 <script type="text/javascript">
 
-function fn_allchk(){
-	
-	var chk = document.getElementById("allchk").checked; //값: true,false
-	var arraychk = document.getElementsByName("chk"); //가격
-	var len = arraychk.length;
-		for(var i=0; i<len; i++){
-			arraychk[i].checked = chk; //chk가 true면 arraychk도 true
-		}
-}
-
-function fn_amount(index){
-
-	var array8 = document.getElementsByName("goods_att_amount"); //재고수량
-	var array1 = document.getElementsByName("basket_goods_amount"); //수량
-	var array4 = document.getElementsByName("chk");
-
-	var att = array8[index].value; 
-	var amount = array1[index].value;
-	var basket_no = array4[index].value;
-
-	if(amount=!null && amount>0){
-		if(amount<=att){
-			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/basket/basketModify.do' />");
-			comSubmit.addParam("BASKET_GOODS_AMOUNT", array1[index].value);
-			comSubmit.addParam("BASKET_NO", basket_no);
-			comSubmit.submit();
-		}else if(amount>att){
-			alert("재고가 부족합니다.");	
-			return false;
-		}
-	}
-	else{
-		alert("유효한 숫자가 아닙니다.");	
-		return false;
-	}
-	
-}
-
 function fn_allPrice(){
 	
-	var array = document.getElementsByName("order_price");
-	var len = array.length;
-	var hap = 0;
-	var pay = 0;
-	for (var i=0; i<len; i++){
-		pri = array[i].value;
-		hap = Number(hap)+Number(pri);
-	}
+	var array1 = document.getElementsByName("goods_sell_price");
+	var array2 = document.getElementsByName("basket_goods_amount");
+	var array3 = document.getElementsByName("order_price");
 	
+	var len = array2.length;
+	var hap = 0;
+	
+	for (var i=0; i<len; i++){
+		var sell = array1[i].value;
+		var amt = array2[i].value;
+		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
+		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
+		array3[i].value = pri;
+		
+	}
 	
 	var fee = document.getElementById("order_fee").value;
 	pay = Number(hap)+Number(fee);
 	
-	//hap = Number(hap).toLocaleString();
-	//pay = Number(pay).toLocaleString();
-	document.getElementById("all_price").value = hap; //상품금액
 	document.getElementById("pay_price").value = pay; //상품금액+배송비
 	document.getElementById("all_order_price").value = pay;
 	
@@ -98,7 +62,6 @@ function fn_allPrice(){
 	document.getElementById("point").value = point;
 	
 }
-
 
 </script>
 
@@ -122,7 +85,7 @@ function fn_allPrice(){
         </nav>
       </div>
       
-      <div style="width:1000px; height:50px; margin:10px; padding:12px; border:1px solid #dcdcdc">
+      <div style="width:1140px; height:50px; margin:10px; padding:12px; border:1px solid #dcdcdc">
       	<table>
       		<tr>
       			<td style="text-align:left; font-size:17px; font-weight:bold;">주문작성/결제</td>
@@ -132,12 +95,12 @@ function fn_allPrice(){
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
-      <form action="">
+      <form name="orderWrite" action="">
           <div class="table-responsive">
           	<p><b>주문작성/결제</b></p>
             <table class="table table-striped">
             <colgroup>
-				<col width="10" />
+				<col width="20" />
 				<col width="*" />
 				<col width="10%" />
 				<col width="13%" />
@@ -166,71 +129,176 @@ function fn_allPrice(){
 				  				사이즈:${row.GOODS_ATT_SIZE } <br>
 				  			</td>
 				  			<td style="text-align:center">
-                  				<input type="number" name="basket_goods_amount" value="${row.BASKET_GOODS_AMOUNT }" min="1" max="${row.GOODS_ATT_AMOUNT }" style="width:50px; text-align:right" >
+                  				<input type="number" name="basket_goods_amount" value="${row.BASKET_GOODS_AMOUNT }" style="width:50px; text-align:right" readonly>
                   			</td>
 							<td style="text-align:center">
-								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }" style="width:80px; text-align:right">원
-							<td style="text-align:center">
-								<input type="text" name="order_price" value="${row.GOODS_SELL_PRICE*row.BASKET_GOODS_AMOUNT }" style="width:80px; text-align:right">원
+								<c:set var="price" value="${row.GOODS_SALE_PRICE }" />
+								<c:choose>
+    								<c:when test="${price eq null}">
+        								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }"style="width:60px; text-align:right; border:none;" readonly>원
+   					 				</c:when>
+   					 				<c:when test="${price ne null}">
+        								<input type="text" name="goods_sell_price" value="${row.GOODS_SALE_PRICE }"style="width:60px; text-align:right; border:none;" readonly>원
+   					 				</c:when>
+								</c:choose>
 							</td>
 							<td style="text-align:center">
-                  				<input type="button" name="amount_modify" value="수정" onclick="fn_amount(${status.index})"><br>
-                  				<input type="button" name="basket_delete" value="삭제">
-                  			</td>
+								<input type="text" name="order_price" value="" style="width:60px; text-align:right; border:none;" readonly>원
+							</td>
 						</tr>
 					</c:forEach>
-				
               </tbody>
             </table>
           </div>
+          <br><br>
           
-          <br>
-          <br>
           <div class="table-responsive">
-          	<table class="table table-striped">
+          	<table class="table table-striped" style="width:1140px" >
+          	<colgroup>
+				<col width="11%" />
+				<col width="22%" />
+				<col width="11%" />
+				<col width="22%" />
+				<col width="12%" />
+				<col width="22%" />
+			</colgroup>
           		<tr>
           			<td>주문금액</td>
-          			<td>
-          				<input type="text" id="all_order_price" style="width:100px; text-align:right; border:none;">원
+          			<td style="text-align:right">
+          				<input type="text" id="all_order_price" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           			<td>- 할인금액</td>
-          			<td>
-          				<input type="text">원
+          			<td style="text-align:right">
+          				<input type="text" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           			<td> = 결제예정금액</td>
-          			<td>
-          				<input type="text" id="pay_price" value="" style="width:100px; text-align:right; border:none;">원
+          			<td style="text-align:right">
+          				<input type="text" id="pay_price" value="" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           		</tr>
-          		<tr>
-          			<td colspan="4">
-          				쿠폰할인 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="text" id="all_price" style="width:100px; text-align:right">원 &nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="button" value="쿠폰적용">
-          				<br>
-          				포인트 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right" readonly>P &nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="button" value="사용">
-          				<br>
-          				선결제배송비 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right" readonly>원
-          			
+          		<tr rowspan="3">
+          			<td >
+          				쿠폰할인
+          			</td>
+          			<td colspan="3" >
+          				<input type="text" id="" value="0" style="width:100px; text-align:right; border:none;" readonly> 원 &nbsp;&nbsp;&nbsp;&nbsp;
+          				<input type="button" value="쿠폰적용"></td>
+          			<td>
+          				적립혜택
           			</td>
           			<td>
-          				적립혜택 <br>
-          				포인트적립 
+          			</td>
+          		</tr>
+          		<tr rowspan="3">
+          			<td>
+          				포인트
+          			</td>
+          			<td colspan="3" >
+          				<input type="text" id="order_use_point" value="0" style="width:100px; text-align:right"> P &nbsp;&nbsp;&nbsp;&nbsp;
+          				<input type="button" value="사용" onclick="">
+          				(포인트 P)
+          			</td>
+          			<td>
+          				포인트적립
           			</td>
           			<td>
           				<input type="text" id="point" style="width:100px; text-align:right" readonly> P
           			</td>
           		</tr>
+          		<tr rowspan="3">
+          			<td>
+          				선결제배송비
+          			</td>
+          			<td colspan="3" >
+          				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right" readonly>원
+          			</td>
+          			<td>
+          			</td>
+          			<td>
+          			</td>
+          		</tr>
           	</table>
           </div>
-          <div style="text-align:right">
-          	<input type="button" name="all_order" value="전체주문">
-            <input type="button" name="select_order" value="선택상품주문">
+         
+            <br><br>
+            <div class="table-responsive">
+          	<p>
+          		<b>받으시는분(상품받으실분)</b> &nbsp;
+          		<input type="checkbox" name="allchk" id="allchk" onclick="fn_allchk()">
+          		주문자 정보와 동일
+          	</p>
+            <table class="table table-striped">
+            <colgroup>
+				<col width="15%" />
+				<col width="*" />
+			</colgroup>
+              <tbody>
+              	<tr>
+              		<td>이름</td>
+              		<td style="text-align:left">
+                  		<input type="text" name="ORDER_NAME" value="" style="width:100px;" >
+                  	</td>
+				</tr>
+				<tr>
+              		<td>휴대폰번호</td>
+              		<td style="text-align:left">
+                  		<input type="text" name="name" value="" style="width:120px;" >
+                  	</td>
+				</tr>
+				<tr>
+              		<td rowspan="3">주소</td>
+              		<td style="text-align:left">
+                  		<input type="text" name="name" value="" style="width:80px;" >
+                  	</td>
+				</tr>
+				<tr>
+              		<td style="text-align:left">
+                  		<input type="text" name="name" value="" style="width:250px;" >
+                  	</td>
+				</tr>
+				<tr>
+              		<td style="text-align:left">
+                  		<input type="text" name="name" value="" style="width:250px;" >
+                  	</td>
+				</tr>
+              </tbody>
+            </table>
           </div>
+          <br><br>
           
+          <div class="table-responsive">
+          	<p><b>결제선택</b></p>
+            <table class="table table-striped">
+            <colgroup>
+				<col width="20%" />
+				<col width="80%" />
+			</colgroup>
+              <tbody>
+              	<tr>
+              		<td>총 결제금액</td>
+              		<td style="text-align:left">
+                  		<input type="text" name="name" value="" style="width:100px;" >
+                  	</td>
+				</tr>
+				<tr>
+              		<td>결제방법</td>
+              		<td style="text-align:left">
+                  		<input type="radio" name="name" value="" style="width:30px;">신용카드
+                  		&nbsp;&nbsp;
+                  		<input type="radio" name="name" value="" style="width:30px;">계좌이체
+                  	</td>
+				</tr>
+              </tbody>
+            </table>
+            </div>
+            <br>
+            <div style="text-align:center">
+            	<input type="checkbox" name="allchk" id="allchk" onclick="fn_allchk()">
+          		(필수)결제서비스 약관에 동의하며, 원활한 배송을 위한 개인정보 제공에 동의합니다.
+          		<br><br>
+          		<input type="button" name="all_order" value="장바구니">
+            	<input type="button" name="select_order" value="결제진행">
+            </div>
       
      </form>
 

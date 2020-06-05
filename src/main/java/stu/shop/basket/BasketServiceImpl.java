@@ -23,7 +23,7 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	private BasketDao basketDao;
 
 	@Override
-	public List<Map<String, Object>> basketList(Map<String,Object> commandMap) throws Exception {
+	public List<Map<String, Object>> basketList(CommandMap commandMap) throws Exception {
 		return (List<Map<String, Object>>) basketDao.basketList(commandMap);
 	}
 

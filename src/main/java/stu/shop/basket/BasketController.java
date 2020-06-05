@@ -24,7 +24,7 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	private BasketService basketService;
 	
 	@RequestMapping(value="/basket/basketList.do")
-	public ModelAndView basketList(Map<String,Object> commandMap) throws Exception {
+	public ModelAndView basketList(CommandMap commandMap) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("basket/basketList");
 		
@@ -42,8 +42,6 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	public ModelAndView basketModify(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
-		System.out.println(commandMap.get("BASKET_GOODS_AMOUNT"));
-		System.out.println(commandMap.get("BASKET_NO"));
 		/*
 		 * commandMap.put("BASKET_GOODS_AMOUNT",
 		 * request.getParameter("BASKET_GOODS_AMOUNT")); commandMap.put("BASKET_NO",
@@ -82,6 +80,8 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		  }
 		  return mv;
 	}
+	
+	
 	
 
 }

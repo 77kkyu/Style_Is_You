@@ -12,7 +12,7 @@ import stu.common.dao.AbstractDao;
 public class BasketDao extends AbstractDao{
 
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> basketList(Map<String, Object> commandMap) throws Exception{
+	public List<Map<String, Object>> basketList(CommandMap commandMap) throws Exception{
 		return (List<Map<String,Object>>) selectList("basket.basketList", commandMap);
 	}
 	

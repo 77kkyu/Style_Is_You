@@ -10,7 +10,7 @@ import stu.common.common.CommandMap;
 
 public interface BasketService {
 
-	List<Map<String, Object>> basketList(Map<String, Object> commandMap) throws Exception;
+	List<Map<String, Object>> basketList(CommandMap commandMap) throws Exception;
 
 	void basketModify(CommandMap commandMap, HttpServletRequest request) throws Exception;
 
