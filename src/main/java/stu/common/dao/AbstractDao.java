@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 public class AbstractDao {
 	
@@ -22,6 +23,29 @@ public class AbstractDao {
 		}
 		
 	}
+	 
+	@SuppressWarnings("unchecked")
+	public Object selectPagingList(String queryId, Object params) {
+		printQueryId(queryId);
+		Map<String, Object> map = (Map<String, Object>)params;
+		
+		String strPageIndex = (String)map.get("PAGE_INDEX");
+		String strPageRow = (String)map.get("PAGE_ROW");
+		int nPageIndex=0;
+		int nPageRow=15;
+		
+		if(StringUtils.isEmpty(strPageIndex) == false){
+	        nPageIndex = Integer.parseInt(strPageIndex)-1;
+	    }
+	    if(StringUtils.isEmpty(strPageRow) == false){
+	        nPageRow = Integer.parseInt(strPageRow);
+	    }
+	    map.put("START", (nPageIndex * nPageRow) + 1);
+	    map.put("END", (nPageIndex * nPageRow) + nPageRow);
+	    map.put("KEYWORD", (String)map.get("KEYWORD"));
+	     
+	    return sqlSession.selectList(queryId, map);
+	}
 	
 	public List<Map<String,Object>> bestGoodsList(String queryId, Object params) { // 踰좎뒪�듃(議고쉶�닔) �긽�뭹
 		printQueryId(queryId);
@@ -33,10 +57,26 @@ public class AbstractDao {
 		return sqlSession.selectList(queryId,params);
 	}
 
-	public List<Map<String,Object>> basketList(String queryId, Object params) {
+	//장바구니 리스트
+	public List<Map<String,Object>> selectList(String queryId, Object params) {
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
+	//수정
+	public Object update(String queryId, Object params) {
+		printQueryId(queryId);
+		return sqlSession.update(queryId,params);
+	}
+	//삭제
+	public Object delete(String queryId, Object params) {
+		printQueryId(queryId);
+		return sqlSession.delete(queryId,params);
+	}
+	/*
+	 * public Object selectOne(String queryId, Object params) {
+	 * printQueryId(queryId); return sqlSession.selectOne(queryId,params); }
+	 */
+	
 	
 	// 특정 레코드 한줄 출력
 		public Object selectOne(String queryId) {
@@ -56,4 +96,69 @@ public class AbstractDao {
 			return sqlSession.insert(queryId, params);
 		}
 
+	
+	      //adminDao
+	      public List<Map<String,Object>> dashBoard(String queryId, Object params) { // adminMain대쉬보드 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }   
+	      
+	      public List<Map<String,Object>> order_admin_a(String queryId, Object params) { // 주문/배송-신규주문 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      
+	      public List<Map<String,Object>> order_state(String queryId, Object params) { // 주문상태 변경 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      
+	      //myDao
+	      public List<Map<String,Object>> myDash(String queryId, Object params) { // mypage대쉬보드 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+		
+
+		// 마이 페이지 (메인)
+		public List<Map<String,Object>> orderList(String queryId, Object params) { //  
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}
+		
+		// 상품명, 상품속성번호
+				public List<Map<String,Object>> orderList2(String queryId, Object params) { //  
+					printQueryId(queryId);
+					return sqlSession.selectList(queryId,params);
+				}
+
+
+		@SuppressWarnings("rawtypes")
+		public List selectList(String queryId) {
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId);
+		}
+		
+		
+		@SuppressWarnings("unchecked")
+		public Object selectPagingList1(String queryId, Object params){
+			printQueryId(queryId);
+			Map<String,Object> map = (Map<String,Object>)params;
+			
+			String strPageIndex = (String)map.get("PAGE_INDEX");
+			String strPageRow = (String)map.get("PAGE_ROW");
+			int nPageIndex = 0;
+			int nPageRow = 20;
+			
+			if(StringUtils.isEmpty(strPageIndex) == false){
+				nPageIndex = Integer.parseInt(strPageIndex)-1;
+			}
+			if(StringUtils.isEmpty(strPageRow) == false){
+				nPageRow = Integer.parseInt(strPageRow);
+			}
+			map.put("START", (nPageIndex * nPageRow) + 1);
+			map.put("END", (nPageIndex * nPageRow) + nPageRow);
+			
+			return sqlSession.selectList(queryId, map);
+		}
 }

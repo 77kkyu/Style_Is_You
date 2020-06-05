@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
 	로그인 완료~ <br />
 	회원번호 : ${MEMBER.MEMBER_NO } <br />
 	이름 : ${MEMBER.MEMBER_NAME } <br />
+	${MEMBER.MEMBER_PHONE }
 	<a href="/stu/logout.do">로그아웃</a>
 </body>
 </html>

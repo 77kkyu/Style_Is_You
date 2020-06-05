@@ -6,13 +6,20 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface LoginService {
 	
-	void selectName(Map<String, Object> map) throws Exception;
+	Map<String, Object> selectName(Map<String, Object> map) throws Exception; // 이름 출력
 	
-	void selectFindId(Map<String, Object> map) throws Exception;
+	Map<String, Object> selectFindId(Map<String, Object> map) throws Exception; // 휴대폰 아이디 찾기
 	
-	void selectFindPw(Map<String, Object> map) throws Exception;
+	Map<String, Object> selectFindPw(Map<String, Object> map) throws Exception; // 휴대폰 비밀번호 찾기
 	
-	Map<String, Object> logout(Map<String, Object> map) throws Exception;
+	Map<String, Object> logout(Map<String, Object> map) throws Exception; // 로그아웃
 	
-	Map<String, Object> loginAction(Map<String, Object> map) throws Exception;
+	Map<String, Object> loginAction(Map<String, Object> map) throws Exception; // 로그인
+	
+	Map<String, Object> selectFindPw2(Map<String, Object> map) throws Exception; // 이메일 비밀번호 찾기
+	
+	Map<String, Object> selectFindId2(Map<String, Object> map) throws Exception; // 이메일 아이디 찾기
+	
+	public void lastLogin(Object x) throws Exception; // 마지막 로그인 날짜 갱신
+	
 }

@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+
+    
+    
+<%
+	String sessionId = (String)session.getAttribute("MEMBER_NAME");
+%>
+
+
+    
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -104,12 +117,33 @@ li {
 <div class="pagetop">
 
 <div align="right" style="margin-right:200px">
-<form>
+<form name="frm">
 	<table>
 		<tr>
+		<%
+			if(sessionId == null) { // 로그인 전 (세션 값 X)
+		%>
 			<td><a href="/stu/loginForm.do">로그인</a></td> <td>|</td>
 			<td><a href="/stu/joinForm.do">회원가입</a></td> <td>|</td>
-			<td><a href="">마이페이지</a></td> <td>|</td>
+		<%
+			} else if(sessionId != null) { // 로그인 후 (세션 값 O)
+		%>
+			<td>Hi, ${MEMBER_NAME }님!</td> <td>|</td>
+			<td><a href="/stu/logout.do">로그아웃</a></td> <td>|</td>
+		<%
+			}
+		%>
+		<%
+			if(sessionId != null) {
+		%>
+			<td><a href="/stu/my/myMain.do">마이페이지</a></td> <td>|</td>
+		<%
+			} else {
+		%>
+			<td><a href="/stu/loginForm.do">마이페이지</a></td> <td>|</td>
+		<%
+			}
+		%>
 			<td><a href="">고객센터</a></td> <td>|</td>
 			<td><a href="/stu/basket/basketList.do">장바구니</a></td>
 			<td><a href="">쿠폰</a></td>
@@ -123,13 +157,13 @@ li {
   <div class="wrapper2">
     <h1>스타일너다</h1>
     <ul class="flex-menu">
-      <li><a href="http://localhost:8080/stu/shop/newGoodsList.do">BEST</a></li>
-      <li><a href="http://localhost:8080/stu/shop/bestGoodsList.do">NEW</a></li>
-      <li><a href="">OUTER</a></li>
-      <li><a href="">TOP</a></li>
-      <li><a href="">ONE-PIECE</a></li>
-      <li><a href="">BOTTOM</a></li>
-      <li><a href="">ACC</a></li>
+      <li><a href="http://localhost:8080/stu/shop/bestGoodsList.do">BEST</a></li>
+      <li><a href="http://localhost:8080/stu/shop/newGoodsList.do">NEW</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/outer/NewItem.do">OUTER</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/top/NewItem.do">TOP</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/one-piece/NewItem.do">ONE-PIECE</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/bottom/NewItem.do">BOTTOM</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/acc/NewItem.do">ACC</a></li>
     </ul>
     <br>
     <div class="bar">

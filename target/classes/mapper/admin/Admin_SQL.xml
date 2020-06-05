@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+	
+	<select id="dash_count" parameterType="hashmap" resultType="hashmap"> <!-- adminMain대쉬보드 -->
+		<![CDATA[
+			select 
+			(select count(member_no) from member) m_cnt,
+			(select count(member_no) from goods_qna) g_cnt,
+			(select count(member_no) from qna) q_cnt,
+			(select count(member_no) from as_list) as_cnt,
+			(select count(order_state) from order_list where order_state = 0) o_cnt_a,
+			(select count(order_state) from order_list where order_state = 1) o_cnt_b,
+			(select count(order_state) from order_list where order_state = 2) o_cnt_c,
+			(select count(order_state) from order_list where order_state = 3) o_cnt_d,
+			(select count(order_state) from order_list where order_state = 4) o_cnt_e,
+			(select count(order_state) from order_list where order_state = 5) o_cnt_f
+			from dual 
+		]]>
+	</select>
+	
+	
+	<select id="order_admin_a" parameterType="hashmap" resultType="hashmap"> <!-- 주문현황 보기 -->
+		<![CDATA[
+			select l.order_date, d.order_no, m.member_no, m.member_id, m.member_name, g.goods_name,
+  			      l.order_total_order_price, l.order_total_pay_price, l.order_state,
+	        
+	        (select count(SD.order_no) from order_detail SD where SD.order_no = D.order_no ) as hap_cnt
+			
+			from member m, order_list l, order_detail d, goods g
+			
+			where m.member_no = l.member_no
+			and l.order_no = d.order_no
+			and d.goods_no = g.goods_no
+			
+			and l.order_state = #{order_state}
+						
+			and D.ORDER_DETAIL_NO in (select min(ORDER_DETAIL_NO) as Dno from order_detail group by order_no)
+		]]>
+	</select>
+	
+	<select id="order_state" parameterType="hashmap" > <!-- 주문상태 변경 -->
+		<![CDATA[
+			UPDATE order_list
+
+			SET	order_state = order_state + 1
+			
+			WHERE order_no = ${order_no}
+			
+		]]>
+	</select>
+	
+	
+
+
+</mapper>

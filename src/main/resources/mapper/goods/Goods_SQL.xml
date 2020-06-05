@@ -4,7 +4,7 @@
 
 <mapper namespace="goods">
 
-	<select id="goodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최근순 상품리스트 -->
+	<select id="newGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최근순 상품리스트 -->
 		<![CDATA[
 SELECT
 				AAA.* 
@@ -64,6 +64,173 @@ SELECT
 		       
 		]]>
 	</select>
+	
+	
+	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 카테고리별 순서출력 -->
+		<include refid="common.pagingPre"/>
+		<![CDATA[
+			
+					SELECT ROW_NUMBER() OVER (ORDER BY GS.GOODS_NO DESC) RNUM,
+						gs.GOODS_NO,
+						gs.GOODS_CATEGORY,
+						gs.GOODS_NAME,
+						gs.GOODS_CONTENT,
+						gs.GOODS_ORIGIN_PRICE,
+						gs.GOODS_SELL_PRICE,
+						gs.GOODS_SALE_PRICE, 
+						gs.GOODS_DATE,
+						gs.GOODS_KEYWORD,
+						gs.GOODS_READCNT, 
+						gs.GOODS_PICK,
+						gs.GOODS_THUMBNAIL,
+						att.GOODS_ATT_COLOR,
+						att.GOODS_ATT_SIZE
+						FROM
+							GOODS GS ,GOODS_ATTRIBUTE ATT
+								WHERE GS.GOODS_NO = ATT.GOODS_NO
+	               					  AND GS.GOODS_CATEGORY = #{cate}
+
+		]]>
+		
+		<include refid="common.pagingPost"/>
+		<if test="orderBy != '' and orderBy != 'null'">
+			<![CDATA[
+				ORDER BY AAA.${orderBy} ${orderSort} 
+			]]>
+		</if> 		
+	</select>
+
+	
+	
+	
+	<select id="selectGoodsDetail" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
+		<![CDATA[
+			SELECT 
+				gs.GOODS_NO,
+				gs.GOODS_CATEGORY,
+				gs.GOODS_NAME,
+				gs.GOODS_CONTENT,
+				gs.GOODS_ORIGIN_PRICE,
+				gs.GOODS_SELL_PRICE,
+				gs.GOODS_SALE_PRICE, 
+				gs.GOODS_DATE,
+				gs.GOODS_KEYWORD,
+				gs.GOODS_READCNT, 
+				gs.GOODS_PICK,	
+				att.GOODS_ATT_COLOR,
+				att.GOODS_ATT_SIZE,
+				att.GOODS_ATT_AMOUNT
+				
+			FROM 
+				GOODS GS, GOODS_ATTRIBUTE ATT
+			WHERE GS.GOODS_NO = ATT.GOODS_NO
+	           	  AND GS.GOODS_NO = #{IDX}	
+
+		]]>
+	</select>
+	
+	
+	<update id="goodsReadCntUp" parameterType="hashmap">
+		<![CDATA[
+			UPDATE GOODS
+			SET
+				GOODS_READCNT = NVL(GOODS_READCNT, 0) + 1
+			WHERE
+				GOODS_NO = #{IDX}
+		]]>
+	</update>
+	
+
+	<insert id="goodsInsert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="IDX">
+		<selectKey keyProperty="IDX" resultType="string" order="BEFORE">
+			SELECT GOODS_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[
+			INSERT INTO GOODS(
+								GOODS_NO,
+								GOODS_CATEGORY,
+								GOODS_NAME,
+								GOODS_CONTENT,
+								GOODS_ORIGIN_PRICE,
+								GOODS_SELL_PRICE,
+								GOODS_SALE_PRICE,
+								GOODS_DATE,
+								GOODS_KEYWORD,
+								GOODS_PICK,
+								GOODS_THUMBNAIL
+							 )
+						VALUES(
+								#{IDX},
+								#{GOODS_CATEGORY},
+								#{GOODS_NAME},
+								#{GOODS_CONTENT},
+								#{GOODS_ORIGIN_PRICE},
+								#{GOODS_SELL_PRICE},
+								#{GOODS_SALE_PRICE},
+								sysdate,
+								#{GOODS_KEYWORD},
+								#{GOODS_PICK},
+								#{GOODS_THUMBNAIL}
+							  )				
+		]]>
+	</insert>
+
+	<insert id="attributeInsert" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO GOODS_ATTRIBUTE(
+										GOODS_ATT_NO,
+										GOODS_NO,
+										GOODS_ATT_SIZE,
+										GOODS_ATT_COLOR,
+										GOODS_ATT_AMOUNT
+										)
+								values(
+										GOODS_ATT_NO_SEQ.NEXTVAL,
+										#{IDX},
+										#{GOODS_ATT_SIZE},
+										#{GOODS_ATT_COLOR},
+										#{GOODS_ATT_AMOUNT}
+									    )
+		
+		]]>
+	</insert>
+	
+	<insert id="insertFile" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO GOODS_IMAGE
+					(
+						GOODS_IMAGE_NUM,
+						GOODS_NO,
+						GOODS_IMAGE_ORG,
+						GOODS_IMAGE_STD
+					)
+			VALUES
+					(
+						GOODS_IMAGE_SEQ.NEXTVAL,
+						#{IDX},
+						'Empty',
+						#{FILES_STD}
+					)
+		]]>
+	</insert>
+	
+	<update id="updateGoodsThumbnail" parameterType="hashmap">
+		<![CDATA[
+			UPDATE  GOODS 
+			SET     GOODS_THUMBNAIL = (
+			                    SELECT  GOODS_IMAGE_STD
+			                    FROM    (
+			                            SELECT  GOODS_IMAGE_STD 
+			                            FROM    GOODS_IMAGE 
+			                            WHERE   GOODS_NO = #{IDX}
+			                           			 AND GOODS_IMAGE_DEL_GB = 'N'
+			                            ORDER BY GOODS_IMAGE_NUM ASC
+			                            )
+			                    WHERE   ROWNUM <= 1
+			                    )
+			WHERE   GOODS_NO = #{IDX}
+		]]>
+	</update>
 	
 
 </mapper>

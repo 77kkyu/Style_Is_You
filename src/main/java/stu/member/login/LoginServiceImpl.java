@@ -19,23 +19,33 @@ public class LoginServiceImpl implements LoginService {
 	
 	// 로그인한 사람의 이름 값 출력
 	@Override
-	public void selectName(Map<String, Object> map) throws Exception {
-		loginDAO.selectName(map);
+	public Map<String, Object> selectName(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) loginDAO.selectName(map);
 		
 	}
 	
-	// 아이디 찾기
+	// 핸드폰으로 아이디 찾기
 	@Override
-	public void selectFindId(Map<String, Object> map) throws Exception {
-		loginDAO.selectFindId(map);
+	public Map<String, Object> selectFindId(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) loginDAO.selectFindId(map);
 		
 	}
 	
-	// 비밀번호 찾기
+	// 핸드폰으로 비밀번호 찾기
 	@Override
-	public void selectFindPw(Map<String, Object> map) throws Exception {
-		loginDAO.selectFindPw(map);
+	public Map<String, Object> selectFindPw(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) loginDAO.selectFindPw(map);
 		
+	}
+	
+	// 이메일로 아이디 찾기
+	public Map<String, Object> selectFindId2(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) loginDAO.selectFindId2(map);
+	}
+	
+	// 이메일로 비밀번호 찾기
+	public Map<String, Object> selectFindPw2(Map<String, Object> map) throws Exception {
+		return (Map<String, Object>) loginDAO.selectFindPw2(map);
 	}
 	
 	// 로그인 시 입력한 아이디와 비밀번호
@@ -49,6 +59,14 @@ public class LoginServiceImpl implements LoginService {
 	public Map<String, Object> logout(Map<String, Object> map) throws Exception {
 		return loginDAO.logout(map);
 	}
+	
+	// 마지막 로그인 갱신
+	@Override
+	public void lastLogin(Object x) throws Exception {
+		loginDAO.lastLogin(x);
+	}
+	
+	
 	
 	
 	

@@ -10,6 +10,7 @@
 <title>상품리스트</title>
 <head>
 <script type="text/javascript">
+
  var img=new Array();
 img[0]=new Image(); img[0].src="../img/옷1.JPG";
 img[1]=new Image(); img[1].src="../img/옷2.JPG";
@@ -17,7 +18,7 @@ img[2]=new Image(); img[2].src="../img/옷3.JPG";
 var interval=1500;
 var n=0;
 
-var imgs = new Array("../img/옷1.JPG","../img/옷2.JPG","../img/옷3.JPG","../img/옷4.JPG");
+var imgs = new Array("/stu/img/옷1.JPG","/stu/img/옷2.JPG","/stu/img/옷3.JPG","/stu/cateGoodsList/img/옷4.JPG");
 
 function rotate() {
 	
@@ -105,6 +106,12 @@ setTimeout("rotate()",interval);
 </head>
 <body onload="rotate()">
 
+
+<br><br>
+<div align="center">
+<h2>${titleMain}</h2>
+
+
 <div align="right" style="margin-right:160px">
 <form>
 	<table>
@@ -118,6 +125,7 @@ setTimeout("rotate()",interval);
 	</table>
 </form>
 </div>
+
 
 <%-- <div align="center">
  <div id="pattern" class="pattern">
@@ -154,7 +162,7 @@ setTimeout("rotate()",interval);
      <div class="list img-list">
      <a href="" class="inner">
      <div class="li-img">
-		<img src="../img/옷1.JPG" id="slide"/>
+		<img src="/stu/img/옷1.JPG" id="slide"/>
 	</div>
 	<div align="left">
 		<c:choose>

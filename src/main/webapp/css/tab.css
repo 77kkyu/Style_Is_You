@@ -1,0 +1,75 @@
+
+	* {
+		padding: 0;
+		margin: 0;
+		list-style:none;
+	}
+	body {
+		padding:0px; /*30px -> 0px 수정  */
+	}
+	.tab_type1 ul{
+		display:flex;
+		height:60px;
+		border-bottom:1px solid #5da62b;
+	}
+	.tab_type1 ul li {
+		flex:1;
+	}
+	.tab_type1 ul li:first-child a {
+		border-left:1px solid #ddd;
+	}
+	.tab_type1 ul li a {
+		display: block;
+		height:59px;
+		border:1px solid #ddd;
+		border-left:none;
+		border-bottom:none;
+		font-size:14px;
+		color:#505050;
+		text-align:center;
+		line-height:59px;
+		text-decoration:none;
+	}
+	.tab_type1 ul li a:hover {
+		position:relative;
+		height:58px;
+		border-color:#5da62b;
+		border-top-width:2px;
+		line-height:57px;
+		border-bottom:1px solid #fff;
+	}
+	.tab_type1 ul li a.on {
+		position:relative;
+		height:58px;
+		border-color:#5da62b;
+		border-top-width:2px;
+		line-height:57px;
+		border-bottom:1px solid #fff;
+	}
+	.tab_type1 ul li a.on:before {
+		content: "";
+		position: absolute;
+		left:-1px;
+		top:-2px;
+		width:1px;
+		height:100%;
+		background:#5da62b;
+		border-top:2px solid #5da62b;
+	}
+	
+	
+	/*
+		<nav class="tab_type1">
+				<ul>
+					<li><a href="../board/mSub1.jsp?top=board" class="on">공지사항</a></li>
+					<li><a href="../board/mSub1.jsp?top=board">공지사항</a></li>
+					<li><a href="../board/mSub1.jsp?top=board">공지사항</a></li>
+					<li><a href="../board/mSub1.jsp?top=board">공지사항</a></li>
+					<li><a href="../board/mSub1.jsp?top=board">공지사항</a></li>
+				</ul>
+			</nav>
+	
+	 */
+	
+	
+	
