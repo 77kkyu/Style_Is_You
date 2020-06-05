@@ -57,10 +57,26 @@ public class AbstractDao {
 		return sqlSession.selectList(queryId,params);
 	}
 
-	public List<Map<String,Object>> basketList(String queryId, Object params) {
+	//장바구니 리스트
+	public List<Map<String,Object>> selectList(String queryId, Object params) {
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
+	//수정
+	public Object update(String queryId, Object params) {
+		printQueryId(queryId);
+		return sqlSession.update(queryId,params);
+	}
+	//삭제
+	public Object delete(String queryId, Object params) {
+		printQueryId(queryId);
+		return sqlSession.delete(queryId,params);
+	}
+	/*
+	 * public Object selectOne(String queryId, Object params) {
+	 * printQueryId(queryId); return sqlSession.selectOne(queryId,params); }
+	 */
+	
 	
 	@SuppressWarnings("rawtypes")
 	public List selectList(String queryId, Object params) {
