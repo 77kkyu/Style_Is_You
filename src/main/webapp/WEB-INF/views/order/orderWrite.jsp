@@ -18,12 +18,11 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
-<!-- jQuery -->
+<script src="./jquery-3.0.0.min.js"></script>
+<script src="./modal-dialog.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
 <script type="text/javascript">
 
 //기본 주문금액 계산
@@ -62,7 +61,7 @@ function fn_allPrice(){
 	var point = Number(hap)*Number(val); //등급별 적립율
 	document.getElementById("point").value = point;
 }
- //주문자정보와 동일
+//주문자정보와 동일
 function fn_chkinfo(){
 	var chk = document.getElementById("chkinfo").checked;
 	if(chk==true){
@@ -81,21 +80,26 @@ function fn_chkinfo(){
 } 
 
 //쿠폰적용팝업 띄우기
-function fn_coupon(){
-	var url = "/order/useCoupon.do";
-    var name = "useCoupon";
-    var option = "width = 800, height = 1000, top = 100, left = 200, location = no"
-	
-	window.open(url,name,option);
-	
-}
 
 </script>
 
 
 </head>
 <body onload="fn_allPrice()">
+<!-- 
+<!-- Trigger/Open The Modal -->
 
+The Modal
+<div id="myModal" class="modal">
+
+  Modal content
+  <div id="modal-content" class="modal-content">
+    <span class="close">×</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
+ -->
     <div class="container">
 
       <div class="masthead">
@@ -209,7 +213,8 @@ function fn_coupon(){
           			</td>
           			<td colspan="3" >
           				<input type="text" id="" value="0" style="width:100px; text-align:right; border:none;" readonly> 원 &nbsp;&nbsp;&nbsp;
-          				<input type="button" value="쿠폰적용" onclick="fn_coupon()"></td>
+          				<button id="myBtn">쿠폰적용</button>
+          			</td>
           			<td>
           				적립혜택
           			</td>
