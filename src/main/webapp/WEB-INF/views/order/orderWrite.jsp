@@ -18,8 +18,8 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
-<script src="./jquery-3.0.0.min.js"></script>
-<script src="./modal-dialog.js"></script>
+<script src="/stu/js/jquery-3.0.0.min.js"></script>
+<script src="/stu/js/modal-dialog.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
@@ -86,20 +86,7 @@ function fn_chkinfo(){
 
 </head>
 <body onload="fn_allPrice()">
-<!-- 
-<!-- Trigger/Open The Modal -->
 
-The Modal
-<div id="myModal" class="modal">
-
-  Modal content
-  <div id="modal-content" class="modal-content">
-    <span class="close">×</span>
-    <p>Some text in the Modal..</p>
-  </div>
-
-</div>
- -->
     <div class="container">
 
       <div class="masthead">

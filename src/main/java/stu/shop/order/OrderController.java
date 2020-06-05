@@ -29,14 +29,18 @@ public class OrderController {
 	
 	//장바구니 모두구매
 	@RequestMapping(value="/order/basketAllOrderWrite.do")
-	public ModelAndView basketAllOrderSelect(CommandMap commandMap) throws Exception {
+	public ModelAndView basketAllOrderSelect(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("order/orderWrite");
 		List<Map<String,Object>> list = basketService.basketList(commandMap);
 		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
 		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
-		
+		Map<String,Object> map = orderService.orderMemberInfo(commandMap, request);
+		//MEMBER_NAME, MEMBER_PHONE, MEMBER_ZIPCODE,
+		//MEMBER_ADDR1, MEMBER_ADDR2, POINT_TOTAL
 		mv.addObject("list", list);
+		mv.addObject("map", map);
 		System.out.println(list);
+		System.out.println(map);
 		return mv;
 	}
 	
