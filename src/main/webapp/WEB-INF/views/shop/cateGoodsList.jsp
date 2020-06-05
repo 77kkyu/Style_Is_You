@@ -7,33 +7,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <title>상품리스트</title>
-<script type="text/javascript"  src="js/jquery-3.1.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="<c:url value='/js/common.js'/>" charset="utf-8"></script>
 <head>
-<script type="text/javascript">
- var img=new Array();
-img[0]=new Image(); img[0].src="../img/옷1.JPG";
-img[1]=new Image(); img[1].src="../img/옷2.JPG";
-img[2]=new Image(); img[2].src="../img/옷3.JPG"; 
-var interval=1500;
-var n=0;
-// each 함수 반복문 DB에서 이미지 뽑아오기..?
-var imgs = new Array("/stu/img/옷1.JPG","/stu/img/옷2.JPG","/stu/img/옷3.JPG","/stu/img/옷4.JPG");
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/ui.css'/>" />
 
-function rotate() {
-	
-if(navigator.appName=="Netscape" && document.getElementById) {
-	
-document.getElementById("slide").src=imgs[n];
-
-}else document.images.slide.src=imgs[n];
-(n==(imgs.length-1))?n=0:n++;
-setTimeout("rotate()",interval);
-
-}
-
-</script>
+<!-- bx슬라이더 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
 <style>
 .list li {
@@ -103,10 +85,24 @@ setTimeout("rotate()",interval);
   }
 }
 
+
+
+#main-container
+{
+   min-height: 400px;
+   margin: 0 0 0 125px;
+   padding: 20px;
+   border-top: 1px solid #fff;  
+   border-right: 1px solid #fff;     
+   border-left: 1px solid #fff; 
+   border-bottom: 1px solid #fff;    
+}
+
 </style>
 
 </head>
-<body onload="rotate()">
+
+<body>
 
 <br><br><br><br>
 <div align="right" style="margin-right:210px">
@@ -115,84 +111,45 @@ setTimeout("rotate()",interval);
 		<tr>
 			<td>
 			<div style="margin-right:930px">
-				총 ${total} 개의 상품이 있습니다
+				<%-- 총 ${total} 개의 상품이 있습니다 --%>
 			</div>
 			</td>
-			<td><a href="http://localhost:8080/stu/shop/cateGoodsList/${category}/NewItem.do">신상품순</a></td> <td>|</td>
-			<td><a href="http://localhost:8080/stu/shop/cateGoodsList/${category}/favorite.do">인기상품순</a></td> <td>|</td>
-			<td><a href="http://localhost:8080/stu/shop/cateGoodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
-			<td><a href="http://localhost:8080/stu/shop/cateGoodsList/${category}/high.do">높은가격순</a></td> <td>|</td>
+			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/NewItem.do">신상품순</a></td> <td>|</td>
+			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/favorite.do">인기상품순</a></td> <td>|</td>
+			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
+			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/high.do">높은가격순</a></td> <td>|</td>
 		</tr>
 	</table>
 </form>
 </div>
 
 
-<%-- <div align="center">
- <div id="pattern" class="pattern">
-  	<ul class="list img-list">
-  	
-  	<c:forEach items="${list}" var="list">
-  		
-			<li>
-				<a href="" class="inner">
-					<div class="li-img">
-						<img src="../img/옷1.JPG" id="slide"/>
-					</div>
-					<div align="left">
-						${list.GOODS_NAME }<br><br>
-						${list.GOODS_SELL_PRICE }원
-					</div>
-				</a>
-			</li>
-	</c:forEach>
-		</ul>
-	</div>
-</div> --%>
 
-<c:set var="i" value="0" />
- <c:set var="j" value="4" />
- <table style="padding:200px; margin-top:-190px;">
-  <c:choose>
-   <c:when test="${list != null && fn:length(list) > 0 }">
-    <c:forEach items="${list}" var="list">
-     <c:if test="{i%j == 0}">
-      <tr>
-     </c:if>
-     <td>
-     <div class="list img-list">
-     <a href="#this" name="title" class="inner">
-     <div class="li-img">
-		<img src="/stu/img/옷1.JPG" id="slide"/>
-	<input type="hidden" id="IDX" value="${list.GOODS_NO }">
-	</div>
-	<div align="left">
-		<c:choose>
-			<c:when test="${list.GOODS_PICK == '0' }"></c:when>
-			<c:when test="${list.GOODS_PICK == '1' }">BEST</c:when>
-			<c:when test="${list.GOODS_PICK == '2' }">MD PICK</c:when>
-			<c:when test="${list.GOODS_PICK == '3' }">MUSTHAVE</c:when>
-		</c:choose>
-		<br><br>
-		${list.GOODS_NAME }<br><br>
-		${list.GOODS_SELL_PRICE }원
-	</div>
-	</a>
-	</div>
-	</td>
-    <c:if test="${i%j == j-1}">
-     </tr>
-    </c:if> 
-   <c:set var="i" value="${i+1}" />
-    </c:forEach>
-   </c:when>
-  <c:otherwise>
-   <tr>
-    <td>존재하지 않습니다.</td>
-   </tr>
-  </c:otherwise>
-  </c:choose>
- </table>
+<table class="board_list">
+		<colgroup>
+			<col width="100%" />
+		</colgroup>
+		<thead>
+			<tr>
+			</tr>
+		</thead>
+		<tbody>
+		
+		</tbody>
+		</table>
+
+
+<form action="/shop" method="post">
+			<fieldset>
+				<input type="text" class="txt" placeholder="Search" name="keyword" id="keyword" value="${keyword}"/>&nbsp;
+				<input type="submit" value="검색" class="search_btn" onClick="onSearch()"/>
+				<input type="hidden" id="path" value="${path}" />
+			</fieldset>
+		</form>
+
+<div id="PAGE_NAVI" align="center"></div>
+		<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX" />
+
 
 <br><br>
 
@@ -204,25 +161,15 @@ setTimeout("rotate()",interval);
 
 <script type="text/javascript">
 
-$(document).ready(function(){
-	$("#write").on("click", function(e){ //글쓰기버튼 #write id가 write인걸 찾는다
-		e.preventDefault();
-		fn_openBoardWrite();
-	});
+$(document).ready(function() {
+	
+	fn_selectGoodsList(1);
 
 	$("a[name='title']").on("click", function(e){ //제목 //name 이 title인거
 		e.preventDefault();
 		fn_openBoardDetail($(this));
 	});
 });
-
-function fn_openBoardWrite() {
-
-	var comSubmit = new ComSubmit();
-	comSubmit.setUrl("<c:url value='/sample/openBoardWrite.do' />");//이동할 url
-	comSubmit.submit(); //전송
-	
-}
 
 function fn_openBoardDetail(obj) {
 
@@ -233,46 +180,63 @@ function fn_openBoardDetail(obj) {
 	
 }
 
-
-function fn_selectBoardList(pageNo){ 
-	
-	var comAjax = new ComAjax(); 
-	comAjax.setUrl("<c:url value='/sample/selectBoardList.do' />"); 
-	comAjax.setCallback("fn_selectBoardListCallback"); 
-	comAjax.addParam("PAGE_INDEX",pageNo); 
-	comAjax.addParam("PAGE_ROW", 15); 
-	comAjax.ajax(); 
-	
-} 
-
-function fn_selectBoardListCallback(data){ 
-	var total = data.TOTAL; 
-	var body = $("table>tbody"); 
-	body.empty(); 
-	if(total == 0){ 
-		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>" + "</tr>"; 
-		body.append(str); 
-	} else{ 
-		var params = { 
-				divId : "PAGE_NAVI", 
-				pageIndex : "PAGE_INDEX", 
-				totalCount : total, 
-				eventName : "fn_selectBoardList" 
-					}; 
-		
-			gfn_renderPaging(params); 
-			var str = ""; 
-			$.each(data.list, function(key, value){
-				 str += "<tr>" + "<td>" + value.IDX + "</td>" + "<td class='title'>" + "<a href='#this' name='title'>" + value.TITLE + "</a>" + "<input type='hidden' name='title' value=" + value.IDX + ">" + "</td>" + "<td>" + value.HIT_CNT + "</td>" + "<td>" + value.CREA_DTM + "</td>" + "</tr>"; 
-				 }); 
-			     body.append(str); 
-				 $("a[name='title']").on("click", function(e){ //제목 
-					 e.preventDefault(); 
-					 fn_openBoardDetail($(this)); 
-					 
-				}); 
-			} 
+function fn_selectGoodsList(pageNo) {
+	var comAjax = new ComAjax();
+	comAjax.setUrl("<c:url value='/shop/cateGoodsList/${category}/NewItem.do' />");
+	comAjax.setCallback("fn_selectGoodsListCallback");
+	comAjax.addParam("PAGE_INDEX", pageNo);
+	comAjax.addParam("PAGE_ROW", 15);
+	comAjax.addParam("keyword", $('#keyword').val());
+	comAjax.addParam("path", $('#path').val());
+	comAjax.ajax();
 }
 
+function fn_selectGoodsListCallback(data) {
+	var total = data.TOTAL;
+	var body = $("table>tbody");
+	body.empty();
+	
+	if (total == 0) {
+		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>"
+				+ "</tr>";
+		body.append(str);
+	} else {
+		var params = {
+			divId : "PAGE_NAVI",
+			pageIndex : "PAGE_INDEX",
+			totalCount : total,
+			recordCount : 15,
+			eventName : "fn_selectGoodsList"
+		};
+		gfn_renderPaging(params);
+
+		var str = "";
+		$.each(data.list, function(key, value) {
+							var imgpath = "";
+							var Pick = value.GOODS_PICK.replace(",", " ");
+
+							if(value.GOODS_THUMBNAIL == NUll) {
+								imgpath = "<div class='card-header'>"
+							}else {
+								imgpath = "<div class='card-header' style='background-image:url(\"" + $('#path').val() + value.GOODS_THUMBNAIL + "\");'>"
+							}
+							
+							str =  "<div class='card'>"
+								+		"<a href='#this' name='title'>"
+								+        imgpath
+								+ 					Pick +	"<br>"
+								+		value.GOODS_NAME +	"<br>"
+								+	   "</a>"
+								+	   "</div>";
+								
+						});
+		body.append(str);
+
+		$("a[name='title']").on("click", function(e) { //제목
+			e.preventDefault();
+			fn_goodsDetail($(this));
+		});
+	}
+}
 
 </script>

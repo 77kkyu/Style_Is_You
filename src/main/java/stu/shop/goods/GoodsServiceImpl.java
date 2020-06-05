@@ -40,16 +40,16 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<Map<String, Object>> cateGoodsList(Map<String, Object> map) throws Exception { // 카테고리별 상품
-		
+	public List<Map<String, Object>> cateGoodsList(Map<String, Object> map, String keyword) throws Exception { // 카테고리별 상품
+		map.put("keyword", keyword);
 		return goodsDao.cateGoodsList(map);
 	}
 
 	@Override
-	public Map<String, Object> goodsDetail(Map<String, Object> map) throws Exception {
+	public Map<String, Object> selectGoodsDetail(Map<String, Object> map) throws Exception {
 		
 		goodsDao.goodsHitCnt(map);
-		Map<String, Object> resultMap = goodsDao.goodsDetail(map);
+		Map<String, Object> resultMap = goodsDao.selectGoodsDetail(map);
 
 		return resultMap;
 	}
@@ -95,6 +95,13 @@ public class GoodsServiceImpl implements GoodsService {
 						System.out.println((i+1)+"번째업로드끝=========================================");
 					}
 				}
+				goodsDao.goodsAttribute(map);
+		
+	}
+
+	@Override
+	public void updateGoods(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		// TODO Auto-generated method stub
 		
 	}
 

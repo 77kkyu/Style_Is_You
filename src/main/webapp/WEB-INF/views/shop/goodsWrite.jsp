@@ -13,7 +13,7 @@
 <title>상품등록</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.7.js"></script>
-<script src="<c:url value='/js/common.js'/>" charset="utf-8"></script>
+<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
 <head>
 <script src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
 
@@ -101,21 +101,23 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 				<tr>
 					<th>PICK </th>
 					<td>
-						<input type="checkbox" name="GOODS_PICK" id="GOODS_PICK" value=" " style="padding:10px;"> 공백
-						<input type="checkbox" name="GOODS_PICK" id="GOODS_PICK" value="BEST" style="padding:10px;"> BEST
-						<input type="checkbox" name="GOODS_PICK" id="GOODS_PICK" value="MD PICK" style="padding:10px;"> MD PICK
-						<input type="checkbox" name="GOODS_PICK" id="GOODS_PICK" value="MUSTHAVE" style="padding:10px;"> MUSTHAVE
+						<input type="checkbox" name="PICK" id="PICK" value=" " style="padding:10px;"> 공백
+						<input type="checkbox" name="PICK" id="PICK" value="BEST" style="padding:10px;"> BEST
+						<input type="checkbox" name="PICK" id="PICK" value="MD PICK" style="padding:10px;"> MD PICK
+						<input type="checkbox" name="PICK" id="PICK" value="MUSTHAVE" style="padding:10px;"> MUSTHAVE
+						<input type="hidden" name="GOODS_PICK" id="GOODS_PICK" value="">
 					</td>
 				</tr>
 				
 				<tr>
 					<th>상품사이즈 </th>
 					<td>
-						<input type="checkbox" name="GOODS_ATT_SIZE" value="free" style="padding:10px;"> free
-						<input type="checkbox" name="GOODS_ATT_SIZE" value="S" style="padding:10px;"> S
-						<input type="checkbox" name="GOODS_ATT_SIZE" value="M" style="padding:10px;"> M
-						<input type="checkbox" name="GOODS_ATT_SIZE" value="L" style="padding:10px;"> L
-						<input type="checkbox" name="GOODS_ATT_SIZE" value="XL" style="padding:10px;"> XL
+						<input type="checkbox" name="SIZE" value="FREE" style="padding:10px;"> FREE
+						<input type="checkbox" name="SIZE" value="S" style="padding:10px;"> S
+						<input type="checkbox" name="SIZE" value="M" style="padding:10px;"> M
+						<input type="checkbox" name="SIZE" value="L" style="padding:10px;"> L
+						<input type="checkbox" name="SIZE" value="XL" style="padding:10px;"> XL
+						<input type="hidden" name="GOODS_ATT_SIZE" id="GOODS_ATT_SIZE" value="">
 					</td>
 				</tr>
 				
@@ -133,7 +135,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 	
 	<br>	
 	<div align="center">
-	<a href="#this" class="btn" id="write">작성하기</a>
+	<a href="#this" class="btn" id="write" onClick="fn_pick()">작성하기</a>
 	<a href="#this" class="btn" id="list">목록으로</a>
 	</div>
 </form>
@@ -187,7 +189,7 @@ function fn_openBoardList() {
 	
 }
 
-function fn_insertBoard() {
+function fn_insertBoard() { // 유효성체크
 
 	var comSubmit = new ComSubmit("frm"); // 객체생성
 	comSubmit.setUrl("<c:url value='/shop/goodsWrite.do' />"); // url설정
@@ -224,18 +226,16 @@ function fn_insertBoard() {
         $("#GOODS_SELL_PRICE").focus();
         return false;
     }
- 	// PICK
-/*     if(!$("#GOODS_PICK").val()){
+/*   	// PICK
+     if(!$("#GOODS_PICK").val()){
         alert("PICK을 선택해주세요.");
-        $("#GOODS_PICK").focus();
         return false;
     }
  	// 사이즈
     if(!$("#GOODS_ATT_SIZE").val()){
         alert("상품사이즈를 선택해주세요.");
-        $("#GOODS_ATT_SIZE").focus();
         return false;
-    } */
+    }  */ 
 	 // 컬러
     if(!$("#GOODS_ATT_COLOR").val()){
         alert("상품컬러를 입력해주세요.");
@@ -254,8 +254,31 @@ function fn_insertBoard() {
 	
 }
 
+function fn_chk() {
+	
+	
+	var obj = $("[name=PICK]");
+	var chkArray = new Array(); //배열 선언
 
+	$('input:checkbox[name=PICK]:checked').each(function() { //체크된 값을 가져옴
+		chkArray.push(this.value);
+	});
+	$('#GOODS_PICK').val(chkArray);
 
+	alert($('#GOODS_PICK').val());
+
+	
+	var obj1 = $("[name=SIZE]");
+	var chkArray1 = new Array(); //배열 선언
+
+	$('input:checkbox[name=SIZE]:checked').each(function() { //체크된 값을 가져옴
+		chkArray1.push(this.value);
+	});
+	$('#GOODS_ATT_SIZE').val(chkArray1);
+
+	alert($('#GOODS_ATT_SIZE').val());
+		
+}
 
 </script>
 

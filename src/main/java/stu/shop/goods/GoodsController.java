@@ -28,13 +28,6 @@ public class GoodsController {
 	
 	Logger log = Logger.getLogger(this.getClass()); //로그
 	
-	   public static final int pagingSet = 5;
-	   private int currentPage = 1;
-	   private int totalCount;
-	   private int blockCount = 16;
-	   private int blockPage = 10;
-	   private String pagingHtml;
-
 	   //페이징 숫자
 	
 	@Resource(name="goodsService")
@@ -70,14 +63,42 @@ public class GoodsController {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/shop/cateGoodsList/{cate}/{orderBy}.do", method=RequestMethod.GET)
-	public ModelAndView cateList(@PathVariable String cate, @PathVariable String orderBy, CommandMap commandMap) throws Exception {
-		ModelAndView mv = new ModelAndView();
+	@RequestMapping(value="/shop/goodsList/{cate}/{orderBy}.do")
+    public ModelAndView openBoardList(@PathVariable String cate, @PathVariable String orderBy, CommandMap commandMap,
+			@RequestParam(value = "keyword", defaultValue="") String keyword, HttpServletRequest request ) throws Exception{
+    	ModelAndView mv = new ModelAndView("/shop/cateGoodsList");
+    	commandMap.put("cate", cate);
+    	request.setAttribute("keyword", keyword);
+    	
+    	if( "NewItem".equals(orderBy) ) { // 신상품순
+			commandMap.put("orderBy", "GOODS_DATE");
+			commandMap.put("orderSort", "DESC");
+		}else if( "favorite".equals(orderBy) ) { //인기상품
+			commandMap.put("orderBy", "GOODS_READCNT");
+			commandMap.put("orderSort", "DESC");
+		}else if( "low".equals(orderBy) ) { // 낮은가격순
+			commandMap.put("orderBy", "GOODS_SELL_PRICE");
+			commandMap.put("orderSort", "ASC");
+		}else if( "high".equals(orderBy) ) { // 높은가격순
+			commandMap.put("orderBy", "GOODS_SELL_PRICE");
+			commandMap.put("orderSort", "DESC");
+		}
+    	mv.addObject("category", cate);
+    	String filePath_temp = request.getContextPath() + "/file/";
+		mv.addObject("path", filePath_temp);
+		request.setAttribute("path", filePath_temp);
+    	return mv;
+    }
+	
+	
+	@RequestMapping(value="/shop/cateGoodsList/{cate}/{orderBy}.do")
+	public ModelAndView selectGoodsList(@PathVariable String cate, @PathVariable String orderBy, CommandMap commandMap,
+			@RequestParam(value = "keyword", defaultValue="") String keyword, HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("jsonView");
 		List<Map<String,Object>> list = null;
-
-		mv.setViewName("shop/cateGoodsList");
-
+		
+		System.out.println("검색어: " + keyword);
 		System.out.println("카테고리 = " + cate);
 		System.out.println("카테고리 순서 =" + orderBy);
 		
@@ -99,24 +120,47 @@ public class GoodsController {
 			commandMap.put("orderSort", "DESC");
 		}
 			
-		list = goodsService.cateGoodsList(commandMap.getMap());
+		list = goodsService.cateGoodsList(commandMap.getMap(), keyword);
 		
-		System.out.println("dd"+list.get(0).get("TOTAL_COUNT"));
+		/*
+		 * System.out.println("dd"+list.get(0).get("TOTAL_COUNT"));
+		 * list.get(0).get("TOTAL_COUNT");
+		 */
 		
-		list.get(0).get("TOTAL_COUNT"); 
-		
-		mv.addObject("total", list.get(0).get("TOTAL_COUNT"));
 		mv.addObject("list", list);
+		if(list.size() > 0){
+            mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
+        }
+        else{
+            mv.addObject("TOTAL", 0);
+        }
 		mv.addObject("category", cate);
 
 		return mv;
 	}
 	
+//	@RequestMapping(value="/shop/cateGoodsList11/{cate}/{orderBy}.do", method=RequestMethod.GET)
+//	public ModelAndView cateList(CommandMap commandMap, @PathVariable String cate, @PathVariable String orderBy,
+//			@RequestParam(value = "keyword", defaultValue="") String keyword, HttpServletRequest request) throws Exception {
+//		
+//		ModelAndView mv = new ModelAndView("shop/cateGoodsList");
+//		
+//		request.setAttribute("keyword", keyword);
+//		
+//		String filePath_temp = request.getContextPath() + "/file/";
+//		System.out.println(filePath_temp);
+//		mv.addObject("path", filePath_temp);
+//		mv.addObject("category", cate);
+//		request.setAttribute("path", filePath_temp);
+//
+//		return mv;
+//	}
+	
 	@RequestMapping(value="/shop/goodsDetail.do") // url 
 	public ModelAndView goodsDetail(CommandMap commandMap) throws Exception { // 베스트 상품 리스트 출력
 		
 		ModelAndView mv = new ModelAndView("shop/goodsDetail"); // 보낼 url
-		Map<String,Object> map = goodsService.goodsDetail(commandMap.getMap());
+		Map<String,Object> map = goodsService.selectGoodsDetail(commandMap.getMap());
 		System.out.println("IDX = "+commandMap.getMap());
 		System.out.println("map = " + map);
 		

@@ -67,9 +67,9 @@ SELECT
 	
 	
 	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 카테고리별 순서출력 -->
+		<include refid="common.pagingPre"/>
 		<![CDATA[
-			SELECT AAA.* FROM(
-				SELECT COUNT(*) OVER() AS TOTAL_COUNT, AA.* FROM(
+			
 					SELECT ROW_NUMBER() OVER (ORDER BY GS.GOODS_NO DESC) RNUM,
 						gs.GOODS_NO,
 						gs.GOODS_CATEGORY,
@@ -82,27 +82,26 @@ SELECT
 						gs.GOODS_KEYWORD,
 						gs.GOODS_READCNT, 
 						gs.GOODS_PICK, 
-						up.UPLOAD_SAVE_NAME,
 						att.GOODS_ATT_COLOR
 						FROM
-							GOODS GS ,UPLOAD UP, GOODS_ATTRIBUTE ATT
-								WHERE GS.GOODS_NO = UP.GOODS_NO AND GS.GOODS_NO = ATT.GOODS_NO
-	               					  AND UP.GOODS_NO = ATT.GOODS_NO
+							GOODS GS ,GOODS_ATTRIBUTE ATT
+								WHERE GS.GOODS_NO = ATT.GOODS_NO
 	               					  AND GS.GOODS_CATEGORY = #{cate}
-	               					  ) AA
-	               					  	) AAA
-	               					  		WHERE AAA.RNUM BETWEEN 0 AND 28
+
 		]]>
+		
+		<include refid="common.pagingPost"/>
 		<if test="orderBy != '' and orderBy != 'null'">
 			<![CDATA[
 				ORDER BY AAA.${orderBy} ${orderSort} 
 			]]>
-		</if> 
+		</if> 		
 	</select>
+
 	
 	
 	
-	<select id="goodsDetail" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
+	<select id="selectGoodsDetail" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
 		<![CDATA[
 			SELECT 
 				gs.GOODS_NO,
@@ -118,13 +117,11 @@ SELECT
 				gs.GOODS_PICK,	
 				att.GOODS_ATT_COLOR,
 				att.GOODS_ATT_SIZE,
-				att.GOODS_ATT_AMOUNT,
-				up.REVIEW_NO,
-				up.UPLOAD_SAVE_NAME
+				att.GOODS_ATT_AMOUNT
+				
 			FROM 
-				GOODS GS ,UPLOAD UP, GOODS_ATTRIBUTE ATT
-			WHERE GS.GOODS_NO = UP.GOODS_NO AND GS.GOODS_NO = ATT.GOODS_NO
-	              AND UP.GOODS_NO = ATT.GOODS_NO
+				GOODS GS, GOODS_ATTRIBUTE ATT
+			WHERE GS.GOODS_NO = ATT.GOODS_NO
 	           	  AND GS.GOODS_NO = #{IDX}	
 
 		]]>

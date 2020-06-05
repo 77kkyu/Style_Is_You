@@ -25,14 +25,13 @@ public class GoodsDao extends AbstractDao{
 	
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> cateGoodsList(Map<String, Object> map) throws Exception { // 카테고리 별 상품
-		
-		   return (List<Map<String,Object>>) selectList("goods.cateGoodsList" , map); 
+		System.out.println("카테고리리스트"+map);
+	    return (List<Map<String,Object>>) selectPagingList("goods.cateGoodsList" , map); 
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> goodsDetail(Map<String, Object> map) throws Exception { // 상품 디테일
-		
-		   return (Map<String,Object>) selectOne("goods.goodsDetail" , map); 
+	public Map<String, Object> selectGoodsDetail(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("goods.selectGoodsDetail", map);
 	}
 	
 	public void goodsHitCnt(Map<String,Object> map) throws Exception { // 조회수 증가
@@ -41,6 +40,10 @@ public class GoodsDao extends AbstractDao{
 	
 	public void insertGoods(Map<String, Object> map) throws Exception { // 상품 등록
 		insert("goods.goodsInsert", map);
+	}
+	
+	public void updateGoods(Map<String, Object> map) throws Exception{
+		update("goods.updateGoods", map);
 	}
 	
 	public void goodsAttribute(Map<String, Object> map) throws Exception { // 상품속성

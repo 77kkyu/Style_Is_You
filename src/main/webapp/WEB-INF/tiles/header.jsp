@@ -127,11 +127,11 @@ li {
     <ul class="flex-menu">
       <li><a href="http://localhost:8080/stu/shop/bestGoodsList.do">BEST</a></li>
       <li><a href="http://localhost:8080/stu/shop/newGoodsList.do">NEW</a></li>
-      <li><a href="http://localhost:8080/stu/shop/cateGoodsList/outer/NewItem.do">OUTER</a></li>
-      <li><a href="http://localhost:8080/stu/shop/cateGoodsList/top/NewItem.do">TOP</a></li>
-      <li><a href="http://localhost:8080/stu/shop/cateGoodsList/one-piece/NewItem.do">ONE-PIECE</a></li>
-      <li><a href="http://localhost:8080/stu/shop/cateGoodsList/bottom/NewItem.do">BOTTOM</a></li>
-      <li><a href="http://localhost:8080/stu/shop/cateGoodsList/acc/NewItem.do">ACC</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/outer/NewItem.do">OUTER</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/top/NewItem.do">TOP</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/one-piece/NewItem.do">ONE-PIECE</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/bottom/NewItem.do">BOTTOM</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/acc/NewItem.do">ACC</a></li>
     </ul>
     <br>
     <div class="bar">
