@@ -43,21 +43,78 @@ public class AdminMainController {
 		ModelAndView mv = new ModelAndView("admin/order_admin_a");
 		
 		String order_state = "0";
+<<<<<<< HEAD
 		if(request.getParameter("order_state") != null && request.getParameter("order_state") != ""){
 
 			order_state = request.getParameter("order_state");
+=======
+		System.out.println("뷰에서 받는값:"+request.getParameter("os"));
+		if(request.getParameter("os") != null && request.getParameter("os") != ""){
+
+			order_state = request.getParameter("os");
+>>>>>>> origin/syk_06-05_1
         }
 		commandMap.put("order_state", order_state);
 		
 		List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
+<<<<<<< HEAD
 		System.out.println("order_a:"+order_a);
 		
 		mv.addObject("order_a", order_a);
 			
+=======
+		System.out.println("order_state:"+order_state);
+		
+		if (order_a.isEmpty()) {
+			mv.addObject("order_a", order_a);
+			mv.addObject("order_state", order_state);
+		}else {
+			mv.addObject("order_a", order_a);
+		}
+
+		System.out.println("mv:"+mv);	
+>>>>>>> origin/syk_06-05_1
 		return mv;
 	}
 	
 	
+<<<<<<< HEAD
+=======
+	  // state변경 
+	  
+	  @RequestMapping(value="/order_admin_a.do", method = RequestMethod.POST)
+	  public ModelAndView order_state(CommandMap commandMap,HttpServletRequest
+	  request) throws Exception {
+	  
+	  ModelAndView mv = new ModelAndView("admin/order_admin_a");
+	  
+	  String order_state = "0"; String order_no = "";
+	  //System.out.println("뷰에서 받는값:"+request.getParameter("os"));
+	  
+	  if(request.getParameter("os") != null && request.getParameter("os") != ""){	  
+		  order_state = request.getParameter("os"); 
+	  }
+	  if(request.getParameter("order_no") != null && request.getParameter("order_no") != ""){	  
+		  order_no = request.getParameter("order_no"); 
+	  }
+	  
+	  commandMap.put("order_state",order_no);
+	  commandMap.put("order_state",order_state);
+	  
+	  adminMainService.order_state(commandMap);
+	  //System.out.println("order_a:"+order_a);
+	  
+	  List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
+	  
+	  
+	  
+	  
+	  
+	  mv.addObject("order_a", order_a);
+	  
+	  return mv; }
+	 
+>>>>>>> origin/syk_06-05_1
 }
 
 

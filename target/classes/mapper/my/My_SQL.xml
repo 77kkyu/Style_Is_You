@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="my">
+	
+	<select id="my_side" parameterType="hashmap" resultType="hashmap"> <!-- adminMain대쉬보드 -->
+		<![CDATA[
+			select member_grade, member_total, point_total, 
+	        (select count(coupon_status_no) from coupon_status where member_no = m.member_no and coupon_use_state = 1 ) cp_cnt,
+	        (select count(like_no) from goods_like where member_no = m.member_no and like_delete = 1) lno_cnt
+			from member m, point p
+			where m.member_no = p.member_no
+			and m.member_no = 3
+		]]>
+	</select>
+
+	
+	
+
+
+</mapper>
