@@ -24,9 +24,26 @@
   
   	<put-attribute name="body" value="/WEB-INF/views/shop/{1}.jsp"/>
   	
+
   </definition> 
  
   
+
+  </definition>
+  
+  <definition name="login/*" extends="base">
+  
+  	<put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp"/>
+  	
+  </definition>
+  
+  <definition name="my/*" extends="base">
+  
+  	<put-attribute name="body" value="/WEB-INF/views/my/{1}.jsp"/>
+  	
+  </definition>
+
+
   
   
   

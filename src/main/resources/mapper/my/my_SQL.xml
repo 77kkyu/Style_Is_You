@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="my">
+	
+	<!-- 로그인 한 회원의 상품 주문 일자, 총 주문 금액, 주문상태 출력 -->
+	<select id="selectOrderList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				ORDER_DATE,
+				ORDER_TOTAL_ORDER_PRICE,
+				ORDER_STATE 
+			FROM 
+				ORDER_LIST 
+			WHERE 
+				MEMBER_NO = #{MEMBER_NO}
+		]]>
+	</select>
+	
+	<!-- 로그인 한 회원의 구매한 상품명, 상품속성 번호 출력 -->
+	<select id="selectOrderList2" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				g.GOODS_NAME,
+				o.GOODS_ATT_NO,
+				m.MEMBER_NO 
+			FROM 
+				GOODS g,
+				ORDER_DETAIL o,
+				MEMBER m 
+			WHERE 
+				g.GOODS_NO = o.GOODS_NO 
+			AND 
+				MEMBER_NO = #{MEMBER_NO}
+		]]>
+	</select>
+	
+	<!-- 로그인 한 회원의 정보 출력 (마이페이지 회원정보 수정) -->
+	<select id="memberModify" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MEMBER_NO,
+				MEMBER_ID,
+				MEMBER_NAME,
+				MEMBER_PASSWD,
+				TO_CHAR(MEMBER_BIRTH,'YYYY/MM/DD') MEMBER_BIRTH,
+				MEMBER_EMAIL,
+				MEMBER_PHONE,
+				MEMBER_ZIPCODE,
+				MEMBER_ADDR1,
+				MEMBER_ADDR2 
+			FROM 
+				MEMBER 
+			WHERE 
+				MEMBER_NO = #{MEMBER_NO}
+		]]>
+	</select>
+	
+	
+	<!-- 회원 정보 수정 처리 -->
+	<update id="memberModifyAction" parameterType="hashmap">
+	<![CDATA[
+		UPDATE MEMBER SET
+			MEMBER_PASSWD = #{MEMBER_PASSWD},
+			MEMBER_EMAIL = #{MEMBER_EMAIL},
+			MEMBER_PHONE = #{MEMBER_PHONE},
+			MEMBER_ZIPCODE = #{MEMBER_ZIPCODE},
+			MEMBER_ADDR1 = #{MEMBER_ADDR1},
+			MEMBER_ADDR2 = #{MEMBER_ADDR2},
+			MEMBER_BIRTH = #{MEMBER_BIRTH} 
+		WHERE 
+			MEMBER_NO = #{MEMBER_NO}
+	]]>
+	</update>
+	
+	<update id="memberDelete">
+		UPDATE MEMBER SET 
+			MEMBER_DELETE = '1' 
+		WHERE 
+			MEMBER_NO = #{MEMBER_NO}
+	</update>
+
+	
+		
+</mapper>

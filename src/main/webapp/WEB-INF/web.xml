@@ -53,5 +53,10 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:config/spring/context-*.xml</param-value>
   	</context-param>
+  	
+  	<!-- 세션 시간 1시간 설정 -->
+  	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
 
 </web-app>
