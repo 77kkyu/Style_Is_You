@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+<<<<<<< HEAD
 import javax.servlet.http.HttpServletRequest;
+=======
+>>>>>>> origin/05.29-K
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -12,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+<<<<<<< HEAD
 import stu.common.common.CommandMap;
 
+=======
+>>>>>>> origin/05.29-K
 @Controller
 public class AdminMainController {
 	
@@ -22,11 +28,17 @@ public class AdminMainController {
 	@Resource(name="adminMainService")
 	private AdminMainService adminMainService;
 	
+<<<<<<< HEAD
 	/* mvc:annotation-driven을 선언하면 HandlerMethodArgumentResolver가 Map형식일때 동작을 못함 해서
 	 * 기본 Map형식이 아닌 map을 가지는 클래스를 만들어 사용 commandMap */
 	// adminMain
 	@RequestMapping(value="/adminMain.do", method = RequestMethod.GET)
 	public ModelAndView adminView(CommandMap commandMap) throws Exception {
+=======
+	// adminMain
+	@RequestMapping(value="/adminMain.do", method = RequestMethod.GET)
+	public ModelAndView adminView(Map<String,Object> commandMap) throws Exception {
+>>>>>>> origin/05.29-K
 		
 		ModelAndView mv = new ModelAndView("admin/adminMain");
 		
@@ -37,6 +49,7 @@ public class AdminMainController {
 	}
 	
 	// order_admin_a
+<<<<<<< HEAD
 	@RequestMapping(value="/order_admin_a.do")
 	public ModelAndView order_admin_a(CommandMap commandMap,HttpServletRequest request) throws Exception {
 		
@@ -75,10 +88,21 @@ public class AdminMainController {
 		System.out.println("mv:"+mv);	
 
 		}
+=======
+	@RequestMapping(value="/order_admin_a")
+	public ModelAndView order_admin_a(Map<String,Object> commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("admin/order_admin_a");
+		
+		List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
+		mv.addObject("order_a", order_a);
+			
+>>>>>>> origin/05.29-K
 		return mv;
 	}
 	
 	
+<<<<<<< HEAD
 
 
 	  // state변경 
@@ -116,6 +140,8 @@ public class AdminMainController {
 	  return mv; 
 	  }
 
+=======
+>>>>>>> origin/05.29-K
 }
 
 

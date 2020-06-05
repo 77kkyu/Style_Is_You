@@ -22,10 +22,14 @@
 </head>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<div style="width: 200px;height: 150px;background-color: #F78181;text-align: center;">
 =======
 	<div style="width: 200px;height: 150px;background-color: #2E9AFE;text-align: center;">
 >>>>>>> origin/syk_06-05_1
+=======
+	<div style="width: 200px;height: 150px;background-color: #F78181;text-align: center;">
+>>>>>>> origin/05.29-K
 		<br />
 		<h2>관리자페이지</h2>
 		<p>Admin</p>

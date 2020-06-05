@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+<<<<<<< HEAD
 import stu.common.common.CommandMap;
 import stu.common.dao.AbstractDao;
 
@@ -15,11 +16,21 @@ public class AdminDao extends AbstractDao{
 	
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> dashBoard(CommandMap map) throws Exception { //adminMain대쉬보드 
+=======
+import stu.common.dao.AbstractDao;
+
+@Repository("adminDao")
+public class AdminDao extends AbstractDao{
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> dashBoard(Map<String,Object> map) throws Exception { //adminMain대쉬보드 
+>>>>>>> origin/05.29-K
 		
 		return (List<Map<String,Object>>) dashBoard("admin.dash_count",map);
 	}
 	
 	@SuppressWarnings("unchecked")
+<<<<<<< HEAD
 	public List<Map<String,Object>> order_admin_a(CommandMap map) throws Exception { //adminMain대쉬보드 
 		
 		return (List<Map<String,Object>>) order_admin_a("admin.order_admin_a",map.getMap());
@@ -30,4 +41,12 @@ public class AdminDao extends AbstractDao{
 		order_state("admin.order_state",map.getMap());
 	}
 
+=======
+	public List<Map<String,Object>> order_admin_a(Map<String,Object> map) throws Exception { //adminMain대쉬보드 
+		
+		return (List<Map<String,Object>>) order_admin_a("admin.order_admin_a",map);
+	}
+
+	
+>>>>>>> origin/05.29-K
 }

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 찾기 결과</title>
+<title>아이디 찾기 결과</title>
 
 <style>
 	.Action2 {
@@ -26,7 +26,7 @@
 	<br>
 	<br>
 	
-	<p align="center" style="font-size:35px;">${MEMBER_NAME }님의 비밀번호는 <u>${MEMBER_PASSWD }</u> 입니다.</p>
+	<p align="center" style="font-size:35px;">${MEMBER_NAME }님의 아이디는 <u>${MEMBER_ID }</u> 입니다.</p>
 	
 	<br />
 	

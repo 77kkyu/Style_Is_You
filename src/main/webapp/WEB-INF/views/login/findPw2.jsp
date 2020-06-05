@@ -52,7 +52,7 @@
 	<br>
 	<br>
 	
-	<form name="frm" method="post" action="/stu/findPwAction.do">
+	<form name="frm" method="post" action="/stu/findPw2Action.do">
 	<table align="center" width="500" style="margin:auto;">
 			<input type="hidden" name="MEMBER_ID" value="${MEMBER.MEMBER_PASSWD }">
 		<tr>
@@ -62,7 +62,7 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="text" name="MEMBER_PHONE" placeholder="휴대전화 입력" size="80" style="padding:15px;">
+				<input type="text" name="MEMBER_EMAIL" placeholder="이메일 입력" size="80" style="padding:15px;">
 			</td>
 		</tr>
 	</table>

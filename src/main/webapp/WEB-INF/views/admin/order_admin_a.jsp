@@ -2,11 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
 =======
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
     
 >>>>>>> origin/syk_06-05_1
+=======
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
+>>>>>>> origin/05.29-K
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,6 +23,7 @@
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
+<<<<<<< HEAD
 <link href="css/dashboard.css" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="css/justified-nav.css" rel="stylesheet">
@@ -150,10 +155,21 @@ function ComSubmit(opt_formId) {
 </head>
 <body>
 <div class="container">
+=======
+<link href="dashboard.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="justified-nav.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+
+>>>>>>> origin/05.29-K
 	<div class="masthead">
 		<h3 class="text-muted">Project name</h3>
 		<nav>
 			<ul class="nav nav-justified">
+<<<<<<< HEAD
 <<<<<<< HEAD
 				<li id="o1"><a href="/stu/order_admin_a.do">신규주문</a></li>
 				<li id="o2"><a href="#">입금확인</a></li>
@@ -271,6 +287,14 @@ function ComSubmit(opt_formId) {
 			</ul>
 			
 >>>>>>> origin/syk_06-05_1
+=======
+				<li class="active"><a href="#">신규주문</a></li>
+				<li><a href="#">입금확인</a></li>
+				<li><a href="#">배송준비</a></li>
+				<li><a href="#">수취확인</a></li>
+				<li><a href="#">거래완료</a></li>
+			</ul>
+>>>>>>> origin/05.29-K
 		</nav>
 	</div>
 
@@ -278,9 +302,15 @@ function ComSubmit(opt_formId) {
 		<table class="table table-striped">
 			<colgroup>
 			<col width="10%" />
+<<<<<<< HEAD
 			<col width="14%" />
 			<col width="*" />
 			<col width="10%" />
+=======
+			<col width="10%" />
+			<col width="*" />
+			<col width="5%" />
+>>>>>>> origin/05.29-K
 			<col width="15%" />
 			<col width="15%" />
 			</colgroup>
@@ -294,6 +324,7 @@ function ComSubmit(opt_formId) {
 					<th scope="col">진행상황</th>
 				</tr>
 			</thead>
+<<<<<<< HEAD
 			<form id="order_select">
 			<tbody>
 			<c:choose>
@@ -313,6 +344,20 @@ function ComSubmit(opt_formId) {
 							<td><a href="#" id="od_detail" >상세보기</a>
 							<br /><input type="button" onclick="order_chk(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼"></td>
 >>>>>>> origin/syk_06-05_1
+=======
+			<tbody>
+			<c:choose>
+				<c:when test="${fn:length(order_a) > 0}">
+					<c:forEach items="${order_a }" var="order_a">
+						<tr>
+							<td>${order_a.order_date }<br />${order_a.order_no }</td>
+							<td>${order_a.member_id }<br />${order_a.member_name }</td>
+							<td ><a href="#this" name="title">${order_a.goods_name }</a>
+								<input type="hidden" id="member_no" value="${order_a.member_no }"></td>
+							<td>${order_a.hap_cnt }건</td>
+							<td>${order_a.order_total_pay_price }원</td>
+							<td>[상세보기]<br />[주문확인]</td>
+>>>>>>> origin/05.29-K
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -323,7 +368,10 @@ function ComSubmit(opt_formId) {
 				</c:otherwise>
 			</c:choose>
 		</tbody>
+<<<<<<< HEAD
 		</form>
+=======
+>>>>>>> origin/05.29-K
 		</table>
 	</div>
 

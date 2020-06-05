@@ -30,7 +30,6 @@ document.getElementById("slide").src=imgs[n];
 setTimeout("rotate()",interval);
 
 }
-
 </script>
 
 <style>
@@ -109,7 +108,7 @@ setTimeout("rotate()",interval);
 <div align="center">
 <h3>NEW ITEM</h3>
 </div>
-
+<input type="hidden" name="MEMBER_NO">
 <c:set var="i" value="0" />
  <c:set var="j" value="4" />
  <table style="padding:200px; margin-top:-150px;">
