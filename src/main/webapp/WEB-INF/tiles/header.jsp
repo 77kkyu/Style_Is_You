@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
+<%
+	String sessionId = (String)session.getAttribute("MEMBER_NAME");
+%>
+
+
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -104,12 +112,33 @@ li {
 <div class="pagetop">
 
 <div align="right" style="margin-right:200px">
-<form>
+<form name="frm">
 	<table>
 		<tr>
+		<%
+			if(sessionId == null) { // 로그인 전 (세션 값 X)
+		%>
 			<td><a href="/stu/loginForm.do">로그인</a></td> <td>|</td>
 			<td><a href="/stu/joinForm.do">회원가입</a></td> <td>|</td>
-			<td><a href="">마이페이지</a></td> <td>|</td>
+		<%
+			} else if(sessionId != null) { // 로그인 후 (세션 값 O)
+		%>
+			<td>Hi, ${MEMBER_NAME }님!</td> <td>|</td>
+			<td><a href="/stu/logout.do">로그아웃</a></td> <td>|</td>
+		<%
+			}
+		%>
+		<%
+			if(sessionId != null) {
+		%>
+			<td><a href="/stu/my/myMain.do">마이페이지</a></td> <td>|</td>
+		<%
+			} else {
+		%>
+			<td><a href="/stu/loginForm.do">마이페이지</a></td> <td>|</td>
+		<%
+			}
+		%>
 			<td><a href="">고객센터</a></td> <td>|</td>
 			<td><a href="">장바구니</a></td>
 			<td><a href="">쿠폰</a></td>

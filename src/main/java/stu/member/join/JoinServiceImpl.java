@@ -21,6 +21,13 @@ public class JoinServiceImpl implements JoinService {
 	public void insertMember(Map<String, Object> map) throws Exception {
 		joinDAO.insertMember(map);
 	}
+	
+	// 아이디 중복 체크
+		@Override
+		public int selectIdCheck(String MEMBER_ID) throws Exception {
+			return joinDAO.selectIdCheck(MEMBER_ID);
+		}
+
 
 	
 	

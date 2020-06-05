@@ -14,10 +14,12 @@
 		]]>
 	</select>
 	
+	<!-- 핸드폰으로 아이디 찾기 -->
 	<select id="selectFindId" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT 
-				MEMBER_ID 
+				MEMBER_ID,
+				MEMBER_NAME
 			FROM 
 				MEMBER 
 			WHERE 
@@ -27,17 +29,48 @@
 		]]>
 	</select>
 	
+	<!-- 핸드폰으로 비밀번호 찾기 -->
 	<select id="selectFindPw" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT 
-				MEMBER_PASSWD 
+				MEMBER_PASSWD,
+				MEMBER_NAME
 			FROM 
 				MEMBER 
 			WHERE 
-				MEMBER_ID = #{MEMBER_ID},
-				MEMBER_PHONE = #{MEMBER_PHONE}  
-			OR 
-				MEMBER_ID = #{MEMBER_ID},
+				MEMBER_NAME = #{MEMBER_NAME} 
+			AND 
+				MEMBER_PHONE = #{MEMBER_PHONE}
+		]]>
+	</select>
+	
+	<!-- 이메일로 아이디 찾기 -->
+	<select id="selectFindId2" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MEMBER_ID,
+				MEMBER_NAME
+			FROM 
+				MEMBER 
+			WHERE 
+				MEMBER_NAME = #{MEMBER_NAME} 
+			AND 
+				MEMBER_EMAIL = #{MEMBER_EMAIL}  
+		]]>
+	</select>
+	
+	
+	<!-- 이메일로 비밀번호 찾기 -->
+	<select id="selectFindPw2" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MEMBER_PASSWD,
+				MEMBER_NAME
+			FROM 
+				MEMBER 
+			WHERE 
+				MEMBER_NAME = #{MEMBER_NAME} 
+			AND 
 				MEMBER_EMAIL = #{MEMBER_EMAIL}
 		]]>
 	</select>
@@ -49,7 +82,13 @@
 				MEMBER_ID,
 				MEMBER_PASSWD,
 				MEMBER_NO,
-				MEMBER_NAME
+				MEMBER_NAME,
+				MEMBER_PHONE,
+				MEMBER_EMAIL,
+				MEMBER_ZIPCODE,
+				MEMBER_ADDR1,
+				MEMBER_ADDR2,
+				TO_CHAR(MEMBER_BIRTH, 'YYYY/MM/DD') MEMBER_BIRTH
 			FROM 
 				MEMBER 
 			WHERE 
@@ -58,5 +97,10 @@
 				MEMBER_PASSWD = #{MEMBER_PASSWD}
 		]]>
 	</select>
+	
+	<!-- 마지막 로그인 갱신 -->
+	<update id="lastLogin" parameterType="String">
+		UPDATE MEMBER SET MEMBER_LOG = SYSDATE WHERE MEMBER_NO = #{MEMBER_NO}
+	</update>
 	
 </mapper>

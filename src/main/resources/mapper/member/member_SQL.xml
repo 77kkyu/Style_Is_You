@@ -24,7 +24,7 @@
 			VALUES
 			(
 				MEMBER_NO_SEQ.NEXTVAL,
-				#{MEMBER_ID},
+				TRIM (BOTH FROM #{MEMBER_ID}),
 				#{MEMBER_PASSWD},
 				#{MEMBER_NAME},
 				#{MEMBER_BIRTH},
@@ -40,15 +40,11 @@
 		]]>
 	</insert>
 	
-	<select id="selectIdCheck" resultType="hashmap">
-		<![CDATA[
-		SELECT 
-			COUNT(MEMBER_ID) 
-		FROM 
-			MEMBER 
-		WHERE 
-			MEMBER_ID = #{MEMBER_ID}
-		]]>
+	<!-- 아이디 중복확인-->
+	<select id="selectIdCheck" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
+	]]>
 	</select>
 		
 </mapper>

@@ -55,5 +55,38 @@ public class AbstractDao {
 			printQueryId(queryId);
 			return sqlSession.insert(queryId, params);
 		}
+		// 레코드 수정
+		public Object update(String queryId, Object params) {
+			printQueryId(queryId);
+			return sqlSession.update(queryId, params);
+		}
+		// 레코드 삭제
+		public Object delete(String queryId, Object params) {
+			printQueryId(queryId);
+			return sqlSession.delete(queryId, params);
+		}
+		
+		//adminDao
+		public List<Map<String,Object>> dashBoard(String queryId, Object params) { // adminMain대쉬보드 
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}	
+		
+		public List<Map<String,Object>> order_admin_a(String queryId, Object params) { // 주문/배송-신규주문 
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}
+		
+		// 마이 페이지 (메인)
+		public List<Map<String,Object>> orderList(String queryId, Object params) { //  
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}
+		
+		// 상품명, 상품속성번호
+				public List<Map<String,Object>> orderList2(String queryId, Object params) { //  
+					printQueryId(queryId);
+					return sqlSession.selectList(queryId,params);
+				}
 
 }
