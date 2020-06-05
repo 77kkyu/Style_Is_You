@@ -22,11 +22,7 @@
 	</select>
 	
 	
-<<<<<<< HEAD
-	<select id="order_admin_a" parameterType="hashmap" resultType="hashmap"> <!-- adminMain대쉬보드 -->
-=======
 	<select id="order_admin_a" parameterType="hashmap" resultType="hashmap"> <!-- 주문현황 보기 -->
->>>>>>> origin/syk_06-05_1
 		<![CDATA[
 			select l.order_date, d.order_no, m.member_no, m.member_id, m.member_name, g.goods_name,
   			      l.order_total_order_price, l.order_total_pay_price, l.order_state,
@@ -39,20 +35,13 @@
 			and l.order_no = d.order_no
 			and d.goods_no = g.goods_no
 			
-<<<<<<< HEAD
-
-					and l.order_state = #{order_state}
-
-=======
 			and l.order_state = #{order_state}
->>>>>>> origin/syk_06-05_1
-						
+
 			and D.ORDER_DETAIL_NO in (select min(ORDER_DETAIL_NO) as Dno from order_detail group by order_no)
 		]]>
 	</select>
 	
-<<<<<<< HEAD
-=======
+
 	<select id="order_state" parameterType="hashmap" > <!-- 주문상태 변경 -->
 		<![CDATA[
 			UPDATE order_list
@@ -65,7 +54,6 @@
 	</select>
 	
 	
->>>>>>> origin/syk_06-05_1
 
 
 </mapper>

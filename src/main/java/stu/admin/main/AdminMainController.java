@@ -43,26 +43,26 @@ public class AdminMainController {
 		ModelAndView mv = new ModelAndView("admin/order_admin_a");
 		
 		String order_state = "0";
-<<<<<<< HEAD
+
 		if(request.getParameter("order_state") != null && request.getParameter("order_state") != ""){
 
 			order_state = request.getParameter("order_state");
-=======
+
 		System.out.println("뷰에서 받는값:"+request.getParameter("os"));
 		if(request.getParameter("os") != null && request.getParameter("os") != ""){
 
 			order_state = request.getParameter("os");
->>>>>>> origin/syk_06-05_1
+
         }
 		commandMap.put("order_state", order_state);
 		
 		List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
-<<<<<<< HEAD
+
 		System.out.println("order_a:"+order_a);
 		
 		mv.addObject("order_a", order_a);
 			
-=======
+
 		System.out.println("order_state:"+order_state);
 		
 		if (order_a.isEmpty()) {
@@ -73,13 +73,14 @@ public class AdminMainController {
 		}
 
 		System.out.println("mv:"+mv);	
->>>>>>> origin/syk_06-05_1
+
+		}
 		return mv;
 	}
 	
 	
-<<<<<<< HEAD
-=======
+
+
 	  // state변경 
 	  
 	  @RequestMapping(value="/order_admin_a.do", method = RequestMethod.POST)
@@ -112,9 +113,9 @@ public class AdminMainController {
 	  
 	  mv.addObject("order_a", order_a);
 	  
-	  return mv; }
-	 
->>>>>>> origin/syk_06-05_1
+	  return mv; 
+	  }
+
 }
 
 

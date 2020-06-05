@@ -10,10 +10,7 @@ public interface AdminMainService {
 	List<Map<String, Object>> dashBoard(CommandMap commandMap) throws Exception; // AdminMain대쉬보드
 	
 	List<Map<String, Object>> order_admin_a(CommandMap map) throws Exception; // 주문/배송-신규주문건
-<<<<<<< HEAD
-=======
-	
+
 	void order_state(CommandMap map) throws Exception; // 주문/배송-신규주문건
->>>>>>> origin/syk_06-05_1
 
 }

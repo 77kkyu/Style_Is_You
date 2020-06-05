@@ -14,7 +14,7 @@
 			    UPLOAD_NO = #{IDX}
 		]]>
 	</select>
-<<<<<<< HEAD
+
 	
 	<sql id="pagingPre"> 
 		<![CDATA[ 
@@ -34,7 +34,6 @@
 			WHERE 	AAA.RNUM BETWEEN #{START} AND #{END} 
 		]]> 
 	</sql>
-=======
->>>>>>> origin/syk_06-05_1
+
 
 </mapper>
