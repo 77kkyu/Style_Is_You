@@ -97,16 +97,27 @@ public class AbstractDao {
 		}
 
 	
-		//adminDao
-		public List<Map<String,Object>> dashBoard(String queryId, Object params) { // adminMain대쉬보드 
-			printQueryId(queryId);
-			return sqlSession.selectList(queryId,params);
-		}	
-		
-		public List<Map<String,Object>> order_admin_a(String queryId, Object params) { // 주문/배송-신규주문 
-			printQueryId(queryId);
-			return sqlSession.selectList(queryId,params);
-		}
+	      //adminDao
+	      public List<Map<String,Object>> dashBoard(String queryId, Object params) { // adminMain대쉬보드 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }   
+	      
+	      public List<Map<String,Object>> order_admin_a(String queryId, Object params) { // 주문/배송-신규주문 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      
+	      public List<Map<String,Object>> order_state(String queryId, Object params) { // 주문상태 변경 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      
+	      //myDao
+	      public List<Map<String,Object>> myDash(String queryId, Object params) { // mypage대쉬보드 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
 		
 
 		// 마이 페이지 (메인)

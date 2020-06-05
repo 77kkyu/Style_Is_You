@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,24 +15,228 @@
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="dashboard.css" rel="stylesheet">
+<link href="css/dashboard.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="justified-nav.css" rel="stylesheet">
+<link href="css/justified-nav.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
+<!-- 
+<script type="text/javascript">
+
+	/* 필요한거 이페이지가 돌아왔을때 order_state값이 0이면  id="o1"에 추가class="active" */
+	
+function gfn_isNull(str) {
+	if (str == null) return true;
+	if (str == "NaN") return true;
+	if (new String(str).valueOf() == "undefined") return true;    
+    var chkStr = new String(str);
+    if( chkStr.valueOf() == "undefined" ) return true;
+    if (chkStr == null) return true;    
+    if (chkStr.toString().length == 0 ) return true;   
+    return false; 
+}
+
+function ComSubmit(opt_formId) {
+	alert(opt_formId);
+	this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
+	this.url = "";
+	
+	
+	if(this.formId == "commonForm"){
+		$("#commonForm")[0].reset();
+	}
+	
+	this.setUrl = function setUrl(url){
+		this.url = url;
+	};
+	
+	this.addParam = function addParam(key, value){
+		$("#"+this.formId).append($("<input type='hidden' name='"+key+"' id='"+key+"' value='"+value+"' >"));
+	};
+	
+	this.submit = function submit(){
+		var frm = $("#"+this.formId)[0];
+		frm.action = this.url;
+		frm.method = "post";
+		frm.submit();	
+	};
+}	
+	
+
+
+	$(document).ready(function(){
+		$("#o1").on("click", function(e){
+			e.preventDefault();
+			fn_openBoardList();
+		});		
+	});
+	
+	function fn_openBoardList(){
+		
+		var comSubmit = new ComSubmit();
+		var state = 0;
+		comSubmit.setUrl("<c:url value='/stu/order_admin_a.do' />");
+		comSubmit.addParam("order_state", state);
+		comSubmit.submit();
+	}
+</script>
+ -->
+ 
+ <script>
+ $(document).ready(function(){
+		alert('동작함');
+	});
+
+	
+ $(document).ready(function(){
+
+	 /* var result = "${order_a}";
+	 alert(result); */
+	 
+		$("#od_detail").on("click", function(e){
+			alert("상세보기");
+
+			/* e.preventDefault();
+			fn_openBoardList(); */
+		});		
+	});
+	
+ function order_chk(state, no){
+	 var state = state;
+	 var no = no;
+	 if(confirm("확인하시겠습니까?")){
+	 $.ajax({
+         url: "/stu/order_admin_a.do",
+         data : {"order_state": state, "order_no": no},
+         type: "post",
+         async:false,
+         success : function(data){
+        	 alert("주문상태가 변경되었습니다.");
+             window.opener.location.reload();
+             self.close();
+         }
+      })}else{
+         return;
+      }
+	}
+
+ </script>
+ 
 </head>
 <body>
 <div class="container">
-
 	<div class="masthead">
 		<h3 class="text-muted">Project name</h3>
 		<nav>
 			<ul class="nav nav-justified">
-				<li class="active"><a href="#">신규주문</a></li>
-				<li><a href="#">입금확인</a></li>
-				<li><a href="#">배송준비</a></li>
-				<li><a href="#">수취확인</a></li>
-				<li><a href="#">거래완료</a></li>
+			<c:choose>
+				<c:when test="${fn:length(order_a) > 0}">
+					<c:forEach items="${order_a }" var="state" begin="0" end="0">
+					<c:choose>
+						<c:when test="${state.ORDER_STATE eq '0' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=0">신규주문</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=0">신규주문</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${state.ORDER_STATE eq '1' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=1">입금확인</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=1">입금확인</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${state.ORDER_STATE eq '2' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=2">배송준비</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=2">배송준비</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${state.ORDER_STATE eq '3' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=3">배송중</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=3">배송중</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${state.ORDER_STATE eq '4' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=4">수취확인</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=4">수취확인</a></li>
+						</c:otherwise>
+					</c:choose>				
+					<c:choose>
+						<c:when test="${state.ORDER_STATE eq '5' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=5">거래완료</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=5">거래완료</a></li>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+				<c:forEach items="${order_state }" var="state" begin="0" end="0">
+					<c:choose>
+						<c:when test="${state eq '0' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=0">신규주문</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=0">신규주문</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${state eq '1' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=1">입금확인</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=1">입금확인</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${state eq '2' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=2">배송준비</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=2">배송준비</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${state eq '3' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=3">배송중</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=3">배송중</a></li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${state eq '4' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=4">수취확인</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=4">수취확인</a></li>
+						</c:otherwise>
+					</c:choose>				
+					<c:choose>
+						<c:when test="${state eq '5' }">
+						<li class="active"><a href="/stu/order_admin_a.do?os=5">거래완료</a></li>
+						</c:when>
+						<c:otherwise>
+						<li><a href="/stu/order_admin_a.do?os=5">거래완료</a></li>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>				
 			</ul>
+			
 		</nav>
 	</div>
 
@@ -39,9 +244,9 @@
 		<table class="table table-striped">
 			<colgroup>
 			<col width="10%" />
-			<col width="10%" />
+			<col width="14%" />
 			<col width="*" />
-			<col width="5%" />
+			<col width="10%" />
 			<col width="15%" />
 			<col width="15%" />
 			</colgroup>
@@ -55,18 +260,20 @@
 					<th scope="col">진행상황</th>
 				</tr>
 			</thead>
+			<form id="order_select">
 			<tbody>
 			<c:choose>
 				<c:when test="${fn:length(order_a) > 0}">
-					<c:forEach items="${order_a }" var="order_a">
+					<c:forEach items="${order_a }" var="order">					
 						<tr>
-							<td>${order_a.order_date }<br />${order_a.order_no }</td>
-							<td>${order_a.member_id }<br />${order_a.member_name }</td>
-							<td ><a href="#this" name="title">${order_a.goods_name }</a>
-								<input type="hidden" id="member_no" value="${order_a.member_no }"></td>
-							<td>${order_a.hap_cnt }건</td>
-							<td>${order_a.order_total_pay_price }원</td>
-							<td>[상세보기]<br />[주문확인]</td>
+							<td>${order.ORDER_DATE }<br />${order.ORDER_NO }</td>
+							<td>${order.MEMBER_ID }<br />${order.MEMBER_NAME }</td>
+							<td ><a href="#this" name="title">${order.GOODS_NAME }</a>
+								<input type="hidden" id="member_no" value="${order.MEMBER_NO }"></td>
+							<td>${order.HAP_CNT }건</td>
+							<td>${order.ORDER_TOTAL_PAY_PRICE }원</td>
+							<td><a href="#" id="od_detail" >상세보기</a>
+							<br /><input type="button" onclick="order_chk(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼"></td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -77,6 +284,7 @@
 				</c:otherwise>
 			</c:choose>
 		</tbody>
+		</form>
 		</table>
 	</div>
 
