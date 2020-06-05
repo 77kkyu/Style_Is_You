@@ -201,5 +201,5 @@ function _movePage(value) {
    }else {
       eval(gfv_eventName + "(value);");
    }
-
+}
 }

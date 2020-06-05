@@ -28,9 +28,6 @@
   </definition> 
  
   
-
-  </definition>
-  
   <definition name="login/*" extends="base">
   
   	<put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp"/>
