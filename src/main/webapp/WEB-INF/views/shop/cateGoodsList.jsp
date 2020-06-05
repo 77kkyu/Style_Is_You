@@ -8,82 +8,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <title>상품리스트</title>
 <head>
+
+<link href="<c:url value="/css/board.css"/>" rel="stylesheet">
+ 
+<link href="<c:url value="/css/btn.css"/>" rel="stylesheet">
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/ui.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/ui.css'/>" />
 
 <!-- bx슬라이더 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> -->
 
 <style>
-.list li {
-  border-bottom: 1px solid #ccc;
-  display: table;
-  border-collapse: collapse;
-  width: 100%;
-}
-.inner {
-  display: table-row;
-  overflow: hidden;
-}
-.li-img {
-  display: table-cell;
-  vertical-align: middle;
-  width: 40%;
-  padding-right: 1em;
-}
-.li-img img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.li-text {
-  display: table-cell;
-  vertical-align: middle;
-  width: 60%;
-}
-.li-head {
-  margin: 0;
-}
-.li-sub {
-  margin: 0;
-}
 
-@media all and (min-width: 40em) {
-  .list {
-    padding: 0.5em;
-    max-width: 70em;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-  .list li {
-    padding: 0.5em;
-    display: block;
-    width: 50%;
-    float: left;
-    background: none;
-    border: 0;
-  }
-  .inner {
-    display: block;
-  }
-  .li-img, .li-text, .inner {
-    display: block;
-    width: auto;
-    padding: 0;
-  }
-  .li-text {
-    padding: 0.5em 0;
-  }
-}
 
-@media all and (min-width: 60em) {
-  .list li {
-    width: 33.33333333%;
-  }
-}
 
 
 
@@ -106,8 +46,7 @@
 
 <br><br><br><br>
 <div align="right" style="margin-right:210px">
-<form>
-	<table>
+	
 		<tr>
 			<td>
 			<div style="margin-right:930px">
@@ -119,8 +58,7 @@
 			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
 			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/high.do">높은가격순</a></td> <td>|</td>
 		</tr>
-	</table>
-</form>
+	
 </div>
 
 
@@ -134,7 +72,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		
+
 		</tbody>
 		</table>
 
@@ -212,20 +150,21 @@ function fn_selectGoodsListCallback(data) {
 
 		var str = "";
 		$.each(data.list, function(key, value) {
-							var imgpath = "";
-							var Pick = value.GOODS_PICK.replace(",", " ");
+							var imgpath = "<img src='D:\sts4-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\stu\file\+value.GOODS_THUMBNAIL+'.JPG'>"
+							var Pick = value.GOODS_PICK.replace(",", " ").replace(",", " ");
 
-							if(value.GOODS_THUMBNAIL == NUll) {
+							/* if(value.GOODS_THUMBNAIL == null) {
 								imgpath = "<div class='card-header'>"
 							}else {
 								imgpath = "<div class='card-header' style='background-image:url(\"" + $('#path').val() + value.GOODS_THUMBNAIL + "\");'>"
-							}
-							
+							} 
+							http://localhost:8080/stu/file/b830bd58-681f-4675-85a1-66c885c85ed6 */
 							str =  "<div class='card'>"
 								+		"<a href='#this' name='title'>"
-								+        imgpath
+								+ 			imgpath + "<br>"
 								+ 					Pick +	"<br>"
 								+		value.GOODS_NAME +	"<br>"
+								+		value.GOODS_SELL_PRICE 
 								+	   "</a>"
 								+	   "</div>";
 								

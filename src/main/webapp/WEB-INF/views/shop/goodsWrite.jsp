@@ -135,7 +135,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 	
 	<br>	
 	<div align="center">
-	<a href="#this" class="btn" id="write" onClick="fn_pick()">작성하기</a>
+	<a href="#this" class="btn" id="write" onClick="fn_chk()">작성하기</a>
 	<a href="#this" class="btn" id="list">목록으로</a>
 	</div>
 </form>

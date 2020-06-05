@@ -81,8 +81,10 @@ SELECT
 						gs.GOODS_DATE,
 						gs.GOODS_KEYWORD,
 						gs.GOODS_READCNT, 
-						gs.GOODS_PICK, 
-						att.GOODS_ATT_COLOR
+						gs.GOODS_PICK,
+						gs.GOODS_THUMBNAIL,
+						att.GOODS_ATT_COLOR,
+						att.GOODS_ATT_SIZE
 						FROM
 							GOODS GS ,GOODS_ATTRIBUTE ATT
 								WHERE GS.GOODS_NO = ATT.GOODS_NO
