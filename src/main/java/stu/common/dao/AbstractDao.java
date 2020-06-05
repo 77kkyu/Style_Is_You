@@ -116,19 +116,9 @@ public class AbstractDao {
 			return sqlSession.selectList(queryId);
 		}
 		
-		@SuppressWarnings("rawtypes")
-		public List selectList(String queryId, Object params) {
-			printQueryId(queryId);
-			return sqlSession.selectList(queryId, params);
-		}
-		
-		public Object update(String queryId, Object params){
-			printQueryId(queryId);
-			return sqlSession.update(queryId, params);
-		}
-		
+
 		@SuppressWarnings("unchecked")
-		public Object selectPagingList(String queryId, Object params){
+		public Object selectPagingList1(String queryId, Object params){
 			printQueryId(queryId);
 			Map<String,Object> map = (Map<String,Object>)params;
 			
