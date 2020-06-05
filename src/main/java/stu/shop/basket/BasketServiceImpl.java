@@ -50,9 +50,14 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	}
 
 	@Override
-	public void insertGoodsLike(CommandMap commandMap, HttpServletRequest request) {
+	public void insertGoodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		basketDao.insertGoodsLike(commandMap);
 		
+	}
+
+	@Override
+	public List<Map<String, Object>> basketSelectList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		return (List<Map<String, Object>>) basketDao.basketSelectList(commandMap);
 	}
 
 	

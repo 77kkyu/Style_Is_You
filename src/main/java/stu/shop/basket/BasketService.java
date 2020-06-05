@@ -20,6 +20,8 @@ public interface BasketService {
 
 	Map<String, Object> selectGoodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception;
 
-	void insertGoodsLike(CommandMap commandMap, HttpServletRequest request);
+	void insertGoodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception;
+
+	List<Map<String, Object>> basketSelectList(CommandMap commandMap, HttpServletRequest request) throws Exception;
 
 }

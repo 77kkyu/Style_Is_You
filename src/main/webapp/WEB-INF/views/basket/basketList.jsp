@@ -169,14 +169,14 @@ function fn_all_order(){
 
 function fn_select_order(){
 	var obj = $("[name=chk]");
-    var chkArray = new Array(); // 배열 선언
+    var SELECT_BASKET_NO = new Array(); // 배열 선언
 
     $('input:checkbox[name=chk]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
-        chkArray.push(this.value);
+    	SELECT_BASKET_NO.push(this.value);
     });
     var comSubmit = new ComSubmit();
 	comSubmit.setUrl("<c:url value='/order/basketSelectOrder.do' />");
-	comSubmit.addParam("ARRAY_BASKET_NO", chkArray);
+	comSubmit.addParam("SELECT_BASKET_NO", SELECT_BASKET_NO);
 	comSubmit.submit();
 }
 

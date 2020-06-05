@@ -24,9 +24,12 @@ public class OrderController {
 	@Resource(name="basketService")
 	private BasketService basketService;
 	
+	@Resource(name="orderService")
+	private OrderService orderService;
+	
 	//장바구니 모두구매
 	@RequestMapping(value="/order/basketAllOrderWrite.do")
-	public ModelAndView basketAllOrderWrite(CommandMap commandMap) throws Exception {
+	public ModelAndView basketAllOrderSelect(CommandMap commandMap) throws Exception {
 		ModelAndView mv = new ModelAndView("order/orderWrite");
 		List<Map<String,Object>> list = basketService.basketList(commandMap);
 		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
@@ -38,16 +41,38 @@ public class OrderController {
 	}
 	
 	//장바구니 선택상품 구매
-		@RequestMapping(value="/order/basketSelectOrder.do")
-		public ModelAndView basketSelectOrder(CommandMap commandMap) throws Exception {
+	@RequestMapping(value="/order/basketSelectOrder.do")
+	public ModelAndView basketSelect(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("order/orderWrite");
+		System.out.println(commandMap.getMap());
+		List<Map<String,Object>> list = basketService.basketSelectList(commandMap, request);
+		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
+		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
+		Map<String,Object> map = orderService.orderMemberInfo(commandMap, request);
+		//MEMBER_NAME, MEMBER_PHONE, MEMBER_ZIPCODE,
+		//MEMBER_ADDR1, MEMBER_ADDR2, POINT_TOTAL
+		mv.addObject("list", list);
+		mv.addObject("map", map);
+		System.out.println(list);
+		System.out.println(map);
+		return mv;
+	}
+	
+	//장바구니 선택상품 구매
+		@RequestMapping(value="/order/useCoupon.do")
+		public ModelAndView useCoupon(CommandMap commandMap, HttpServletRequest request) throws Exception {
 			ModelAndView mv = new ModelAndView("order/orderWrite");
-			//select basketlist구하기 (체크한것만-arraylist)
-			List<Map<String,Object>> list = basketService.basketList(commandMap);
+			System.out.println(commandMap.getMap());
+			List<Map<String,Object>> list = basketService.basketSelectList(commandMap, request);
 			//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
 			//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
-			
+			Map<String,Object> map = orderService.orderMemberInfo(commandMap, request);
+			//MEMBER_NAME, MEMBER_PHONE, MEMBER_ZIPCODE,
+			//MEMBER_ADDR1, MEMBER_ADDR2, POINT_TOTAL
 			mv.addObject("list", list);
+			mv.addObject("map", map);
 			System.out.println(list);
+			System.out.println(map);
 			return mv;
 		}
 

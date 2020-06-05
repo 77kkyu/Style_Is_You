@@ -25,9 +25,9 @@
 		<![CDATA[
 			UPDATE BASKET 
 			SET
-				BASKET_GOODS_AMOUNT = #{BASKET_GOODS_AMOUNT}
+				BASKET_GOODS_AMOUNT = ${BASKET_GOODS_AMOUNT}
 			WHERE
-				BASKET_NO = #{BASKET_NO}
+				BASKET_NO = ${BASKET_NO}
 		]]>
 	</update>
 	
@@ -68,14 +68,31 @@
 			VALUES
 			(
 				LIKE_NO_SEQ.NEXTVAL,
-				#{GOODS_NO},
+				${GOODS_NO},
 				1,
 				SYSDATE
 			)
 		]]>
 	</insert>
 	
-	
+	<select id="basketSelectList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT DISTINCT
+				A.GOODS_NO, A.BASKET_NO, A.MEMBER_NO,
+				A.BASKET_GOODS_AMOUNT, A.GOODS_ATT_NO,
+				E.GOODS_ATT_SIZE, E.GOODS_ATT_COLOR, E.GOODS_ATT_AMOUNT,
+				D.GOODS_NAME, D.GOODS_SELL_PRICE, D.GOODS_SALE_PRICE,
+				U.UPLOAD_SAVE_NAME, M.MEMBER_GRADE
+			FROM 
+				BASKET A, GOODS D, GOODS_ATTRIBUTE E, UPLOAD U, MEMBER M 
+			WHERE 
+				A.MEMBER_NO=1
+			AND A.BASKET_NO IN (${SELECT_BASKET_NO})
+		    AND A.GOODS_NO=D.GOODS_NO
+        	AND A.GOODS_ATT_NO=E.GOODS_ATT_NO
+			AND A.GOODS_NO=U.GOODS_NO
+		]]>
+	</select>
 	
 
 </mapper>

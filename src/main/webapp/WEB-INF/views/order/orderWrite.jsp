@@ -21,9 +21,12 @@
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
 <script type="text/javascript">
 
+//기본 주문금액 계산
 function fn_allPrice(){
 	
 	var array1 = document.getElementsByName("goods_sell_price");
@@ -32,21 +35,19 @@ function fn_allPrice(){
 	
 	var len = array2.length;
 	var hap = 0;
-	
 	for (var i=0; i<len; i++){
 		var sell = array1[i].value;
 		var amt = array2[i].value;
 		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
 		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
-		array3[i].value = pri;
-		
+		array3[i].value = pri;	
 	}
-	
 	var fee = document.getElementById("order_fee").value;
 	pay = Number(hap)+Number(fee);
 	
-	document.getElementById("pay_price").value = pay; //상품금액+배송비
-	document.getElementById("all_order_price").value = pay;
+	document.getElementById("pay_price1").value = pay; //all_order_price-할인금액
+	document.getElementById("pay_price2").value = pay; //최종결제금액
+	document.getElementById("all_order_price").value = pay; //상품금액+배송비
 	
 	var array7 = document.getElementsByName("member_grade");
 	var grade = array7[0].value;
@@ -60,6 +61,32 @@ function fn_allPrice(){
 	}
 	var point = Number(hap)*Number(val); //등급별 적립율
 	document.getElementById("point").value = point;
+}
+ //주문자정보와 동일
+function fn_chkinfo(){
+	var chk = document.getElementById("chkinfo").checked;
+	if(chk==true){
+		document.getElementById("ORDER_NAME").value = "${map.MEMBER_NAME}";
+		document.getElementById("ORDER_PHONE").value = "${map.MEMBER_PHONE}";
+		document.getElementById("ORDER_ZIPCODE").value = "${map.MEMBER_ZIPCODE}";
+		document.getElementById("ORDER_ADDR1").value = "${map.MEMBER_ADDR1}";
+		document.getElementById("ORDER_ADDR2").value = "${map.MEMBER_ADDR2}";
+	}else if(chk==false){
+		document.getElementById("ORDER_NAME").value = "";
+		document.getElementById("ORDER_PHONE").value = "";
+		document.getElementById("ORDER_ZIPCODE").value = "";
+		document.getElementById("ORDER_ADDR1").value = "";
+		document.getElementById("ORDER_ADDR2").value = "";
+	}
+} 
+
+//쿠폰적용팝업 띄우기
+function fn_coupon(){
+	var url = "/order/useCoupon.do";
+    var name = "useCoupon";
+    var option = "width = 800, height = 1000, top = 100, left = 200, location = no"
+	
+	window.open(url,name,option);
 	
 }
 
@@ -173,7 +200,7 @@ function fn_allPrice(){
           			</td>
           			<td> = 결제예정금액</td>
           			<td style="text-align:right">
-          				<input type="text" id="pay_price" value="" style="width:100px; text-align:right; border:none;" readonly>원
+          				<input type="text" id="pay_price1" value="" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           		</tr>
           		<tr rowspan="3">
@@ -181,8 +208,8 @@ function fn_allPrice(){
           				쿠폰할인
           			</td>
           			<td colspan="3" >
-          				<input type="text" id="" value="0" style="width:100px; text-align:right; border:none;" readonly> 원 &nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="button" value="쿠폰적용"></td>
+          				<input type="text" id="" value="0" style="width:100px; text-align:right; border:none;" readonly> 원 &nbsp;&nbsp;&nbsp;
+          				<input type="button" value="쿠폰적용" onclick="fn_coupon()"></td>
           			<td>
           				적립혜택
           			</td>
@@ -196,7 +223,7 @@ function fn_allPrice(){
           			<td colspan="3" >
           				<input type="text" id="order_use_point" value="0" style="width:100px; text-align:right"> P &nbsp;&nbsp;&nbsp;&nbsp;
           				<input type="button" value="사용" onclick="">
-          				(포인트 P)
+          				(포인트 ${map.POINT_TOTAL }P)
           			</td>
           			<td>
           				포인트적립
@@ -210,7 +237,7 @@ function fn_allPrice(){
           				선결제배송비
           			</td>
           			<td colspan="3" >
-          				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right" readonly>원
+          				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           			<td>
           			</td>
@@ -224,7 +251,7 @@ function fn_allPrice(){
             <div class="table-responsive">
           	<p>
           		<b>받으시는분(상품받으실분)</b> &nbsp;
-          		<input type="checkbox" name="allchk" id="allchk" onclick="fn_allchk()">
+          		<input type="checkbox" name="chkinfo" id="chkinfo" onclick="fn_chkinfo()">
           		주문자 정보와 동일
           	</p>
             <table class="table table-striped">
@@ -236,29 +263,29 @@ function fn_allPrice(){
               	<tr>
               		<td>이름</td>
               		<td style="text-align:left">
-                  		<input type="text" name="ORDER_NAME" value="" style="width:100px;" >
+                  		<input type="text" id="ORDER_NAME" value="" style="width:100px;" >
                   	</td>
 				</tr>
 				<tr>
               		<td>휴대폰번호</td>
               		<td style="text-align:left">
-                  		<input type="text" name="name" value="" style="width:120px;" >
+                  		<input type="text" id="ORDER_PHONE" value="" style="width:120px;" >
                   	</td>
 				</tr>
 				<tr>
               		<td rowspan="3">주소</td>
               		<td style="text-align:left">
-                  		<input type="text" name="name" value="" style="width:80px;" >
+                  		<input type="text" id="ORDER_ZIPCODE" value="" style="width:80px;" >
                   	</td>
 				</tr>
 				<tr>
               		<td style="text-align:left">
-                  		<input type="text" name="name" value="" style="width:250px;" >
+                  		<input type="text" id="ORDER_ADDR1" value="" style="width:250px;" >
                   	</td>
 				</tr>
 				<tr>
               		<td style="text-align:left">
-                  		<input type="text" name="name" value="" style="width:250px;" >
+                  		<input type="text" id="ORDER_ADDR2" value="" style="width:250px;" >
                   	</td>
 				</tr>
               </tbody>
@@ -277,7 +304,7 @@ function fn_allPrice(){
               	<tr>
               		<td>총 결제금액</td>
               		<td style="text-align:left">
-                  		<input type="text" name="name" value="" style="width:100px;" >
+                  		<input type="text" id="pay_price2" value="" style="width:100px;" readonly>
                   	</td>
 				</tr>
 				<tr>
