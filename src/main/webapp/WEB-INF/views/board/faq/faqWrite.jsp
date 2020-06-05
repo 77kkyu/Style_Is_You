@@ -36,25 +36,25 @@
 		$(document).ready(function(){
 			$("#list").on("click", function(e){ //목록으로 버튼
 				e.preventDefault();
-				fn_openNoticeList();
+				fn_openFaqList();
 			});
 			
 			$("#write").on("click", function(e){ //작성하기 버튼
 				e.preventDefault();
-				fn_insertNotice();
+				fn_insertFaq();
 			});
 
 		});
 		
-		function fn_openNoticeList(){
+		function fn_openFaqList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openNoticeList.do' />");
+			comSubmit.setUrl("<c:url value='/board/openFaqList.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_insertNotice(){
+		function fn_insertFaq(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/insertNotice.do' />");
+			comSubmit.setUrl("<c:url value='/board/insertFaq.do' />");
 			comSubmit.submit();
 		}
 

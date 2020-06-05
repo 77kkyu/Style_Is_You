@@ -25,7 +25,14 @@
 					
 					<td width="100" bgcolor="f6f6f6">문의유형</td>
 					<td align="left" class="gray" style="padding-left:10px; text-align:left;">
-						<select id="group" name="group" id="qna_category" style="width:90%;"><option value="61">1. 상품문의 드려요~♥</option><option value="62">2. 배송문의 드려요~♥</option><option value="63">3. 배송전 변경,취소 문의드려요~♥</option><option value="64">4. 교환,반품 문의드려요~♥</option><option value="65">5. 입금결제 문의드려요~♥</option><option value="66">6. 기타문의드려요~♥</option></select>
+						<select id="group" name="group" id="qna_category" style="width:90%;">
+						<option value="61">1. 상품문의 드려요~♥</option>
+						<option value="62">2. 배송문의 드려요~♥</option>
+						<option value="63">3. 배송전 변경,취소 문의드려요~♥</option>
+						<option value="64">4. 교환,반품 문의드려요~♥</option>
+						<option value="65">5. 입금결제 문의드려요~♥</option>
+						<option value="66">6. 기타문의드려요~♥</option>
+						</select>
 					</td>
 					
 				</tr>
@@ -40,11 +47,11 @@
 				<tbody><tr>
 					<td width="100" bgcolor="f6f6f6">글쓴이</td>
 					<td align="left" class="gray" style="padding-left:10px;text-align:left;">
-						<input type="text" name="writer" id="member_name" style="width:90%;" maxlength="50" value="">
+						<input type="text" name="writer" id="member_name" style="width:90%;" maxlength="50" value="MEMBER_NAME">
 					</td>
 					<td width="100" bgcolor="f6f6f6" class="gray_6">이메일</td>
 					<td align="left" class="gray" style="padding-left:10px; text-align:left;">
-						<input autocomplete="off" type="text" name="email" id="member_email" style="width:90%;" maxlength="100" value="">
+						<input autocomplete="off" type="text" name="email" id="member_email" style="width:90%;" maxlength="100" value="MEMBER_EMAIL">
 					</td>
 				</tr>
 				</tbody></table>

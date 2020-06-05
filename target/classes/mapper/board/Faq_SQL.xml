@@ -16,17 +16,28 @@
 	</select>
 	
 	<!-- FAQ 리스트 등록하기 -->
-	<insert id="insertFaq" parameterType="hashmap"
-	useGeneratedKeys="true" keyProperty="NOTICE_NO">
-
+	<insert id="insertFaq" parameterType="hashmap" useGeneratedKeys="true" keyProperty="NOTICE_NO">
+		<selectKey keyProperty="NOTICE_NO" resultType="string" order="BEFORE">
+			SELECT NOTICE_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
 		<![CDATA[
 			INSERT INTO NOTICE
-				( NOTICE_NO, NOTICE_GUBUN, NOTICE_TITLE, NOTICE_CONTENT )
+			(
+				NOTICE_NO ,
+				NOTICE_GUBUN ,
+			    NOTICE_TITLE , 
+			    NOTICE_CONTENT , 
+			    NOTICE_DATE ,
+			    MEMBER_NO 
+			)
 			VALUES
-				( #{NOTICE_NO} ,
-				'1' ,
-			#{NOTICE_TITLE}, 
-			#{NOTICE_CONTENT}
+			(
+				#{NOTICE_NO} ,
+				'1' , 
+				#{NOTICE_TITLE} ,
+				#{NOTICE_CONTENT} ,
+			    SYSDATE ,
+			    1     
 			)
 		]]>
 	</insert>

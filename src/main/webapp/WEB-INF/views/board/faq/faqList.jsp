@@ -10,9 +10,17 @@
 		<thead id = "test" >	
 
 		</thead>
-<!-- 		<tbody> -->
+<!-- 		<span class="more"> -->
+<%-- 		<span class="blind">#{NOTICE_TITLE }</span> --%>
+<!-- 		</span> -->
+<!-- 		<div class="board"> -->
+<!-- 		<ui class="list"> -->
+<%-- 		<li>#{NOTICE_CONTENT }</li> --%>
+<!-- 		</ui> -->
+<!-- 		</div> -->
+		<tbody>
 			
-<!-- 		</tbody> -->
+		</tbody>
 	</table>
 	
 	<div id="PAGE_NAVI"></div>
@@ -63,7 +71,7 @@
 		}
 
 		function hideShow(id){
-			console.log("test", id);
+			alert("안녕하세요");
 		}
 		
 		function fn_selectFaqListCallback(data){
@@ -91,13 +99,13 @@
 				
 					str += '<tr>' + 
 								'<th>' + value.NOTICE_NO + '</th>' + 
-								'<th class="notice_title">' +
-									'<a href="hideShow(this.id)" name="notice_title">' + value.NOTICE_TITLE + '</a>' +
+								'<th class="notice_title">' + 
+									'<a href="hideShow(id)" name="notice_title">' + value.NOTICE_TITLE + '</a>' + 
 									'<input type="hidden" name="notice_title" value=' + value.NOTICE_NO + '>' + 
 								'</th>' + 
-								'<tr style="display: none;" id="'+value.NOTICE_NO+'">' +
-								'<td></td><td>' + value.NOTICE_CONTENT + '</td>' +
-								'</tr>' +
+								'<tr style="display: none;" id="'+value.NOTICE_CONTENT+'">' + 
+								'<td></td><td>' + value.NOTICE_CONTENT + '</td>' + 
+								'</tr>' + 
 							'</tr>';
 				});
 				$("#test").append(str);
@@ -109,6 +117,18 @@
 				}); */
 			}
 		}
+
+// 		$(document).ready(function(){
+// 			  $('.more').click(function(){
+// 			    if($('.more').hasClass('more')){
+// 			       $('.more').addClass('close').removeClass('more');
+// 			       $('.board').css('visibility', 'visible');
+// 			    }else if($('.close').hasClass('close')){
+// 			       $('.close').addClass('more').removeClass('close');  
+// 			       $('.board').css('visibility', 'hidden');
+// 			    }
+// 			  });
+// 			});
 	</script>	
 </body>
 </html>

@@ -21,3 +21,57 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 .wdp_90 {width:90%}
 .btn {border-radius:3px;padding:5px 11px;color:#fff !important; display:inline-block; background-color:#6b9ab8; border:1px solid #56819d;vertical-align:middle}
 .pad_5 {padding: 5px;}
+
+/* .more { */
+/*   display:block; */
+/*   width: 55px; */
+/*   height: 16px; */
+/*   background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png'); */
+/*   background-position: 0 -78px; */
+/* } */
+
+/* .blind { */
+/*   position: absolute; */
+/*   overflow: hidden; */
+/*   clip: rect(0 0 0 0); */
+/*   margin: -1px; */
+/*   width: 1px; */
+/*   height: 1px; */
+/* } */
+
+/* .more:hover, .close:hover { */
+/*   cursor:pointer; */
+/* } */
+
+/* .close { */
+/*   display:block; */
+/*   background-image:url('https://s.pstatic.net/static/www/img/2017/sp_nav_v170523.png'); */
+/*   width: 42px; */
+/*   height: 16px; */
+/*   background-position: -166px -78px; */
+/* } */
+
+/* .board { */
+/*   font-family:'돋움'; */
+/*   font-size:13px; */
+/*   position:absolute; */
+/*   top:30px; */
+/*   width:410px; */
+/*   height:135px; */
+/*   background:pink; */
+/*   visibility:hidden; */
+/* } */
+
+/* .list { */
+/*   float:left; */
+/* } */
+
+/* .list li { */
+/*   list-style:none; */
+/*   margin-top:5px; */
+/* } */
+
+/* .list li:hover { */
+/*   text-decoration:underline; */
+/*   cursor:pointer; */
+/* } */
