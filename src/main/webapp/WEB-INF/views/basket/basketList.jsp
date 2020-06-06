@@ -174,10 +174,16 @@ function fn_select_order(){
     $('input:checkbox[name=chk]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
     	SELECT_BASKET_NO.push(this.value);
     });
-    var comSubmit = new ComSubmit();
-	comSubmit.setUrl("<c:url value='/order/basketSelectOrder.do' />");
-	comSubmit.addParam("SELECT_BASKET_NO", SELECT_BASKET_NO);
-	comSubmit.submit();
+    
+    if(SELECT_BASKET_NO[0] != null){
+    	var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/order/basketSelectOrder.do' />");
+		comSubmit.addParam("SELECT_BASKET_NO", SELECT_BASKET_NO);
+		comSubmit.submit();
+    }
+    else{
+    	alert("구매할 상품을 선택해 주세요.");
+    }
 }
 
 

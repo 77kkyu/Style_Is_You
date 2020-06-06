@@ -16,6 +16,7 @@
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="/stu/css/bootstrap-theme.min.css">
 
+
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
 <script src="/stu/js/jquery-3.0.0.min.js"></script>
@@ -23,6 +24,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
+
 <script type="text/javascript">
 
 //기본 주문금액 계산
@@ -78,14 +80,46 @@ function fn_chkinfo(){
 		document.getElementById("ORDER_ADDR2").value = "";
 	}
 } 
-
+/* 
 //쿠폰적용팝업 띄우기
-
+// Get the modal
+var modal = document.getElementById('myModal');
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];                                          
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+	    modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+ */
 </script>
 
 
 </head>
+
 <body onload="fn_allPrice()">
+
+
+<div id="myModal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">X</span>                                                               
+        <p>Some text in the Modal..</p>
+      </div>
+ 
+</div>
 
     <div class="container">
 
@@ -341,6 +375,5 @@ function fn_chkinfo(){
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
