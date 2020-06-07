@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-<title>adminMain</title>
+<title>admin주문메인</title>
 
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -84,7 +84,7 @@ function ComSubmit(opt_formId) {
  
  <script>
  $(document).ready(function(){
-		alert('동작함');
+		/* alert('동작함'); */
 	});
 
 	
@@ -100,8 +100,8 @@ function ComSubmit(opt_formId) {
 			fn_openBoardList(); */
 		});		
 	});
-	
- function order_chk(state, no){
+ 
+ function order_state(state, no){
 	 var state = state;
 	 var no = no;
 	 if(confirm("확인하시겠습니까?")){
@@ -112,12 +112,27 @@ function ComSubmit(opt_formId) {
          async:false,
          success : function(data){
         	 alert("주문상태가 변경되었습니다.");
-             window.opener.location.reload();
-             self.close();
+         	 location.href = "/stu/order_admin_a.do?os="+state;
+/*              window.opener.location.reload(); */
+             /* self.close(); */
          }
       })}else{
          return;
       }
+	}
+ function order_detail(no){
+	 var no = no;
+	 
+	 $.ajax({
+         url: "/stu/order_detail.do",
+         data : {"order_no": no},
+         type: "post",
+         async:false,
+         success : function(data){
+        	 location.href = "/stu/order_detail.do"; 
+         }
+      })
+      
 	}
 
  </script>
@@ -126,7 +141,7 @@ function ComSubmit(opt_formId) {
 <body>
 <div class="container">
 	<div class="masthead">
-		<h3 class="text-muted">Project name</h3>
+		<h3 class="text-muted">주문배송 관리</h3>
 		<nav>
 			<ul class="nav nav-justified">
 			<c:choose>
@@ -268,12 +283,42 @@ function ComSubmit(opt_formId) {
 						<tr>
 							<td>${order.ORDER_DATE }<br />${order.ORDER_NO }</td>
 							<td>${order.MEMBER_ID }<br />${order.MEMBER_NAME }</td>
+							<c:choose>
+								<c:when test="${order.ORDER_STATE eq '0' }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '1' }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식선택]</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '2' }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식][송장입력]</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '3' }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식][송장번호]</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '4' }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식][송장번호]</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '5' }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식][송장번호]</td>
+								</c:when>
+							</c:choose>
 							<td ><a href="#this" name="title">${order.GOODS_NAME }</a>
 								<input type="hidden" id="member_no" value="${order.MEMBER_NO }"></td>
 							<td>${order.HAP_CNT }건</td>
 							<td>${order.ORDER_TOTAL_PAY_PRICE }원</td>
-							<td><a href="#" id="od_detail" >상세보기</a>
-							<br /><input type="button" onclick="order_chk(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼"></td>
+							<c:choose>
+								<c:when test="${order.ORDER_STATE < 5 }">
+									<td><input type="button" onclick="order_detail(${order.ORDER_NO })" value="상세보기" />
+									<br /><input type="button" onclick="order_state(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼" /></td>
+								</c:when>
+								<c:otherwise>
+									<td><input type="button" onclick="order_detail(${order.ORDER_NO })" value="상세보기" />
+									<br />[거래완료]</td>
+								</c:otherwise>
+							</c:choose>
+							
+							
 						</tr>
 					</c:forEach>
 				</c:when>

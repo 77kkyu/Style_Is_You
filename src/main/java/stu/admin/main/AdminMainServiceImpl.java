@@ -36,4 +36,16 @@ public class AdminMainServiceImpl implements AdminMainService {
 		adminDao.order_state(map);
 	}
 
+	@Override
+	public List<Map<String, Object>> order_detail(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return adminDao.order_detail(commandMap);
+	}
+	
+	@Override
+	public List<Map<String, Object>> order_detail_sub(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return adminDao.order_detail_sub(commandMap);
+	}
+
 }

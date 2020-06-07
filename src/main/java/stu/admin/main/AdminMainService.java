@@ -13,4 +13,8 @@ public interface AdminMainService {
 	
 	void order_state(CommandMap map) throws Exception; // 주문/배송-신규주문건
 
+	List<Map<String, Object>> order_detail(CommandMap commandMap) throws Exception;
+
+	List<Map<String, Object>> order_detail_sub(CommandMap commandMap) throws Exception;
+
 }

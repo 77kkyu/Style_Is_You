@@ -66,7 +66,6 @@ public class AdminMainController {
 	
 	
 	  // state변경 
-	  
 	  @RequestMapping(value="/order_admin_a.do", method = RequestMethod.POST)
 	  public ModelAndView order_state(CommandMap commandMap,HttpServletRequest
 	  request) throws Exception {
@@ -76,14 +75,14 @@ public class AdminMainController {
 	  String order_state = "0"; String order_no = "";
 	  //System.out.println("뷰에서 받는값:"+request.getParameter("os"));
 	  
-	  if(request.getParameter("os") != null && request.getParameter("os") != ""){	  
-		  order_state = request.getParameter("os"); 
+	  if(request.getParameter("order_state") != null && request.getParameter("order_state") != ""){	  
+		  order_state = request.getParameter("order_state"); 
 	  }
 	  if(request.getParameter("order_no") != null && request.getParameter("order_no") != ""){	  
 		  order_no = request.getParameter("order_no"); 
 	  }
 	  
-	  commandMap.put("order_state",order_no);
+	  commandMap.put("order_no",order_no);
 	  commandMap.put("order_state",order_state);
 	  
 	  adminMainService.order_state(commandMap);
@@ -91,14 +90,33 @@ public class AdminMainController {
 	  
 	  List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
 	  
-	  
-	  
-	  
-	  
 	  mv.addObject("order_a", order_a);
 	  
 	  return mv; }
 	 
+	// 주문/변경 상세보기 
+	  @RequestMapping(value="/order_detail.do", method = RequestMethod.POST)
+	  public ModelAndView order_detail(CommandMap commandMap,HttpServletRequest
+	  request) throws Exception {
+	  
+	  ModelAndView mv = new ModelAndView("admin/order_detail");
+	  	  
+	  String order_no = request.getParameter("order_no");
+	  	  	  	  	  	  	  
+	  List<Map<String,Object>> order_detail = adminMainService.order_detail(commandMap);
+	  System.out.println("order_detail:"+order_detail);
+	  
+	  List<Map<String,Object>> order_detail_sub = adminMainService.order_detail_sub(commandMap);
+	  System.out.println("order_detail_sub:"+order_detail_sub);
+	  
+	  mv.addObject("order_detail", order_detail);
+	  mv.addObject("order_detail_sub", order_detail_sub);
+	  
+	  
+	  
+	  return mv; }
+	  
+	  
 }
 
 
