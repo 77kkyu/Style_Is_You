@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -20,7 +20,6 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
 <script src="/stu/js/jquery-3.0.0.min.js"></script>
-<script src="/stu/js/modal-dialog.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
@@ -61,7 +60,7 @@ function fn_allPrice(){
 		val=0.1;
 	}
 	var point = Number(hap)*Number(val); //등급별 적립율
-	document.getElementById("point").value = point;
+	document.getElementById("ORDER_SAVE_POINT").value = point;
 }
 //주문자정보와 동일
 function fn_chkinfo(){
@@ -80,6 +79,12 @@ function fn_chkinfo(){
 		document.getElementById("ORDER_ADDR2").value = "";
 	}
 } 
+
+function fn_order_pay(){
+
+	
+}
+
 /* 
 //쿠폰적용팝업 띄우기
 // Get the modal
@@ -110,17 +115,17 @@ window.onclick = function(event) {
 
 <body onload="fn_allPrice()">
 
-
+<!-- 쿠폰적용
 <div id="myModal" class="modal">
  
-      <!-- Modal content -->
+      Modal content
       <div class="modal-content">
         <span class="close">X</span>                                                               
         <p>Some text in the Modal..</p>
       </div>
  
 </div>
-
+ -->
     <div class="container">
 
       <div class="masthead">
@@ -255,7 +260,7 @@ window.onclick = function(event) {
           				포인트적립
           			</td>
           			<td>
-          				<input type="text" id="point" style="width:100px; text-align:right" readonly> P
+          				<input type="text" id="ORDER_SAVE_POINT" style="width:100px; text-align:right" readonly> P
           			</td>
           		</tr>
           		<tr rowspan="3">
@@ -263,7 +268,7 @@ window.onclick = function(event) {
           				선결제배송비
           			</td>
           			<td colspan="3" >
-          				<input type="text" id="order_fee" value="3000" style="width:100px; text-align:right; border:none;" readonly>원
+          				<input type="text" id="ORDER_FEE" value="3000" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           			<td>
           			</td>
@@ -336,9 +341,9 @@ window.onclick = function(event) {
 				<tr>
               		<td>결제방법</td>
               		<td style="text-align:left">
-                  		<input type="radio" name="name" value="" style="width:30px;">신용카드
+                  		<input type="radio" name="ORDER_PAY_OPTION" value="신용카드" style="width:30px;">신용카드
                   		&nbsp;&nbsp;
-                  		<input type="radio" name="name" value="" style="width:30px;">계좌이체
+                  		<input type="radio" name="ORDER_PAY_OPTION" value="계좌이체" style="width:30px;">계좌이체
                   	</td>
 				</tr>
               </tbody>
@@ -349,8 +354,8 @@ window.onclick = function(event) {
             	<input type="checkbox" name="allchk" id="allchk" onclick="fn_allchk()">
           		(필수)결제서비스 약관에 동의하며, 원활한 배송을 위한 개인정보 제공에 동의합니다.
           		<br><br>
-          		<input type="button" name="all_order" value="장바구니">
-            	<input type="button" name="select_order" value="결제진행">
+          		<input type="button" name="all_order" value="장바구니" onClick="location.href='/basket/basketList.do'">
+            	<input type="button" name="order_pay" value="결제진행" onclick="fn_order_pay()">
             </div>
       
      </form>
