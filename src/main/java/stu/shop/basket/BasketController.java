@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,15 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	public ModelAndView basketList(CommandMap commandMap) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("basket/basketList");
-		
+		/*
+		 * Object MEMBER_NO = "";
+		 * 
+		 * //세션값 가져오기 HttpSession session = request.getSession(); MEMBER_NO =
+		 * (Object)session.getAttribute("MEMBER_NO");
+		 * 
+		 * commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 commandMap.put("MEMBER_NO",
+		 * MEMBER_NO); // 세션 값으로 적용
+		 */
 		List<Map<String,Object>> list = basketService.basketList(commandMap);
 		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
 		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
@@ -62,7 +71,15 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	
 	@RequestMapping(value="/basket/basketAllDelete.do")
 	public ModelAndView basketAllDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		
+		/*
+		 * Object MEMBER_NO = "";
+		 * 
+		 * //세션값 가져오기 HttpSession session = request.getSession(); MEMBER_NO =
+		 * (Object)session.getAttribute("MEMBER_NO");
+		 * 
+		 * commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 commandMap.put("MEMBER_NO",
+		 * MEMBER_NO); // 세션 값으로 적용
+		 */
 		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
 		System.out.println(commandMap.get("MEMBER_NO"));
 		basketService.basketAllDelete(commandMap, request);
@@ -72,6 +89,15 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	@RequestMapping(value="/basket/like.do")
 	public ModelAndView goodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
+		/*
+		 * Object MEMBER_NO = "";
+		 * 
+		 * //세션값 가져오기 HttpSession session = request.getSession(); MEMBER_NO =
+		 * (Object)session.getAttribute("MEMBER_NO");
+		 * 
+		 * commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 commandMap.put("MEMBER_NO",
+		 * MEMBER_NO); // 세션 값으로 적용
+		 */
 		  Map<String,Object> map = basketService.selectGoodsLike(commandMap, request);
 		  String like_cnt = String.valueOf(map.get("LIKE_CNT"));
 		  

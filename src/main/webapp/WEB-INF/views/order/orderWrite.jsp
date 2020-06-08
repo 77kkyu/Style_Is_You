@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="/stu/css/bootstrap-theme.min.css">
 
 
+
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
 <script src="/stu/js/jquery-3.0.0.min.js"></script>
@@ -42,12 +43,12 @@ function fn_allPrice(){
 		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
 		array3[i].value = pri;	
 	}
-	var fee = document.getElementById("order_fee").value;
+	var fee = document.getElementById("ORDER_FEE").value;
 	pay = Number(hap)+Number(fee);
 	
-	document.getElementById("pay_price1").value = pay; //all_order_price-할인금액
-	document.getElementById("pay_price2").value = pay; //최종결제금액
-	document.getElementById("all_order_price").value = pay; //상품금액+배송비
+	document.getElementById("ORDER_TOTAL_ORDER_PRICE").value = hap; //총주문금액
+	document.getElementById("ORDER_TOTAL_PAY_PRICE").value = pay; //(최초,할인들어가기전)최종결제금액
+	document.getElementById("pay_price1").value = pay; //결제예정금액(바꿔야됨)
 	
 	var array7 = document.getElementsByName("member_grade");
 	var grade = array7[0].value;
@@ -81,10 +82,42 @@ function fn_chkinfo(){
 } 
 
 function fn_order_pay(){
-
-	
+		var f = document.orderWrite;
+ 		if( f.ORDER_NAME.value=="" ){
+ 			alert("주문자 이름을 입력해주세요.");
+ 			f.o_name.focus();
+ 			return false;
+ 		}
+ 		if( f.ORDER_PHONE.value==""){
+ 			alert("전화번호를 입력해주세요.");
+ 			f.o_phone.focus(); //커서자동클릭
+ 			return false;
+ 		}
+ 		if( f.ORDER_ZIPCODE.value=="" || f.ORDER_ADDR1.value=="" || f.ORDER_ADDR2.value==""){
+ 			alert("주소를 입력해주세요.");
+ 			return false;
+ 		}
+ 		if( document.getElementsByName("OPTION1").checked==false && document.getElementsByName("OPTION2").checked==false){
+ 			alert("결제방법을 선택해주세요.");
+ 			return false;
+ 		}
+ 		if( f.ORDER_PAY_BANK.value=="" ){
+ 			alert("결제은행을 입력해주세요.");
+ 			f.ORDER_PAY_BANK.focus();
+ 			return false;
+ 		}
+ 		if( f.ORDER_PAY_NAME.value==""){
+ 			alert("결제자명을 입력해주세요.");
+ 			f.ORDER_PAY_NAME.focus(); //커서자동클릭
+ 			return false;
+ 		}
+ 		if( f.orderChk.value==""){
+ 			alert("서비스 약관에 동의해주세요.");
+ 			return false;
+ 		}
+ 		
+		f.submit();
 }
-
 /* 
 //쿠폰적용팝업 띄우기
 // Get the modal
@@ -114,8 +147,8 @@ window.onclick = function(event) {
 </head>
 
 <body onload="fn_allPrice()">
-
-<!-- 쿠폰적용
+<!-- 
+쿠폰적용
 <div id="myModal" class="modal">
  
       Modal content
@@ -152,7 +185,7 @@ window.onclick = function(event) {
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
-      <form name="orderWrite" action="">
+      <form name="orderWrite" method="post" action="/stu/order/orderPay.do">
           <div class="table-responsive">
           	<p><b>주문작성/결제</b></p>
             <table class="table table-striped">
@@ -222,15 +255,15 @@ window.onclick = function(event) {
           		<tr>
           			<td>주문금액</td>
           			<td style="text-align:right">
-          				<input type="text" id="all_order_price" style="width:100px; text-align:right; border:none;" readonly>원
+          				<input type="text" name="ORDER_TOTAL_ORDER_PRICE" id="ORDER_TOTAL_ORDER_PRICE" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           			<td>- 할인금액</td>
           			<td style="text-align:right">
-          				<input type="text" style="width:100px; text-align:right; border:none;" readonly>원
+          				<input type="text" name="" id="" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           			<td> = 결제예정금액</td>
           			<td style="text-align:right">
-          				<input type="text" id="pay_price1" value="" style="width:100px; text-align:right; border:none;" readonly>원
+          				<input type="text" name="pay_price1" id="pay_price1" value="" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           		</tr>
           		<tr rowspan="3">
@@ -238,7 +271,7 @@ window.onclick = function(event) {
           				쿠폰할인
           			</td>
           			<td colspan="3" >
-          				<input type="text" id="" value="0" style="width:100px; text-align:right; border:none;" readonly> 원 &nbsp;&nbsp;&nbsp;
+          				<input type="text" name="" id="" value="0" style="width:100px; text-align:right; border:none;" readonly> 원 &nbsp;&nbsp;&nbsp;
           				<button id="myBtn">쿠폰적용</button>
           			</td>
           			<td>
@@ -252,7 +285,7 @@ window.onclick = function(event) {
           				포인트
           			</td>
           			<td colspan="3" >
-          				<input type="text" id="order_use_point" value="0" style="width:100px; text-align:right"> P &nbsp;&nbsp;&nbsp;&nbsp;
+          				<input type="text" name="ORDER_USE_POINT" id="ORDER_USE_POINT" value="0" style="width:100px; text-align:right"> P &nbsp;&nbsp;&nbsp;&nbsp;
           				<input type="button" value="사용" onclick="">
           				(포인트 ${map.POINT_TOTAL }P)
           			</td>
@@ -260,7 +293,7 @@ window.onclick = function(event) {
           				포인트적립
           			</td>
           			<td>
-          				<input type="text" id="ORDER_SAVE_POINT" style="width:100px; text-align:right" readonly> P
+          				<input type="text" name="ORDER_SAVE_POINT" id="ORDER_SAVE_POINT" style="width:100px; text-align:right" readonly> P
           			</td>
           		</tr>
           		<tr rowspan="3">
@@ -268,7 +301,7 @@ window.onclick = function(event) {
           				선결제배송비
           			</td>
           			<td colspan="3" >
-          				<input type="text" id="ORDER_FEE" value="3000" style="width:100px; text-align:right; border:none;" readonly>원
+          				<input type="text" id="ORDER_FEE" name="ORDER_FEE" value="3000" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           			<td>
           			</td>
@@ -294,29 +327,29 @@ window.onclick = function(event) {
               	<tr>
               		<td>이름</td>
               		<td style="text-align:left">
-                  		<input type="text" id="ORDER_NAME" value="" style="width:100px;" >
+                  		<input type="text" name="ORDER_NAME" id="ORDER_NAME" value="" style="width:100px;" >
                   	</td>
 				</tr>
 				<tr>
               		<td>휴대폰번호</td>
               		<td style="text-align:left">
-                  		<input type="text" id="ORDER_PHONE" value="" style="width:120px;" >
+                  		<input type="text" name="ORDER_PHONE" id="ORDER_PHONE" value="" style="width:120px;" >
                   	</td>
 				</tr>
 				<tr>
               		<td rowspan="3">주소</td>
               		<td style="text-align:left">
-                  		<input type="text" id="ORDER_ZIPCODE" value="" style="width:80px;" >
+                  		<input type="text" name="ORDER_ZIPCODE" id="ORDER_ZIPCODE" value="" style="width:80px;" >
                   	</td>
 				</tr>
 				<tr>
               		<td style="text-align:left">
-                  		<input type="text" id="ORDER_ADDR1" value="" style="width:250px;" >
+                  		<input type="text" name="ORDER_ADDR1" id="ORDER_ADDR1"value="" style="width:250px;" >
                   	</td>
 				</tr>
 				<tr>
               		<td style="text-align:left">
-                  		<input type="text" id="ORDER_ADDR2" value="" style="width:250px;" >
+                  		<input type="text" name="ORDER_ADDR2" id="ORDER_ADDR2"value="" style="width:250px;" >
                   	</td>
 				</tr>
               </tbody>
@@ -335,15 +368,27 @@ window.onclick = function(event) {
               	<tr>
               		<td>총 결제금액</td>
               		<td style="text-align:left">
-                  		<input type="text" id="pay_price2" value="" style="width:100px;" readonly>
+                  		<input type="text" name="ORDER_TOTAL_PAY_PRICE" id="ORDER_TOTAL_PAY_PRICE" value="" style="width:100px;" readonly>
                   	</td>
 				</tr>
 				<tr>
               		<td>결제방법</td>
               		<td style="text-align:left">
-                  		<input type="radio" name="ORDER_PAY_OPTION" value="신용카드" style="width:30px;">신용카드
+                  		<input type="radio" name="ORDER_PAY_OPTION" id="OPTION1" value="신용카드" style="width:30px;">신용카드
                   		&nbsp;&nbsp;
-                  		<input type="radio" name="ORDER_PAY_OPTION" value="계좌이체" style="width:30px;">계좌이체
+                  		<input type="radio" name="ORDER_PAY_OPTION" id="OPTION2" value="계좌이체" style="width:30px;">계좌이체
+                  	</td>
+				</tr>
+				<tr>
+              		<td>결제은행</td>
+              		<td style="text-align:left">
+                  		<input type="text" name="ORDER_PAY_BANK" style="width:150px;">
+                  	</td>
+				</tr>
+				<tr>
+              		<td>결제자명</td>
+              		<td style="text-align:left">
+                  		<input type="text" name="ORDER_PAY_NAME" style="width:100px;">
                   	</td>
 				</tr>
               </tbody>
@@ -351,11 +396,11 @@ window.onclick = function(event) {
             </div>
             <br>
             <div style="text-align:center">
-            	<input type="checkbox" name="allchk" id="allchk" onclick="fn_allchk()">
+            	<input type="checkbox" name="orderChk" id="orderChk">
           		(필수)결제서비스 약관에 동의하며, 원활한 배송을 위한 개인정보 제공에 동의합니다.
           		<br><br>
           		<input type="button" name="all_order" value="장바구니" onClick="location.href='/basket/basketList.do'">
-            	<input type="button" name="order_pay" value="결제진행" onclick="fn_order_pay()">
+            	<input type="submit" name="order_pay" value="결제진행" onclick="fn_order_pay(); return false;">
             </div>
       
      </form>

@@ -220,7 +220,7 @@ function fn_select_order(){
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
-      <form name="basket" action="/stu/order/basketAllOrderWrite.do">
+      <form name="basket" method="post" action="/stu/order/basketAllOrderWrite.do">
 		<input type="hidden" name="list" value="${list }">
 	</form>
           <div class="table-responsive">
