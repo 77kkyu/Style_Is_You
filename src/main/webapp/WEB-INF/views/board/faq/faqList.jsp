@@ -1,11 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <head>
-<%@ include file="../include/include-header.jspf" %>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
 <body>
 	<h2 align="center">FAQ</h2>
+
 	<table class="board_list">
 		<thead id = "test" >	
 
@@ -29,7 +39,7 @@
 	<br/>
 	<a href="#this" class="btn" id="write">글쓰기</a>
 	
-	<%@ include file="../include/include-body.jspf" %>
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 			fn_selectFaqList(1);
@@ -45,7 +55,6 @@
 // 			});
 		});
 		
-		
 		function fn_openFaqWrite(){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/board/openFaqWrite.do' />");
@@ -59,7 +68,7 @@
 // 			comSubmit.addParam("NOTICE_NO", notice_no);
 // 			comSubmit.submit();
 // 		}
-		
+
 		function fn_selectFaqList(pageNo){
 			var comAjax = new ComAjax();
 			comAjax.setUrl("<c:url value='/board/selectFaqList.do' />");
@@ -69,9 +78,9 @@
 			comAjax.addParam("NOTICE_NO",$("#NOTICE_NO").val());
 			comAjax.ajax();
 		}
-
+// 		alert();
 		function hideShow(id){
-			alert("안녕하세요");
+			
 		}
 		
 		function fn_selectFaqListCallback(data){
@@ -97,18 +106,23 @@
 				
 				$.each(data.list, function(key, value){
 				
-					str += '<tr>' + 
-								'<th>' + value.NOTICE_NO + '</th>' + 
-								'<th class="notice_title">' + 
-									'<a href="hideShow(id)" name="notice_title">' + value.NOTICE_TITLE + '</a>' + 
-									'<input type="hidden" name="notice_title" value=' + value.NOTICE_NO + '>' + 
-								'</th>' + 
-								'<tr style="display: none;" id="'+value.NOTICE_CONTENT+'">' + 
-								'<td></td><td>' + value.NOTICE_CONTENT + '</td>' + 
-								'</tr>' + 
-							'</tr>';
+					str += "<tr>" 
+						+	"<th>" + value.NOTICE_NO 
+						+ "</th>" 
+						+ "<th class='notice_title'>" 
+						+ "<a href='hideShow(id)' name='notice_title'>" 
+						+ value.NOTICE_TITLE + "</a>" 
+						+ "<input type='hidden' name='notice_title' value=" 
+						+ value.NOTICE_NO + ">" 
+						+ "</th>" 
+						+ "<tr style='display: none;' id='+NOTICE_CONTENT+'>" 
+						+ "<td></td><td>" 
+						+ value.NOTICE_CONTENT 
+						+ "</td>" 
+						+ "</tr>" 
+						+ "</tr>";
 				});
-				$("#test").append(str);
+				body.append(str);
 				//body.append(str);
 				
 			/* 	$("a[name='notice_title']").on("click", function(e){ //제목 

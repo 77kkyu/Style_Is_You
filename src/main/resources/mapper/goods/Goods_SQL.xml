@@ -67,7 +67,7 @@ SELECT
 	
 	
 	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 카테고리별 순서출력 -->
-		<include refid="common.pagingPre"/>
+		<include refid="common.pagingPre2"/>
 		<![CDATA[
 			
 					SELECT ROW_NUMBER() OVER (ORDER BY GS.GOODS_NO DESC) RNUM,
@@ -92,7 +92,7 @@ SELECT
 
 		]]>
 		
-		<include refid="common.pagingPost"/>
+		<include refid="common.pagingPost2"/>
 		<if test="orderBy != '' and orderBy != 'null'">
 			<![CDATA[
 				ORDER BY AAA.${orderBy} ${orderSort} 
