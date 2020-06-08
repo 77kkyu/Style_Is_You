@@ -13,9 +13,13 @@ function ComSubmit(opt_formId) {
 	this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
 	this.url = "";
 	
-	if(this.formId == "commonForm"){
-		$("#commonForm")[0].reset();
-		$("#commonForm").empty();
+	if(this.formId=="commonForm"){
+		var frm = $("#commonForm");
+		if(frm.length>0){
+			frm.remove();
+		}
+		var str = "<form id='commonForm' name='commonForm'></form>";
+		$('body').append(str);
 	}
 	
 	this.setUrl = function setUrl(url){
@@ -33,49 +37,52 @@ function ComSubmit(opt_formId) {
 		frm.submit();	
 	};
 }
-
 var gfv_ajaxCallback = "";
 function ComAjax(opt_formId){
-	this.url = "";		
-	this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
-	this.param = "";
-	
-	if(this.formId == "commonForm"){
-
-		$("#commonForm").empty();
-	}
-	
-	this.setUrl = function setUrl(url){
-		this.url = url;
-	};
-	
-	this.setCallback = function setCallback(callBack){
-		fv_ajaxCallback = callBack;
-	};
-
-	this.addParam = function addParam(key,value){ 
-		this.param = this.param + "&" + key + "=" + value; 
-	};
-	
-	this.ajax = function ajax(){
-		if(this.formId != "commonForm"){
-			this.param += "&" + $("#" + this.formId).serialize();
-		}
-		$.ajax({
-			url : this.url,    
-			type : "POST",   
-			data : this.param,
-			async : false, 
-			success : function(data, status) {
-				if(typeof(fv_ajaxCallback) == "function"){
-					fv_ajaxCallback(data);
-				}
-				else {
-					eval(fv_ajaxCallback + "(data);");
-				}
-			}
-		});
-	};
+    this.url = "";     
+    this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
+    this.param = "";
+     
+    if(this.formId == "commonForm"){
+        var frm = $("#commonForm");
+        if(frm.length > 0){
+            frm.remove();
+        }
+        var str = "<form id='commonForm' name='commonForm'></form>";
+        $('body').append(str);
+    }
+     
+    this.setUrl = function setUrl(url){
+        this.url = url;
+    };
+     
+    this.setCallback = function setCallback(callBack){
+        fv_ajaxCallback = callBack;
+    };
+ 
+    this.addParam = function addParam(key,value){
+        this.param = this.param + "&" + key + "=" + value;
+    };
+     
+    this.ajax = function ajax(){
+        if(this.formId != "commonForm"){
+            this.param += "&" + $("#" + this.formId).serialize();
+        }
+        $.ajax({
+            url : this.url,   
+            type : "POST",  
+            data : this.param,
+            async : false,
+            success : function(data, status) {
+                if(typeof(fv_ajaxCallback) == "function"){
+                    fv_ajaxCallback(data);
+                }
+                else {
+                    eval(fv_ajaxCallback + "(data);");
+                }
+            }
+        });
+    };
 }
 
 /*
@@ -98,7 +105,7 @@ function gfn_renderPaging(params){
 	
 	var recordCount = params.recordCount; //페이지당 레코드 수
 	if(gfn_isNull(recordCount) == true){
-		recordCount = 20;
+		recordCount = 15;
 	}
 	var totalIndexCount = Math.ceil(totalCount / recordCount); // 전체 인덱스 수
 	gfv_eventName = params.eventName;
@@ -109,7 +116,7 @@ function gfn_renderPaging(params){
 	var str = "";
 	
 	var first = (parseInt((currentIndex-1) / 10) * 10) + 1;
-	var last = (parseInt(totalIndexCount/10) == parseInt(currentIndex/10)) ? totalIndexCount%10 : 10;
+	var last = (parseInt(totalIndexCount/10) < parseInt(currentIndex)/10) ? totalIndexCount%10 : 10;
 	var prev = (parseInt((currentIndex-1)/10)*10) - 9 > 0 ? (parseInt((currentIndex-1)/10)*10) - 9 : 1; 
 	var next = (parseInt((currentIndex-1)/10)+1) * 10 + 1 < totalIndexCount ? (parseInt((currentIndex-1)/10)+1) * 10 + 1 : totalIndexCount;
 	

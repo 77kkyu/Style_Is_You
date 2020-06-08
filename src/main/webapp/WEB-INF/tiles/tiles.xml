@@ -57,6 +57,12 @@
   	<put-attribute name="body" value="/WEB-INF/views/board/qna/{1}.jsp"/>
   	
   </definition>
+  
+  <definition name="board/*" extends="base">
+  
+  	<put-attribute name="body" value="/WEB-INF/tiles/header.jsp"/>
+  	
+  </definition>
 
   
   <!-- 매핑 -->

@@ -6,10 +6,11 @@
 <html lang="ko">
 <head>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
-
+<%@include file ="/header.jsp" %>
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
+
 </head>
 <body>
 	<h2 align="center">공지사항</h2>
