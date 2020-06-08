@@ -195,20 +195,6 @@ function fn_select_order(){
 </head>
 <body onload="fn_allPrice()">
     <div class="container">
-
-      <div class="masthead">
-        <h3 class="text-muted">Project name</h3>
-        <nav>
-          <ul class="nav nav-justified">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">주문</a></li>
-            <li><a href="#">입금확인</a></li>
-            <li><a href="#">배송중</a></li>
-            <li><a href="#">수취확인</a></li>
-            <li><a href="#">거래완료</a></li>
-          </ul>
-        </nav>
-      </div>
       
       <div style="width:1000px; height:50px; margin:10px; padding:12px; border:1px solid #dcdcdc">
       	<table>

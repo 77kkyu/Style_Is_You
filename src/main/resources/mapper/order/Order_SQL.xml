@@ -17,6 +17,22 @@
 		]]>
 	</select>
 	
+	<select id="memberCoupon" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT DISTINCT
+				C.COUPON_ID, C.COUPON_VALUE, C.COUPON_NO,
+				M.COUPON_STATUS_NO
+			FROM 
+				COUPON_STATUS M, COUPON C
+			WHERE 
+				M.MEMBER_NO = 1
+			AND M.COUPON_USE_STATE = 0
+            AND M.COUPON_NO = C.COUPON_NO
+            AND C.COUPON_S_VALIDITY <= SYSDATE
+            AND C.COUPON_E_VALIDITY >= SYSDATE
+		]]>
+	</select>
+	
 	
 	
 	

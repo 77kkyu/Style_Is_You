@@ -123,29 +123,29 @@ li {
 		<%
 			if(sessionId == null) { // 로그인 전 (세션 값 X)
 		%>
-			<td><a href="/stu/loginForm.do">로그인</a></td> <td>|</td>
-			<td><a href="/stu/joinForm.do">회원가입</a></td> <td>|</td>
+			<td><a href="/stu/loginForm.do">로그인</a></td> <td> | </td>
+			<td><a href="/stu/joinForm.do">회원가입</a></td> <td> | </td>
 		<%
 			} else if(sessionId != null) { // 로그인 후 (세션 값 O)
 		%>
-			<td>Hi, ${MEMBER_NAME }님!</td> <td>|</td>
-			<td><a href="/stu/logout.do">로그아웃</a></td> <td>|</td>
+			<td>Hi, ${MEMBER_NAME }님!</td> <td> | </td>
+			<td><a href="/stu/logout.do">로그아웃</a></td> <td> | </td>
 		<%
 			}
 		%>
 		<%
 			if(sessionId != null) {
 		%>
-			<td><a href="/stu/my/myMain.do">마이페이지</a></td> <td>|</td>
+			<td><a href="/stu/my/myMain.do">마이페이지</a></td> <td> | </td>
 		<%
 			} else {
 		%>
-			<td><a href="/stu/loginForm.do">마이페이지</a></td> <td>|</td>
+			<td><a href="/stu/loginForm.do">마이페이지</a></td> <td> | </td>
 		<%
 			}
 		%>
-			<td><a href="">고객센터</a></td> <td>|</td>
-			<td><a href="/stu/basket/basketList.do">장바구니</a></td>
+			<td><a href="">고객센터</a></td> <td> | </td>
+			<td><a href="/stu/basket/basketList.do">장바구니</a></td> <td> | </td>
 			<td><a href="">쿠폰</a></td>
 		</tr>
 	</table>

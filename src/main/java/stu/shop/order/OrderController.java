@@ -46,10 +46,15 @@ public class OrderController {
 		Map<String,Object> map = orderService.orderMemberInfo(commandMap, request);
 		//MEMBER_NAME, MEMBER_PHONE, MEMBER_ZIPCODE,
 		//MEMBER_ADDR1, MEMBER_ADDR2, POINT_TOTAL
+		List<Map<String,Object>> list2 = orderService.memberCoupon(commandMap);
+		//COUPON_ID, COUPON_VALUE, COUPON_NO, COUPON_STATUS_NO
+		
 		mv.addObject("list", list);
+		mv.addObject("list2", list2);
 		mv.addObject("map", map);
 		System.out.println(list);
 		System.out.println(map);
+		System.out.println(list2);
 		return mv;
 	}
 	
@@ -73,29 +78,17 @@ public class OrderController {
 		Map<String,Object> map = orderService.orderMemberInfo(commandMap, request);
 		//MEMBER_NAME, MEMBER_PHONE, MEMBER_ZIPCODE,
 		//MEMBER_ADDR1, MEMBER_ADDR2, POINT_TOTAL
+		List<Map<String,Object>> list2 = orderService.memberCoupon(commandMap);
+		//COUPON_ID, COUPON_VALUE, COUPON_NO, COUPON_STATUS_NO
 		mv.addObject("list", list);
 		mv.addObject("map", map);
+		mv.addObject("list2", list2);
 		System.out.println(list);
 		System.out.println(map);
+		System.out.println(list2);
 		return mv;
 	}
 	
-	/*
-	 * //장바구니 선택상품 구매
-	 * 
-	 * @RequestMapping(value="/order/useCoupon.do") public ModelAndView
-	 * useCoupon(CommandMap commandMap, HttpServletRequest request) throws Exception
-	 * { ModelAndView mv = new ModelAndView("order/orderWrite");
-	 * System.out.println(commandMap.getMap()); List<Map<String,Object>> list =
-	 * basketService.basketSelectList(commandMap, request); //GOODS_NO, BASKET_NO,
-	 * MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
-	 * //GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE,
-	 * UPLOAD_SAVE_NAME, MEMBER_GRADE Map<String,Object> map =
-	 * orderService.orderMemberInfo(commandMap, request); //MEMBER_NAME,
-	 * MEMBER_PHONE, MEMBER_ZIPCODE, //MEMBER_ADDR1, MEMBER_ADDR2, POINT_TOTAL
-	 * mv.addObject("list", list); mv.addObject("map", map);
-	 * System.out.println(list); System.out.println(map); return mv; }
-	 */
 
 
 }

@@ -61,8 +61,9 @@ function fn_allPrice(){
 		val=0.1;
 	}
 	var point = Number(hap)*Number(val); //등급별 적립율
-	document.getElementById("ORDER_SAVE_POINT").value = point;
+	document.getElementById("ORDER_SAVE_POINT").value = point; //할인과 상관없이 주문금액별 적립
 }
+
 //주문자정보와 동일
 function fn_chkinfo(){
 	var chk = document.getElementById("chkinfo").checked;
@@ -79,8 +80,38 @@ function fn_chkinfo(){
 		document.getElementById("ORDER_ADDR1").value = "";
 		document.getElementById("ORDER_ADDR2").value = "";
 	}
-} 
+}
 
+//쿠폰, 포인트 사용
+function fn_price(){
+	var f = document.orderWrite;
+	var hap_buy = Number(f.ORDER_TOTAL_ORDER_PRICE.value);  //총 주문금액
+	var u_p = ${map.POINT_TOTAL}; //보유포인트
+	var o_point = Number(f.ORDER_USE_POINT.value); //사용할포인트
+	var a = f.COUPON_VALUE.value; // 할인쿠폰 값
+	
+	var sum_point = u_p - o_point;  // 남은 포인트(보유포인트-사용할포인트)
+	var COUPON_DISCOUNT= hap_buy*(a/100); // 쿠폰할인값
+	var cp_buy = (hap_buy-COUPON_DISCOUNT); // 쿠폰할인만 한 가격
+	var sum_buy = (hap_buy-COUPON_DISCOUNT)-o_point; // 주문금액-쿠폰할인-포인트사용(최종결제금액)
+	
+	if(u_p < o_point ){
+			alert("사용가능 마일리지를 확인해주세요!");
+			return false;
+	}
+	if(o_point > cp_buy){
+			alert("결제금액 보다 큽니다!");
+			location.reload(true);
+			return false;
+	}
+	f.discount.value = COUPON_DISCOUNT+o_point;
+	f.pay_price1.value = sum_buy;
+	f.ORDER_TOTAL_PAY_PRICE.value = sum_buy;
+	f.POINT_TOTAL.value = sum_point;
+	f.ORDER_USE_POINT.value = "0";
+}
+
+//주문완료
 function fn_order_pay(){
 		var f = document.orderWrite;
  		if( f.ORDER_NAME.value=="" ){
@@ -118,63 +149,14 @@ function fn_order_pay(){
  		
 		f.submit();
 }
-/* 
-//쿠폰적용팝업 띄우기
-// Get the modal
-var modal = document.getElementById('myModal');
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];                                          
-// When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-	    modal.style.display = "none";
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
- */
 </script>
 
 
 </head>
 
 <body onload="fn_allPrice()">
-<!-- 
-쿠폰적용
-<div id="myModal" class="modal">
- 
-      Modal content
-      <div class="modal-content">
-        <span class="close">X</span>                                                               
-        <p>Some text in the Modal..</p>
-      </div>
- 
-</div>
- -->
     <div class="container">
 
-      <div class="masthead">
-        <h3 class="text-muted">Project name</h3>
-        <nav>
-          <ul class="nav nav-justified">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">주문</a></li>
-            <li><a href="#">입금확인</a></li>
-            <li><a href="#">배송중</a></li>
-            <li><a href="#">수취확인</a></li>
-            <li><a href="#">거래완료</a></li>
-          </ul>
-        </nav>
-      </div>
-      
       <div style="width:1140px; height:50px; margin:10px; padding:12px; border:1px solid #dcdcdc">
       	<table>
       		<tr>
@@ -259,7 +241,7 @@ window.onclick = function(event) {
           			</td>
           			<td>- 할인금액</td>
           			<td style="text-align:right">
-          				<input type="text" name="" id="" style="width:100px; text-align:right; border:none;" readonly>원
+          				<input type="text" name="discount" id="discount" style="width:100px; text-align:right; border:none;" readonly>원
           			</td>
           			<td> = 결제예정금액</td>
           			<td style="text-align:right">
@@ -271,8 +253,15 @@ window.onclick = function(event) {
           				쿠폰할인
           			</td>
           			<td colspan="3" >
-          				<input type="text" name="" id="" value="0" style="width:100px; text-align:right; border:none;" readonly> 원 &nbsp;&nbsp;&nbsp;
-          				<button id="myBtn">쿠폰적용</button>
+          				<select name="COUPON_VALUE" id="COUPON_VALUE" onchange="fn_price()">
+						<option value="0">-------- 사용안함 -------</option>
+						<c:forEach items="${list2 }" var="row2" varStatus="status2">
+							<option value="${row2.COUPON_VALUE }">${row2.COUPON_ID } 할인</option>
+							<input type="hidden" name="COUPON_NO" value="${row2.COUPON_NO }">
+							<input type="hidden" name="COUPON_STATUS_NO" value="${row2.COUPON_STATUS_NO }">
+							<input type="hidden" name="COUPON_DISCOUNT" value="">
+						</c:forEach>
+					</select>
           			</td>
           			<td>
           				적립혜택
@@ -286,8 +275,8 @@ window.onclick = function(event) {
           			</td>
           			<td colspan="3" >
           				<input type="text" name="ORDER_USE_POINT" id="ORDER_USE_POINT" value="0" style="width:100px; text-align:right"> P &nbsp;&nbsp;&nbsp;&nbsp;
-          				<input type="button" value="사용" onclick="">
-          				(포인트 ${map.POINT_TOTAL }P)
+          				<input type="button" value="사용" onclick="fn_price()">
+          				(포인트 <input type="text" name="POINT_TOTAL" id="POINT_TOTAL" value="${map.POINT_TOTAL }" style="width:100px; text-align:right; border:none;" readonly> P)
           			</td>
           			<td>
           				포인트적립

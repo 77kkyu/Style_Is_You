@@ -23,4 +23,11 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 		return (Map<String, Object>) orderDao.orderMemberInfo(commandMap);
 	}
 
+	@Override
+	public List<Map<String, Object>> memberCoupon(CommandMap commandMap) throws Exception {
+		return (List<Map<String, Object>>) orderDao.memberCoupon(commandMap);
+	}
+	
+	
+
 }
