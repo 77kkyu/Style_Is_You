@@ -26,6 +26,7 @@
 		<![CDATA[
 			select l.order_date, d.order_no, m.member_no, m.member_id, m.member_name, g.goods_name,
   			      l.order_total_order_price, l.order_total_pay_price, l.order_state,
+  			      l.order_pay_bank, l.order_express,
 	        
 	        (select count(SD.order_no) from order_detail SD where SD.order_no = D.order_no ) as hap_cnt
 			
@@ -47,6 +48,18 @@
 
 			SET	order_state = order_state + 1
 			
+			WHERE order_no = ${order_no}
+		]]>
+	</select>
+	
+	<select id="order_state_ex" parameterType="hashmap" > <!-- 주문상태.배송 변경 -->
+		<![CDATA[
+			UPDATE order_list
+
+			SET	
+			order_state = order_state + 1,
+			order_express = #{order_express}
+
 			WHERE order_no = ${order_no}
 		]]>
 	</select>

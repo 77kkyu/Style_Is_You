@@ -36,7 +36,7 @@ public class AdminMainController {
 		return mv;
 	}
 	
-	// order_admin_a
+	// 주문.배송에 STATE별 리스트
 	@RequestMapping(value="/order_admin_a.do")
 	public ModelAndView order_admin_a(CommandMap commandMap,HttpServletRequest request) throws Exception {
 		
@@ -72,7 +72,7 @@ public class AdminMainController {
 	  
 	  ModelAndView mv = new ModelAndView("admin/order_admin_a");
 	  
-	  String order_state = "0"; String order_no = "";
+	  String order_state = "0"; String order_no = ""; String order_express = "";
 	  //System.out.println("뷰에서 받는값:"+request.getParameter("os"));
 	  
 	  if(request.getParameter("order_state") != null && request.getParameter("order_state") != ""){	  
@@ -81,13 +81,23 @@ public class AdminMainController {
 	  if(request.getParameter("order_no") != null && request.getParameter("order_no") != ""){	  
 		  order_no = request.getParameter("order_no"); 
 	  }
+	  //System.out.println("order_state:"+request.getParameter("order_state"));
+	  //System.out.println("express:"+request.getParameter("express"));
+	  if(request.getParameter("order_state").equals("2") && request.getParameter("express") != null){	  
+		  order_express = request.getParameter("express");
+		  commandMap.put("order_express", order_express);
+		  commandMap.put("order_no",order_no);
+		  commandMap.put("order_state",order_state);
+		  
+		  adminMainService.order_state_ex(commandMap);
 	  
-	  commandMap.put("order_no",order_no);
-	  commandMap.put("order_state",order_state);
-	  
-	  adminMainService.order_state(commandMap);
-	  //System.out.println("order_a:"+order_a);
-	  
+	  }else {
+		  commandMap.put("order_no",order_no);
+		  commandMap.put("order_state",order_state);
+		  
+		  adminMainService.order_state(commandMap);
+	  }
+  
 	  List<Map<String,Object>> order_a = adminMainService.order_admin_a(commandMap);
 	  
 	  mv.addObject("order_a", order_a);

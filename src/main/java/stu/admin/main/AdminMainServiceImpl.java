@@ -37,6 +37,12 @@ public class AdminMainServiceImpl implements AdminMainService {
 	}
 
 	@Override
+	public void order_state_ex(CommandMap map) throws Exception {  // 주문상태에 배송도 변경
+		// TODO Auto-generated method stub
+		adminDao.order_state_ex(map);
+	}
+
+	@Override
 	public List<Map<String, Object>> order_detail(CommandMap commandMap) throws Exception {
 		// TODO Auto-generated method stub
 		return adminDao.order_detail(commandMap);
@@ -48,4 +54,5 @@ public class AdminMainServiceImpl implements AdminMainService {
 		return adminDao.order_detail_sub(commandMap);
 	}
 
+	
 }

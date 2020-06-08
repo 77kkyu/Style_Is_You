@@ -113,6 +113,11 @@ public class AbstractDao {
 	         return sqlSession.selectList(queryId,params);
 	      }
 	      
+	      public List<Map<String,Object>> order_state_ex(String queryId, Object params) { // 주문상태.배송 변경 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      
 	      public List<Map<String,Object>> order_detail(String queryId, Object params) { // 주문/배송 상세보기 
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params);

@@ -30,6 +30,12 @@ public class AdminDao extends AbstractDao{
 		// TODO Auto-generated method stub
 		order_state("admin.order_state",map.getMap());
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void order_state_ex(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		order_state_ex("admin.order_state_ex",commandMap.getMap());
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> order_detail(CommandMap commandMap) throws Exception {
@@ -43,5 +49,6 @@ public class AdminDao extends AbstractDao{
 		return (List<Map<String,Object>>) order_detail_sub("admin.order_detail_sub", commandMap.getMap());
 	}
 
+	
 	
 }

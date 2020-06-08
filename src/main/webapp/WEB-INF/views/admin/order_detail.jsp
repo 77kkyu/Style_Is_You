@@ -19,60 +19,23 @@
 <!-- Custom styles for this template -->
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
 
  
  <script>
- $(document).ready(function(){
-		alert('동작함');
-	});
-
+$(document).ready(function(){
 	
- $(document).ready(function(){
+});
 
-	 /* var result = "${order_a}";
-	 alert(result); */
-	 
-		$("#od_detail").on("click", function(e){
-			alert("상세보기");
-
-			/* e.preventDefault();
-			fn_openBoardList(); */
-		});		
-	});
- 
- function order_state(state, no){
-	 var state = state;
-	 var no = no;
-	 if(confirm("확인하시겠습니까?")){
-	 $.ajax({
-         url: "/stu/order_admin_a.do",
-         data : {"order_state": state, "order_no": no},
-         type: "post",
-         async:false,
-         success : function(data){
-        	 alert("주문상태가 변경되었습니다.");
-        	 location.href = "/stu/order_admin_a.do";
-/*              window.opener.location.reload(); */
-             /* self.close(); */
-         }
-      })}else{
-         return;
-      }
-	}
- function order_detail(no){
-	 var no = no;
-	 
-	 $.ajax({
-         url: "/stu/order_detail.do",
-         data : {"order_no": no},
-         type: "post",
-         async:false,
-         success : function(data){
-        	 location.href = "/stu/order_detail.do";
-         }
-      })
-      
-	}
+function order_list() {
+	var os = "";
+	<c:forEach items="${order_detail}" var="detail">
+		os = ${detail.ORDER_STATE}
+	</c:forEach>
+	location.href="/stu/order_admin_a.do?os="+os;
+	return;	
+}
+	
 
  </script>
  
@@ -81,12 +44,16 @@
 <div class="container">
 
 	<div class="row">
-        <c:forEach items="${order_detail }" var="detail">
-        <div class="col-md-4">
-          <h2>받으시는분</h2>
-          <p>${detail.ORDER_NAME } / ${detail.ORDER_PHONE }</p>
-          <p>${detail.ZIPDOCE } / ${detail.ORDER_ADDR1 } ${detail.ORDER_ADDR2 } </p>
+        <div>
+			<p><a href="#" onclick="order_list(); return false;">목록으로</a></p>
         </div>
+        <c:forEach items="${order_detail }" var="detail">
+        <div style="border: 1px solid gray; bottom: 20px; width: 80%;">
+          <h2>받으시는분</h2>
+          <p>받는분 이름 : ${detail.ORDER_NAME } / 받는분 연락처 : ${detail.ORDER_PHONE }</p>
+          <p>받는분 주소 : ${detail.ZIPDOCE } / ${detail.ORDER_ADDR1 } ${detail.ORDER_ADDR2 } </p>
+        </div>
+
         <table class="table table-striped">
 			<tbody>
 				<tr>
@@ -174,8 +141,6 @@
 		
 		</table>
 	</div>
-
-
 
 </div>
 

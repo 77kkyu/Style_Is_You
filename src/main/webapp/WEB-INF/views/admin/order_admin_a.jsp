@@ -20,49 +20,12 @@
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
+<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
+
 <!-- 
 <script type="text/javascript">
 
 	/* 필요한거 이페이지가 돌아왔을때 order_state값이 0이면  id="o1"에 추가class="active" */
-	
-function gfn_isNull(str) {
-	if (str == null) return true;
-	if (str == "NaN") return true;
-	if (new String(str).valueOf() == "undefined") return true;    
-    var chkStr = new String(str);
-    if( chkStr.valueOf() == "undefined" ) return true;
-    if (chkStr == null) return true;    
-    if (chkStr.toString().length == 0 ) return true;   
-    return false; 
-}
-
-function ComSubmit(opt_formId) {
-	alert(opt_formId);
-	this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
-	this.url = "";
-	
-	
-	if(this.formId == "commonForm"){
-		$("#commonForm")[0].reset();
-	}
-	
-	this.setUrl = function setUrl(url){
-		this.url = url;
-	};
-	
-	this.addParam = function addParam(key, value){
-		$("#"+this.formId).append($("<input type='hidden' name='"+key+"' id='"+key+"' value='"+value+"' >"));
-	};
-	
-	this.submit = function submit(){
-		var frm = $("#"+this.formId)[0];
-		frm.action = this.url;
-		frm.method = "post";
-		frm.submit();	
-	};
-}	
-	
-
 
 	$(document).ready(function(){
 		$("#o1").on("click", function(e){
@@ -88,26 +51,17 @@ function ComSubmit(opt_formId) {
 	});
 
 	
- $(document).ready(function(){
-
-	 /* var result = "${order_a}";
-	 alert(result); */
-	 
-		$("#od_detail").on("click", function(e){
-			alert("상세보기");
-
-			/* e.preventDefault();
-			fn_openBoardList(); */
-		});		
-	});
  
- function order_state(state, no){
+ 
+function order_state(state, no){
 	 var state = state;
 	 var no = no;
-	 if(confirm("확인하시겠습니까?")){
+	 var exp = $("#express").val();
+ 
+	if(confirm("확인하시겠습니까?")){
 	 $.ajax({
          url: "/stu/order_admin_a.do",
-         data : {"order_state": state, "order_no": no},
+         data : {"order_state": state, "order_no": no, "express":exp},
          type: "post",
          async:false,
          success : function(data){
@@ -120,20 +74,16 @@ function ComSubmit(opt_formId) {
          return;
       }
 	}
- function order_detail(no){
-	 var no = no;
-	 
-	 $.ajax({
-         url: "/stu/order_detail.do",
-         data : {"order_no": no},
-         type: "post",
-         async:false,
-         success : function(data){
-        	 location.href = "/stu/order_detail.do"; 
-         }
-      })
+
+function order_detail(no){
+	alert("작동됨?");
+	var comSubmit = new ComSubmit();
+	var order_no = no;
+	comSubmit.setUrl("<c:url value='/order_detail.do' />");
+	comSubmit.addParam("order_no", order_no);
+	comSubmit.submit();
       
-	}
+}
 
  </script>
  
@@ -275,7 +225,7 @@ function ComSubmit(opt_formId) {
 					<th scope="col">진행상황</th>
 				</tr>
 			</thead>
-			<form id="order_select">
+			
 			<tbody>
 			<c:choose>
 				<c:when test="${fn:length(order_a) > 0}">
@@ -283,28 +233,30 @@ function ComSubmit(opt_formId) {
 						<tr>
 							<td>${order.ORDER_DATE }<br />${order.ORDER_NO }</td>
 							<td>${order.MEMBER_ID }<br />${order.MEMBER_NAME }</td>
+							<%-- 주문상태${order.ORDER_STATE } --%>
 							<c:choose>
-								<c:when test="${order.ORDER_STATE eq '0' }">
-								<td><a href="#this" name="title">${order.GOODS_NAME }</td>
+								<c:when test="${order.ORDER_STATE == 0 }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }</a></td>
 								</c:when>
-								<c:when test="${my_order.ORDER_STATE eq '1' }">
-								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식선택]</td>
+								<c:when test="${order.ORDER_STATE == 1 }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }</a><br />
+								<select name="bank_chk" id="">
+									<option >결제 미확인</option>
+									<option >결제 확인</option>
+								</select>
+								</td>
 								</c:when>
-								<c:when test="${my_order.ORDER_STATE eq '2' }">
-								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식][송장입력]</td>
+								<c:when test="${order.ORDER_STATE == 2 }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }</a><br />
+								[${order.ORDER_PAY_BANK }] / 송장번호:<input type="text" id="express" /></td>
 								</c:when>
-								<c:when test="${my_order.ORDER_STATE eq '3' }">
-								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식][송장번호]</td>
-								</c:when>
-								<c:when test="${my_order.ORDER_STATE eq '4' }">
-								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식][송장번호]</td>
-								</c:when>
-								<c:when test="${my_order.ORDER_STATE eq '5' }">
-								<td><a href="#this" name="title">${order.GOODS_NAME }/<br />[입금방식][송장번호]</td>
+								<c:when test="${order.ORDER_STATE > 2 }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }</a><br />
+								[${order.ORDER_PAY_BANK }]/송장번호:[${order.ORDER_EXPRESS }]</td>
 								</c:when>
 							</c:choose>
-							<td ><a href="#this" name="title">${order.GOODS_NAME }</a>
-								<input type="hidden" id="member_no" value="${order.MEMBER_NO }"></td>
+							<%-- <td ><a href="#this" name="title">${order.GOODS_NAME }</a>
+								<input type="hidden" id="member_no" value="${order.MEMBER_NO }"></td> --%>
 							<td>${order.HAP_CNT }건</td>
 							<td>${order.ORDER_TOTAL_PAY_PRICE }원</td>
 							<c:choose>
@@ -329,7 +281,7 @@ function ComSubmit(opt_formId) {
 				</c:otherwise>
 			</c:choose>
 		</tbody>
-		</form>
+		
 		</table>
 	</div>
 
