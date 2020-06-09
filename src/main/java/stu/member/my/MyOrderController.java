@@ -26,7 +26,7 @@ Logger log = Logger.getLogger(this.getClass());
 	
 	/* mvc:annotation-driven을 선언하면 HandlerMethodArgumentResolver가 Map형식일때 동작을 못함 해서
 	 * 기본 Map형식이 아닌 map을 가지는 클래스를 만들어 사용 commandMap */
-	// myOrderList
+	// 마이페이지 - 주문리스트
 	@RequestMapping(value="/myOrderList.do", method = RequestMethod.GET)
 	public ModelAndView myOrderList(CommandMap commandMap, ServletRequest session) throws Exception {
 		
@@ -39,13 +39,11 @@ Logger log = Logger.getLogger(this.getClass());
 		member_no = "2";
 		
 		// 세션이 존재할 때만
-		if (member_no == null) {
-			mv.addObject("order_msg", "로그인한 사용자만 이용할수 있습니다.");
-			return mv;
-		}
-
+		/*
+		 * if (member_no == null) { mv.addObject("order_msg", "로그인한 사용자만 이용할수 있습니다.");
+		 * return mv; }
+		 */
 		commandMap.put("member_no", member_no);
-		
 		
 		List<Map<String,Object>> my_order = myOrderService.myOrderList(commandMap);
 		mv.addObject("my_order", my_order);
@@ -53,35 +51,66 @@ Logger log = Logger.getLogger(this.getClass());
 		return mv;
 	}
 	
-	// 주문.배송에 STATE별 리스트
+	// 마이페이지 - 수취확인
 	@RequestMapping(value="/order_ok.do")
 	public ModelAndView order_ok(CommandMap commandMap,HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("my/myOrderList");
 
 		
-		  String member_no = ""; String order_no = "";
-		  
-		  if(request.getParameter("mem_no") != null && request.getParameter("order_no") != null){
-			  member_no = request.getParameter("mem_no");
-			  order_no = request.getParameter("order_no");
-		  }
-		  commandMap.put("member_no", member_no);
-		  commandMap.put("order_no", order_no);
-		  
-		  // STATE를 5로변경
-		  myOrderService.order_ok(commandMap);
-		  		  
-		  //처리후 다시 리스트 불러오기
-		  List<Map<String,Object>> my_order = myOrderService.myOrderList(commandMap);
-		  mv.addObject("my_order", my_order);
-		  
-		  System.out.println("mv:"+mv);
-		 
+		String member_no = ""; String order_no = "";
+  
+		if (request.getParameter("mem_no") != null && request.getParameter("order_no") != null) {
+			member_no = request.getParameter("mem_no");
+			order_no = request.getParameter("order_no");
+		}
+		commandMap.put("member_no", member_no);
+		commandMap.put("order_no", order_no);
+
+		// STATE를 5로변경
+		myOrderService.order_ok(commandMap);
+
+		//처리후 다시 리스트 불러오기
+		List<Map<String, Object>> my_order = myOrderService.myOrderList(commandMap);
+		mv.addObject("my_order", my_order);
+
+		System.out.println("mv:" + mv);
+
 		return mv;
 	}
 	
-	
+	// 마이페이지 - 수취확인
+	@RequestMapping(value="/order_cancle.do")
+	public ModelAndView order_cancle(CommandMap commandMap,HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("my/myOrderList");
+
+		
+		String member_no = ""; String order_no = "";
+  
+		if (request.getParameter("mem_no") != null && request.getParameter("order_no") != null) {
+			member_no = request.getParameter("mem_no");
+			order_no = request.getParameter("order_no");
+		}
+		commandMap.put("member_no", member_no);
+		commandMap.put("order_no", order_no);
+		//System.out.println("member_no : "+member_no+" / "+"order_no : "+order_no);
+		
+		// list, detail에서 주문상태 변경 후 use_point와 save포인트를 가져옴
+		List<Map<String, Object>> point =  myOrderService.order_state_cancle(commandMap);
+		System.out.println("point:"+point);
+		
+		
+		/*
+		 * myOrderService.order_ok(commandMap);
+		 * 
+		 * //처리후 다시 리스트 불러오기 List<Map<String, Object>> my_order =
+		 * myOrderService.myOrderList(commandMap); mv.addObject("my_order", my_order);
+		 * 
+		 * System.out.println("mv:" + mv);
+		 */
+		return mv;
+	}	
 	
 	
 }

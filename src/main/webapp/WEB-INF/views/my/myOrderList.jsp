@@ -28,12 +28,18 @@
 	});
 
 	
-function fn_openBoardList(){
+function order_cancle(mem_no, order_no){
+	var mem_no = mem_no;
+	var order_no = order_no;
 	
+	if(mem_no == null || order_no == null || mem_no == '' || order_no == '') {
+		alert("오류입니다.");
+		return;
+	}
 	var comSubmit = new ComSubmit();
-	var state = 0;
-	comSubmit.setUrl("<c:url value='/stu/order_admin_a.do' />");
-	comSubmit.addParam("order_state", state);
+	comSubmit.setUrl("<c:url value='/order_cancle.do' />");
+	comSubmit.addParam("mem_no", mem_no);
+	comSubmit.addParam("order_no", order_no);
 	comSubmit.submit();
 }
  
@@ -126,21 +132,22 @@ function order_ok(mem_no, order_no){
 								<td>입금확인중</td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '2' }">
-								<td>배송중비중</td>
+								<td>배송준비중</td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '3' }">
 								<td>배송중/<br /><a href="">[송장확인]</a></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '4' }">
-								<td><input type="button" onclick="order_ok(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="수취확인"></td>
+								<td><input type="button" onclick="order_ok(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="수취확인">
+								<br /><a href="">[송장확인]</a></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '5' }">
-								<td>배송완료</td>
+								<td>배송완료/<br /><a href="">[송장확인]</a></td>
 								</c:when>
 							</c:choose>
 							<c:choose>
 								<c:when test="${my_order.ORDER_STATE < 2 }">
-								<td><input type="button" onclick="order_cancle(${my_order.ORDER_NO })" value="주문취소"></td>
+								<td><input type="button" onclick="order_cancle(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="주문취소"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE > 1 && my_order.ORDER_STATE < 5 }">
 								<td><input type="button" onclick="order_change(${my_order.ORDER_NO })" value="교환/환불">

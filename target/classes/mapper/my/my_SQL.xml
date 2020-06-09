@@ -23,20 +23,40 @@
 		]]>
 	</select>
 	
-	<select id="my_order_ok" parameterType="hashmap" > <!-- 주문상태 변경 -->
+	<!-- 마이페이지의 수취확인 -->
+	<select id="my_order_ok" parameterType="hashmap" > 
 		<![CDATA[
 			UPDATE order_list
-
 			SET	order_state = order_state + 1
-			
 			WHERE order_no = ${order_no}
+		]]>
+	</select>
+	
+	<select id="my_list_cancle" parameterType="hashmap" > 
+		<![CDATA[
+			UPDATE order_list SET order_state = '98' where order_no = ${order_no}
+		]]>
+	</select>
+	<select id="my_detail_cancle" parameterType="hashmap" > 
+		<![CDATA[
+			UPDATE order_detail SET order_detail_state = '20' where order_no = ${order_no}
+		]]>
+	</select>
+	<select id="list_point_search" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			select (order_use_point) u_point, (order_save_point) s_point
+			from order_list
+			where order_no = ${order_no}
 		]]>
 	</select>
 	
 	
 	
-		
-	<!-- 로그인 한 회원의 상품 주문 일자, 총 주문 금액, 주문상태 출력 -->
+	
+	
+	
+<!-- ************************************************************************************** -->
+	<!--  로그인 한 회원의 상품 주문 일자, 총 주문 금액, 주문상태 출력 -->
 	<select id="selectOrderList" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT 

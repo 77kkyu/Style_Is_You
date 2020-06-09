@@ -23,4 +23,19 @@ public class MyOrderDao extends AbstractDao {
 		order_ok("my.my_order_ok", map.getMap());
 	}
 
+	public void list_cancle(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		list_cancle("my.my_list_cancle", map.getMap());
+	}
+	
+	public void detail_cancle(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		detail_cancle("my.my_detail_cancle", map.getMap());
+	}
+
+	public List<Map<String, Object>> list_point_search(CommandMap map) {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) list_point_search("my.list_point_search", map.getMap());
+	}
+
 }

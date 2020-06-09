@@ -140,9 +140,24 @@ public class AbstractDao {
 	      }
 	      
 	      public List<Map<String,Object>> order_ok(String queryId, Object params) { // 마이페이지 수취확인 
-		         printQueryId(queryId);
-		         return sqlSession.selectList(queryId,params);
-		      }
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+
+	      public List<Map<String,Object>> list_cancle(String queryId, Object params) { // 마이페이지 수취확인 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      
+	      public List<Map<String,Object>> detail_cancle(String queryId, Object params) { // 마이페이지 수취확인 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      
+	      public List<Map<String,Object>> list_point_search(String queryId, Object params) { // 마이페이지 수취확인 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
 		
 
 	      
