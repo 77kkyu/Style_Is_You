@@ -13,7 +13,9 @@
 
 </head>
 <body>
+<br/><br/><br/><br/>
 	<h2 align="center">공지사항</h2>
+	<br/><br/>
 	<table class="board_list">
 		<colgroup>
 			<col width="10%"/>

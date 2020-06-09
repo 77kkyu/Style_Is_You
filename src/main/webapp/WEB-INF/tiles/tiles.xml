@@ -42,27 +42,27 @@
 
   <definition name="board/*" extends="base">
   
-  	<put-attribute name="body" value="/WEB-INF/views/board/faq/{1}.jsp"/>
+  	<put-attribute name="body" value="/WEB-INF/views/board/{1}/{2}.jsp"/>
   	
   </definition>
   
    <definition name="board/*" extends="base">
   
-  	<put-attribute name="body" value="/WEB-INF/views/board/notice/{1}.jsp"/>
+  	<put-attribute name="body" value="/WEB-INF/views/board/{1}/{2}.jsp"/>
   	
   </definition>
   
    <definition name="board/*" extends="base">
   
-  	<put-attribute name="body" value="/WEB-INF/views/board/qna/{1}.jsp"/>
+  	<put-attribute name="body" value="/WEB-INF/views/board/{1}/{2}.jsp"/>
   	
   </definition>
   
-  <definition name="board/*" extends="base">
+<!--   <definition name="board/*" extends="base"> -->
   
-  	<put-attribute name="body" value="/WEB-INF/tiles/header.jsp"/>
+<!--   	<put-attribute name="body" value="/WEB-INF/tiles/header.jsp"/> -->
   	
-  </definition>
+<!--   </definition> -->
 
   
   <!-- 매핑 -->
