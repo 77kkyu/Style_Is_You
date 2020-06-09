@@ -34,11 +34,11 @@
   	
   </definition>
   
-  <definition name="my/*" extends="base">
+ <!--  <definition name="my/*" extends="base">
   
   	<put-attribute name="body" value="/WEB-INF/views/my/{1}.jsp"/>
   	
-  </definition>
+  </definition> -->
 
 
   

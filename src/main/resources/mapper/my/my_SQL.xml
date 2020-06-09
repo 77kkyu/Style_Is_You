@@ -7,7 +7,7 @@
 	<!-- 마이페이지 내의 주문 / 배송 상태LIST -->
 	<select id="my_order_list" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			select l.order_date, l.order_no, l.order_state, g.goods_name,
+			select l.member_no, l.order_date, l.order_no, l.order_state, g.goods_name,
 		        l.order_total_pay_price, l.order_pay_option, l.order_express,
       
 		        (select count(SD.order_no) from order_detail SD where SD.order_no = D.order_no ) as hap_cnt
@@ -16,12 +16,24 @@
 				
 			where l.order_no = d.order_no
 				and d.goods_no = g.goods_no
-				and l.member_no = 2
+				and l.member_no = #{member_no}
 				and D.ORDER_DETAIL_NO in (select min(ORDER_DETAIL_NO) as Dno from order_detail group by order_no)
 				
 			order by l.order_date desc
 		]]>
 	</select>
+	
+	<select id="my_order_ok" parameterType="hashmap" > <!-- 주문상태 변경 -->
+		<![CDATA[
+			UPDATE order_list
+
+			SET	order_state = order_state + 1
+			
+			WHERE order_no = ${order_no}
+		]]>
+	</select>
+	
+	
 	
 		
 	<!-- 로그인 한 회원의 상품 주문 일자, 총 주문 금액, 주문상태 출력 -->

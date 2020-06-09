@@ -24,4 +24,11 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 		return myOrderDao.myOrderList(commandMap);
 	}
 
+	@Override
+	public void order_ok(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		myOrderDao.order_ok(commandMap);
+		
+	}
+
 }

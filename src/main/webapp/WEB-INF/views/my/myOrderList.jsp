@@ -20,120 +20,48 @@
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
-<!-- 
-<script type="text/javascript">
+<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
 
-	/* 필요한거 이페이지가 돌아왔을때 order_state값이 0이면  id="o1"에 추가class="active" */
-	
-function gfn_isNull(str) {
-	if (str == null) return true;
-	if (str == "NaN") return true;
-	if (new String(str).valueOf() == "undefined") return true;    
-    var chkStr = new String(str);
-    if( chkStr.valueOf() == "undefined" ) return true;
-    if (chkStr == null) return true;    
-    if (chkStr.toString().length == 0 ) return true;   
-    return false; 
-}
-
-function ComSubmit(opt_formId) {
-	alert(opt_formId);
-	this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
-	this.url = "";
-	
-	
-	if(this.formId == "commonForm"){
-		$("#commonForm")[0].reset();
-	}
-	
-	this.setUrl = function setUrl(url){
-		this.url = url;
-	};
-	
-	this.addParam = function addParam(key, value){
-		$("#"+this.formId).append($("<input type='hidden' name='"+key+"' id='"+key+"' value='"+value+"' >"));
-	};
-	
-	this.submit = function submit(){
-		var frm = $("#"+this.formId)[0];
-		frm.action = this.url;
-		frm.method = "post";
-		frm.submit();	
-	};
-}	
-	
-
-
-	$(document).ready(function(){
-		$("#o1").on("click", function(e){
-			e.preventDefault();
-			fn_openBoardList();
-		});		
-	});
-	
-	function fn_openBoardList(){
-		
-		var comSubmit = new ComSubmit();
-		var state = 0;
-		comSubmit.setUrl("<c:url value='/stu/order_admin_a.do' />");
-		comSubmit.addParam("order_state", state);
-		comSubmit.submit();
-	}
-</script>
- -->
- 
  <script>
  $(document).ready(function(){
 		/* alert('동작함'); */
 	});
 
 	
- $(document).ready(function(){
-
-	 /* var result = "${order_a}";
-	 alert(result); */
-	 
-		$("#od_detail").on("click", function(e){
-			alert("상세보기");
-
-			/* e.preventDefault();
-			fn_openBoardList(); */
-		});		
-	});
+function fn_openBoardList(){
+	
+	var comSubmit = new ComSubmit();
+	var state = 0;
+	comSubmit.setUrl("<c:url value='/stu/order_admin_a.do' />");
+	comSubmit.addParam("order_state", state);
+	comSubmit.submit();
+}
  
- function order_state(state, no){
-	 var state = state;
-	 var no = no;
-	 if(confirm("확인하시겠습니까?")){
-	 $.ajax({
-         url: "/stu/order_admin_a.do",
-         data : {"order_state": state, "order_no": no},
-         type: "post",
-         async:false,
-         success : function(data){
-        	 alert("주문상태가 변경되었습니다.");
-         	 location.href = "/stu/order_admin_a.do?os="+state;
-/*              window.opener.location.reload(); */
-             /* self.close(); */
-         }
-      })}else{
-         return;
-      }
+function order_ok(mem_no, order_no){
+	alert("동작1");
+	var mem_no = mem_no;
+	var order_no = order_no;
+	
+	if(mem_no == null || order_no == null || mem_no == '' || order_no == '') {
+		alert("오류입니다.");
+		return;
 	}
- function order_detail(no){
-	 var no = no;
-	 
-	 $.ajax({
-         url: "/stu/order_detail.do",
-         data : {"order_no": no},
-         type: "post",
-         async:false,
-         success : function(data){
-        	 location.href = "/stu/order_detail.do"; 
-         }
-      })
-      
+	
+	if(confirm("수취확인 후 교환/환분/AS문의는 고객 게시판을 이용해 주시기 바랍니다.")){
+	$.ajax({
+		url: "/stu/order_ok.do",
+		data : {"mem_no": mem_no, "order_no": order_no},
+		type: "post",
+		async:false,
+		success : function(data){
+		alert("수취확인이 완료되었습니다.");
+		location.href = "/stu/myOrderList.do";
+		}
+	})
+	}else{
+	return;
 	}
+}
 
  </script>
  
@@ -167,8 +95,9 @@ function ComSubmit(opt_formId) {
 			<colgroup>
 			<col width="20%" />
 			<col width="*" />
-			<col width="20%" />
-			<col width="20%" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
 			</colgroup>
 			<thead>
 				<tr>
@@ -191,10 +120,10 @@ function ComSubmit(opt_formId) {
 							<td>${my_order.ORDER_TOTAL_PAY_PRICE }원</td>
 							<c:choose>
 								<c:when test="${my_order.ORDER_STATE eq '0' }">
-								<td>주문확인</td>
+								<td>주문확인중</td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '1' }">
-								<td>입금확인</td>
+								<td>입금확인중</td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '2' }">
 								<td>배송중비중</td>
@@ -203,14 +132,24 @@ function ComSubmit(opt_formId) {
 								<td>배송중/<br /><a href="">[송장확인]</a></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '4' }">
-								<td><input type="button" onclick="order_state(${order.ORDER_STATE }, ${order.ORDER_NO })" value="수취확인"></td>
+								<td><input type="button" onclick="order_ok(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="수취확인"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '5' }">
 								<td>배송완료</td>
 								</c:when>
 							</c:choose>
-							<td><input type="button" onclick="order_detail(${order.ORDER_NO })" value="상세보기">
-							<br /><input type="button" onclick="order_state(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼"></td>
+							<c:choose>
+								<c:when test="${my_order.ORDER_STATE < 2 }">
+								<td><input type="button" onclick="order_cancle(${my_order.ORDER_NO })" value="주문취소"></td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE > 1 && my_order.ORDER_STATE < 5 }">
+								<td><input type="button" onclick="order_change(${my_order.ORDER_NO })" value="교환/환불">
+								<br /><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="AS요청"></td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '5' }">
+								<td><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="AS요청"></td>
+								</c:when>
+							</c:choose>
 						</tr>
 					</c:forEach>
 				</c:when>
