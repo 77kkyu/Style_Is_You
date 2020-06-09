@@ -33,6 +33,170 @@
 		]]>
 	</select>
 	
+	<insert id="insertOrder" parameterType="hashmap">
+		<selectKey keyProperty="ORDER_NO" resultType="int" order="BEFORE">
+			SELECT ORDER_NO_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[
+			INSERT INTO ORDER_LIST
+			(
+				ORDER_NO,
+			    MEMBER_NO, 
+			    ORDER_NAME, 
+			    ORDER_ZIPCODE,
+			    ORDER_ADDR1,
+			    ORDER_ADDR2,
+			    ORDER_PHONE,
+			    ORDER_PAY_NAME,
+			    ORDER_PAY_OPTION,
+			    ORDER_PAY_BANK,
+			    ORDER_DATE,
+			    ORDER_TOTAL_ORDER_PRICE,
+			    ORDER_TOTAL_PAY_PRICE,
+			    ORDER_STATE,
+			    ORDER_USE_POINT,
+			    ORDER_SAVE_POINT,
+			    ORDER_FEE,
+			    ORDER_EXPRESS
+			)
+			VALUES
+			(
+				#{ORDER_NO},
+				1,
+				#{ORDER_NAME},
+				#{ORDER_ZIPCODE},
+				#{ORDER_ADDR1},
+				#{ORDER_ADDR2},
+				#{ORDER_PHONE},
+				#{ORDER_PAY_NAME},
+				#{ORDER_PAY_OPTION},
+				#{ORDER_PAY_BANK},
+				SYSDATE,
+				#{ORDER_TOTAL_ORDER_PRICE},
+				#{ORDER_TOTAL_PAY_PRICE},
+				0,
+				#{ORDER_USE_POINT},
+				#{ORDER_SAVE_POINT},
+				#{ORDER_FEE},
+				0
+			)
+		]]>
+	</insert>
+	
+	<insert id="insertOrderDetail" parameterType="hashmap">
+		<selectKey keyProperty="ORDER_NO" resultType="int" order="BEFORE">
+			SELECT DISTINCT
+				ORDER_NO
+			FROM 
+				ORDER_LIST
+			WHERE 
+				MEMBER_NO = 1
+            AND ORDER_NO = (SELECT MAX(ORDER_NO) FROM ORDER_LIST)
+		</selectKey>
+		<![CDATA[
+			INSERT INTO ORDER_DETAIL
+			(
+				ORDER_DETAIL_NO,
+			    ORDER_NO, 
+			    GOODS_NO, L
+			    GOODS_ATT_NO,L
+			    ORDER_DETAIL_PRICE,
+			    ORDER_DETAIL_COLOR,L
+			    ORDER_DETAIL_SIZE,L
+			    ORDER_DETAIL_AMOUNT,L
+			    COUPON_NO,
+			    COUPON_DISCOUNT,
+			    ORDER_DISCOUNT_APPLY,
+			    ORDER_DETAIL_STATE
+			)
+			VALUES
+				<foreach collection="list" item="item" separator=" , ">
+            		(ORDER_DETAIL_NO_SEQ.NEXTVAL,
+					#{ORDER_NO},
+					#{item.GOODS_NO},
+					#{item.GOODS_ATT_NO},
+					#{},
+					#{item.GOODS_ATT_COLOR},
+					#{item.GOODS_ATT_SIZE},
+					#{item.BASKET_GOODS_AMOUNT},
+					#{COUPON_NO},
+					#{},
+					#{},
+					0)
+        		</foreach>
+		]]>
+	</insert>
+	 
+	<insert id="savePoint" parameterType="hashmap">
+		<selectKey keyProperty="TOTAL" resultType="int" order="BEFORE">
+			SELECT DISTINCT
+				POINT_TOTAL + ${ORDER_SAVE_POINT}
+			FROM 
+				POINT
+			WHERE 
+				MEMBER_NO = 1
+            AND POINT_NO = (SELECT MAX(POINT_NO) FROM POINT)
+		</selectKey>
+		<![CDATA[
+			INSERT INTO POINT
+			(
+				POINT_NO,
+			    MEMBER_NO, 
+			    POINT_VAL, 
+			    POINT_SAVE_DATE,
+			    POINT_TOTAL
+			)
+			VALUES
+			(
+				POINT_NO_SEQ.NEXTVAL,
+				1,
+				${ORDER_SAVE_POINT},
+				SYSDATE,
+				${TOTAL}
+			)
+		]]>
+	</insert>
+	
+	<insert id="usePoint" parameterType="hashmap">
+		<selectKey keyProperty="TOTAL" resultType="int" order="BEFORE">
+			SELECT DISTINCT
+				POINT_TOTAL - ${ORDER_USE_POINT}
+			FROM 
+				POINT
+			WHERE 
+				MEMBER_NO = 1
+            AND POINT_NO = (SELECT MAX(POINT_NO) FROM POINT)
+		</selectKey>
+		<![CDATA[
+			INSERT INTO POINT
+			(
+				POINT_NO,
+			    MEMBER_NO, 
+			    POINT_VAL, 
+			    POINT_USE_DATE,
+			    POINT_TOTAL
+			)
+			VALUES
+			(
+				POINT_NO_SEQ.NEXTVAL,
+				1,
+				${ORDER_USE_POINT},
+				SYSDATE,
+				${TOTAL}
+			)
+		]]>
+	</insert>
+	
+	<update id="useCoupon" parameterType="hashmap">
+		<![CDATA[
+			UPDATE COUPON_STATUS 
+			SET
+				COUPON_USE_STATE = 1
+			WHERE
+				COUPON_STATUS_NO = ${COUPON_STATUS_NO_1}
+			AND MEMBER_NO = 1
+		]]>
+	</update>
 	
 	
 	

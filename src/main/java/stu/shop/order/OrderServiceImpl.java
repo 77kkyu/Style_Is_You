@@ -27,6 +27,12 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	public List<Map<String, Object>> memberCoupon(CommandMap commandMap) throws Exception {
 		return (List<Map<String, Object>>) orderDao.memberCoupon(commandMap);
 	}
+
+	@Override
+	public void insertOrder(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		orderDao.insertOrder(commandMap);
+		
+	}
 	
 	
 

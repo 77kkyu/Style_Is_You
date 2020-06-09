@@ -13,4 +13,6 @@ public interface OrderService {
 
 	List<Map<String, Object>> memberCoupon(CommandMap commandMap) throws Exception;
 
+	void insertOrder(CommandMap commandMap, HttpServletRequest request) throws Exception;
+
 }

@@ -32,7 +32,7 @@ function fn_allPrice(){
 	
 	var array1 = document.getElementsByName("goods_sell_price");
 	var array2 = document.getElementsByName("basket_goods_amount");
-	var array3 = document.getElementsByName("order_price");
+	var array3 = document.getElementsByName("ORDER_DETAIL_PRICE");
 	
 	var len = array2.length;
 	var hap = 0;
@@ -84,16 +84,25 @@ function fn_chkinfo(){
 
 //쿠폰, 포인트 사용
 function fn_price(){
+
 	var f = document.orderWrite;
 	var hap_buy = Number(f.ORDER_TOTAL_ORDER_PRICE.value);  //총 주문금액
 	var u_p = ${map.POINT_TOTAL}; //보유포인트
 	var o_point = Number(f.ORDER_USE_POINT.value); //사용할포인트
 	var a = f.COUPON_VALUE.value; // 할인쿠폰 값
-	
+
 	var sum_point = u_p - o_point;  // 남은 포인트(보유포인트-사용할포인트)
-	var COUPON_DISCOUNT= hap_buy*(a/100); // 쿠폰할인값
-	var cp_buy = (hap_buy-COUPON_DISCOUNT); // 쿠폰할인만 한 가격
-	var sum_buy = (hap_buy-COUPON_DISCOUNT)-o_point; // 주문금액-쿠폰할인-포인트사용(최종결제금액)
+	var hap_discount= hap_buy*(a/100); // 쿠폰할인값
+	var cp_buy = (hap_buy-hap_discount); // 쿠폰할인만 한 가격
+	var sum_buy = (hap_buy-hap_discount)-o_point; // 주문금액-쿠폰할인-포인트사용(최종결제금액)
+
+	var array = document.getElementsByName("ORDER_DETAIL_PRICE");
+	var array2 = document.getElementsByName("COUPON_DISCOUNT");
+	var len = array.length;
+	for (var i=0; i<len; i++){
+		var COUPON_DISCOUNT = array[i].value*(a/100);
+		array2[i].value = COUPON_DISCOUNT;
+	}
 	
 	if(u_p < o_point ){
 			alert("사용가능 마일리지를 확인해주세요!");
@@ -104,11 +113,16 @@ function fn_price(){
 			location.reload(true);
 			return false;
 	}
-	f.discount.value = COUPON_DISCOUNT+o_point;
-	f.pay_price1.value = sum_buy;
-	f.ORDER_TOTAL_PAY_PRICE.value = sum_buy;
+	f.discount.value = hap_discount+o_point;
+	f.pay_price1.value = sum_buy+3000;
+	f.ORDER_TOTAL_PAY_PRICE.value = sum_buy+3000;
 	f.POINT_TOTAL.value = sum_point;
-	f.ORDER_USE_POINT.value = "0";
+
+	var index = ($("#COUPON_VALUE option").index("#COUPON_VALUE option:selected"))*(-1)-1;
+	var array9 = document.getElementsByName("COUPON_STATUS_NO");
+	var array11 = document.getElementsByName("COUPON_NO");
+	f.COUPON_STATUS_NO_1.value = array9[index].value;
+	f.COUPON_NO_1.value = array11[index].value;
 }
 
 //주문완료
@@ -116,19 +130,19 @@ function fn_order_pay(){
 		var f = document.orderWrite;
  		if( f.ORDER_NAME.value=="" ){
  			alert("주문자 이름을 입력해주세요.");
- 			f.o_name.focus();
+ 			f.ORDER_NAME.focus();
  			return false;
  		}
  		if( f.ORDER_PHONE.value==""){
  			alert("전화번호를 입력해주세요.");
- 			f.o_phone.focus(); //커서자동클릭
+ 			f.ORDER_PHONE.focus(); //커서자동클릭
  			return false;
  		}
  		if( f.ORDER_ZIPCODE.value=="" || f.ORDER_ADDR1.value=="" || f.ORDER_ADDR2.value==""){
  			alert("주소를 입력해주세요.");
  			return false;
  		}
- 		if( document.getElementsByName("OPTION1").checked==false && document.getElementsByName("OPTION2").checked==false){
+ 		if( document.getElementById("OPTION1").checked==false && document.getElementById("OPTION2").checked==false){
  			alert("결제방법을 선택해주세요.");
  			return false;
  		}
@@ -142,12 +156,38 @@ function fn_order_pay(){
  			f.ORDER_PAY_NAME.focus(); //커서자동클릭
  			return false;
  		}
- 		if( f.orderChk.value==""){
+ 		if( document.getElementById("orderChk").checked==false){
  			alert("서비스 약관에 동의해주세요.");
  			return false;
  		}
- 		
-		f.submit();
+
+ 		/* $.fn.serializeObject = function()
+ 		{
+ 		   var o = {};
+ 		   var a = this.serializeArray();
+ 		   $.each(a, function() {
+ 		       if (o[this.name]) {
+ 		           if (!o[this.name].push) {
+ 		               o[this.name] = [o[this.name]];
+ 		           }
+ 		           o[this.name].push(this.value || '');
+ 		       } else {
+ 		           o[this.name] = this.value || '';
+ 		       }
+ 		   });
+ 		   return o;
+ 		};
+
+ 		var rs = $('#orderWrite').serializeObject(); 
+		alert(rs); */
+
+		//수정하기
+		var SELECT_BASKET_NO = new Array(); // 배열 선언
+
+	    $('input:checkbox[name=chk]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+	    	SELECT_BASKET_NO.push(this.value);
+	    });
+ 	 	f.submit();
 }
 </script>
 
@@ -167,7 +207,13 @@ function fn_order_pay(){
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
-      <form name="orderWrite" method="post" action="/stu/order/orderPay.do">
+      <form name="orderWrite" id="orderWrite" method="post" action="/stu/order/orderPay.do">
+      	<!-- goods정보 -->
+      	<input type="hidden" name="list" value="${list }">
+      	<!-- coupon정보 -->
+      	<input type="hidden" name="list2" value="${list2 }">
+      	<!-- member정보 -->
+      	<input type="hidden" name="map" value="${map }">
           <div class="table-responsive">
           	<p><b>주문작성/결제</b></p>
             <table class="table table-striped">
@@ -215,7 +261,8 @@ function fn_order_pay(){
 								</c:choose>
 							</td>
 							<td style="text-align:center">
-								<input type="text" name="order_price" value="" style="width:60px; text-align:right; border:none;" readonly>원
+								<input type="text" name="ORDER_DETAIL_PRICE" value="" style="width:60px; text-align:right; border:none;" readonly>원
+								<input type="hidden" name="COUPON_DISCOUNT" value="" >
 							</td>
 						</tr>
 					</c:forEach>
@@ -255,13 +302,14 @@ function fn_order_pay(){
           			<td colspan="3" >
           				<select name="COUPON_VALUE" id="COUPON_VALUE" onchange="fn_price()">
 						<option value="0">-------- 사용안함 -------</option>
-						<c:forEach items="${list2 }" var="row2" varStatus="status2">
-							<option value="${row2.COUPON_VALUE }">${row2.COUPON_ID } 할인</option>
-							<input type="hidden" name="COUPON_NO" value="${row2.COUPON_NO }">
-							<input type="hidden" name="COUPON_STATUS_NO" value="${row2.COUPON_STATUS_NO }">
-							<input type="hidden" name="COUPON_DISCOUNT" value="">
-						</c:forEach>
-					</select>
+							<c:forEach items="${list2 }" var="row2" varStatus="status2">
+								<option value="${row2.COUPON_VALUE }">${row2.COUPON_ID } 할인</option>
+								<input type="hidden" name="COUPON_NO" value="${row2.COUPON_NO }">
+								<input type="hidden" name="COUPON_STATUS_NO" value="${row2.COUPON_STATUS_NO }">
+							</c:forEach>
+						</select>
+						<input type="hidden" name="COUPON_STATUS_NO_1" value="">
+						<input type="hidden" name="COUPON_NO_1" value="">
           			</td>
           			<td>
           				적립혜택
@@ -276,7 +324,7 @@ function fn_order_pay(){
           			<td colspan="3" >
           				<input type="text" name="ORDER_USE_POINT" id="ORDER_USE_POINT" value="0" style="width:100px; text-align:right"> P &nbsp;&nbsp;&nbsp;&nbsp;
           				<input type="button" value="사용" onclick="fn_price()">
-          				(포인트 <input type="text" name="POINT_TOTAL" id="POINT_TOTAL" value="${map.POINT_TOTAL }" style="width:100px; text-align:right; border:none;" readonly> P)
+          				(포인트 <input type="text" name="POINT_TOTAL" id="POINT_TOTAL" value="${map.POINT_TOTAL }" style="width:50px; text-align:right; border:none;" readonly> P)
           			</td>
           			<td>
           				포인트적립
@@ -357,15 +405,15 @@ function fn_order_pay(){
               	<tr>
               		<td>총 결제금액</td>
               		<td style="text-align:left">
-                  		<input type="text" name="ORDER_TOTAL_PAY_PRICE" id="ORDER_TOTAL_PAY_PRICE" value="" style="width:100px;" readonly>
+                  		<input type="text" name="ORDER_TOTAL_PAY_PRICE" id="ORDER_TOTAL_PAY_PRICE" value="" style="width:100px;" readonly>원
                   	</td>
 				</tr>
 				<tr>
               		<td>결제방법</td>
               		<td style="text-align:left">
-                  		<input type="radio" name="ORDER_PAY_OPTION" id="OPTION1" value="신용카드" style="width:30px;">신용카드
+                  		<input type="radio" name="ORDER_PAY_OPTION" id="OPTION1" value="1" style="width:30px;">신용카드
                   		&nbsp;&nbsp;
-                  		<input type="radio" name="ORDER_PAY_OPTION" id="OPTION2" value="계좌이체" style="width:30px;">계좌이체
+                  		<input type="radio" name="ORDER_PAY_OPTION" id="OPTION2" value="2" style="width:30px;">계좌이체
                   	</td>
 				</tr>
 				<tr>
