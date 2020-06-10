@@ -22,7 +22,7 @@ public class QnaController {
 	
 	@RequestMapping(value="/board/openQnaList.do")
     public ModelAndView openQnaList(CommandMap commandMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/board/qna/qnaList");
+    	ModelAndView mv = new ModelAndView("/board/qnaList");
     	
     	return mv;
     }
@@ -45,7 +45,7 @@ public class QnaController {
 	
 	@RequestMapping(value="/board/openQnaWrite.do")
 	public ModelAndView openQnaWrite(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/qna/qnaWrite");
+		ModelAndView mv = new ModelAndView("/board/qnaWrite");
 		
 		return mv;
 	}
@@ -61,7 +61,7 @@ public class QnaController {
 	
 	@RequestMapping(value="/board/openQnaDetail.do")
 	public ModelAndView openQnaDetail(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/qna/qnaDetail");
+		ModelAndView mv = new ModelAndView("/board/qnaDetail");
 		
 		Map<String,Object> map = qnaService.selectQnaDetail(commandMap.getMap());
 		mv.addObject("map", map.get("map"));
@@ -72,7 +72,7 @@ public class QnaController {
 	
 	@RequestMapping(value="/board/openQnaUpdate.do")
 	public ModelAndView openQnaUpdate(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/qna/qnaUpdate");
+		ModelAndView mv = new ModelAndView("/board/qnaUpdate");
 		
 		Map<String,Object> map = qnaService.selectQnaDetail(commandMap.getMap());
 		mv.addObject("map", map.get("map"));

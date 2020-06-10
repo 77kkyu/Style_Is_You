@@ -2,7 +2,7 @@
 
 a:link, a:visited {text-decoration: none; color: #656565;}
 
-.board_list {width:100%;border-top:2px solid #252525;border-bottom:1px solid #ccc}
+.board_list {width:100%;border-top:2px solid #252525;border-bottom:1px solid #ccc;}
 .board_list thead th:first-child{background-image:none}
 .board_list thead th {border-bottom:1px solid #ccc;padding:12px 0 13px 0;color:#3b3a3a;vertical-align:middle}
 .board_list tbody td {border-top:1px solid #ccc;padding:10px 0;text-align:center;vertical-align:middle}

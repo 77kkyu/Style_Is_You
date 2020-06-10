@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
-<%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <head>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
-<%@include file ="/header.jsp" %>
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
-  <tiles:insertAttribute name="body" />
-
 </head>
+
 <body>
 <br/><br/><br/><br/>
 	<h2 align="center">공지사항</h2>
@@ -30,7 +29,7 @@
 				<th scope="col">작성일</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="noticeList">
 			
 		</tbody>
 	</table>
@@ -41,7 +40,7 @@
 	<br/>
 	<a href="#this" class="btn" id="write">글쓰기</a>
 
-
+	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			fn_selectNoticeList(1);
@@ -53,7 +52,7 @@
 			
 			$("a[name='notice_title']").on("click", function(e){ //제목 
 				e.preventDefault();
-				fn_openNoticeDetail($(this).parent()[0].getElementsByTagName('input')[0].value);
+				fn_openNoticeDetail($(this));
 			});
 		});
 		
@@ -64,11 +63,12 @@
 			comSubmit.submit();
 		}
 		
-		function fn_openNoticeDetail(notice_no){
+		function fn_openNoticeDetail(obj){
 			var comSubmit = new ComSubmit();
-			
+
+			console.log(obj.parent().find("#NOTICE_NO").val());
 			comSubmit.setUrl("<c:url value='/board/openNoticeDetail.do' />");
-			comSubmit.addParam("NOTICE_NO", notice_no);
+			comSubmit.addParam("NOTICE_NO", obj.parent().find("#NOTICE_NO").val());
 			comSubmit.submit();
 		}
 		
@@ -78,7 +78,7 @@
 			comAjax.setCallback("fn_selectNoticeListCallback");
 			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
 			comAjax.addParam("PAGE_ROW", 15);
-			comAjax.addParam("NOTICE_NO",$("#NOTICE_NO").val());
+			comAjax.addParam("IDX_FE",$("#IDX_FE").val());
 			comAjax.ajax();
 		}
 		
@@ -90,7 +90,8 @@
 				var str = "<tr>" + 
 								"<td colspan='3'>조회된 결과가 없습니다.</td>" + 
 							"</tr>";
-				body.append(str);
+				//body.append(str);
+				$('#noticeList').append(str);
 			}
 			else{
 				var params = {
@@ -104,17 +105,19 @@
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr>" + 
-								"<td>" + value.NOTICE_NO + "</td>" + 
-								"<td class='notice_title'>" +
-									"<a href='#this' name='notice_title'>" + value.NOTICE_TITLE + "</a>" +
-									"<input type='hidden' name='notice_title' value=" + value.NOTICE_NO + ">" + 
-								"</td>" +
-								"<td>" + value.NOTICE_DATE + "</td>" + 
-							"</tr>";
+					"<td >" + value.NOTICE_NO + "</td>" + "<input type='hidden' id='NOTICE_NO' value=" + value.NOTICE_NO + ">"
+                    +"<td class='title'>" +
+						"<a href='#this' name='title'>" + value.NOTICE_TITLE + "</a>" +
+						"<input type='hidden' name='title' value=" + value.NOTICE_TITLE + ">" + 
+						
+					"</td>" + 
+					"<td>" + value.NOTICE_DATE + "</td>" + 
+				"</tr>";
 				});
-				body.append(str);
+				//body.append(str);
+				$('#noticeList').append(str);
 				
-				$("a[name='notice_title']").on("click", function(e){ //제목 
+				$("a[name='title']").on("click", function(e){ //제목 
 					e.preventDefault();
 					fn_openNoticeDetail($(this));
 				});

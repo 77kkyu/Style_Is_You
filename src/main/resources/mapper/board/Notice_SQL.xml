@@ -3,8 +3,8 @@
 
 <mapper namespace="notice">
 	
-	<select id="selectNoticeList" parameterType="hashmap" resultType="hashmap">
-		<!-- <include refid="common.pagingPre"/> -->
+	<select id="selectNoticeList" resultType="hashmap">
+<!-- 		<include refid="common.pagingPre"/> -->
 		<![CDATA[
 			SELECT
 				NOTICE_NO,
@@ -12,8 +12,10 @@
 			    TO_CHAR(NOTICE_DATE, 'YYYY.MM.DD') AS NOTICE_DATE
 			FROM
 			    NOTICE
-			WHERE NOTICE_GUBUN = '0'
+			WHERE
+				NOTICE_GUBUN = '0'
 		]]>
+<!-- 		<include refid="common.pagingPost"/>  -->
 	</select>
 	
 	<insert id="insertNotice" parameterType="hashmap" useGeneratedKeys="true" keyProperty="NOTICE_NO">

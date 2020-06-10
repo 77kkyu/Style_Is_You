@@ -14,8 +14,9 @@
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
 <body>
+<br/><br/><br/><br/>
 	<h2 align="center">FAQ</h2>
-
+	<br/><br/>
 	<table class="board_list">
 		<thead id = "test" >	
 

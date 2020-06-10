@@ -22,7 +22,7 @@ public class FaqController {
 	
 	@RequestMapping(value="/board/openFaqList.do")
     public ModelAndView openFaqList(CommandMap commandMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/board/faq/faqList");
+    	ModelAndView mv = new ModelAndView("/board/faqList");
     	
     	return mv;
     }
@@ -45,7 +45,7 @@ public class FaqController {
 	
 	@RequestMapping(value="/board/openFaqWrite.do")
 	public ModelAndView openFaqWrite(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/faq/faqWrite");
+		ModelAndView mv = new ModelAndView("/board/faqWrite");
 		
 		return mv;
 	}
@@ -61,7 +61,7 @@ public class FaqController {
 	
 	@RequestMapping(value="/board/openFaqDetail.do")
 	public ModelAndView openFaqDetail(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/faq/faqDetail");
+		ModelAndView mv = new ModelAndView("/board/faqDetail");
 		
 		Map<String,Object> map = faqService.selectFaqDetail(commandMap.getMap());
 		mv.addObject("map", map.get("map"));
@@ -72,7 +72,7 @@ public class FaqController {
 	
 	@RequestMapping(value="/board/openFaqUpdate.do")
 	public ModelAndView openFaqUpdate(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/faq/faqUpdate");
+		ModelAndView mv = new ModelAndView("/board/faqUpdate");
 		
 		Map<String,Object> map = faqService.selectFaqDetail(commandMap.getMap());
 		mv.addObject("map", map.get("map"));
