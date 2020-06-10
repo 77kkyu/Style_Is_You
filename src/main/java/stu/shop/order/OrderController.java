@@ -1,5 +1,7 @@
 package stu.shop.order;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +95,7 @@ public class OrderController {
 		@RequestMapping(value="/order/orderPay.do")
 		public ModelAndView orderPay(CommandMap commandMap, HttpServletRequest request) throws Exception {
 			ModelAndView mv = new ModelAndView("order/orderFinish");
-			System.out.println(commandMap.get("list"));
+			
 			/*
 			 * Object MEMBER_NO = "";
 			 * 
@@ -103,21 +105,6 @@ public class OrderController {
 			 * commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 commandMap.put("MEMBER_NO",
 			 * MEMBER_NO); // 세션 값으로 적용
 			 */
-			
-			String ORDER_DETAIL_PRICE_1 = (String) commandMap.get("ORDER_DETAIL_PRICE_1");
-			String[] ORDER_DETAIL_PRICE_2 = ORDER_DETAIL_PRICE_1.split(",");
-			
-			String COUPON_DISCOUNT_1 = (String) commandMap.get("COUPON_DISCOUNT_1");
-			String[] COUPON_DISCOUNT_2 = COUPON_DISCOUNT_1.split(",");
-			
-			String ORDER_DISCOUNT_APPLY_1 = (String) commandMap.get("ORDER_DISCOUNT_APPLY_1");
-			String[] ORDER_DISCOUNT_APPLY_2 = ORDER_DISCOUNT_APPLY_1.split(",");
-			
-			int len = ORDER_DISCOUNT_APPLY_2.length;
-			
-			commandMap.put("COUPON_DISCOUNT_2", COUPON_DISCOUNT_2);
-			commandMap.put("ORDER_DISCOUNT_APPLY_2", ORDER_DISCOUNT_APPLY_2);
-			commandMap.put("len", len);
 			orderService.insertOrder(commandMap, request); 
 			
 			/*

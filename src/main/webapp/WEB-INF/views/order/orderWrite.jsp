@@ -164,28 +164,8 @@ function fn_order_pay(){
  			alert("서비스 약관에 동의해주세요.");
  			return false;
  		}
-
-		var ORDER_DETAIL_PRICE = new Array(); // 배열 선언
-		var COUPON_DISCOUNT = new Array();
-		var ORDER_DISCOUNT_APPLY = new Array();
 		
-	    $('input:text[name=ORDER_DETAIL_PRICE]').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
-	    	ORDER_DETAIL_PRICE.push(this.value);
-	    });
-	    $('input:hidden[name=COUPON_DISCOUNT]').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
-	    	COUPON_DISCOUNT.push(this.value);
-	    });
-	    $('input:hidden[name=ORDER_DISCOUNT_APPLY]').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
-	    	ORDER_DISCOUNT_APPLY.push(this.value);
-	    });
-	    var comSubmit = new ComSubmit("orderWrite");
-	    comSubmit.setUrl("<c:url value='/order/orderPay.do' />");
-		comSubmit.addParam("ORDER_DETAIL_PRICE_1", ORDER_DETAIL_PRICE);
-		comSubmit.addParam("COUPON_DISCOUNT_1", COUPON_DISCOUNT);
-		comSubmit.addParam("ORDER_DISCOUNT_APPLY_1", ORDER_DISCOUNT_APPLY);
-		comSubmit.submit();
-
- 	 	//f.submit();
+		f.submit();
 }
 </script>
 
@@ -206,12 +186,12 @@ function fn_order_pay(){
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
       <form name="orderWrite" id="orderWrite" method="post" action="/stu/order/orderPay.do">
-      	<!-- goods정보 -->
+      	<%-- <!-- goods정보 -->
       	<input type="hidden" name="list" value="${list }">
       	<!-- coupon정보 -->
       	<input type="hidden" name="list2" value="${list2 }">
       	<!-- member정보 -->
-      	<input type="hidden" name="map" value="${map }">
+      	<input type="hidden" name="map" value="${map }"> --%>
           <div class="table-responsive">
           	<p><b>주문작성/결제</b></p>
             <table class="table table-striped">
@@ -233,8 +213,11 @@ function fn_order_pay(){
               <tbody>
               
 					<c:forEach items="${list }" var="row" varStatus="status">
-						<input type="hidden" name="goods_att_amount" value="${row.GOODS_ATT_AMOUNT }">
 						<input type="hidden" name="member_grade" value="${row.MEMBER_GRADE }">
+						<input type="hidden" name="goods_no" value="${row.GOODS_NO }">
+						<input type="hidden" name="goods_att_no" value="${row.GOODS_ATT_NO }">
+						<input type="hidden" name="goods_att_color" value="${row.GOODS_ATT_COLOR }">
+						<input type="hidden" name="goods_att_size" value="${row.GOODS_ATT_SIZE }">
 						<tr>
                   			<td>
                   				<img src="${row.UPLOAD_SAVE_NAME }" width="50" height="50">
