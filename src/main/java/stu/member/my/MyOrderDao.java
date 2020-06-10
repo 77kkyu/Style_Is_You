@@ -35,7 +35,22 @@ public class MyOrderDao extends AbstractDao {
 
 	public int list_point_search(CommandMap map) throws Exception {
 		// TODO Auto-generated method stub
-		return (int)list_point_search("my.list_point_search", map);
+		return (int)list_point_search("my.list_point_search", map.getMap());
+	}
+
+	public void use_point_reset(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		use_point_reset("my.use_point_reset", map.getMap());
+	}
+
+	public void save_point_reset(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		save_point_reset("my.save_point_reset", map.getMap());
+	}
+
+	public List<Map<String, Object>> list_stock_search(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) list_stock_search("my.list_stock_search", map.getMap());
 	}
 
 }

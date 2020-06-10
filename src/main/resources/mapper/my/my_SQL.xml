@@ -23,7 +23,7 @@
 		]]>
 	</select>
 	
-	<!-- 마이페이지의 수취확인 -->
+	<!-- 마이페이지 - 수취확인 -->
 	<select id="my_order_ok" parameterType="hashmap" > 
 		<![CDATA[
 			UPDATE order_list
@@ -32,16 +32,17 @@
 		]]>
 	</select>
 	
-	<select id="my_list_cancle" parameterType="hashmap" > 
+	<!-- 마이페이지 - 주문취소 -->
+	<update id="my_list_cancle" parameterType="hashmap" >  <!-- 주문상태변경 --> 
 		<![CDATA[
 			UPDATE order_list SET order_state = '98' where order_no = ${order_no}
 		]]>
-	</select>
-	<select id="my_detail_cancle" parameterType="hashmap" > 
+	</update>
+	<update id="my_detail_cancle" parameterType="hashmap" > <!-- 주문디테일변경 -->
 		<![CDATA[
 			UPDATE order_detail SET order_detail_state = '20' where order_no = ${order_no}
 		]]>
-	</select>
+	</update>
 	<select id="list_point_search" parameterType="hashmap" resultType="int">
 		<![CDATA[
 			select (order_use_point) u_point
@@ -49,8 +50,41 @@
 			where order_no = ${order_no}
 		]]>
 	</select>
-	
-	
+	<insert id="use_point_reset" parameterType="hashmap"> <!-- 사용포인트 취소 -->
+		<selectKey resultType="hashmap" keyProperty="hab,member_no,use_point" order="BEFORE">
+		    select (p.point_total+l.order_use_point)as hap, l.member_no, l.order_use_point
+		    from order_list l, point p
+		    where l.member_no = p.member_no
+		    and l.order_no = ${order_no}
+		</selectKey>
+		<![CDATA[
+			INSERT INTO POINT (POINT_NO, MEMBER_NO, POINT_VAL, POINT_SAVE_DATE, POINT_TOTAL)
+			VALUES 
+			( POINT_NO_SEQ.NEXTVAL, #{member_no}, #{use_point},
+			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), #{hap})
+		]]>
+	</insert>
+	<insert id="save_point_reset" parameterType="hashmap"> <!-- 사용포인트 취소 -->
+		<selectKey resultType="hashmap" keyProperty="hab,member_no,save_point" order="BEFORE">
+		    select (p.point_total-l.order_save_point)as hap, l.member_no, l.order_save_point
+		    from order_list l, point p
+		    where l.member_no = p.member_no
+		    and l.order_no = ${order_no}
+		</selectKey>
+		<![CDATA[
+			INSERT INTO POINT (POINT_NO, MEMBER_NO, POINT_VAL, POINT_USE_DATE, POINT_TOTAL)
+			VALUES 
+			( POINT_NO_SEQ.NEXTVAL, #{member_no}, #{save_point},
+			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), #{hap})
+		]]>
+	</insert>
+	<select id="list_stock_search" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			
+			
+			
+		]]>
+	</select>
 	
 	
 	

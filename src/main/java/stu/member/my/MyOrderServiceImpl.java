@@ -39,14 +39,20 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 		
 		int use_point = myOrderDao.list_point_search(commandMap); //주문테이블에서 사용포인트 가져옴
 		System.out.println("포인트값"+use_point);
+
+		if( use_point > 0 ) { //주문결제시 사용포인트가 있다면
+			myOrderDao.use_point_reset(commandMap); //사용포인트 취소
+			myOrderDao.save_point_reset(commandMap); //적립포인트 취소
+		} else {
+			myOrderDao.save_point_reset(commandMap); //적립포인트 취소 error
+		}
 		
-		
-		
+		List<Map<String, Object>> list_stock_search = myOrderDao.list_stock_search(commandMap);	 // 주문디테일에서 상품속성번호, 수량 가져옴
+		System.out.println("주문디테일 상품속성,수량:"+list_stock_search);
 		
 		/*
-		 * if( use_point > 0 ) { myOrderDao.use_point_reset(commandMap);
-		 * myOrderDao.save_point_reset(commandMap); } else {
-		 * myOrderDao.save_point_reset(commandMap); }
+		 * 가져온값에 length를 구해 for문을 돌리고 for (list_stock_search.)
+		 * 상품속성번호에 상품 수량을 ++ 해줌
 		 */
 		
 		

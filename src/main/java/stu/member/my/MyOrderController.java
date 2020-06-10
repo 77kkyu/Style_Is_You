@@ -99,24 +99,49 @@ Logger log = Logger.getLogger(this.getClass());
 		
 		Map<String, Object> Size = commandMap.getMap();
 		System.out.println("commandMap1111="+Size);
-		// list, detail에서 주문상태 변경 후 use_point와 save포인트를 가져옴
-		List<Map<String, Object>> point =  myOrderService.order_state_cancle(commandMap);
-		System.out.println("point:"+point);
+
+		// Sevice단에서 캔슬 로직 처리
+		myOrderService.order_state_cancle(commandMap);
 		
-		
-		
-		
-		
-		/*
-		 * myOrderService.order_ok(commandMap);
-		 * 
-		 * //처리후 다시 리스트 불러오기 List<Map<String, Object>> my_order =
-		 * myOrderService.myOrderList(commandMap); mv.addObject("my_order", my_order);
-		 * 
-		 * System.out.println("mv:" + mv);
-		 */
+		//처리후 다시 리스트 불러오기
+		List<Map<String, Object>> my_order = myOrderService.myOrderList(commandMap);
+		mv.addObject("my_order", my_order);
+	
 		return mv;
-	}	
+	}
+	
+	// 마이페이지 - 교환신청폼
+	@RequestMapping(value="/order_change.do", method = RequestMethod.GET)
+	public ModelAndView order_change(CommandMap commandMap,HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("my/myOrderChangeForm");
+		
+		String member_no = ""; String order_no = "";
+  
+		if (request.getParameter("mem_no") != null && request.getParameter("order_no") != null) {
+			member_no = request.getParameter("mem_no");
+			order_no = request.getParameter("order_no");
+		}
+		commandMap.put("member_no", member_no);
+		commandMap.put("order_no", order_no);
+		//System.out.println("member_no : "+member_no+" / "+"order_no : "+order_no);
+		System.out.println(commandMap.getMap());
+		
+		
+		// 아래 두개를 전부 서비스단에서 한꺼번에 처리??
+		// order_list에서 order_no를 통해 주문 정보를 가져오고 changeForm_a 리스트맵에 담고
+		//List<Map<String, Object>> changeForm_a = myOrderService.changeForm_a(commandMap);
+		
+		// order_detail에서 order_no를 통해 주문상품 전체를 가져옴 changeForm_b 리스트맵에 담고
+		//List<Map<String, Object>> changeForm_b = myOrderService.changeForm_b(commandMap);
+		
+		
+		
+		// 결과리턴 mv.addObject("my_order", my_order);
+	
+		return mv;
+	}
+	
 	
 	
 }

@@ -144,21 +144,30 @@ public class AbstractDao {
 	         return sqlSession.selectList(queryId,params);
 	      }
 
-	      public List<Map<String,Object>> list_cancle(String queryId, Object params) { // 마이페이지 수취확인 
+	      public void list_cancle(String queryId, Object params) { // 주문취소 -주문상태 변경 
+	         printQueryId(queryId);
+	         sqlSession.selectList(queryId,params);
+	      }
+	      public void detail_cancle(String queryId, Object params) { // 주문취소 -주문디테일 변경 
+	         printQueryId(queryId);
+	         sqlSession.selectList(queryId,params);
+	      }
+	      public int list_point_search(String queryId, Object params) { // 주문취소 -사용포인트값 가져오기 
+	         printQueryId(queryId);
+	         return sqlSession.selectOne(queryId,params);
+	      }
+	      public void use_point_reset(String queryId, Object params) { // 주문취소 - 사용포인트 복구
+	         printQueryId(queryId);
+	         sqlSession.insert(queryId,params);
+	      }
+	      public void save_point_reset(String queryId, Object params) { // 주문취소 -적립포인트 취소 
+	         printQueryId(queryId);
+	         sqlSession.insert(queryId,params);
+	      }
+	      public List<Map<String,Object>> list_stock_search(String queryId, Object params) { // 주문취소 - 오더리스트에서 상품속성,수량 가져옴 
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params);
 	      }
-	      
-	      public List<Map<String,Object>> detail_cancle(String queryId, Object params) { // 마이페이지 수취확인 
-	         printQueryId(queryId);
-	         return sqlSession.selectList(queryId,params);
-	      }
-	      
-	      public int list_point_search(String queryId, Object params) { // 사용포인트값 가져오기 
-		         printQueryId(queryId);
-		         return sqlSession.selectOne(queryId,params);
-		      }
-		
 
 	      
 	      
