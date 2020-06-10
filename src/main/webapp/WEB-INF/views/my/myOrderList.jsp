@@ -75,25 +75,35 @@ function order_ok(mem_no, order_no){
 <body>
 <div class="container">
 	<div class="row">
-        
         <div class="col-md-4">
           <h2>주문 배송 내역</h2>
           <p>배송추적은 '수취확인' 상태부터 가능합니다.</p>
           <p>수취확인 후에는 반품/교환이 어렵습니다. 기한내 신청 바랍니다.</p>
         </div>
-        
-        <table>
-			<tbody>
+	</div>
+
+	<div class="row">	
+		<div >
+        <table align="center" width="100%">
+        	<colgroup>
+			<col width="20%" /><col width="20%" /><col width="20%" /><col width="20%" /><col width="30%" />
+			</colgroup>
+			<thead>
 				<tr>
-					<td>오늘</td><td>일주일</td><td>1개월</td><td>3개월</td><td>6개월</td>
+					<th scope="col">오늘</th>
+					<th scope="col">일주일</th>
+					<th scope="col">1개월</th>
+					<th scope="col">3개월</th>
+					<th scope="col">6개월</th>
 				</tr>
+			</thead>
+			<tbody>
 				<tr>	
 					<td>기간조회</td>
 				</tr>
-
 			</tbody>
 		</table>
-        
+		</div>
 	</div>
 
 	<div class="table-responsive">
@@ -144,6 +154,18 @@ function order_ok(mem_no, order_no){
 								<c:when test="${my_order.ORDER_STATE eq '5' }">
 								<td>배송완료/<br /><a href="">[송장확인]</a></td>
 								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '99' }">
+								<td>주문취소</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '98' }">
+								<td>주문취소</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '97' }">
+								<td>교환요청</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '96' }">
+								<td>AS요청</td>
+								</c:when>
 							</c:choose>
 							<c:choose>
 								<c:when test="${my_order.ORDER_STATE < 2 }">
@@ -155,6 +177,15 @@ function order_ok(mem_no, order_no){
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '5' }">
 								<td><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="AS요청"></td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '99' }">
+								<td>환불완료</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '98' }">
+								<td>주문취소</td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE > 95 && my_order.ORDER_STATE < 98 }">
+								<td>처리중</td>
 								</c:when>
 							</c:choose>
 						</tr>

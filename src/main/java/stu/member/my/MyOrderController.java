@@ -79,7 +79,7 @@ Logger log = Logger.getLogger(this.getClass());
 		return mv;
 	}
 	
-	// 마이페이지 - 수취확인
+	// 마이페이지 - 주문취소
 	@RequestMapping(value="/order_cancle.do")
 	public ModelAndView order_cancle(CommandMap commandMap,HttpServletRequest request) throws Exception {
 		
@@ -95,10 +95,16 @@ Logger log = Logger.getLogger(this.getClass());
 		commandMap.put("member_no", member_no);
 		commandMap.put("order_no", order_no);
 		//System.out.println("member_no : "+member_no+" / "+"order_no : "+order_no);
+		System.out.println(commandMap.getMap());
 		
+		Map<String, Object> Size = commandMap.getMap();
+		System.out.println("commandMap1111="+Size);
 		// list, detail에서 주문상태 변경 후 use_point와 save포인트를 가져옴
 		List<Map<String, Object>> point =  myOrderService.order_state_cancle(commandMap);
 		System.out.println("point:"+point);
+		
+		
+		
 		
 		
 		/*

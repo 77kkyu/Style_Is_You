@@ -34,10 +34,28 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	@Override
 	public List<Map<String, Object>> order_state_cancle(CommandMap commandMap) throws Exception {
 		
-		myOrderDao.list_cancle(commandMap);
-		myOrderDao.detail_cancle(commandMap);
+		myOrderDao.list_cancle(commandMap);  //주문상태 취소로 변경
+		myOrderDao.detail_cancle(commandMap); //주문디테일상태 환불로 변경
 		
-		return myOrderDao.list_point_search(commandMap);
+		int use_point = myOrderDao.list_point_search(commandMap); //주문테이블에서 사용포인트 가져옴
+		System.out.println("포인트값"+use_point);
+		
+		
+		
+		
+		/*
+		 * if( use_point > 0 ) { myOrderDao.use_point_reset(commandMap);
+		 * myOrderDao.save_point_reset(commandMap); } else {
+		 * myOrderDao.save_point_reset(commandMap); }
+		 */
+		
+		
+		
+		
+		
+		
+		return null;
+		
 	}
 
 }

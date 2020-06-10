@@ -42,9 +42,9 @@
 			UPDATE order_detail SET order_detail_state = '20' where order_no = ${order_no}
 		]]>
 	</select>
-	<select id="list_point_search" parameterType="hashmap" resultType="hashmap">
+	<select id="list_point_search" parameterType="hashmap" resultType="int">
 		<![CDATA[
-			select (order_use_point) u_point, (order_save_point) s_point
+			select (order_use_point) u_point
 			from order_list
 			where order_no = ${order_no}
 		]]>

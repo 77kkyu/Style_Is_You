@@ -154,10 +154,10 @@ public class AbstractDao {
 	         return sqlSession.selectList(queryId,params);
 	      }
 	      
-	      public List<Map<String,Object>> list_point_search(String queryId, Object params) { // 마이페이지 수취확인 
-	         printQueryId(queryId);
-	         return sqlSession.selectList(queryId,params);
-	      }
+	      public int list_point_search(String queryId, Object params) { // 사용포인트값 가져오기 
+		         printQueryId(queryId);
+		         return sqlSession.selectOne(queryId,params);
+		      }
 		
 
 	      
