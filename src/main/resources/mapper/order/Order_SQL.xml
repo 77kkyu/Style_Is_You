@@ -98,32 +98,30 @@
 			(
 				ORDER_DETAIL_NO,
 			    ORDER_NO, 
-			    GOODS_NO, L
-			    GOODS_ATT_NO,L
+			    GOODS_NO,
+			    GOODS_ATT_NO,
 			    ORDER_DETAIL_PRICE,
-			    ORDER_DETAIL_COLOR,L
-			    ORDER_DETAIL_SIZE,L
-			    ORDER_DETAIL_AMOUNT,L
+			    ORDER_DETAIL_COLOR,
+			    ORDER_DETAIL_SIZE,
+			    ORDER_DETAIL_AMOUNT,
 			    COUPON_NO,
 			    COUPON_DISCOUNT,
 			    ORDER_DISCOUNT_APPLY,
 			    ORDER_DETAIL_STATE
 			)
-			VALUES
-				<foreach collection="list" item="item" separator=" , ">
-            		(ORDER_DETAIL_NO_SEQ.NEXTVAL,
-					#{ORDER_NO},
-					#{item.GOODS_NO},
-					#{item.GOODS_ATT_NO},
-					#{},
-					#{item.GOODS_ATT_COLOR},
-					#{item.GOODS_ATT_SIZE},
-					#{item.BASKET_GOODS_AMOUNT},
-					#{COUPON_NO},
-					#{},
-					#{},
-					0)
-        		</foreach>
+			VALUES	
+				(ORDER_NO_SEQ.NEXTVAL,
+				#{ORDER_NO},
+				#{item.GOODS_NO},
+				#{item.GOODS_ATT_NO},
+				#{ORDER_DETAIL_PRICE_2},
+				#{item.GOODS_ATT_COLOR},
+				#{item.GOODS_ATT_SIZE},
+				#{item.BASKET_GOODS_AMOUNT},
+				#{COUPON_NO},
+				#{COUPON_DISCOUNT_2},
+				#{ORDER_DISCOUNT_APPLY_2},
+				0)
 		]]>
 	</insert>
 	 

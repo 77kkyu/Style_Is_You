@@ -98,10 +98,12 @@ function fn_price(){
 
 	var array = document.getElementsByName("ORDER_DETAIL_PRICE");
 	var array2 = document.getElementsByName("COUPON_DISCOUNT");
+	var array3 = document.getElementsByName("ORDER_DISCOUNT_APPLY");
 	var len = array.length;
 	for (var i=0; i<len; i++){
 		var COUPON_DISCOUNT = array[i].value*(a/100);
 		array2[i].value = COUPON_DISCOUNT;
+		array3[i].value = Number(array[i].value)-Number(array2[i].value);
 	}
 	
 	if(u_p < o_point ){
@@ -127,7 +129,9 @@ function fn_price(){
 
 //주문완료
 function fn_order_pay(){
+	
 		var f = document.orderWrite;
+		
  		if( f.ORDER_NAME.value=="" ){
  			alert("주문자 이름을 입력해주세요.");
  			f.ORDER_NAME.focus();
@@ -161,33 +165,27 @@ function fn_order_pay(){
  			return false;
  		}
 
- 		/* $.fn.serializeObject = function()
- 		{
- 		   var o = {};
- 		   var a = this.serializeArray();
- 		   $.each(a, function() {
- 		       if (o[this.name]) {
- 		           if (!o[this.name].push) {
- 		               o[this.name] = [o[this.name]];
- 		           }
- 		           o[this.name].push(this.value || '');
- 		       } else {
- 		           o[this.name] = this.value || '';
- 		       }
- 		   });
- 		   return o;
- 		};
-
- 		var rs = $('#orderWrite').serializeObject(); 
-		alert(rs); */
-
-		//수정하기
-		var SELECT_BASKET_NO = new Array(); // 배열 선언
-
-	    $('input:checkbox[name=chk]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
-	    	SELECT_BASKET_NO.push(this.value);
+		var ORDER_DETAIL_PRICE = new Array(); // 배열 선언
+		var COUPON_DISCOUNT = new Array();
+		var ORDER_DISCOUNT_APPLY = new Array();
+		
+	    $('input:text[name=ORDER_DETAIL_PRICE]').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+	    	ORDER_DETAIL_PRICE.push(this.value);
 	    });
- 	 	f.submit();
+	    $('input:hidden[name=COUPON_DISCOUNT]').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+	    	COUPON_DISCOUNT.push(this.value);
+	    });
+	    $('input:hidden[name=ORDER_DISCOUNT_APPLY]').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+	    	ORDER_DISCOUNT_APPLY.push(this.value);
+	    });
+	    var comSubmit = new ComSubmit("orderWrite");
+	    comSubmit.setUrl("<c:url value='/order/orderPay.do' />");
+		comSubmit.addParam("ORDER_DETAIL_PRICE_1", ORDER_DETAIL_PRICE);
+		comSubmit.addParam("COUPON_DISCOUNT_1", COUPON_DISCOUNT);
+		comSubmit.addParam("ORDER_DISCOUNT_APPLY_1", ORDER_DISCOUNT_APPLY);
+		comSubmit.submit();
+
+ 	 	//f.submit();
 }
 </script>
 
@@ -263,6 +261,7 @@ function fn_order_pay(){
 							<td style="text-align:center">
 								<input type="text" name="ORDER_DETAIL_PRICE" value="" style="width:60px; text-align:right; border:none;" readonly>원
 								<input type="hidden" name="COUPON_DISCOUNT" value="" >
+								<input type="hidden" name="ORDER_DISCOUNT_APPLY" value="" >
 							</td>
 						</tr>
 					</c:forEach>

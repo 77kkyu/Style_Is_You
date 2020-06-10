@@ -22,7 +22,10 @@ public class OrderDao extends AbstractDao{
 
 	public void insertOrder(CommandMap commandMap) throws Exception{
 		insert("order.insertOrder", commandMap.getMap());
-		insert("order.insertOrderDetail", commandMap.getMap());
+		int len = (int) commandMap.get("len");
+		for(int i=0; i<len; i++ ) {
+			insert("order.insertOrderDetail", commandMap.get("list"));
+		}
 		insert("order.savePoint", commandMap.getMap());
 		insert("order.usePoint", commandMap.getMap());
 		update("order.useCoupon", commandMap.getMap());
