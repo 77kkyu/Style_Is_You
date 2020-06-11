@@ -105,11 +105,11 @@ public class OrderController {
 			 * commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 commandMap.put("MEMBER_NO",
 			 * MEMBER_NO); // 세션 값으로 적용
 			 */
-			orderService.insertOrder(commandMap, request); 
-			/*
-			 * Map<String,Object> map = orderService.selectOrder(commandMap, request);
-			 * mv.addObject("map", map);
-			 */
+			orderService.insertOrder(commandMap, request);
+			
+			Map<String,Object> map = orderService.selectOrder(commandMap, request);
+			mv.addObject("map", map);
+			 
 			return mv;
 		}
 	

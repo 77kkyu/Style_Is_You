@@ -44,14 +44,14 @@
       	</table>
       </div>
 
-          <div>
-          	<table>
-      			<tr>
+          <div style="align:center">
+          	<table style="align:center">
+      			<tr style="align:center">
       				<td style="text-align:center; font-size:17px; font-weight:bold;">주문이 완료되었습니다.</td>
       			</tr>
       			<tr>
       				<td style="text-align:center; font-size:17px; font-weight:bold;">
-      					주문번호는 <a href="/stu/order_detail.do?order_no=${map.ORDER_NO }">${map.ORDER_NO }입니다</a>
+      					주문번호는 <a href="/stu/order_detail.do?order_no=${map.ORDER_NO }">${map.ORDER_NO }</a>입니다
       				</td>
       			</tr>
       		</table>
@@ -60,7 +60,7 @@
            
             <div style="text-align:center">
           		<input type="button" name="main" value="메인으로" onClick="location.href='/stu/main.do'">
-            	<input type="button" name="orderList" value="주문확인" onclick="location.href='/stu/myOrderList.do'">
+            	<input type="button" name="orderList" value="주문확인" onclick="location.href='#">
             </div>
       
 
