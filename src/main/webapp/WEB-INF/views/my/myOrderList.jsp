@@ -131,8 +131,13 @@ function order_ok(mem_no, order_no){
 					<c:forEach items="${my_order }" var="my_order">					
 						<tr>
 							<td>${my_order.ORDER_DATE }<br />${my_order.ORDER_NO }</td>
-							<td ><a href="#this" name="title">${my_order.GOODS_NAME }</a>
-								<input type="hidden" id="member_no" value="${my_order.MEMBER_NO }"></td>
+							<td >
+							<%-- HAP_CNT값이 2 이상이면 ${my_order.GOODS_NAME } 외 ${my_order.HAP_CNT -1 }건 --%>
+							
+							<a href="#this" name="title">${my_order.GOODS_NAME }</a>
+								<input type="hidden" id="member_no" value="${my_order.MEMBER_NO }">
+								
+							</td>
 							<td>${my_order.ORDER_TOTAL_PAY_PRICE }원</td>
 							<c:choose>
 								<c:when test="${my_order.ORDER_STATE eq '0' }">
@@ -145,17 +150,16 @@ function order_ok(mem_no, order_no){
 								<td>배송준비중</td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '3' }">
-								<td>배송중/<br /><a href="">[송장확인]</a></td>
+								<td>배송중</td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '4' }">
-								<td><input type="button" onclick="order_ok(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="수취확인">
-								<br /><a href="">[송장확인]</a></td>
+								<td><input type="button" onclick="order_ok(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="수취확인"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '5' }">
-								<td>배송완료/<br /><a href="">[송장확인]</a></td>
+								<td>배송완료</td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '99' }">
-								<td>주문취소</td>
+								<td>환불완료</td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '98' }">
 								<td>주문취소</td>
@@ -171,12 +175,19 @@ function order_ok(mem_no, order_no){
 								<c:when test="${my_order.ORDER_STATE < 2 }">
 								<td><input type="button" onclick="order_cancle(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="주문취소"></td>
 								</c:when>
-								<c:when test="${my_order.ORDER_STATE > 1 && my_order.ORDER_STATE < 5 }">
-								<td><input type="button" onclick="order_change(${my_order.ORDER_NO })" value="교환/환불">
-								<br /><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="AS요청"></td>
+								<c:when test="${my_order.ORDER_STATE eq '2' }">
+								<td><input type="button" onclick="order_change(${my_order.ORDER_NO })" value="교환/환불"></td>
 								</c:when>
-								<c:when test="${my_order.ORDER_STATE eq '5' }">
-								<td><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="AS요청"></td>
+								<c:when test="${my_order.ORDER_STATE eq '3' }">
+								<td><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="송장확인"></td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '4' }">
+								<td><input type="button" onclick="order_change(${my_order.ORDER_NO })" value="송장확인">
+								<br /><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="교환/환불/AS요청"></td>
+								</c:when>
+								<c:when test="${my_order.ORDER_STATE eq '5' }"> <!-- 수취확인 후 교환-환불-AS는 상품문의 게시판으로 -->
+								<td><input type="button" onclick="order_review(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="리뷰쓰기">
+								<br /><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="교환/환불/AS요청"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '99' }">
 								<td>환불완료</td>
@@ -202,13 +213,7 @@ function order_ok(mem_no, order_no){
 		</table>
 	</div>
 
-
-
 </div>
-
-
-
-
 
 
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->

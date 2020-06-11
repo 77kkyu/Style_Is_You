@@ -33,9 +33,14 @@
 	</select>
 	
 	<!-- 마이페이지 - 주문취소 -->
-	<update id="my_list_cancle" parameterType="hashmap" >  <!-- 주문상태변경 --> 
+	<update id="my_list_cancle" parameterType="hashmap" >  <!-- 주문상태변경 -->
+<!-- 	 	<selectKey resultType="int" keyProperty="order_state" order="BEFORE">
+		    select order_state from order_list where order_no = ${order_no}
+		</selectKey> -->
 		<![CDATA[
-			UPDATE order_list SET order_state = '98' where order_no = ${order_no}
+			UPDATE order_list
+			SET order_state = '98'
+			where order_no = ${order_no} 
 		]]>
 	</update>
 	<update id="my_detail_cancle" parameterType="hashmap" > <!-- 주문디테일변경 -->
@@ -46,7 +51,7 @@
 	<select id="list_point_search" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			select * from (
-			select l.member_no, l.order_use_point, l.order_save_point, p.point_total
+			select l.member_no, l.order_use_point, l.order_save_point, p.point_total, l.order_no
 		    from order_list l, point p
 		    where l.member_no = p.member_no
 		    and l.order_no = ${order_no}
