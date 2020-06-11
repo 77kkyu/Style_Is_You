@@ -12,14 +12,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 <body>
-
+<br/><br/><br/>
+	<h2>공지사항</h2>
+	<br/><br/>
 	<form id="frm" name="frm" enctype="multipart/form-data">
 		<table class="board_view">
 			<colgroup>
 				<col width="15%">
 				<col width="*"/>
 			</colgroup>
-			<caption>게시글 작성</caption>
+			<caption>글쓰기</caption>
 			<tbody>
 				<tr>
 					<th scope="row">제목</th>
@@ -56,13 +58,13 @@
 		
 		function fn_openNoticeList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openNoticeList.do' />");
+			comSubmit.setUrl("<c:url value='/notice/openNoticeList.do' />");
 			comSubmit.submit();
 		}
 		
 		function fn_insertNotice(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/insertNotice.do' />");
+			comSubmit.setUrl("<c:url value='/notice/insertNotice.do' />");
 			comSubmit.submit();
 		}
 

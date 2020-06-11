@@ -3,11 +3,12 @@
 
 <mapper namespace="notice">
 	
-	<select id="selectNoticeList" resultType="hashmap">
-<!-- 		<include refid="common.pagingPre"/> -->
+	<select id="selectNoticeList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common1.pagingPre1"/> 
 		<![CDATA[
 			SELECT
-				NOTICE_NO,
+				ROW_NUMBER() OVER (ORDER BY NOTICE_NO DESC) RNUM,
+			    NOTICE_NO,
 			    NOTICE_TITLE,
 			    TO_CHAR(NOTICE_DATE, 'YYYY.MM.DD') AS NOTICE_DATE
 			FROM
@@ -15,7 +16,7 @@
 			WHERE
 				NOTICE_GUBUN = '0'
 		]]>
-<!-- 		<include refid="common.pagingPost"/>  -->
+		<include refid="common1.pagingPost1"/> 
 	</select>
 	
 	<insert id="insertNotice" parameterType="hashmap" useGeneratedKeys="true" keyProperty="NOTICE_NO">
@@ -25,19 +26,21 @@
 		<![CDATA[
 			INSERT INTO NOTICE
 			(
-				NOTICE_NO ,
-			    NOTICE_TITLE , 
-			    NOTICE_CONTENT , 
-			    NOTICE_DATE ,
-			    MEMBER_NO 
+				NOTICE_NO,
+			    NOTICE_TITLE, 
+			    NOTICE_CONTENT, 
+			    NOTICE_GUBUN,
+			    NOTICE_DATE, 
+			    MEMBER_NO
 			)
 			VALUES
 			(
-				#{NOTICE_NO} , 
-				#{NOTICE_TITLE} ,
-				#{NOTICE_CONTENT} ,
-			    SYSDATE ,
-			    1     
+				#{NOTICE_NO}, 
+				#{NOTICE_TITLE},
+				#{NOTICE_CONTENT},
+			    0, 
+			    SYSDATE, 
+			    1
 			)
 		]]>
 	</insert>	
@@ -46,13 +49,13 @@
 		<![CDATA[
 			SELECT
 				NOTICE_NO,
-				TO_CHAR(NOTICE_DATE, 'YYYY.MM.DD') AS NOTICE_DATE,
+				NOTICE_DATE,
 				NOTICE_TITLE,
 				NOTICE_CONTENT
 			FROM
 				NOTICE
 			WHERE
-				NOTICE_NO = #{NOTICE_NO}
+				NOTICE_NO = #{NOTICE_NO}		
 		]]>
 	</select>
 	
@@ -69,7 +72,8 @@
 	
 	<update id="deleteNotice" parameterType="hashmap">
 		<![CDATA[
-			DELETE NOTICE
+			DELETE 
+				NOTICE
 			WHERE
 				NOTICE_NO = #{NOTICE_NO}
 		]]>

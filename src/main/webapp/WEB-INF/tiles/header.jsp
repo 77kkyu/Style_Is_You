@@ -118,7 +118,7 @@ li {
 
 <div align="right" style="margin-right:200px">
 <form name="frm">
-	<table>
+	
 		<tr>
 		<%
 			if(sessionId == null) { // 로그인 전 (세션 값 X)
@@ -148,7 +148,7 @@ li {
 			<td><a href="/stu/basket/basketList.do">장바구니</a></td>
 			<td><a href="">쿠폰</a></td>
 		</tr>
-	</table>
+	
 </form>
 </div>
 

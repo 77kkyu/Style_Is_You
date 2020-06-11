@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
-<html>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<html lang="ko">
 <head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
-
 <body>
-<br/><br/><br/><br/>
-	<h2 align="center">공지사항</h2>
+<br/><br/><br/>
+	<h2>공지사항</h2>
 	<br/><br/>
 	<table class="board_list">
 		<colgroup>
@@ -29,7 +28,7 @@
 				<th scope="col">작성일</th>
 			</tr>
 		</thead>
-		<tbody id="noticeList">
+		<tbody>
 			
 		</tbody>
 	</table>
@@ -39,7 +38,7 @@
 	
 	<br/>
 	<a href="#this" class="btn" id="write">글쓰기</a>
-
+	
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -50,7 +49,7 @@
 				fn_openNoticeWrite();
 			});	
 			
-			$("a[name='notice_title']").on("click", function(e){ //제목 
+			$("a[name='title']").on("click", function(e){ //제목 
 				e.preventDefault();
 				fn_openNoticeDetail($(this));
 			});
@@ -59,26 +58,24 @@
 		
 		function fn_openNoticeWrite(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openNoticeWrite.do' />");
+			comSubmit.setUrl("<c:url value='/notice/openNoticeWrite.do' />");
 			comSubmit.submit();
 		}
 		
 		function fn_openNoticeDetail(obj){
 			var comSubmit = new ComSubmit();
-
-			console.log(obj.parent().find("#NOTICE_NO").val());
-			comSubmit.setUrl("<c:url value='/board/openNoticeDetail.do' />");
-			comSubmit.addParam("NOTICE_NO", obj.parent().find("#NOTICE_NO").val());
+			comSubmit.setUrl("<c:url value='/notice/openNoticeDetail.do' />");
+			comSubmit.addParam("NOTICE_NO", obj.parent().find("input[name='title']").val());
 			comSubmit.submit();
 		}
 		
 		function fn_selectNoticeList(pageNo){
 			var comAjax = new ComAjax();
-			comAjax.setUrl("<c:url value='/board/selectNoticeList.do' />");
+			comAjax.setUrl("<c:url value='/notice/selectNoticeList.do' />");
 			comAjax.setCallback("fn_selectNoticeListCallback");
 			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
 			comAjax.addParam("PAGE_ROW", 15);
-			comAjax.addParam("IDX_FE",$("#IDX_FE").val());
+			comAjax.addParam("NOTICE_NO_FE", $("#NOTICE_NO_FE").val());
 			comAjax.ajax();
 		}
 		
@@ -90,13 +87,12 @@
 				var str = "<tr>" + 
 								"<td colspan='3'>조회된 결과가 없습니다.</td>" + 
 							"</tr>";
-				//body.append(str);
-				$('#noticeList').append(str);
+				body.append(str);
 			}
 			else{
 				var params = {
 					divId : "PAGE_NAVI",
-					pageIndex : "NOTICE_NO",
+					pageIndex : "PAGE_INDEX",
 					totalCount : total,
 					eventName : "fn_selectNoticeList"
 				};
@@ -105,17 +101,15 @@
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr>" + 
-					"<td >" + value.NOTICE_NO + "</td>" + "<input type='hidden' id='NOTICE_NO' value=" + value.NOTICE_NO + ">"
-                    +"<td class='title'>" +
-						"<a href='#this' name='title'>" + value.NOTICE_TITLE + "</a>" +
-						"<input type='hidden' name='title' value=" + value.NOTICE_TITLE + ">" + 
-						
-					"</td>" + 
-					"<td>" + value.NOTICE_DATE + "</td>" + 
-				"</tr>";
+								"<td>" + value.NOTICE_NO + "</td>" + 
+								"<td class='title'>" +
+									"<a href='#this' name='title'>" + value.NOTICE_TITLE + "</a>" +
+									"<input type='hidden' name='title' value=" + value.NOTICE_NO + ">" + 
+								"</td>" +
+								"<td>" + value.NOTICE_DATE + "</td>" + 
+							"</tr>";
 				});
-				//body.append(str);
-				$('#noticeList').append(str);
+				body.append(str);
 				
 				$("a[name='title']").on("click", function(e){ //제목 
 					e.preventDefault();

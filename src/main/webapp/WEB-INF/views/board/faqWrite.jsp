@@ -12,22 +12,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 <body>
-
+<br/><br/><br/>
+	<h2>공지사항</h2>
+	<br/><br/>
 	<form id="frm" name="frm" enctype="multipart/form-data">
 		<table class="board_view">
 			<colgroup>
 				<col width="15%">
 				<col width="*"/>
 			</colgroup>
-			<caption>게시글 작성</caption>
+			<caption>글쓰기</caption>
 			<tbody>
 				<tr>
 					<th scope="row">제목</th>
-					<td><input type="text" id="NOTICE_TITLE" name="NOTICE_TITLE" class="wdp_90"></input></td>
+					<td><input type="text" id="notice_title" name="NOTICE_TITLE" class="wdp_90"></input></td>
 				</tr>
 				<tr>
 					<td colspan="2" class="view_text">
-						<textarea rows="20" cols="100" title="내용" id="NOTICE_CONTENT" name="NOTICE_CONTENT"></textarea>
+						<textarea rows="20" cols="100" title="내용" id="notice_content" name="NOTICE_CONTENT"></textarea>
 					</td>
 				</tr>
 			</tbody>
@@ -56,13 +58,13 @@
 		
 		function fn_openFaqList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openFaqList.do' />");
+			comSubmit.setUrl("<c:url value='/faq/openFaqList.do' />");
 			comSubmit.submit();
 		}
 		
 		function fn_insertFaq(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/insertFaq.do' />");
+			comSubmit.setUrl("<c:url value='/faq/insertFaq.do' />");
 			comSubmit.submit();
 		}
 

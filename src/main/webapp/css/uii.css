@@ -10,7 +10,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 .board_list tbody td.title {text-align:left; padding-left:20px}
 .board_list tbody td a {display:inline-block}
 
-.board_view {width:50%;border-top:2px solid #252525;border-bottom:1px solid #ccc}
+.board_view {width:50%;border-top:2px solid #252525;border-bottom:1px solid #ccc;}
 .board_view tbody th {text-align:left;background:#f7f7f7;color:#3b3a3a}
 .board_view tbody th.list_tit {font-size:13px;color:#000;letter-spacing:0.1px}
 .board_view tbody .no_line_b th, .board_view tbody .no_line_b td {border-bottom:none}

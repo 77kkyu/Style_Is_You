@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
-</head>
+
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
+</head>
 <body>
 
 	<form id="frm" name="frm" enctype="multipart/form-data">
@@ -52,7 +53,7 @@
 				<tbody><tr>
 					<td width="100" bgcolor="f6f6f6">글쓴이</td>
 					<td align="left" class="gray" style="padding-left:10px;text-align:left;">
-						<input type="text" name="writer" id="member_name" style="width:90%;" maxlength="50" value="MEMBER_NAME">
+						<input type="text" name="QNA_NAME" id="member_name" style="width:90%;" maxlength="50" value="MEMBER_NAME">
 					</td>
 					<td width="100" bgcolor="f6f6f6" class="gray_6">이메일</td>
 					<td align="left" class="gray" style="padding-left:10px; text-align:left;">
@@ -99,7 +100,7 @@
 		<a href="#this" class="btn" id="list">목록으로</a>
 	</form>
 	
-
+	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		var gfv_count = 1;
 	
@@ -118,13 +119,13 @@
 		
 		function fn_openQnaList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openQnaList.do' />");
+			comSubmit.setUrl("<c:url value='/qna/openQnaList.do' />");
 			comSubmit.submit();
 		}
 		
 		function fn_insertQna(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/insertQna.do' />");
+			comSubmit.setUrl("<c:url value='/qna/insertQna.do' />");
 			comSubmit.submit();
 		}
 
