@@ -124,77 +124,18 @@
 				0)
 		]]>
 	</insert>
+	
+	<select id="selectOrder" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MAX(ORDER_NO) ORDER_NO 
+			FROM 
+				ORDER_LIST 
+			WHERE 
+				MEMBER_NO = 1
+		]]>
+	</select>
 	 
-	<insert id="savePoint" parameterType="hashmap">
-		<selectKey keyProperty="TOTAL" resultType="int" order="BEFORE">
-			SELECT DISTINCT
-				POINT_TOTAL + ${ORDER_SAVE_POINT}
-			FROM 
-				POINT
-			WHERE 
-				MEMBER_NO = 1
-            AND POINT_NO = (SELECT MAX(POINT_NO) FROM POINT)
-		</selectKey>
-		<![CDATA[
-			INSERT INTO POINT
-			(
-				POINT_NO,
-			    MEMBER_NO, 
-			    POINT_VAL, 
-			    POINT_SAVE_DATE,
-			    POINT_TOTAL
-			)
-			VALUES
-			(
-				POINT_NO_SEQ.NEXTVAL,
-				1,
-				${ORDER_SAVE_POINT},
-				SYSDATE,
-				${TOTAL}
-			)
-		]]>
-	</insert>
-	
-	<insert id="usePoint" parameterType="hashmap">
-		<selectKey keyProperty="TOTAL" resultType="int" order="BEFORE">
-			SELECT DISTINCT
-				POINT_TOTAL - ${ORDER_USE_POINT}
-			FROM 
-				POINT
-			WHERE 
-				MEMBER_NO = 1
-            AND POINT_NO = (SELECT MAX(POINT_NO) FROM POINT)
-		</selectKey>
-		<![CDATA[
-			INSERT INTO POINT
-			(
-				POINT_NO,
-			    MEMBER_NO, 
-			    POINT_VAL, 
-			    POINT_USE_DATE,
-			    POINT_TOTAL
-			)
-			VALUES
-			(
-				POINT_NO_SEQ.NEXTVAL,
-				1,
-				${ORDER_USE_POINT},
-				SYSDATE,
-				${TOTAL}
-			)
-		]]>
-	</insert>
-	
-	<update id="useCoupon" parameterType="hashmap">
-		<![CDATA[
-			UPDATE COUPON_STATUS 
-			SET
-				COUPON_USE_STATE = 1
-			WHERE
-				COUPON_STATUS_NO = ${COUPON_STATUS_NO_1}
-			AND MEMBER_NO = 1
-		]]>
-	</update>
 	
 	
 	

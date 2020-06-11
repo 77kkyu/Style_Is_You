@@ -31,9 +31,12 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	@Override
 	public void insertOrder(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		orderDao.insertOrder(commandMap);
-		
 	}
-	
-	
+	/*
+	 * @Override public Map<String, Object> selectOrder(CommandMap commandMap,
+	 * HttpServletRequest request) throws Exception { return (Map<String, Object>)
+	 * orderDao.selectOrder(commandMap); }
+	 * 
+	 */
 
 }

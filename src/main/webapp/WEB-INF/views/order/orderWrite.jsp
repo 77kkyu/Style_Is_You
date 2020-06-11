@@ -218,6 +218,7 @@ function fn_order_pay(){
 						<input type="hidden" name="goods_att_no" value="${row.GOODS_ATT_NO }">
 						<input type="hidden" name="goods_att_color" value="${row.GOODS_ATT_COLOR }">
 						<input type="hidden" name="goods_att_size" value="${row.GOODS_ATT_SIZE }">
+						<input type="hidden" name="basket_no" value="${row.BASKET_NO }">
 						<tr>
                   			<td>
                   				<img src="${row.UPLOAD_SAVE_NAME }" width="50" height="50">
@@ -418,7 +419,7 @@ function fn_order_pay(){
             	<input type="checkbox" name="orderChk" id="orderChk">
           		(필수)결제서비스 약관에 동의하며, 원활한 배송을 위한 개인정보 제공에 동의합니다.
           		<br><br>
-          		<input type="button" name="all_order" value="장바구니" onClick="location.href='/basket/basketList.do'">
+          		<input type="button" name="all_order" value="장바구니" onClick="location.href='/stu/basket/basketList.do'">
             	<input type="submit" name="order_pay" value="결제진행" onclick="fn_order_pay(); return false;">
             </div>
       

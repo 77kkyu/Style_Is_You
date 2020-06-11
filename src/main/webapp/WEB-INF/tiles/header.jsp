@@ -116,7 +116,7 @@ li {
 <div class="header">
 <div class="pagetop">
 
-<div align="right" style="margin-right:200px">
+<div align="right" style="margin-right:100px">
 <form name="frm">
 	<table>
 		<tr>
@@ -155,7 +155,7 @@ li {
 </div>
 <div class="pagemid">
   <div class="wrapper2">
-    <h1>스타일너다</h1>
+    <h1><a href="http://localhost:8080/stu/main.do">스타일너다</a></h1>
     <ul class="flex-menu">
       <li><a href="http://localhost:8080/stu/shop/bestGoodsList.do">BEST</a></li>
       <li><a href="http://localhost:8080/stu/shop/newGoodsList.do">NEW</a></li>

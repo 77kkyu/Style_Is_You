@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <title>장바구니 목록</title>
 
 <!-- 합쳐지고 최소화된 최신 CSS -->

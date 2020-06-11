@@ -26,6 +26,7 @@
 		<![CDATA[
 			select l.order_date, d.order_no, m.member_no, m.member_id, m.member_name, g.goods_name,
   			      l.order_total_order_price, l.order_total_pay_price, l.order_state,
+  			      l.order_pay_bank, l.order_express,
 	        
 	        (select count(SD.order_no) from order_detail SD where SD.order_no = D.order_no ) as hap_cnt
 			
@@ -48,10 +49,46 @@
 			SET	order_state = order_state + 1
 			
 			WHERE order_no = ${order_no}
-			
 		]]>
 	</select>
 	
+	<select id="order_state_ex" parameterType="hashmap" > <!-- 주문상태.배송 변경 -->
+		<![CDATA[
+			UPDATE order_list
+
+			SET	
+			order_state = order_state + 1,
+			order_express = #{order_express}
+
+			WHERE order_no = ${order_no}
+		]]>
+	</select>
+	
+	<select id="order_detail" parameterType="hashmap" resultType="hashmap"> <!-- adminMain대쉬보드 -->
+		<![CDATA[
+			select m.member_name, m.member_phone, m.member_email,
+	        l.order_name, l.order_zipcode, l.order_addr1, l.order_addr2, l.order_phone,
+	        l.order_no, l.order_state, l.order_pay_option,
+	        l.order_total_order_price, l.order_use_point, l.order_fee, l.order_total_pay_price
+			
+			from member m, order_list l
+			
+			where m.member_no = l.member_no
+			and l.order_no = ${order_no}
+		]]>
+	</select>
+	
+		<select id="order_detail_sub" parameterType="hashmap" resultType="hashmap"> <!-- adminMain대쉬보드 -->
+		<![CDATA[
+			select g.goods_name, d.order_detail_color, d.order_detail_size, d.order_detail_amount,
+	        d.order_detail_price, d.coupon_discount, d.order_discount_apply
+			
+			from order_detail d, goods g
+			
+			where d.goods_no = g.goods_no
+			and d.order_no = ${order_no}
+		]]>
+	</select>
 	
 
 

@@ -15,4 +15,6 @@ public interface OrderService {
 
 	void insertOrder(CommandMap commandMap, HttpServletRequest request) throws Exception;
 
+	//Map<String, Object> selectOrder(CommandMap commandMap, HttpServletRequest request) throws Exception;
+
 }

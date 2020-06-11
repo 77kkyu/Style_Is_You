@@ -1,5 +1,6 @@
 package stu.shop.order;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,16 @@ public class OrderDao extends AbstractDao{
 		String[] ORDER_DETAIL_AMOUNT = (String[])commandMap.getMap().get("basket_goods_amount");
 		String[] COUPON_DISCOUNT = (String[])commandMap.getMap().get("COUPON_DISCOUNT");
 		String[] ORDER_DISCOUNT_APPLY = (String[])commandMap.getMap().get("ORDER_DISCOUNT_APPLY");
+		String[] BASKET_NO = (String[])commandMap.getMap().get("basket_no");
 		String COUPON_NO = (String) commandMap.getMap().get("COUPON_NO_1");
-		System.out.println(GOODS_NO[0]);
+		
+		String a=Arrays.toString(BASKET_NO).replace("[", "(");
+		a=a.replace("]", ")");
+		
+		String b=Arrays.toString(GOODS_ATT_NO).replace("[", "(");
+		b=b.replace("]", ")");
+		
+		System.out.println(a);
 		
 		int len = ORDER_DISCOUNT_APPLY.length;
 		  for(int i=0; i<len; i++ ) { 
@@ -48,14 +57,26 @@ public class OrderDao extends AbstractDao{
 			  dp.put("ORDER_DISCOUNT_APPLY", ORDER_DISCOUNT_APPLY[i]);
 			  dp.put("COUPON_NO", COUPON_NO);
 			  insert("order.insertOrderDetail", dp); 
+			  update("goods.updateGoodsAmount", dp);
 		  }
-		 
-		insert("order.savePoint", commandMap.getMap());
-		insert("order.usePoint", commandMap.getMap());
-		update("order.useCoupon", commandMap.getMap());
+		insert("point.usePoint", commandMap.getMap()); 
+		insert("point.savePoint", commandMap.getMap());
+		
+		if(!commandMap.get("COUPON_STATUS_NO_1").equals("")) {
+			update("coupon.useCoupon", commandMap.getMap());
+		}
+		
+		Map<String,Object> bod = new HashMap<String, Object>();
+		bod.put("BASKET_NO", a);
+		bod.put("GOODS_ATT_NO", b);
+		delete("basket.basketOrderDelete", bod);
 	}
-	
-	
+	/*
+	 * @SuppressWarnings("unchecked") public Map<String, Object>
+	 * selectOrder(CommandMap commandMap) { return (Map<String, Object>)
+	 * selectOne("order.selectOrder", commandMap.getMap()); }
+	 * 
+	 */
 	
 	
 }

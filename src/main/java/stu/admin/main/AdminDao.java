@@ -20,15 +20,33 @@ public class AdminDao extends AbstractDao{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Map<String,Object>> order_admin_a(CommandMap map) throws Exception { //adminMain대쉬보드 
+	public List<Map<String,Object>> order_admin_a(CommandMap map) throws Exception { //admin주문현황 
 		
 		return (List<Map<String,Object>>) order_admin_a("admin.order_admin_a",map.getMap());
 	}
 
+	@SuppressWarnings("unchecked")
 	public void order_state(CommandMap map) throws Exception {  // 주문상태 변경
 		// TODO Auto-generated method stub
 		order_state("admin.order_state",map.getMap());
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public void order_state_ex(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		//order_state_ex("admin.order_state_ex",commandMap.getMap());
+	}
+	/*
+	 * @SuppressWarnings("unchecked") public List<Map<String, Object>>
+	 * order_detail(CommandMap commandMap) throws Exception { // TODO Auto-generated
+	 * method stub return (List<Map<String,Object>>)
+	 * order_detail("admin.order_detail", commandMap.getMap()); }
+	 * 
+	 * @SuppressWarnings("unchecked") public List<Map<String, Object>>
+	 * order_detail_sub(CommandMap commandMap) throws Exception { // TODO
+	 * Auto-generated method stub return (List<Map<String,Object>>)
+	 * order_detail_sub("admin.order_detail_sub", commandMap.getMap()); }
+	 */
+	
 	
 }

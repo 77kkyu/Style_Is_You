@@ -94,6 +94,16 @@
 		]]>
 	</select>
 	
+	<delete id="basketOrderDelete" parameterType="hashmap">
+		<![CDATA[
+			DELETE FROM BASKET
+			WHERE 
+				MEMBER_NO = 1
+			AND BASKET_NO IN ${BASKET_NO}
+			AND GOODS_ATT_NO IN ${GOODS_ATT_NO}
+		]]>
+	</delete>
+	
 
 </mapper>
 
