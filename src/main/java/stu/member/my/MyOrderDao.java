@@ -17,40 +17,44 @@ public class MyOrderDao extends AbstractDao {
 		// TODO Auto-generated method stub
 		return (List<Map<String,Object>>) myOrderList("my.my_order_list", map.getMap());
 	}
-
+	@SuppressWarnings("unchecked")
 	public void order_ok(CommandMap map) throws Exception {
 		// TODO Auto-generated method stub
 		order_ok("my.my_order_ok", map.getMap());
 	}
-
+	@SuppressWarnings("unchecked")
 	public void list_cancle(CommandMap map) throws Exception {
 		// TODO Auto-generated method stub
 		list_cancle("my.my_list_cancle", map.getMap());
 	}
-	
+	@SuppressWarnings("unchecked")	
 	public void detail_cancle(CommandMap map) throws Exception {
 		// TODO Auto-generated method stub
 		detail_cancle("my.my_detail_cancle", map.getMap());
 	}
-
-	public int list_point_search(CommandMap map) throws Exception {
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> list_point_search(CommandMap map) throws Exception {
 		// TODO Auto-generated method stub
-		return (int)list_point_search("my.list_point_search", map.getMap());
+		return (List<Map<String, Object>>) list_point_search("my.list_point_search", map.getMap());
 	}
-
+	@SuppressWarnings("unchecked")
 	public void use_point_reset(CommandMap map) throws Exception {
 		// TODO Auto-generated method stub
 		use_point_reset("my.use_point_reset", map.getMap());
 	}
-
+	@SuppressWarnings("unchecked")
 	public void save_point_reset(CommandMap map) throws Exception {
 		// TODO Auto-generated method stub
 		save_point_reset("my.save_point_reset", map.getMap());
 	}
-
+	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> list_stock_search(CommandMap map) throws Exception {
 		// TODO Auto-generated method stub
 		return (List<Map<String,Object>>) list_stock_search("my.list_stock_search", map.getMap());
+	}
+	public void list_stock_reset(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		list_stock_reset("my.list_stock_reset", map.getMap());
 	}
 
 }

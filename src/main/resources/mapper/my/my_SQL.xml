@@ -43,48 +43,61 @@
 			UPDATE order_detail SET order_detail_state = '20' where order_no = ${order_no}
 		]]>
 	</update>
-	<select id="list_point_search" parameterType="hashmap" resultType="int">
+	<select id="list_point_search" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			select (order_use_point) u_point
-			from order_list
-			where order_no = ${order_no}
+			select * from (
+			select l.member_no, l.order_use_point, l.order_save_point, p.point_total
+		    from order_list l, point p
+		    where l.member_no = p.member_no
+		    and l.order_no = ${order_no}
+		    order by p.point_no desc )
+		    where rownum = 1
 		]]>
 	</select>
 	<insert id="use_point_reset" parameterType="hashmap"> <!-- 사용포인트 취소 -->
-		<selectKey resultType="hashmap" keyProperty="hab,member_no,use_point" order="BEFORE">
+<!-- 		<selectKey resultType="hashmap" keyProperty="hab,member_no,use_point" order="BEFORE">
 		    select (p.point_total+l.order_use_point)as hap, l.member_no, l.order_use_point
 		    from order_list l, point p
 		    where l.member_no = p.member_no
 		    and l.order_no = ${order_no}
-		</selectKey>
+		</selectKey> -->
 		<![CDATA[
 			INSERT INTO POINT (POINT_NO, MEMBER_NO, POINT_VAL, POINT_SAVE_DATE, POINT_TOTAL)
 			VALUES 
-			( POINT_NO_SEQ.NEXTVAL, #{member_no}, #{use_point},
-			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), #{hap})
+			( POINT_NO_SEQ.NEXTVAL, ${member_no}, ${order_use_point},
+			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), ${use_hap})
 		]]>
 	</insert>
 	<insert id="save_point_reset" parameterType="hashmap"> <!-- 사용포인트 취소 -->
-		<selectKey resultType="hashmap" keyProperty="hab,member_no,save_point" order="BEFORE">
-		    select (p.point_total-l.order_save_point)as hap, l.member_no, l.order_save_point
+<!-- 		<selectKey keyColumn="member_no,order_save_point,hap" resultType="int" keyProperty="member_no,order_save_point,hap" order="BEFORE">
+		    
+		    select l.member_no member_no, l.order_save_point order_save_point, (p.point_total-l.order_save_point)as hap 
 		    from order_list l, point p
 		    where l.member_no = p.member_no
 		    and l.order_no = ${order_no}
-		</selectKey>
+		</selectKey> -->
 		<![CDATA[
 			INSERT INTO POINT (POINT_NO, MEMBER_NO, POINT_VAL, POINT_USE_DATE, POINT_TOTAL)
 			VALUES 
-			( POINT_NO_SEQ.NEXTVAL, #{member_no}, #{save_point},
-			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), #{hap})
+			( POINT_NO_SEQ.NEXTVAL, ${member_no}, ${order_save_point},
+			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), ${save_hap})
 		]]>
 	</insert>
 	<select id="list_stock_search" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			
-			
-			
+			select goods_att_no, order_detail_amount 
+			from order_detail 
+			where order_no = ${order_no}
 		]]>
 	</select>
+	<update id="list_stock_reset" parameterType="hashmap">
+		<![CDATA[
+			update goods_attribute
+			set
+			    goods_att_amount = goods_att_amount + ${order_detail_amount}
+			where goods_att_no = ${goods_att_no}
+		]]>
+	</update>
 	
 	
 	

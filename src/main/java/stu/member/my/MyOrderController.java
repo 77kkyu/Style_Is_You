@@ -96,9 +96,6 @@ Logger log = Logger.getLogger(this.getClass());
 		commandMap.put("order_no", order_no);
 		//System.out.println("member_no : "+member_no+" / "+"order_no : "+order_no);
 		System.out.println(commandMap.getMap());
-		
-		Map<String, Object> Size = commandMap.getMap();
-		System.out.println("commandMap1111="+Size);
 
 		// Sevice단에서 캔슬 로직 처리
 		myOrderService.order_state_cancle(commandMap);

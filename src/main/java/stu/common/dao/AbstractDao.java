@@ -152,9 +152,9 @@ public class AbstractDao {
 	         printQueryId(queryId);
 	         sqlSession.selectList(queryId,params);
 	      }
-	      public int list_point_search(String queryId, Object params) { // 주문취소 -사용포인트값 가져오기 
+	      public List<Map<String,Object>> list_point_search(String queryId, Object params) { // 주문취소 -사용포인트값 가져오기 
 	         printQueryId(queryId);
-	         return sqlSession.selectOne(queryId,params);
+	         return sqlSession.selectList(queryId,params);
 	      }
 	      public void use_point_reset(String queryId, Object params) { // 주문취소 - 사용포인트 복구
 	         printQueryId(queryId);
@@ -167,6 +167,10 @@ public class AbstractDao {
 	      public List<Map<String,Object>> list_stock_search(String queryId, Object params) { // 주문취소 - 오더리스트에서 상품속성,수량 가져옴 
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params);
+	      }
+	      public void list_stock_reset(String queryId, Object params) { // 주문취소 - 상품속성에서 재고 수정 
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
 	      }
 
 	      
