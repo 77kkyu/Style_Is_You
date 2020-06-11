@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
+<% String sessionId = (String)session.getAttribute("MEMBER_NAME"); %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
 <!-- jQuery -->
@@ -33,11 +34,11 @@
 		</tbody>
 	</table>
 	
-	<div id="PAGE_NAVI"></div>
+	<div class="pageNumber" id="PAGE_NAVI"></div>
 	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
 	
 	<br/>
-	<a href="#this" class="btn" id="write">글쓰기</a>
+	<p id="wrapBtn" style="display:none;"><a href="#this" class="btn" id="write">글쓰기</a></p>
 	
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
@@ -53,9 +54,19 @@
 				e.preventDefault();
 				fn_openNoticeDetail($(this));
 			});
+			
+			<%
+			if(sessionId.strip().equals("admin")) { 
+			%>
+			
+				$("#wrapBtn").show()
+			<%
+			}
+			else{
+			}
+			%>
 		});
-		
-		
+
 		function fn_openNoticeWrite(){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/notice/openNoticeWrite.do' />");

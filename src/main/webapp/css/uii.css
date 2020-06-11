@@ -2,9 +2,9 @@
 
 a:link, a:visited {text-decoration: none; color: #656565;}
 
-.board_list {width:100%;border-top:2px solid #252525;border-bottom:1px solid #ccc;}
+.board_list {width:1000px;border-top:2px solid #252525;border-bottom:1px solid #ccc;text-align:right;margin:auto;}
 .board_list thead th:first-child{background-image:none}
-.board_list thead th {border-bottom:1px solid #ccc;padding:12px 0 13px 0;color:#3b3a3a;vertical-align:middle}
+.board_list thead th {border-bottom:1px solid #ccc;padding:12px 0 13px 0;color:#3b3a3a;vertical-align:middle;text-align:center;}
 .board_list tbody td {border-top:1px solid #ccc;padding:10px 0;text-align:center;vertical-align:middle}
 .board_list tbody tr:first-child td {border:none}
 .board_list tbody td.title {text-align:left; padding-left:20px}
@@ -19,9 +19,15 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 .board_view tbody th.th_file {padding:0 0 0 15px; vertical-align:middle}
 
 .wdp_90 {width:90%}
-.btn {border-radius:3px;padding:5px 11px;color:#fff !important; display:inline-block; background-color:#6b9ab8; border:1px solid #56819d;vertical-align:middle}
+.btn {border-radius:3px;padding:5px 11px;color:#fff !important; display:inline-block; background-color:#6b9ab8; border:1px solid #56819d;vertical-align:middle;}
 .pad_5 {padding: 5px;}
 
+p {text-align:right;width:1000px;margin:auto;}
+h2 {text-align: center;}
+.frm {text-align:right;width:1000px;margin:auto;}
+.board_view {text-align:right;width:100%;margin:auto;}
+
+.pageNumber {text-align:center;width:1000px;margin:auto;}
 /* .more { */
 /*   display:block; */
 /*   width: 55px; */
