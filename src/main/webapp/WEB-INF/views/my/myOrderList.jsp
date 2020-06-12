@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -69,13 +70,28 @@ function order_ok(mem_no, order_no){
 	}
 }
 
- </script>
+function order_qna(mem_no, order_no){
+	var mem_no = mem_no;
+	var order_no = order_no;
+	alert("수취확인 후 교환/환불/AS는 상품문의 게시판에서 신청하셔야 합니다.");
+	if(mem_no == null || order_no == null || mem_no == '' || order_no == '') {
+		alert("오류입니다.");
+		return;
+	}
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/board/qnaBoard.do' />");
+	comSubmit.addParam("member_no", mem_no);
+	comSubmit.addParam("order_no", order_no);
+	comSubmit.submit();
+}
+
+</script>
  
 </head>
 <body>
 <div class="container">
 	<div class="row">
-        <div class="col-md-4">
+        <div>
           <h2>주문 배송 내역</h2>
           <p>배송추적은 '수취확인' 상태부터 가능합니다.</p>
           <p>수취확인 후에는 반품/교환이 어렵습니다. 기한내 신청 바랍니다.</p>
@@ -130,15 +146,22 @@ function order_ok(mem_no, order_no){
 				<c:when test="${fn:length(my_order) > 0}">
 					<c:forEach items="${my_order }" var="my_order">					
 						<tr>
-							<td>${my_order.ORDER_DATE }<br />${my_order.ORDER_NO }</td>
+							<td>${my_order.ORDER_DATE }<br /> / ${my_order.ORDER_NO }</td>
 							<td >
-							<%-- HAP_CNT값이 2 이상이면 ${my_order.GOODS_NAME } 외 ${my_order.HAP_CNT -1 }건 --%>
-							
-							<a href="#this" name="title">${my_order.GOODS_NAME }</a>
+							<c:choose>
+								<c:when test="${my_order.HAP_CNT eq '1' }">
+								<a href="#this" name="title">${my_order.GOODS_NAME }</a>
 								<input type="hidden" id="member_no" value="${my_order.MEMBER_NO }">
-								
+								</c:when>
+								<c:otherwise>
+								<a href="#this" name="title">${my_order.GOODS_NAME }</a>외 ${my_order.HAP_CNT -1 }건
+								<input type="hidden" id="member_no" value="${my_order.MEMBER_NO }">
+								</c:otherwise>
+							</c:choose>
 							</td>
-							<td>${my_order.ORDER_TOTAL_PAY_PRICE }원</td>
+							<td>
+							<fmt:formatNumber type="number" maxFractionDigits="3" value="${my_order.ORDER_TOTAL_PAY_PRICE }" var="price" />
+							&#8361;${price }원</td>
 							<c:choose>
 								<c:when test="${my_order.ORDER_STATE eq '0' }">
 								<td>주문확인중</td>
@@ -179,15 +202,15 @@ function order_ok(mem_no, order_no){
 								<td><input type="button" onclick="order_change(${my_order.ORDER_NO })" value="교환/환불"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '3' }">
-								<td><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="송장확인"></td>
+								<td><input type="button" onclick="order_exp_num(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="송장확인"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '4' }">
-								<td><input type="button" onclick="order_change(${my_order.ORDER_NO })" value="송장확인">
-								<br /><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="교환/환불/AS요청"></td>
+								<td><input type="button" onclick="order_exp_num(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="송장확인">
+								<br /><input type="button" onclick="order_change(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="교환/환불/AS요청"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '5' }"> <!-- 수취확인 후 교환-환불-AS는 상품문의 게시판으로 -->
 								<td><input type="button" onclick="order_review(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="리뷰쓰기">
-								<br /><input type="button" onclick="order_as(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="교환/환불/AS요청"></td>
+								<br /><input type="button" onclick="order_qna(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="교환/환불/AS요청"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '99' }">
 								<td>환불완료</td>
