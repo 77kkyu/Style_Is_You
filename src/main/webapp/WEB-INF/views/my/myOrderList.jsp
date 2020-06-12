@@ -106,7 +106,7 @@ function order_qna(mem_no, order_no){
 </head>
 <body>
 <div class="container">
-	<div class="row">
+	<div class="row" align="center">
         <div>
           <h2>주문 배송 내역</h2>
           <p>배송추적은 '수취확인' 상태부터 가능합니다.</p>

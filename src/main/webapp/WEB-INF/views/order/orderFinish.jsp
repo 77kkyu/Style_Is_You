@@ -44,9 +44,9 @@
       	</table>
       </div>
 
-          <div style="align:center">
+          <div align="center">
           	<table style="align:center">
-      			<tr style="align:center">
+      			<tr>
       				<td style="text-align:center; font-size:17px; font-weight:bold;">주문이 완료되었습니다.</td>
       			</tr>
       			<tr>
