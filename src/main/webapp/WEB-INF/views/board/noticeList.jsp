@@ -2,10 +2,20 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<%@ include file="../include/include-header.jspf" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="ui" uri="http://tiles.apache.org/tags-tiles" %>
+<% String sessionId = (String)session.getAttribute("MEMBER_NAME"); %>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
 <body>
-	<h2>게시판 목록</h2>
+<br/><br/><br/>
+	<h2>공지사항</h2>
+	<br/><br/>
 	<table class="board_list">
 		<colgroup>
 			<col width="10%"/>
@@ -24,13 +34,15 @@
 		</tbody>
 	</table>
 	
-	<div id="PAGE_NAVI"></div>
+	<div class="pageNumber" id="PAGE_NAVI"></div>
 	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
 	
 	<br/>
+	<p id="wrapBtn" style="display:none;">
 	<a href="#this" class="btn" id="write">글쓰기</a>
+	</p>
 	
-	<%@ include file="../include/include-body.jspf" %>
+	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			fn_selectNoticeList(1);
@@ -40,34 +52,42 @@
 				fn_openNoticeWrite();
 			});	
 			
-			$("a[name='notice_title']").on("click", function(e){ //제목 
+			$("a[name='title']").on("click", function(e){ //제목 
 				e.preventDefault();
-				fn_openNoticeDetail($(this).parent()[0].getElementsByTagName('input')[0].value);
+				fn_openNoticeDetail($(this));
 			});
+			
+			<%
+			if(sessionId.trim().equals("admin")) { 
+			%> 			
+				$("#wrapBtn").show()
+			<%
+			}
+			else{
+			}
+			%> 
 		});
-		
-		
+
 		function fn_openNoticeWrite(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openNoticeWrite.do' />");
+			comSubmit.setUrl("<c:url value='/notice/openNoticeWrite.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_openNoticeDetail(notice_no){
+		function fn_openNoticeDetail(obj){
 			var comSubmit = new ComSubmit();
-			
-			comSubmit.setUrl("<c:url value='/board/openNoticeDetail.do' />");
-			comSubmit.addParam("NOTICE_NO", notice_no);
+			comSubmit.setUrl("<c:url value='/notice/openNoticeDetail.do' />");
+			comSubmit.addParam("NOTICE_NO", obj.parent().find("input[name='title']").val());
 			comSubmit.submit();
 		}
 		
 		function fn_selectNoticeList(pageNo){
 			var comAjax = new ComAjax();
-			comAjax.setUrl("<c:url value='/board/selectNoticeList.do' />");
+			comAjax.setUrl("<c:url value='/notice/selectNoticeList.do' />");
 			comAjax.setCallback("fn_selectNoticeListCallback");
 			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
 			comAjax.addParam("PAGE_ROW", 15);
-			comAjax.addParam("NOTICE_NO",$("#NOTICE_NO").val());
+			comAjax.addParam("NOTICE_NO_FE", $("#NOTICE_NO_FE").val());
 			comAjax.ajax();
 		}
 		
@@ -84,7 +104,7 @@
 			else{
 				var params = {
 					divId : "PAGE_NAVI",
-					pageIndex : "NOTICE_NO",
+					pageIndex : "PAGE_INDEX",
 					totalCount : total,
 					eventName : "fn_selectNoticeList"
 				};
@@ -94,16 +114,16 @@
 				$.each(data.list, function(key, value){
 					str += "<tr>" + 
 								"<td>" + value.NOTICE_NO + "</td>" + 
-								"<td class='notice_title'>" +
-									"<a href='#this' name='notice_title'>" + value.NOTICE_TITLE + "</a>" +
-									"<input type='hidden' name='notice_title' value=" + value.NOTICE_NO + ">" + 
+								"<td class='title'>" +
+									"<a href='#this' name='title'>" + value.NOTICE_TITLE + "</a>" +
+									"<input type='hidden' name='title' value=" + value.NOTICE_NO + ">" + 
 								"</td>" +
 								"<td>" + value.NOTICE_DATE + "</td>" + 
 							"</tr>";
 				});
 				body.append(str);
 				
-				$("a[name='notice_title']").on("click", function(e){ //제목 
+				$("a[name='title']").on("click", function(e){ //제목 
 					e.preventDefault();
 					fn_openNoticeDetail($(this));
 				});

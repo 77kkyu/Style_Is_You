@@ -2,10 +2,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<%@ include file="../include/include-header.jspf" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
 <body>
-<form method="post">
+<br/><br/><br/>
+	<h2>공지사항</h2>
+	<br/><br/>
 	<table class="board_view">
 		<colgroup>
 			<col width="15%"/>
@@ -13,13 +22,11 @@
 			<col width="15%"/>
 			<col width="35%"/>
 		</colgroup>
-		<caption>공지사항</caption>
+		<caption>게시글</caption>
 		<tbody>
 			<tr>
 				<th scope="row">글 번호</th>
 				<td>${map.NOTICE_NO }</td>
-				<th scope="row"></th>
-				<td></td>
 			</tr>
 			<tr>
 				<th scope="row">작성자</th>
@@ -36,13 +43,14 @@
 			</tr>
 		</tbody>
 	</table>
-</form>
 	<br/>
 	
+	<p>
 	<a href="#this" class="btn" id="list">목록으로</a>
 	<a href="#this" class="btn" id="update">수정하기</a>
+	</p>
 	
-	<%@ include file="../include/include-body.jspf" %>
+	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#list").on("click", function(e){ //목록으로 버튼
@@ -54,23 +62,22 @@
 				e.preventDefault();
 				fn_openNoticeUpdate();
 			});
-
+			
 		});
 		
 		function fn_openNoticeList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openNoticeList.do' />");
+			comSubmit.setUrl("<c:url value='/notice/openNoticeList.do' />");
 			comSubmit.submit();
 		}
 		
 		function fn_openNoticeUpdate(){
 			var notice_no = "${map.NOTICE_NO}";
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openNoticeUpdate.do' />");
+			comSubmit.setUrl("<c:url value='/notice/openNoticeUpdate.do' />");
 			comSubmit.addParam("NOTICE_NO", notice_no);
 			comSubmit.submit();
 		}
-		
 	</script>
 </body>
 </html>

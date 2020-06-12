@@ -1,25 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<%@ include file="../include/include-header.jspf" %>
 </head>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 <body>
-	<form id="frm" name="frm" enctype="multipart/form-data">
+<br/><br/><br/>
+	<h2>공지사항</h2>
+	<br/><br/>
+	<form id="frm" name="frm" class="frm" enctype="multipart/form-data">
 		<table class="board_view">
 			<colgroup>
 				<col width="15%">
 				<col width="*"/>
 			</colgroup>
-			<caption>게시글 작성</caption>
+			<caption>글쓰기</caption>
 			<tbody>
 				<tr>
 					<th scope="row">제목</th>
-					<td><input type="text" id="NOTICE_TITLE" name="NOTICE_TITLE" class="wdp_90"></input></td>
+					<td><input type="text" id="notice_title" name="NOTICE_TITLE" class="wdp_90"></input></td>
 				</tr>
 				<tr>
 					<td colspan="2" class="view_text">
-						<textarea rows="20" cols="100" title="내용" id="NOTICE_CONTENT" name="NOTICE_CONTENT"></textarea>
+						<textarea rows="20" cols="100" title="내용" id="notice_content" name="NOTICE_CONTENT"></textarea>
 					</td>
 				</tr>
 			</tbody>
@@ -29,7 +39,7 @@
 		<a href="#this" class="btn" id="list">목록으로</a>
 	</form>
 	
-	<%@ include file="../include/include-body.jspf" %>
+	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		var gfv_count = 1;
 	
@@ -48,13 +58,13 @@
 		
 		function fn_openNoticeList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openNoticeList.do' />");
+			comSubmit.setUrl("<c:url value='/notice/openNoticeList.do' />");
 			comSubmit.submit();
 		}
 		
 		function fn_insertNotice(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/insertNotice.do' />");
+			comSubmit.setUrl("<c:url value='/notice/insertNotice.do' />");
 			comSubmit.submit();
 		}
 

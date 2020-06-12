@@ -4,15 +4,21 @@
 <mapper namespace="faq">
 
 	<!-- FAQ 리스트 불러오기 -->
-	<select id="selectFaqList" parameterType="hashmap" resultType="hashmap">	
+	<select id="selectFaqList" parameterType="hashmap" resultType="hashmap">
+		<include refid="common1.pagingPre1"/> 	
 		<![CDATA[
-			SELECT 
-				NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT		
+			SELECT
+				ROW_NUMBER() OVER (ORDER BY NOTICE_NO DESC) RNUM, 
+				NOTICE_NO, 
+				NOTICE_TITLE, 
+				NOTICE_CONTENT,
+				TO_CHAR(NOTICE_DATE, 'YYYY.MM.DD') AS NOTICE_DATE		
 			FROM 
 				NOTICE
 			WHERE 
 				NOTICE_GUBUN = '1'
 		]]>
+		<include refid="common1.pagingPost1"/>
 	</select>
 	
 	<!-- FAQ 리스트 등록하기 -->
@@ -33,7 +39,7 @@
 			VALUES
 			(
 				#{NOTICE_NO} ,
-				'1' , 
+				1 , 
 				#{NOTICE_TITLE} ,
 				#{NOTICE_CONTENT} ,
 			    SYSDATE ,
@@ -53,7 +59,7 @@
 			FROM 
 				NOTICE
 			WHERE
-				NOTICE_NO = #{NOTICE_NO}
+				NOTICE_NO = #{NOTICE_NO},
 		]]>
 	 	</select> 
 	

@@ -24,22 +24,21 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public void insertNotice(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		noticeDAO.insertNotice(map);		
+		noticeDAO.insertNotice(map);
 	}
 
 	@Override
 	public Map<String, Object> selectNoticeDetail(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		Map<String, Object> tempMap = noticeDAO.selectNoticeDetail(map);
-		resultMap.put("map", tempMap);
+		resultMap.put("map", tempMap);		
 		return resultMap;
 	}
 
 	@Override
 	public void updateNotice(Map<String, Object> map, HttpServletRequest request) throws Exception{
 		noticeDAO.updateNotice(map);
-
-	}
+			}
 
 	@Override
 	public void deleteNotice(Map<String, Object> map) throws Exception {

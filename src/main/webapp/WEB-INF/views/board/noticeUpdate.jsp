@@ -2,9 +2,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<%@ include file="../include/include-header.jspf" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
 <body>
+<br/><br/><br/>
+	<h2>공지사항</h2>
+	<br/><br/>
 	<form id="frm" name="frm" enctype="multipart/form-data">
 		<table class="board_view">
 			<colgroup>
@@ -13,80 +23,83 @@
 				<col width="15%"/>
 				<col width="35%"/>
 			</colgroup>
-			<caption>QNA 상세</caption>
+			<caption>글수정</caption>
 			<tbody>
 				<tr>
 					<th scope="row">글 번호</th>
 					<td>
-						${map.QNA_NO }
-						<input type="hidden" id="QNA_NO" name="QNA_NO" value="${map.QNA_NO }">
+						${map.NOTICE_NO }
+						<input type="hidden" id="NOTICE_NO" name="NOTICE_NO" value="${map.NOTICE_NO }">
 					</td>
 				</tr>
 				<tr>
 					<th scope="row">작성자</th>
-					<td>${map.MEMBER_NO }</td>
+					<td>${map.MEMBER_NAME }</td>
 					<th scope="row">작성시간</th>
-					<td>${map.QNA_DATE }</td>
+					<td>${map.NOTICE_DATE }</td>
 				</tr>
 				<tr>
 					<th scope="row">제목</th>
 					<td colspan="3">
-						<input type="text" id="QNA_TITLE" name="QNA_TITLE" class="wdp_90" value="${map.QNA_TITLE }"/>
+						<input type="text" id="NOTICE_TITLE" name="NOTICE_TITLE" class="wdp_90" value="${map.NOTICE_TITLE }"/>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="4" class="view_text">
-						<textarea rows="20" cols="100" title="내용" id="QNA_CONTENT" name="QNA_CONTENT">${map.QNA_CONTENT }</textarea>
+						<textarea rows="20" cols="100" title="내용" id="NOTICE_CONTENT" name="NOTICE_CONTENT">${map.NOTICE_CONTENT }</textarea>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</form>
 	
+	<p>
 	<a href="#this" class="btn" id="list">목록으로</a>
 	<a href="#this" class="btn" id="update">저장하기</a>
 	<a href="#this" class="btn" id="delete">삭제하기</a>
+	</p>
 	
-	<%@ include file="../include/include-body.jspf" %>
+	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		var gfv_count = '${fn:length(list)+1}';
 		$(document).ready(function(){
 			$("#list").on("click", function(e){ //목록으로 버튼
 				e.preventDefault();
-				fn_openQnaList();
+				fn_openNoticeList();
 			});
 			
 			$("#update").on("click", function(e){ //저장하기 버튼
 				e.preventDefault();
-				fn_updateQna();
+				fn_updateNotice();
 			});
 			
 			$("#delete").on("click", function(e){ //삭제하기 버튼
 				e.preventDefault();
-				fn_deleteQna();
+				fn_deleteNotice();
 			});
-
+			
 		});
 		
-		function fn_openQnaList(){
+		function fn_openNoticeList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openQnaList.do' />");
+			comSubmit.setUrl("<c:url value='/notice/openNoticeList.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_updateQna(){
+		function fn_updateNotice(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/updateQna.do' />");
+			comSubmit.setUrl("<c:url value='/notice/updateNotice.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_deleteQna(){
+		function fn_deleteNotice(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/deleteQna.do' />");
-			comSubmit.addParam("QNA_NO", $("#QNA_NO").val());
+			comSubmit.setUrl("<c:url value='/notice/deleteNotice.do' />");
+			comSubmit.addParam("NOTICE_NO", $("#NOTICE_NO").val());
 			comSubmit.submit();
 			
 		}
+
 	</script>
 </body>
 </html>

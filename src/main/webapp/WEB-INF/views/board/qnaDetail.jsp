@@ -2,9 +2,16 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<%@ include file="../include/include-header.jspf" %>
 </head>
 <body>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 	<table class="board_view">
 		<colgroup>
 			<col width="15%"/>
@@ -48,7 +55,7 @@
 
 		</tr>
 	</table>
-	<%@ include file="../include/include-body.jspf" %>
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#list").on("click", function(e){ //목록으로 버튼

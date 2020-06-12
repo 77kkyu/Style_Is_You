@@ -2,9 +2,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<%@ include file="../include/include-header.jspf" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
 <body>
+<br/><br/><br/>
+	<h2>공지사항</h2>
+	<br/><br/>
 	<form id="frm" name="frm" enctype="multipart/form-data">
 		<table class="board_view">
 			<colgroup>
@@ -13,7 +23,7 @@
 				<col width="15%"/>
 				<col width="35%"/>
 			</colgroup>
-			<caption>게시글 상세</caption>
+			<caption>글수정</caption>
 			<tbody>
 				<tr>
 					<th scope="row">글 번호</th>
@@ -24,7 +34,7 @@
 				</tr>
 				<tr>
 					<th scope="row">작성자</th>
-					<td>${map.MEMBER_NO }</td>
+					<td>${map.MEMBER_NAME }</td>
 					<th scope="row">작성시간</th>
 					<td>${map.NOTICE_DATE }</td>
 				</tr>
@@ -47,45 +57,47 @@
 	<a href="#this" class="btn" id="update">저장하기</a>
 	<a href="#this" class="btn" id="delete">삭제하기</a>
 	
-	<%@ include file="../include/include-body.jspf" %>
+	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
+		var gfv_count = '${fn:length(list)+1}';
 		$(document).ready(function(){
 			$("#list").on("click", function(e){ //목록으로 버튼
 				e.preventDefault();
-				fn_openNoticeList();
+				fn_openFaqList();
 			});
 			
 			$("#update").on("click", function(e){ //저장하기 버튼
 				e.preventDefault();
-				fn_updateNotice();
+				fn_updateFaq();
 			});
 			
 			$("#delete").on("click", function(e){ //삭제하기 버튼
 				e.preventDefault();
-				fn_deleteNotice();
+				fn_deleteFaq();
 			});
 			
 		});
 		
-		function fn_openNoticeList(){
+		function fn_openFaqList(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/openNoticeList.do' />");
+			comSubmit.setUrl("<c:url value='/faq/openFaqList.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_updateNotice(){
+		function fn_updateFaq(){
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/board/updateNotice.do' />");
+			comSubmit.setUrl("<c:url value='/faq/updateFaq.do' />");
 			comSubmit.submit();
 		}
 		
-		function fn_deleteNotice(){
+		function fn_deleteFaq(){
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/board/deleteNotice.do' />");
+			comSubmit.setUrl("<c:url value='/faq/deleteFaq.do' />");
 			comSubmit.addParam("NOTICE_NO", $("#NOTICE_NO").val());
 			comSubmit.submit();
 			
 		}
+
 	</script>
 </body>
 </html>

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import stu.common.common.CommandMap;
@@ -21,14 +20,14 @@ public class NoticeController {
 	@Resource(name="noticeService")
 	private NoticeService noticeService;
 	
-	@RequestMapping(value="/board/openNoticeList.do")
+	@RequestMapping(value="/notice/openNoticeList.do")
     public ModelAndView openNoticeList(CommandMap commandMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/board/notice/noticeList");
+    	ModelAndView mv = new ModelAndView("/board/noticeList");
     	
     	return mv;
     }
 	
-	@RequestMapping(value="/board/selectNoticeList.do", method=RequestMethod.POST)
+	@RequestMapping(value="/notice/selectNoticeList.do")
     public ModelAndView selectNoticeList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
     	
@@ -44,25 +43,25 @@ public class NoticeController {
     	return mv;
     }
 	
-	@RequestMapping(value="/board/openNoticeWrite.do", method=RequestMethod.POST)
+	@RequestMapping(value="/notice/openNoticeWrite.do")
 	public ModelAndView openNoticeWrite(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/notice/noticeWrite");
+		ModelAndView mv = new ModelAndView("/board/noticeWrite");
 		
 		return mv;
 	}
 	
-	@RequestMapping(value="/board/insertNotice.do")
+	@RequestMapping(value="/notice/insertNotice.do")
 	public ModelAndView insertNotice(CommandMap commandMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/board/openNoticeList.do");
-		System.out.println(commandMap);
+		ModelAndView mv = new ModelAndView("redirect:/notice/openNoticeList.do");
+		
 		noticeService.insertNotice(commandMap.getMap(), request);
 		
 		return mv;
 	}
 	
-	@RequestMapping(value="/board/openNoticeDetail.do")
+	@RequestMapping(value="/notice/openNoticeDetail.do")
 	public ModelAndView openNoticeDetail(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/notice/noticeDetail");
+		ModelAndView mv = new ModelAndView("/board/noticeDetail");
 		
 		Map<String,Object> map = noticeService.selectNoticeDetail(commandMap.getMap());
 		mv.addObject("map", map.get("map"));
@@ -71,9 +70,9 @@ public class NoticeController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/board/openNoticeUpdate.do", method=RequestMethod.POST)
+	@RequestMapping(value="/notice/openNoticeUpdate.do")
 	public ModelAndView openNoticeUpdate(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/notice/noticeUpdate");
+		ModelAndView mv = new ModelAndView("/board/noticeUpdate");
 		
 		Map<String,Object> map = noticeService.selectNoticeDetail(commandMap.getMap());
 		mv.addObject("map", map.get("map"));
@@ -82,9 +81,9 @@ public class NoticeController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/board/updateNotice.do", method=RequestMethod.POST)
+	@RequestMapping(value="/notice/updateNotice.do")
 	public ModelAndView updateNotice(CommandMap commandMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/board/openNoticeDetail.do");
+		ModelAndView mv = new ModelAndView("redirect:/notice/openNoticeDetail.do");
 		
 		noticeService.updateNotice(commandMap.getMap(), request);
 		
@@ -92,9 +91,9 @@ public class NoticeController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/board/deleteNotice.do", method=RequestMethod.POST)
+	@RequestMapping(value="/notice/deleteNotice.do")
 	public ModelAndView deleteNotice(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/board/openNoticeList.do");
+		ModelAndView mv = new ModelAndView("redirect:/notice/openNoticeList.do");
 		
 		noticeService.deleteNotice(commandMap.getMap());
 		
