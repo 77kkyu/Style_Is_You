@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -28,15 +29,23 @@ Logger log = Logger.getLogger(this.getClass());
 	 * 기본 Map형식이 아닌 map을 가지는 클래스를 만들어 사용 commandMap */
 	// 마이페이지 - 주문리스트
 	@RequestMapping(value="/myOrderList.do", method = RequestMethod.GET)
-	public ModelAndView myOrderList(CommandMap commandMap, ServletRequest session) throws Exception {
+	public ModelAndView myOrderList(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("my/myOrderList");
 		
-		String member_no = (String)session.getAttribute("MEMBER_NO");
-		System.out.println("세션no:"+member_no);
-
+		Object SESSION_NO = "";
+		  
+		/*
+		//세션값 가져오기
+		HttpSession session = request.getSession();
+		SESSION_NO = (Object)session.getAttribute("SESSION_NO");
+		
+		commandMap.remove("SESSION_NO"); // 기존 회원번호 데이터 삭제
+		commandMap.put("SESSION_NO", SESSION_NO); // 세션 값으로 적용 추후에 바꿈
+		*/
+		
 		//테스트용 세션값
-		member_no = "2";
+		String member_no = "2";
 		
 		// 세션이 존재할 때만
 		/*
