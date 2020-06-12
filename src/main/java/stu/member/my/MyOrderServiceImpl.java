@@ -87,4 +87,16 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 		
 	}
 
+	@Override
+	public List<Map<String, Object>> changeForm_a(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> changeForm_b(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -28,6 +28,22 @@
 		/* alert('동작함'); */
 	});
 
+ 
+function order_change(mem_no, order_no){
+	var mem_no = mem_no;
+	var order_no = order_no;
+	
+	if(mem_no == null || order_no == null || mem_no == '' || order_no == '') {
+		alert("오류입니다.");
+		return;
+	}
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/order_change.do' />");
+	comSubmit.addParam("member_no", mem_no);
+	comSubmit.addParam("order_no", order_no);
+	comSubmit.submit();
+}
+ 
 	
 function order_cancle(mem_no, order_no){
 	var mem_no = mem_no;
