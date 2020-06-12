@@ -14,6 +14,7 @@
 			    UPLOAD
 			WHERE
 			    UPLOAD_NO = #{IDX}
+		]]>
 	</select>
 	
 	<sql id="pagingPre2"> 

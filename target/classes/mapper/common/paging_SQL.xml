@@ -4,6 +4,9 @@
 <mapper namespace="common">
 	
 	<select id="selectFileInfo" parameterType="hashmap" resultType="hashmap">
+
+		<![CDATA[
+
 			SELECT
 			    UPLOAD_ORIGIN_NAME,
 			    UPLOAD_SAVE_NAME
@@ -11,6 +14,7 @@
 			    UPLOAD
 			WHERE
 			    UPLOAD_NO = #{IDX}
+		]]>
 	</select>
 	
 	<sql id="pagingPre2"> 
@@ -27,6 +31,7 @@
 								) AA 
 					) AAA 
 			WHERE 	AAA.NUM BETWEEN #{START} AND #{END} 
+
 	</sql>
 
 </mapper>
