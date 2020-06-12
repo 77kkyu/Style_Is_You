@@ -140,7 +140,7 @@ li {
 		<%
 			if(sessionId != null) {
 		%>
-			<td><a href="/stu/my/myMain.do">마이페이지</a></td> <td> | </td>
+			<td><a href="/stu/myOrderList.do">마이페이지</a></td> <td> | </td>
 		<%
 			} else {
 		%>
@@ -148,7 +148,7 @@ li {
 		<%
 			}
 		%>
-			<td><a href="">고객센터</a></td> <td> | </td>
+			<td><a href="/stu/faq/openFaqList.do">고객센터</a></td> <td> | </td>
 		
 		<c:set var="MEMBER_NO" value="${MEMBER_NO}" />
 		<c:choose>

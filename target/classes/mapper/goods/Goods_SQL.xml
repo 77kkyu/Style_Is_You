@@ -310,5 +310,27 @@ SELECT
 		]]>
 	</insert>
 	
+	
+	<update id="updateGoodsAmount" parameterType="hashmap"><!-- 주문한 상품 수량변경 -->
+      <![CDATA[
+         UPDATE  GOODS_ATTRIBUTE 
+         SET     GOODS_ATT_AMOUNT = GOODS_ATT_AMOUNT-#{ORDER_DETAIL_AMOUNT}
+         WHERE   GOODS_ATT_NO = #{GOODS_ATT_NO}
+      ]]>
+   </update>
+   
+   <update id="updateGoodsDisplay" parameterType="hashmap"><!-- 재고수량 0이하  -->
+      <![CDATA[
+         UPDATE  
+            GOODS_ATTRIBUTE 
+         SET     
+            GOODS_ATT_DISPLAY = 1
+         WHERE   
+            GOODS_ATT_AMOUNT <= 0
+         AND GOODS_ATT_NO = #{GOODS_ATT_NO}
+         
+      ]]>
+   </update>
+	
 
 </mapper>

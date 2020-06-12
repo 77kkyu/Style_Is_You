@@ -34,11 +34,11 @@
   	
   </definition>
   
- <!--  <definition name="my/*" extends="base">
+  <definition name="my/*" extends="base">
   
   	<put-attribute name="body" value="/WEB-INF/views/my/{1}.jsp"/>
   	
-  </definition> -->
+  </definition> 
 
   <definition name="basket/*" extends="base">
   
@@ -53,7 +53,75 @@
   </definition>
 
 
+  <!-- 수민 -->
+       <!--FAQ -->
+  <definition name="/board/faqList" extends="base">
   
+     <put-attribute name="body" value="/WEB-INF/views/board/faqList.jsp"/>
+     
+  </definition>
+  
+  <definition name="/board/faqWrite" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/faqWrite.jsp"/>
+     
+  </definition>
+  
+  <definition name="/board/faqUpdate" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/faqUpdate.jsp"/>
+     
+  </definition>
+  
+     <!--NOTICE -->
+  <definition name="/board/noticeList" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/noticeList.jsp"/>
+     
+  </definition>
+  
+  <definition name="/board/noticeDetail" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/noticeDetail.jsp"/>
+     
+  </definition>
+  
+  <definition name="/board/noticeWrite" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/noticeWrite.jsp"/>
+     
+  </definition>
+  
+  <definition name="/board/noticeUpdate" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/noticeUpdate.jsp"/>
+     
+  </definition>
+  
+   <!--QNA -->
+  <definition name="/board/qnaList" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/qnaList.jsp"/>
+     
+  </definition>
+  
+  <definition name="/board/qnaDetail" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/qnaDetail.jsp"/>
+     
+  </definition>
+  
+  <definition name="/board/qnaWrite" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/qnaWrite.jsp"/>
+     
+  </definition>
+  
+  <definition name="/board/qnaUpdate" extends="base">
+  
+     <put-attribute name="body" value="/WEB-INF/views/board/qnaUpdate.jsp"/>
+     
+  </definition>
   
   
 

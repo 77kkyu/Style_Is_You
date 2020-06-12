@@ -21,16 +21,11 @@
 	</div>
 
 
-</div>
 
-	<footer id="footer">
-		<tiles:insertAttribute name="footer"/>	
-	</footer>
+	<%-- <footer id="footer">
+		<tiles:insertAttribute name="footer" ignore="true"/>	
+	</footer> --%>
 
-
-<div>
-<tiles:insertAttribute name="body"/>
-</div>
 
 </body>
 </html>

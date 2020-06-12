@@ -254,7 +254,7 @@ function fn_select_order(){
                   				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
                   			</td>
                   			<td>
-                  				<img src="${row.UPLOAD_SAVE_NAME }" width="50" height="50">
+                  				<img src="${row.GOODS_THUMBNAIL }" width="50" height="50">
                   			</td>
 							<td>
 				  				<a href="#">${row.GOODS_NAME }</a> <br>

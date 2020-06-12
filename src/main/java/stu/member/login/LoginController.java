@@ -64,7 +64,7 @@ public class LoginController {
 			            System.out.println("DB : " + chk);
 			            
 			            // 마지막 로그인 갱신
-			            loginService.lastLogin(chk.get("MEMBER_NO"));
+			            //loginService.lastLogin(chk.get("MEMBER_NO"));
 			            
 			            // 세션 시간 설정 (web.xml 설정)
 			            session.getMaxInactiveInterval();
