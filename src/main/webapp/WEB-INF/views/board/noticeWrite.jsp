@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>  
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,7 +15,7 @@
 <br/><br/><br/>
 	<h2>공지사항</h2>
 	<br/><br/>
-	<form id="frm" name="frm" enctype="multipart/form-data">
+	<form id="frm" name="frm" class="frm" enctype="multipart/form-data">
 		<table class="board_view">
 			<colgroup>
 				<col width="15%">
@@ -39,7 +39,7 @@
 		<a href="#this" class="btn" id="list">목록으로</a>
 	</form>
 	
-
+	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		var gfv_count = 1;
 	

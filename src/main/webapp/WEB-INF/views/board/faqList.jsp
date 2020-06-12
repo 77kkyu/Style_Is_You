@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
+<% String sessionId = (String)session.getAttribute("MEMBER_NAME"); %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
 <!-- jQuery -->
@@ -13,7 +14,7 @@
 </head>
 <body>
 <br/><br/><br/>
-	<h2>공지사항</h2>
+	<h2>FAQ 자주묻는질문</h2>
 	<br/><br/>
 	<table class="board_list">
 		<colgroup>
@@ -33,11 +34,13 @@
 		</tbody>
 	</table>
 	
-	<div id="PAGE_NAVI"></div>
+	<div class="pageNumber" id="PAGE_NAVI"></div>
 	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
 	
 	<br/>
+	<p id="wrapBtn" style="display:none;">
 	<a href="#this" class="btn" id="write">글쓰기</a>
+	</p>
 	
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
@@ -47,25 +50,38 @@
 			$("#write").on("click", function(e){ //글쓰기 버튼
 				e.preventDefault();
 				fn_openFaqWrite();
-			});	
+			});
 			
 			$("a[name='title']").on("click", function(e){ //제목 
 				e.preventDefault();
-				fn_openFaqDetail($(this));
-			});
+				//fn_openFaqDetail($(this));
+				var chkShow = $(this).attr('class');
+				if($("."+chkShow).parent().parent().attr('id') == 'on'){
+					$("#"+chkShow).hide();
+					$("."+chkShow).parent().parent().attr('id', 'off');
+				}else{
+					$("#"+chkShow).show();
+					$("."+chkShow).parent().parent().attr('id', 'on');
+				}
+				
+		});
+			
+			<%
+			if(sessionId.strip().equals("admin")) { 
+			%>
+			
+				$("#wrapBtn").show()
+			<%
+			}
+			else{
+			}
+			%>
 		});
 		
 		
 		function fn_openFaqWrite(){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/faq/openFaqWrite.do' />");
-			comSubmit.submit();
-		}
-		
-		function fn_openFaqDetail(obj){
-			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/faq/openFaqDetail.do' />");
-			comSubmit.addParam("NOTICE_NO", obj.parent().find("input[name='title']").val());
 			comSubmit.submit();
 		}
 		
@@ -100,21 +116,21 @@
 				
 				var str = "";
 				$.each(data.list, function(key, value){
-					str += "<tr>" + 
+					str += "<tr id='off'>" + 
 								"<td>" + value.NOTICE_NO + "</td>" + 
 								"<td class='title'>" +
-									"<a href='#this' name='title'>" + value.NOTICE_TITLE + "</a>" +
+									"<a href='#this' name='title' class='chk"+ value.RNUM +"'>" + value.NOTICE_TITLE + "</a>" +
 									"<input type='hidden' name='title' value=" + value.NOTICE_NO + ">" + 
 								"</td>" +
 								"<td>" + value.NOTICE_DATE + "</td>" + 
-							"</tr>";
+							"</tr>" +
+							"<tr>" + 
+							
+							'<td colspan="3" style="display:none;" id="chk'+ value.RNUM + '">' + value.NOTICE_CONTENT + "</td>" + 
+							"</tr>" ;
 				});
 				body.append(str);
-				
-				$("a[name='title']").on("click", function(e){ //제목 
-					e.preventDefault();
-					fn_openFaqDetail($(this));
-				});
+
 			}
 		}
 	</script>	
