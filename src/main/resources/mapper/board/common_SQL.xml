@@ -3,7 +3,7 @@
 
 <mapper namespace="common1">
 	
-	<sql id="pagingPre1">
+	<sql id="pagingPre">
 		<![CDATA[
    			SELECT 
 			    AAA.*

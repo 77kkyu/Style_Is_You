@@ -52,4 +52,6 @@ public class CommandMap {
 		return map;
 	}
 
+	
+	
 }

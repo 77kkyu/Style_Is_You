@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-<title>adminMain</title>
+<title>admin주문메인</title>
 
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -20,49 +20,12 @@
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
+<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
+
 <!-- 
 <script type="text/javascript">
 
 	/* 필요한거 이페이지가 돌아왔을때 order_state값이 0이면  id="o1"에 추가class="active" */
-	
-function gfn_isNull(str) {
-	if (str == null) return true;
-	if (str == "NaN") return true;
-	if (new String(str).valueOf() == "undefined") return true;    
-    var chkStr = new String(str);
-    if( chkStr.valueOf() == "undefined" ) return true;
-    if (chkStr == null) return true;    
-    if (chkStr.toString().length == 0 ) return true;   
-    return false; 
-}
-
-function ComSubmit(opt_formId) {
-	alert(opt_formId);
-	this.formId = gfn_isNull(opt_formId) == true ? "commonForm" : opt_formId;
-	this.url = "";
-	
-	
-	if(this.formId == "commonForm"){
-		$("#commonForm")[0].reset();
-	}
-	
-	this.setUrl = function setUrl(url){
-		this.url = url;
-	};
-	
-	this.addParam = function addParam(key, value){
-		$("#"+this.formId).append($("<input type='hidden' name='"+key+"' id='"+key+"' value='"+value+"' >"));
-	};
-	
-	this.submit = function submit(){
-		var frm = $("#"+this.formId)[0];
-		frm.action = this.url;
-		frm.method = "post";
-		frm.submit();	
-	};
-}	
-	
-
 
 	$(document).ready(function(){
 		$("#o1").on("click", function(e){
@@ -84,41 +47,43 @@ function ComSubmit(opt_formId) {
  
  <script>
  $(document).ready(function(){
-		alert('동작함');
+		/* alert('동작함'); */
 	});
 
 	
- $(document).ready(function(){
-
-	 /* var result = "${order_a}";
-	 alert(result); */
-	 
-		$("#od_detail").on("click", function(e){
-			alert("상세보기");
-
-			/* e.preventDefault();
-			fn_openBoardList(); */
-		});		
-	});
-	
- function order_chk(state, no){
+ 
+ 
+function order_state(state, no){
 	 var state = state;
 	 var no = no;
-	 if(confirm("확인하시겠습니까?")){
+	 var exp = $("#express").val();
+ 
+	if(confirm("확인하시겠습니까?")){
 	 $.ajax({
          url: "/stu/order_admin_a.do",
-         data : {"order_state": state, "order_no": no},
+         data : {"order_state": state, "order_no": no, "express":exp},
          type: "post",
          async:false,
          success : function(data){
         	 alert("주문상태가 변경되었습니다.");
-             window.opener.location.reload();
-             self.close();
+         	 location.href = "/stu/order_admin_a.do?os="+state;
+/*              window.opener.location.reload(); */
+             /* self.close(); */
          }
       })}else{
          return;
       }
 	}
+
+function order_detail(no){
+	alert("작동됨?");
+	var comSubmit = new ComSubmit();
+	var order_no = no;
+	comSubmit.setUrl("<c:url value='/order_detail.do' />");
+	comSubmit.addParam("order_no", order_no);
+	comSubmit.submit();
+      
+}
 
  </script>
  
@@ -126,7 +91,7 @@ function ComSubmit(opt_formId) {
 <body>
 <div class="container">
 	<div class="masthead">
-		<h3 class="text-muted">Project name</h3>
+		<h3 class="text-muted">주문배송 관리</h3>
 		<nav>
 			<ul class="nav nav-justified">
 			<c:choose>
@@ -260,7 +225,7 @@ function ComSubmit(opt_formId) {
 					<th scope="col">진행상황</th>
 				</tr>
 			</thead>
-			<form id="order_select">
+			
 			<tbody>
 			<c:choose>
 				<c:when test="${fn:length(order_a) > 0}">
@@ -268,12 +233,44 @@ function ComSubmit(opt_formId) {
 						<tr>
 							<td>${order.ORDER_DATE }<br />${order.ORDER_NO }</td>
 							<td>${order.MEMBER_ID }<br />${order.MEMBER_NAME }</td>
-							<td ><a href="#this" name="title">${order.GOODS_NAME }</a>
-								<input type="hidden" id="member_no" value="${order.MEMBER_NO }"></td>
+							<%-- 주문상태${order.ORDER_STATE } --%>
+							<c:choose>
+								<c:when test="${order.ORDER_STATE == 0 }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }</a></td>
+								</c:when>
+								<c:when test="${order.ORDER_STATE == 1 }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }</a><br />
+								<select name="bank_chk" id="">
+									<option >결제 미확인</option>
+									<option >결제 확인</option>
+								</select>
+								</td>
+								</c:when>
+								<c:when test="${order.ORDER_STATE == 2 }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }</a><br />
+								[${order.ORDER_PAY_BANK }] / 송장번호:<input type="text" id="express" /></td>
+								</c:when>
+								<c:when test="${order.ORDER_STATE > 2 }">
+								<td><a href="#this" name="title">${order.GOODS_NAME }</a><br />
+								[${order.ORDER_PAY_BANK }]/송장번호:[${order.ORDER_EXPRESS }]</td>
+								</c:when>
+							</c:choose>
+							<%-- <td ><a href="#this" name="title">${order.GOODS_NAME }</a>
+								<input type="hidden" id="member_no" value="${order.MEMBER_NO }"></td> --%>
 							<td>${order.HAP_CNT }건</td>
 							<td>${order.ORDER_TOTAL_PAY_PRICE }원</td>
-							<td><a href="#" id="od_detail" >상세보기</a>
-							<br /><input type="button" onclick="order_chk(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼"></td>
+							<c:choose>
+								<c:when test="${order.ORDER_STATE < 5 }">
+									<td><input type="button" onclick="order_detail(${order.ORDER_NO })" value="상세보기" />
+									<br /><input type="button" onclick="order_state(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼" /></td>
+								</c:when>
+								<c:otherwise>
+									<td><input type="button" onclick="order_detail(${order.ORDER_NO })" value="상세보기" />
+									<br />[거래완료]</td>
+								</c:otherwise>
+							</c:choose>
+							
+							
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -284,7 +281,7 @@ function ComSubmit(opt_formId) {
 				</c:otherwise>
 			</c:choose>
 		</tbody>
-		</form>
+		
 		</table>
 	</div>
 
