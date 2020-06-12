@@ -21,8 +21,8 @@
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
-<script src="js/son_com.js"></script>
-<%-- <script src="<c:url value='/js/common.js'/>" charset="utf-8"></script> --%>
+
+<script src="<c:url value='/js/common_s.js'/>" charset="utf-8"></script>
 
  <script>
  $(document).ready(function(){
@@ -31,17 +31,16 @@
 
  
 function order_change(mem_no, order_no){
-	alert("교환확인동작");
 	var mem_no = mem_no;
 	var order_no = order_no;
-	
+	alert(mem_no+"/"+order_no);
 	if(mem_no == null || order_no == null || mem_no == '' || order_no == '') {
 		alert("오류입니다.");
 		return;
 	}
 	var comSubmit = new ComSubmit();
 	comSubmit.setUrl("<c:url value='/order_change.do' />");
-	comSubmit.addParam("member_no", mem_no);
+	comSubmit.addParam("mem_no", mem_no);
 	comSubmit.addParam("order_no", order_no);
 	comSubmit.submit();
 }

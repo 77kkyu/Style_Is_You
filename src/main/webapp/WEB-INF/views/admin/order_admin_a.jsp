@@ -20,7 +20,7 @@
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
-<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
+<script src="<c:url value='/js/common_s.js'/>" charset="utf-8"></script>
 
 <!-- 
 <script type="text/javascript">
