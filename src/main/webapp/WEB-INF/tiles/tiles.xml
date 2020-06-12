@@ -33,13 +33,13 @@
   	<put-attribute name="body" value="/WEB-INF/views/login/{1}.jsp"/>
   	
   </definition>
-  
+  <!-- 
   <definition name="my/*" extends="base">
   
   	<put-attribute name="body" value="/WEB-INF/views/my/{1}.jsp"/>
   	
   </definition> 
-
+	 -->
   <definition name="basket/*" extends="base">
   
   	<put-attribute name="body" value="/WEB-INF/views/basket/{1}.jsp"/>

@@ -172,7 +172,17 @@ public class AbstractDao {
 	         printQueryId(queryId);
 	         sqlSession.update(queryId,params);
 	      }
+	      public List<Map<String,Object>> changeForm_a(String queryId, Object params) { // 교환.환불.AS - 주문정보가져옴 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      public List<Map<String,Object>> changeForm_b(String queryId, Object params) { // 교환.환불.AS - 주문디테일정보가져옴 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
 
+	      
+	      
 	      
 	      
 	      

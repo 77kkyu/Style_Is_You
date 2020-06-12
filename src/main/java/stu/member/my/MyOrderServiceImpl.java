@@ -32,7 +32,7 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	}
 
 	@Override
-	public List<Map<String, Object>> order_state_cancle(CommandMap commandMap) throws Exception {
+	public void order_state_cancle(CommandMap commandMap) throws Exception {
 		
 		myOrderDao.list_cancle(commandMap);  //주문상태 취소로 변경
 		myOrderDao.detail_cancle(commandMap); //주문디테일상태 환불로 변경
@@ -83,20 +83,12 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 		}
 		/* 가져온값에 size()를 구해 for문을 돌리고 상품속성번호에 상품 수량을 ++ 해줌	 */
 		
-		return null;
-		
-	}
-
-	@Override
-	public List<Map<String, Object>> changeForm_a(CommandMap commandMap) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public List<Map<String, Object>> changeForm_b(CommandMap commandMap) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return myOrderDao.changeForm_b(commandMap);
 	}
 
 }

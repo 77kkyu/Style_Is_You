@@ -3,6 +3,9 @@ package stu.member.my;
 import java.util.List;
 import java.util.Map;
 
+import stu.common.common.CommandMap;
+
+
 public interface myService {
 	
 	// 구매 목록
@@ -15,4 +18,6 @@ public interface myService {
 	void memberModifyAction(Map<String, Object> map) throws Exception;
 	
 	void memberDelete(Map<String, Object> map) throws Exception;
+	
+	List<Map<String, Object>> myDash(CommandMap commandMap) throws Exception; // 마이페이지사이드바
 }

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import stu.common.common.CommandMap;
 
+
 @Controller
 public class myController {
 
@@ -138,5 +139,18 @@ public class myController {
 		
 		return mv;
 	}
+	
+	// 마이페이지 사이드바
+	@RequestMapping(value="/my_side.do")
+	public ModelAndView myView(CommandMap commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("my/mySide");
+		
+		List<Map<String,Object>> mydashList = myService.myDash(commandMap);
+		mv.addObject("mydashList", mydashList);
+			
+		return mv;
+	}
+	
 
 }

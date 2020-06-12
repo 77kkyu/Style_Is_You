@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-
+import stu.common.common.CommandMap;
 
 @Service("myService")
 public class myServiceImpl implements myService {
@@ -41,6 +41,12 @@ public class myServiceImpl implements myService {
 	@Override
 	public void memberDelete(Map<String, Object> map) throws Exception {
 		myDAO.memberDelete(map);
+	}
+	
+	@Override
+	public List<Map<String, Object>> myDash(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		return myDAO.myDash(map);		
 	}
 	
 	

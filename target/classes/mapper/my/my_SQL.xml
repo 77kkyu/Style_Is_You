@@ -73,7 +73,7 @@
 			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), ${use_hap})
 		]]>
 	</insert>
-	<insert id="save_point_reset" parameterType="hashmap"> <!-- 사용포인트 취소 -->
+	<insert id="save_point_reset" parameterType="hashmap"> <!-- 적립포인트 취소 -->
 <!-- 		<selectKey keyColumn="member_no,order_save_point,hap" resultType="int" keyProperty="member_no,order_save_point,hap" order="BEFORE">
 		    
 		    select l.member_no member_no, l.order_save_point order_save_point, (p.point_total-l.order_save_point)as hap 
@@ -88,14 +88,14 @@
 			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), ${save_hap})
 		]]>
 	</insert>
-	<select id="list_stock_search" parameterType="hashmap" resultType="hashmap">
+	<select id="list_stock_search" parameterType="hashmap" resultType="hashmap"><!-- 주문에 사용된 재고 확인 -->
 		<![CDATA[
 			select goods_att_no, order_detail_amount 
 			from order_detail 
 			where order_no = ${order_no}
 		]]>
 	</select>
-	<update id="list_stock_reset" parameterType="hashmap">
+	<update id="list_stock_reset" parameterType="hashmap"><!-- 주문에 사용된 재고 취소 -->
 		<![CDATA[
 			update goods_attribute
 			set
@@ -104,7 +104,31 @@
 		]]>
 	</update>
 	
+	<!-- 교환 / 환불 / AS -->	
+	<select id="changeForm_b" parameterType="hashmap" resultType="hashmap"> <!-- 신청에 필요한 주문내역 -->
+		<![CDATA[
+			select order_detail_no, order_no, goods_no, goods_att_no, order_detail_color,
+			order_detail_size, order_detail_amount, order_discount_apply, order_detail_save_point
+			from order_detail 
+			where order_no = ${order_no}
+		]]>
+	</select>
 	
+	
+	
+	
+	
+	<!-- 마이페이지 sidebar -->
+	<select id="my_side" parameterType="hashmap" resultType="hashmap"> <!-- adminMain대쉬보드 -->
+		<![CDATA[
+			select member_grade, member_total, point_total, 
+	        (select count(coupon_status_no) from coupon_status where member_no = m.member_no and coupon_use_state = 1 ) cp_cnt,
+	        (select count(like_no) from goods_like where member_no = m.member_no and like_delete = 1) lno_cnt
+			from member m, point p
+			where m.member_no = p.member_no
+			and m.member_no = 2
+		]]>
+	</select>
 	
 	
 <!-- ************************************************************************************** -->
