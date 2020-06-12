@@ -8,7 +8,9 @@
     
     
 <%
-	String sessionId = (String)session.getAttribute("MEMBER_NAME");
+	String sessionName = (String)session.getAttribute("MEMBER_NAME");
+	String sessionId = (String)session.getAttribute("MEMBER_ID");
+
 %>
 
 
@@ -98,6 +100,7 @@ li {
 
 .bar {
   height: 1.5px;
+  width: 100%;
   background-color: #DCDCDC;
 }
 
@@ -117,36 +120,47 @@ li {
 <div class="header">
 <div class="pagetop">
 
-<div align="right" style="margin-right:200px">
+<div align="right" style="margin-right:100px">
 <form name="frm">
 	
 		<tr>
 		<%
 			if(sessionId == null) { // 로그인 전 (세션 값 X)
 		%>
-			<td><a href="/stu/loginForm.do">로그인</a></td> <td>|</td>
-			<td><a href="/stu/joinForm.do">회원가입</a></td> <td>|</td>
+			<td><a href="/stu/loginForm.do">로그인</a></td> <td> | </td>
+			<td><a href="/stu/joinForm.do">회원가입</a></td> <td> | </td>
 		<%
 			} else if(sessionId != null) { // 로그인 후 (세션 값 O)
 		%>
-			<td>Hi, ${MEMBER_NAME }님!</td> <td>|</td>
-			<td><a href="/stu/logout.do">로그아웃</a></td> <td>|</td>
+			<td>Hi, ${MEMBER_NAME }님!</td> <td> | </td>
+			<td><a href="/stu/logout.do">로그아웃</a></td> <td> | </td>
 		<%
 			}
 		%>
 		<%
 			if(sessionId != null) {
 		%>
-			<td><a href="/stu/my/myMain.do">마이페이지</a></td> <td>|</td>
+			<td><a href="/stu/my/myMain.do">마이페이지</a></td> <td> | </td>
 		<%
 			} else {
 		%>
-			<td><a href="/stu/loginForm.do">마이페이지</a></td> <td>|</td>
+			<td><a href="/stu/loginForm.do">마이페이지</a></td> <td> | </td>
 		<%
 			}
 		%>
-			<td><a href="">고객센터</a></td> <td>|</td>
-			<td><a href="/stu/basket/basketList.do">장바구니</a></td>
+			<td><a href="">고객센터</a></td> <td> | </td>
+		
+		<c:set var="MEMBER_NO" value="${MEMBER_NO}" />
+		<c:choose>
+			<c:when test="${MEMBER_NO eq null}">
+				<c:set var="url2" value="/stu/loginForm.do" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="url2" value="/stu/basket/basketList.do" />
+			</c:otherwise>
+		</c:choose>
+			<td><a href="${url2}">장바구니</a></td> <td> | </td>
+			
 			<td><a href="">쿠폰</a></td>
 		</tr>
 	
@@ -156,7 +170,7 @@ li {
 </div>
 <div class="pagemid">
   <div class="wrapper2">
-    <h1>스타일너다</h1>
+    <h1><a href="http://localhost:8080/stu/main.do">스타일너다</a></h1>
     <ul class="flex-menu">
       <li><a href="http://localhost:8080/stu/shop/bestGoodsList.do">BEST</a></li>
       <li><a href="http://localhost:8080/stu/shop/newGoodsList.do">NEW</a></li>

@@ -40,6 +40,18 @@
   	
   </definition>
 
+  <definition name="basket/*" extends="base">
+  
+  	<put-attribute name="body" value="/WEB-INF/views/basket/{1}.jsp"/>
+  	
+  </definition>
+  
+  <definition name="order/*" extends="base">
+  
+  	<put-attribute name="body" value="/WEB-INF/views/order/{1}.jsp"/>
+  	
+  </definition>
+
 
   
   
