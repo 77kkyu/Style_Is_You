@@ -11,8 +11,8 @@
 			FROM 
 				MEMBER M, POINT P
 			WHERE 
-				M.MEMBER_NO = 1
-			AND P.MEMBER_NO = 1
+				M.MEMBER_NO = #{MEMBER_NO}
+			AND P.MEMBER_NO = M.MEMBER_NO
             AND P.POINT_NO = (SELECT MAX(POINT_NO) FROM POINT)
 		]]>
 	</select>
@@ -25,7 +25,7 @@
 			FROM 
 				COUPON_STATUS M, COUPON C
 			WHERE 
-				M.MEMBER_NO = 1
+				M.MEMBER_NO = #{MEMBER_NO}
 			AND M.COUPON_USE_STATE = 0
             AND M.COUPON_NO = C.COUPON_NO
             AND C.COUPON_S_VALIDITY <= SYSDATE
@@ -62,7 +62,7 @@
 			VALUES
 			(
 				#{ORDER_NO},
-				1,
+				#{MEMBER_NO},
 				#{ORDER_NAME},
 				#{ORDER_ZIPCODE},
 				#{ORDER_ADDR1},
@@ -90,7 +90,7 @@
 			FROM 
 				ORDER_LIST
 			WHERE 
-				MEMBER_NO = 1
+				MEMBER_NO = #{MEMBER_NO}
             AND ORDER_NO = (SELECT MAX(ORDER_NO) FROM ORDER_LIST)
 		</selectKey>
 		<![CDATA[
@@ -132,7 +132,7 @@
 			FROM 
 				ORDER_LIST 
 			WHERE 
-				MEMBER_NO = 1
+				MEMBER_NO = #{MEMBER_NO}
 		]]>
 	</select>
 	

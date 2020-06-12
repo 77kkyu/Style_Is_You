@@ -147,7 +147,18 @@ li {
 			}
 		%>
 			<td><a href="">고객센터</a></td> <td> | </td>
-			<td><a href="/stu/basket/basketList.do">장바구니</a></td> <td> | </td>
+		
+		<c:set var="MEMBER_NO" value="${MEMBER_NO}" />
+		<c:choose>
+			<c:when test="${MEMBER_NO eq null}">
+				<c:set var="url2" value="/stu/loginForm.do" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="url2" value="/stu/basket/basketList.do" />
+			</c:otherwise>
+		</c:choose>
+			<td><a href="${url2}">장바구니</a></td> <td> | </td>
+			
 			<td><a href="">쿠폰</a></td>
 		</tr>
 	</table>

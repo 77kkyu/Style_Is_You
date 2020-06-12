@@ -139,28 +139,33 @@ function fn_allPrice(){
 
 //선택상품 찜하기
 function fn_like(){
-	var arraycode = document.getElementsByName("chk");
-	var len = arraycode.length;
-	var val = 0;
-	for(var i=0; i<len; i++){
-		if(arraycode[i].checked==true){
-			val++;
-			var no = document.getElementsByName("goods_no");
-			var attno = document.getElementsByName("goods_att_no");
-			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/basket/like.do' />");
-			comSubmit.addParam("GOODS_NO", no[i].value);
-			comSubmit.addParam("GOODS_ATT_NO", attno[i].value);
-			comSubmit.submit();
+	
+	if(${sessionId ne null}){
+		var arraycode = document.getElementsByName("chk");
+		var len = arraycode.length;
+		var val = 0;
+		for(var i=0; i<len; i++){
+			if(arraycode[i].checked==true){
+				val++;
+				var no = document.getElementsByName("goods_no");
+				var attno = document.getElementsByName("goods_att_no");
+				var comSubmit = new ComSubmit();
+				comSubmit.setUrl("<c:url value='/basket/like.do' />");
+				comSubmit.addParam("GOODS_NO", no[i].value);
+				comSubmit.addParam("GOODS_ATT_NO", attno[i].value);
+				comSubmit.submit();
+			}
 		}
-	// 찜하기 버튼 클릭 > 
-	//선택한 상품만 Controller로 전송(찜하기insert실행): list? map(member_no,chk(BASKET_NO))?
+		if(val==0){
+			alert("상품을 선택해 주세요.");
+		}else{
+			alert("찜하기에 넣었습니다.");
+		}
+	}else {
+		alert("로그인 후 이용해주세요.");
+		location.href = "/stu/loginForm.do";
 	}
-	if(val==0){
-		alert("상품을 선택해 주세요.");
-	}else{
-		alert("찜하기에 넣었습니다.");
-	}
+	
 	
 }
 

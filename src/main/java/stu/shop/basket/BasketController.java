@@ -25,18 +25,19 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	private BasketService basketService;
 	
 	@RequestMapping(value="/basket/basketList.do")
-	public ModelAndView basketList(CommandMap commandMap) throws Exception {
+	public ModelAndView basketList(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("basket/basketList");
-		/*
-		 * Object MEMBER_NO = "";
-		 * 
-		 * //세션값 가져오기 HttpSession session = request.getSession(); MEMBER_NO =
-		 * (Object)session.getAttribute("MEMBER_NO");
-		 * 
-		 * commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 commandMap.put("MEMBER_NO",
-		 * MEMBER_NO); // 세션 값으로 적용
-		 */
+		
+		Object MEMBER_NO = ""; 
+		//세션값 가져오기 
+		HttpSession session = request.getSession(); 
+		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
+		commandMap.remove("MEMBER_NO"); 
+		// 기존 회원번호 데이터 삭제 
+		commandMap.put("MEMBER_NO", MEMBER_NO); 
+		// 세션 값으로 적용
+		 
 		List<Map<String,Object>> list = basketService.basketList(commandMap);
 		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
 		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
@@ -52,9 +53,8 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		
 		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
 		/*
-		 * commandMap.put("BASKET_GOODS_AMOUNT",
-		 * request.getParameter("BASKET_GOODS_AMOUNT")); commandMap.put("BASKET_NO",
-		 * request.getParameter("BASKET_NO"));
+		 * commandMap.put("BASKET_GOODS_AMOUNT", request.getParameter("BASKET_GOODS_AMOUNT")); 
+		 * commandMap.put("BASKET_NO", request.getParameter("BASKET_NO"));
 		 */
 		basketService.basketModify(commandMap, request);
 		return mv;
@@ -71,15 +71,16 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	
 	@RequestMapping(value="/basket/basketAllDelete.do")
 	public ModelAndView basketAllDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		/*
-		 * Object MEMBER_NO = "";
-		 * 
-		 * //세션값 가져오기 HttpSession session = request.getSession(); MEMBER_NO =
-		 * (Object)session.getAttribute("MEMBER_NO");
-		 * 
-		 * commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 commandMap.put("MEMBER_NO",
-		 * MEMBER_NO); // 세션 값으로 적용
-		 */
+		
+		Object MEMBER_NO = ""; 
+		//세션값 가져오기 
+		HttpSession session = request.getSession(); 
+		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO");
+		// 기존 회원번호 데이터 삭제 
+		commandMap.remove("MEMBER_NO"); 
+		// 세션 값으로 적용
+		commandMap.put("MEMBER_NO", MEMBER_NO); 
+		
 		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
 		System.out.println(commandMap.get("MEMBER_NO"));
 		basketService.basketAllDelete(commandMap, request);
@@ -89,22 +90,23 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 	@RequestMapping(value="/basket/like.do")
 	public ModelAndView goodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/basket/basketList.do");
-		/*
-		 * Object MEMBER_NO = "";
-		 * 
-		 * //세션값 가져오기 HttpSession session = request.getSession(); MEMBER_NO =
-		 * (Object)session.getAttribute("MEMBER_NO");
-		 * 
-		 * commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 commandMap.put("MEMBER_NO",
-		 * MEMBER_NO); // 세션 값으로 적용
-		 */
-		  Map<String,Object> map = basketService.selectGoodsLike(commandMap, request);
-		  String like_cnt = String.valueOf(map.get("LIKE_CNT"));
+		
+		Object MEMBER_NO = ""; 
+		//세션값 가져오기 
+		HttpSession session = request.getSession(); 
+		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO");
+		// 기존 회원번호 데이터 삭제 
+		commandMap.remove("MEMBER_NO"); 
+		// 세션 값으로 적용
+		commandMap.put("MEMBER_NO", MEMBER_NO); 
 		  
-		  if(like_cnt.equals("0")) { 
-			  basketService.insertGoodsLike(commandMap, request);
-		  }
-		  return mv;
+		Map<String,Object> map = basketService.selectGoodsLike(commandMap, request);
+		String like_cnt = String.valueOf(map.get("LIKE_CNT"));
+		  
+		if(like_cnt.equals("0")) { 
+			basketService.insertGoodsLike(commandMap, request);
+		}
+		return mv;
 	}
 	
 	
