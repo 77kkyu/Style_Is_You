@@ -22,12 +22,15 @@
   
   <definition name="shop/*" extends="base">
   
-  	<put-attribute name="
-" value="/WEB-INF/views/shop/{1}.jsp"/>
-  	
+  	<put-attribute name="body" value="/WEB-INF/views/shop/{1}.jsp"/> 	
 
   </definition> 
  
+  <definition name="shop/goodsList/outer/NewItem" extends="base">
+  
+  	<put-attribute name="body" value="/WEB-INF/views/shop/cateGoodsList.jsp"/> 	
+
+  </definition> 
   
   <definition name="login/*" extends="base">
   

@@ -53,9 +53,11 @@
 		</table>
 	</form>
 	
+	<p>
 	<a href="#this" class="btn" id="list">목록으로</a>
 	<a href="#this" class="btn" id="update">저장하기</a>
 	<a href="#this" class="btn" id="delete">삭제하기</a>
+	</p>
 	
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">

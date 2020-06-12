@@ -25,7 +25,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 p {text-align:right;width:1000px;margin:auto;}
 h2 {text-align: center;}
 .frm {text-align:right;width:1000px;margin:auto;}
-.board_view {text-align:right;width:100%;margin:auto;}
+.board_view {text-align:right;width:50%;margin:auto;}
 
 .pageNumber {text-align:center;width:1000px;margin:auto;}
 /* .more { */

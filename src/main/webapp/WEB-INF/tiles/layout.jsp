@@ -13,10 +13,10 @@
 <body>
 
 <div id="header">
-<tiles:insertAttribute name="header"/><!-- // header -->
+<tiles:insertAttribute name="header" ignore="true" /><!-- // header -->
 
 </div>
-<tiles:insertAttribute name="body"/>
+<tiles:insertAttribute name="body" ignore="true" />
 
 
 </body>

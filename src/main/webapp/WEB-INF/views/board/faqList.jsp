@@ -67,7 +67,7 @@
 		});
 			
 			<%
-			if(sessionId.strip().equals("admin")) { 
+			if(sessionId.trim().equals("admin")) { 
 			%>
 			
 				$("#wrapBtn").show()
@@ -124,8 +124,7 @@
 								"</td>" +
 								"<td>" + value.NOTICE_DATE + "</td>" + 
 							"</tr>" +
-							"<tr>" + 
-							
+							"<tr>" + 							
 							'<td colspan="3" style="display:none;" id="chk'+ value.RNUM + '">' + value.NOTICE_CONTENT + "</td>" + 
 							"</tr>" ;
 				});

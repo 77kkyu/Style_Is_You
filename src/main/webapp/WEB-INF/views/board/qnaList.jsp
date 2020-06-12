@@ -40,7 +40,9 @@
 	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
 	
 	<br/>
+	<p>
 	<a href="#this" class="btn" id="write">글쓰기</a>
+	</p>
 	
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
@@ -76,7 +78,7 @@
 			var comAjax = new ComAjax();
 			comAjax.setUrl("<c:url value='/qna/selectQnaList.do' />");
 			comAjax.setCallback("fn_selectQnaListCallback");
-			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
+			comAjax.addParam("PAGE_INDEX", $("#PAGE_INDEX").val());
 			comAjax.addParam("PAGE_ROW", 15);
 			comAjax.addParam("QNA_NO_FE", $("#QNA_NO_FE").val());
 			comAjax.ajax();

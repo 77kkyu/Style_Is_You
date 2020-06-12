@@ -34,12 +34,14 @@
 				</tr>
 			</tbody>
 		</table>
-		
-		<a href="#this" class="btn" id="write">작성하기</a>
-		<a href="#this" class="btn" id="list">목록으로</a>
 	</form>
 	
-
+	<p>
+		<a href="#this" class="btn" id="write">작성하기</a>
+		<a href="#this" class="btn" id="list">목록으로</a>
+	</p>
+	
+	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		var gfv_count = 1;
 	

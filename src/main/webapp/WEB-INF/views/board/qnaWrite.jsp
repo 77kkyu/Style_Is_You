@@ -26,7 +26,7 @@
 				<tbody><tr>
 					<td width="100" bgcolor="f6f6f6">제목</td>
 					<td width="475" class="gray" style="padding-left:10px;text-align:left;" align="left">
-						<input type="text" name="subject" id="qna_title" style="width:90%;" maxlength="100" value="">
+						<input type="text" id="qna_title" name="QNA_TITLE" style="width:70%;" maxlength="100">
 					</td>
 					
 					<td width="100" bgcolor="f6f6f6">문의유형</td>
@@ -34,8 +34,8 @@
 						<select id="group" name="group" id="qna_category" style="width:90%;">
 						<option value="61">1. 상품문의 드려요~♥</option>
 						<option value="62">2. 배송문의 드려요~♥</option>
-						<option value="63">3. 배송전 변경,취소 문의드려요~♥</option>
-						<option value="64">4. 교환,반품 문의드려요~♥</option>
+						<option value="63">3. 배송전 변경, 취소 문의드려요~♥</option>
+						<option value="64">4. 교환, 반품 문의드려요~♥</option>
 						<option value="65">5. 입금결제 문의드려요~♥</option>
 						<option value="66">6. 기타문의드려요~♥</option>
 						</select>
@@ -68,7 +68,7 @@
 		<!--내용입력 -->
 		<tr>
 			<td colspan="2" class="view_text">
-				<textarea rows="20" cols="100" title="내용" id="qna_content" name="Qna_CONTENT"></textarea>
+				<textarea rows="20" cols="120" title="내용" id="qna_content" name="Qna_CONTENT"></textarea>
 			</td>
 		</tr>
 		<!-- 내용입력 : 끝 -->
@@ -93,11 +93,15 @@
 		</tbody>
 		</table>
 		<div id="" class="">
+		<p>
 			<label><input type="checkbox" name="isSecret" value="T" style="margin-right:5px;" id="qna_secret" checked=""><span></span>비밀글(관리자만 볼수 있습니다.)</label>
+		</p>
 		</div>
-		
+		<br>
+		<p>
 		<a href="#this" class="btn" id="write">작성하기</a>
 		<a href="#this" class="btn" id="list">목록으로</a>
+		</p>
 	</form>
 	
 	<form id="commonForm" name="commonForm"></form>
