@@ -303,6 +303,8 @@ function fn_select_order(){
 			</c:choose>
           <br>
           <br>
+          <c:choose>
+		<c:when test="${fn:length(list) > 0}">
           <div class="table-responsive">
           	<table class="table table-striped">
           		<tr>
@@ -335,25 +337,14 @@ function fn_select_order(){
           		</tr>
           	</table>
           </div>
-          <div style="text-align:right">
-          	<input type="button" name="all_order" value="전체주문" onclick="fn_all_order()">
-            <input type="button" name="select_order" value="선택상품주문" onclick="fn_select_order()">
-          </div>
+          
+          		<div style="text-align:right">
+          			<input type="button" name="all_order" value="전체주문" onclick="fn_all_order()">
+            		<input type="button" name="select_order" value="선택상품주문" onclick="fn_select_order()">
+          		</div>
+          	</c:when>
+          </c:choose>
 
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-lg-4">
-          <h2>Safari bug warning!</h2>
-          <p class="text-danger">As of v8.0, Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon refreshing.</p>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-        </div>
-      </div>
-
-      <!-- Site footer -->
-      <footer class="footer">
-        <p>&copy; Company 2014</p>
-      </footer>
 
     </div> <!-- /container -->
 

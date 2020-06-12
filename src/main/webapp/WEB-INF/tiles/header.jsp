@@ -99,6 +99,7 @@ li {
 
 .bar {
   height: 1.5px;
+  width: 100%;
   background-color: #DCDCDC;
 }
 

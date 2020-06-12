@@ -240,5 +240,18 @@ SELECT
 		]]>
 	</update>
 	
+	<update id="updateGoodsDisplay" parameterType="hashmap">
+		<![CDATA[
+			UPDATE  
+				GOODS_ATTRIBUTE 
+			SET     
+				GOODS_ATT_DISPLAY = 1
+			WHERE   
+				GOODS_ATT_AMOUNT <= 0
+			AND GOODS_ATT_NO = #{GOODS_ATT_NO}
+			
+		]]>
+	</update>
+	
 
 </mapper>
