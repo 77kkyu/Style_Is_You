@@ -245,7 +245,11 @@ SELECT
 		]]>
 	</update>
 	
+<<<<<<< Updated upstream
 	<insert id="insertGoodsLike" parameterType="hashmap">
+=======
+	<update id="updateGoodsAmount" parameterType="hashmap"><!-- 주문한 상품 수량변경 -->
+>>>>>>> Stashed changes
 		<![CDATA[
 			INSERT INTO GOODS_LIKE
 					(
@@ -266,7 +270,11 @@ SELECT
 		]]>
 	</insert>
 	
+<<<<<<< Updated upstream
 	<delete id="deleteGoodsLike" parameterType="hashmap">
+=======
+	<update id="updateGoodsDisplay" parameterType="hashmap"><!-- 재고수량 0이하  -->
+>>>>>>> Stashed changes
 		<![CDATA[
 			DELETE 
 			FROM    GOODS_LIKE 

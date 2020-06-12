@@ -110,7 +110,6 @@ function fn_allPrice(){
 		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
 		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
 		array3[i].value = pri;
-		
 	}
 	
 	var fee = document.getElementById("order_fee").value;
