@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="login">
+	
+	<select id="selectName" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MEMBER_NAME 
+			FROM 
+				MEMBER 
+			WHERE 
+				MEMBER_NAME = #{MEMBER_NAME}
+		]]>
+	</select>
+	
+	<!-- 핸드폰으로 아이디 찾기 -->
+	<select id="selectFindId" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MEMBER_ID,
+				MEMBER_NAME
+			FROM 
+				MEMBER 
+			WHERE 
+				MEMBER_NAME = #{MEMBER_NAME} 
+			AND 
+				MEMBER_PHONE = #{MEMBER_PHONE}  
+		]]>
+	</select>
+	
+	<!-- 핸드폰으로 비밀번호 찾기 -->
+	<select id="selectFindPw" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MEMBER_PASSWD,
+				MEMBER_NAME
+			FROM 
+				MEMBER 
+			WHERE 
+				MEMBER_NAME = #{MEMBER_NAME} 
+			AND 
+				MEMBER_PHONE = #{MEMBER_PHONE}
+		]]>
+	</select>
+	
+	<!-- 이메일로 아이디 찾기 -->
+	<select id="selectFindId2" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MEMBER_ID,
+				MEMBER_NAME
+			FROM 
+				MEMBER 
+			WHERE 
+				MEMBER_NAME = #{MEMBER_NAME} 
+			AND 
+				MEMBER_EMAIL = #{MEMBER_EMAIL}  
+		]]>
+	</select>
+	
+	
+	<!-- 이메일로 비밀번호 찾기 -->
+	<select id="selectFindPw2" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MEMBER_PASSWD,
+				MEMBER_NAME
+			FROM 
+				MEMBER 
+			WHERE 
+				MEMBER_NAME = #{MEMBER_NAME} 
+			AND 
+				MEMBER_EMAIL = #{MEMBER_EMAIL}
+		]]>
+	</select>
+	
+	<!-- 로그인 시 입력한 아이디와 비밀번호를 DB 데이터와 비교 -->
+	<select id="loginAction" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				MEMBER_ID,
+				MEMBER_PASSWD,
+				MEMBER_NO,
+				MEMBER_NAME,
+				MEMBER_PHONE,
+				MEMBER_EMAIL,
+				MEMBER_ZIPCODE,
+				MEMBER_ADDR1,
+				MEMBER_ADDR2,
+				TO_CHAR(MEMBER_BIRTH, 'YYYY/MM/DD') MEMBER_BIRTH
+			FROM 
+				MEMBER 
+			WHERE 
+				MEMBER_ID = #{MEMBER_ID} 
+			AND 
+				MEMBER_PASSWD = #{MEMBER_PASSWD}
+		]]>
+	</select>
+	
+	<!-- 마지막 로그인 갱신 -->
+	<update id="lastLogin" parameterType="String">
+		UPDATE MEMBER SET MEMBER_LOG = SYSDATE WHERE MEMBER_NO = #{MEMBER_NO}
+	</update>
+	
+</mapper>

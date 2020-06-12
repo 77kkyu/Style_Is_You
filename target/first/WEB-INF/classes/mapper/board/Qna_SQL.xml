@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Qna">
+
+	<!-- QNA 리스트 -->
+	<select id="selectQnaList" parameterType="hashmap" resultType="hashmap">/>	
+		<![CDATA[
+			SELECT 
+				QNA_NO, QNA_TITLE, QNA_NAME, QNA_DATE
+			FROM QNA
+		]]>
+	</select>
+	
+	<!-- 사용자 QNA질문하기 -->
+	<!-- 제목 문의유형 글쓴이 이메일 내용-->
+	<insert id="insertQna" parameterType="hashmap"
+	useGeneratedKeys="true" keyProperty="QNA_NO">
+		<![CDATA[
+		INSERT INTO QNA
+			( QNA_NO, 
+			MEMBER_NO, 
+			QNA_TITLE, 
+			QNA_CATEGORY,  
+			QNA_NAME, 
+			 QNA_LEVEL,   
+			 QNA_CONTENT, 
+			 QNA_DATE, 
+			 QNA_SECRET, 
+			 QNA_PASSWD )
+		VALUES
+			( QNA_NO_SEQ.nextval ,
+			MEMBER_NO_SEQ.nextval ,
+			#{QNA_NAME} ,
+			#{QNA_LEVEL} ,
+			#{QNA_CATEGORY} ,
+			#{QNA_TITLE} ,
+			#{QNA_CONTENT} ,
+			SYSDATE ,
+			#{QNA_SECRET} ,
+			#{QNA_PASSWD} )
+		]]>
+	</insert>
+	
+	<!-- QNA 상세페이지 -->
+	<!-- 글제목 작성일 작성자id 글내용 답변(작성일, 답변내용) -->
+	<select id="selectQnaDetail" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				QNA_TITLE, 
+				QNA_DATE, 
+				QNA_NAME, 
+				QNA_CONTENT
+			FROM 
+				QNA
+			WHERE
+				QNA_NO = #{QNA_NO}
+		]]>
+	</select>
+	
+	<!-- 답변수정 -->
+ 	<update id="updateQna" parameterType="hashmap">
+		<![CDATA[
+			UPDATE QNA
+			SET
+				QNA_TITLE = #{QNA_TITLE},
+				QNA_CONTENT = #{QNA_CONTENT}
+			WHERE
+				QNA_NO = #{QNA_NO}
+		]]>
+ 	</update>
+	
+	<!-- 답변삭제 -->
+	<delete id="deleteQna" parameterType="hashmap">
+		<![CDATA[
+			DELETE FROM QNA
+			WHERE 
+				QNA_NO = #{QNA_NO}
+		]]>
+	</delete>
+
+</mapper>

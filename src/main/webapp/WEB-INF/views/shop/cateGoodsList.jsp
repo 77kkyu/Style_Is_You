@@ -2,15 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <title>상품리스트</title>
 <head>
 
 <link href="<c:url value="/css/board.css"/>" rel="stylesheet">
- 
+ <link href="<c:url value="/css/goods.css"/>" rel="stylesheet">
 <link href="<c:url value="/css/btn.css"/>" rel="stylesheet">
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -22,10 +23,6 @@
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> -->
 
 <style>
-
-
-
-
 
 #main-container
 {
@@ -44,9 +41,11 @@
 
 <body>
 
+
 <br><br><br><br>
+
 <div align="right" style="margin-right:210px">
-	
+	<table>
 		<tr>
 			<td>
 			<div style="margin-right:930px">
@@ -56,14 +55,13 @@
 			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/NewItem.do">신상품순</a></td> <td>|</td>
 			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/favorite.do">인기상품순</a></td> <td>|</td>
 			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
-			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/high.do">높은가격순</a></td> <td>|</td>
+			<td><a href="http://localhost:8080/stu/shop/goodsList/${category}/high.do">높은가격순</a></td> 
 		</tr>
-	
+	</table>
 </div>
 
-
-
-<table class="board_list">
+<div id="main-container">
+<table class="board_list" style="width:'100%'">
 		<colgroup>
 			<col width="100%" />
 		</colgroup>
@@ -72,7 +70,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
 		</tbody>
 		</table>
 
@@ -90,27 +87,25 @@
 
 
 <br><br>
+</div>
 
 <form id="commonForm" name="commonForm"></form>
-
-</body>
-</html>
-
 
 <script type="text/javascript">
 
 $(document).ready(function() {
 	
 	fn_selectGoodsList(1);
-
+	
 	$("a[name='title']").on("click", function(e){ //제목 //name 이 title인거
+		console.log("잘들어옴");
 		e.preventDefault();
 		fn_openBoardDetail($(this));
 	});
 });
 
 function fn_openBoardDetail(obj) {
-
+	console.log("잘들어옴22");
 	var comSubmit = new ComSubmit(); // 객체생성
 	comSubmit.setUrl("<c:url value='/shop/goodsDetail.do' />"); // url설정
 	comSubmit.addParam("IDX", obj.parent().find("#IDX").val()); // IDX; id로 값을넘김
@@ -120,18 +115,19 @@ function fn_openBoardDetail(obj) {
 
 function fn_selectGoodsList(pageNo) {
 	var comAjax = new ComAjax();
-	comAjax.setUrl("<c:url value='/shop/cateGoodsList/${category}/NewItem.do' />");
+
+	//alert(${orderBy});
+	comAjax.setUrl("<c:url value='/shop/cateGoodsList/${category}/${orderBy}.do' />");
 	comAjax.setCallback("fn_selectGoodsListCallback");
 	comAjax.addParam("PAGE_INDEX", pageNo);
-	comAjax.addParam("PAGE_ROW", 15);
+	comAjax.addParam("PAGE_ROW", 16);
 	comAjax.addParam("keyword", $('#keyword').val());
-	comAjax.addParam("path", $('#path').val());
 	comAjax.ajax();
 }
 
 function fn_selectGoodsListCallback(data) {
 	var total = data.TOTAL;
-	var body = $("table>tbody");
+	var body = $(".board_list");
 	body.empty();
 	
 	if (total == 0) {
@@ -143,39 +139,40 @@ function fn_selectGoodsListCallback(data) {
 			divId : "PAGE_NAVI",
 			pageIndex : "PAGE_INDEX",
 			totalCount : total,
-			recordCount : 15,
+			recordCount : 16,
 			eventName : "fn_selectGoodsList"
 		};
 		gfn_renderPaging(params);
 
 		var str = "";
 		$.each(data.list, function(key, value) {
-							var imgpath = "<img src='D:\sts4-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\stu\file\+value.GOODS_THUMBNAIL+'.JPG'>"
+							var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
 							var Pick = value.GOODS_PICK.replace(",", " ").replace(",", " ");
-
-							/* if(value.GOODS_THUMBNAIL == null) {
-								imgpath = "<div class='card-header'>"
-							}else {
-								imgpath = "<div class='card-header' style='background-image:url(\"" + $('#path').val() + value.GOODS_THUMBNAIL + "\");'>"
-							} 
-							http://localhost:8080/stu/file/b830bd58-681f-4675-85a1-66c885c85ed6 */
-							str =  "<div class='card'>"
+							
+							str += "<div class='card'>"
 								+		"<a href='#this' name='title'>"
 								+ 			imgpath + "<br>"
 								+ 					Pick +	"<br>"
 								+		value.GOODS_NAME +	"<br>"
 								+		value.GOODS_SELL_PRICE 
+								+  	"<input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
 								+	   "</a>"
 								+	   "</div>";
-								
+
+							
 						});
 		body.append(str);
-
-		$("a[name='title']").on("click", function(e) { //제목
+		$("a[name='title']").on("click", function(e){ //제목 
 			e.preventDefault();
-			fn_goodsDetail($(this));
+			fn_openBoardDetail($(this));
 		});
 	}
 }
 
 </script>
+
+</body>
+</html>
+
+
+

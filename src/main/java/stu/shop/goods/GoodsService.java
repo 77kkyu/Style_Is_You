@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import stu.common.common.CommandMap;
+
 public interface GoodsService {
 	
 	List<Map<String, Object>> newGoodsList(Map<String, Object> map) throws Exception; // 카테고리 상품 리스트
@@ -13,10 +15,23 @@ public interface GoodsService {
 		
 	List<Map<String, Object>> cateGoodsList(Map<String, Object> map, String keyword) throws Exception; // 카테고리별 상품순
 	
-	Map<String, Object> selectGoodsDetail(Map<String,Object> map) throws Exception; // 상품 디테일
+	Map<String, Object> selectGoodsDetail(Map<String,Object> map, HttpServletRequest request) throws Exception; // 상품 디테일
+	
+	Map<String, Object> selectGoodsAtt(Map<String,Object> map) throws Exception; // 상품속성 디테일
 	
 	void insertGoods(Map<String, Object> map, HttpServletRequest request) throws Exception; // 글쓰기
 	
 	void updateGoods(Map<String, Object> map, HttpServletRequest request) throws Exception; //업데이트 
+	
+	void insertGoodsLike(Map<String, Object> map) throws Exception;
+	
+	void deleteGoodsLike(Map<String, Object> map) throws Exception;
+	
+//	int insertBasket(List<CommandMap> map, HttpServletRequest request) throws Exception;
+	
+	void insertBasket(Map<String,Object> map, HttpServletRequest request) throws Exception;
+
+	Map<String, Object> selectGoodsAttNum(Map<String,Object> map) throws Exception; // 상품속성 디테일
+
 
 }

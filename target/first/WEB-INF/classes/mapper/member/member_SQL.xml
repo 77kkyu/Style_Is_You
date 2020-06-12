@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="join">
+	
+	<insert id="insertMember" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO MEMBER
+			(
+				MEMBER_NO,
+			    MEMBER_ID, 
+			    MEMBER_PASSWD, 
+			    MEMBER_NAME, 
+			    MEMBER_BIRTH, 
+			    MEMBER_EMAIL, 
+			    MEMBER_PHONE,
+			    MEMBER_ZIPCODE,
+			    MEMBER_ADDR1,
+			    MEMBER_ADDR2,
+			    MEMBER_DATE,
+			    MEMBER_GRADE,
+			    MEMBER_LOG
+			)
+			VALUES
+			(
+				MEMBER_NO_SEQ.NEXTVAL,
+				TRIM (BOTH FROM #{MEMBER_ID}),
+				#{MEMBER_PASSWD},
+				#{MEMBER_NAME},
+				#{MEMBER_BIRTH},
+				#{MEMBER_EMAIL},
+				#{MEMBER_PHONE},
+				#{MEMBER_ZIPCODE},
+				#{MEMBER_ADDR1},
+				#{MEMBER_ADDR2},
+				sysdate,
+				'NORMAL',
+				sysdate
+			)
+		]]>
+	</insert>
+	
+	<!-- 아이디 중복확인-->
+	<select id="selectIdCheck" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
+	]]>
+	</select>
+		
+</mapper>
