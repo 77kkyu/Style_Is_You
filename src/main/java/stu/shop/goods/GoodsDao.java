@@ -5,10 +5,12 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import stu.common.common.CommandMap;
 import stu.common.dao.AbstractDao;
 
 @Repository("goodsDao")
 public class GoodsDao extends AbstractDao{
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> newGoodsList(Map<String,Object> map) throws Exception { //상품리스트출력 
@@ -34,7 +36,13 @@ public class GoodsDao extends AbstractDao{
 		return (Map<String, Object>) selectOne("goods.selectGoodsDetail", map);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectGoodsAtt(Map<String, Object> map) throws Exception{
+		return (Map<String, Object>) selectOne("goods.selectGoodsAtt", map);
+	}
+	
 	public void goodsHitCnt(Map<String,Object> map) throws Exception { // 조회수 증가
+		System.out.println("goodsHitCntDao="+map);
 		update("goods.goodsReadCntUp", map);
 	}
 	
@@ -60,6 +68,32 @@ public class GoodsDao extends AbstractDao{
 	
 	public void updateFile(Map<String, Object> map) throws Exception { // 파일수정
 		update("goods.updateFile", map);
+	}
+	
+	public void insertGoodsLike(Map<String, Object> map) throws Exception{ // 좋아요 등록
+		System.out.println("좋아요"+map);
+		insert("goods.insertGoodsLike", map);
+	}
+	
+	public void deleteGoodsLike(Map<String, Object> map) throws Exception{ // 좋아요 삭제
+		delete("shop.deleteGoodsLike", map);
+	}
+	
+//	public int insertBasket(Map<String, Object> map) throws Exception{ // 장바구니 등록
+//		
+//		System.out.println("장바구니추가="+map);
+//		return (int) insert("goods.insertBasket", map);
+//	}
+	
+	public void insertBasket(Map<String, Object> map) throws Exception{ // 장바구니 등록
+		
+		System.out.println("장바구니추가="+map);
+		 insert("goods.insertBasket", map);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectGoodsAttNum(Map<String, Object> map) throws Exception{ // 상품 옵션 번호 뽑아오기
+		return (Map<String, Object>) selectOne("goods.selectGoodsAttNum", map);
 	}
 
 }

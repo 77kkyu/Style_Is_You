@@ -2,8 +2,113 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="my">
+
+
+	<!-- 마이페이지 내의 주문 / 배송 상태LIST -->
+	<select id="my_order_list" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			select l.member_no, l.order_date, l.order_no, l.order_state, g.goods_name,
+		        l.order_total_pay_price, l.order_pay_option, l.order_express,
+      
+		        (select count(SD.order_no) from order_detail SD where SD.order_no = D.order_no ) as hap_cnt
+		
+			from order_list l, order_detail d, goods g
+				
+			where l.order_no = d.order_no
+				and d.goods_no = g.goods_no
+				and l.member_no = #{member_no}
+				and D.ORDER_DETAIL_NO in (select min(ORDER_DETAIL_NO) as Dno from order_detail group by order_no)
+				
+			order by l.order_date desc
+		]]>
+	</select>
 	
-	<!-- 로그인 한 회원의 상품 주문 일자, 총 주문 금액, 주문상태 출력 -->
+	<!-- 마이페이지 - 수취확인 -->
+	<select id="my_order_ok" parameterType="hashmap" > 
+		<![CDATA[
+			UPDATE order_list
+			SET	order_state = order_state + 1
+			WHERE order_no = ${order_no}
+		]]>
+	</select>
+	
+	<!-- 마이페이지 - 주문취소 -->
+	<update id="my_list_cancle" parameterType="hashmap" >  <!-- 주문상태변경 -->
+<!-- 	 	<selectKey resultType="int" keyProperty="order_state" order="BEFORE">
+		    select order_state from order_list where order_no = ${order_no}
+		</selectKey> -->
+		<![CDATA[
+			UPDATE order_list
+			SET order_state = '98'
+			where order_no = ${order_no} 
+		]]>
+	</update>
+	<update id="my_detail_cancle" parameterType="hashmap" > <!-- 주문디테일변경 -->
+		<![CDATA[
+			UPDATE order_detail SET order_detail_state = '20' where order_no = ${order_no}
+		]]>
+	</update>
+	<select id="list_point_search" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			select * from (
+			select l.member_no, l.order_use_point, l.order_save_point, p.point_total, l.order_no
+		    from order_list l, point p
+		    where l.member_no = p.member_no
+		    and l.order_no = ${order_no}
+		    order by p.point_no desc )
+		    where rownum = 1
+		]]>
+	</select>
+	<insert id="use_point_reset" parameterType="hashmap"> <!-- 사용포인트 취소 -->
+<!-- 		<selectKey resultType="hashmap" keyProperty="hab,member_no,use_point" order="BEFORE">
+		    select (p.point_total+l.order_use_point)as hap, l.member_no, l.order_use_point
+		    from order_list l, point p
+		    where l.member_no = p.member_no
+		    and l.order_no = ${order_no}
+		</selectKey> -->
+		<![CDATA[
+			INSERT INTO POINT (POINT_NO, MEMBER_NO, POINT_VAL, POINT_SAVE_DATE, POINT_TOTAL)
+			VALUES 
+			( POINT_NO_SEQ.NEXTVAL, ${member_no}, ${order_use_point},
+			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), ${use_hap})
+		]]>
+	</insert>
+	<insert id="save_point_reset" parameterType="hashmap"> <!-- 사용포인트 취소 -->
+<!-- 		<selectKey keyColumn="member_no,order_save_point,hap" resultType="int" keyProperty="member_no,order_save_point,hap" order="BEFORE">
+		    
+		    select l.member_no member_no, l.order_save_point order_save_point, (p.point_total-l.order_save_point)as hap 
+		    from order_list l, point p
+		    where l.member_no = p.member_no
+		    and l.order_no = ${order_no}
+		</selectKey> -->
+		<![CDATA[
+			INSERT INTO POINT (POINT_NO, MEMBER_NO, POINT_VAL, POINT_USE_DATE, POINT_TOTAL)
+			VALUES 
+			( POINT_NO_SEQ.NEXTVAL, ${member_no}, ${order_save_point},
+			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), ${save_hap})
+		]]>
+	</insert>
+	<select id="list_stock_search" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			select goods_att_no, order_detail_amount 
+			from order_detail 
+			where order_no = ${order_no}
+		]]>
+	</select>
+	<update id="list_stock_reset" parameterType="hashmap">
+		<![CDATA[
+			update goods_attribute
+			set
+			    goods_att_amount = goods_att_amount + ${order_detail_amount}
+			where goods_att_no = ${goods_att_no}
+		]]>
+	</update>
+	
+	
+	
+	
+<!-- ************************************************************************************** -->
+	<!--  로그인 한 회원의 상품 주문 일자, 총 주문 금액, 주문상태 출력 -->
 	<select id="selectOrderList" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT 

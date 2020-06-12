@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="coupon">
+	
+	<update id="useCoupon" parameterType="hashmap">
+		<![CDATA[
+			UPDATE COUPON_STATUS 
+			SET
+				COUPON_USE_STATE = 1
+			WHERE
+				COUPON_STATUS_NO = ${COUPON_STATUS_NO_1}
+			AND MEMBER_NO = 1
+		]]>
+	</update>
+	
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

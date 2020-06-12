@@ -1,0 +1,290 @@
+/* //UI Object */
+h1 {font-size: 3em; margin: 20px 0; color: #FFF;}
+.container {width: 700px; margin: 10px auto;}
+ul.goodsTabs {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 32px;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+	width: 100%;
+}
+ul.goodsTabs li {
+	
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 31px;
+	line-height: 31px;
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px;
+	background: #F0F0F0;
+	overflow: hidden;
+	position: relative;
+}
+ul.goodsTabs li a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	font-size: 1.2em;
+	padding: 0 20px;
+	border: 1px solid #fff;
+	outline: none;
+}
+ul.goodsTabs li a:hover {
+	background: #ccc;
+}	
+html ul.goodsTabs li.active, html ul.goodsTabs li.active a:hover  {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+}
+.goodsTab_container {
+	border: 1px solid #999;
+	border-top: none;
+	clear: both;
+	float: left; 
+	width: 100%;
+	background: #fff;
+	-moz-border-radius-bottomright: 5px;
+	-khtml-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-khtml-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+.goodsTab_content {
+	padding: 20px;
+	font-size: 1.2em;
+}
+.goodsTab_content h2 {
+	font-weight: normal;
+	padding-bottom: 10px;
+	border-bottom: 1px dashed #ddd;
+	font-size: 1.8em;
+}
+.goodsTab_content h3 a{
+	color: #254588;
+}
+.goodsTab_content img {
+	float: left;
+	margin: 0 20px 20px 0;
+	border: 1px solid #ddd;
+	padding: 5px;
+}
+ #content
+{	 
+   background-color: #ffffff;
+   padding: 20px 10px;  
+   overflow: auto;
+}
+#vertical_tab-container
+{
+   float: left;
+   margin: 70px 0 0 0;
+   width: 126px;
+}
+#vertical_tab-container ul
+{
+   list-style: none;
+   text-align: center;
+}
+#vertical_tab-container ul li
+{
+   border-top: 1px solid #fff;
+   border-right: 1px solid #fff;
+   border-bottom: 1px solid #595959;
+   border-left: 4px solid #595959;   
+   background-color: #fff;  
+   margin: 8px 0;
+}  
+#vertical_tab-container ul li a,
+#vertical_tab-container ul li a:visited
+{
+   text-decoration: none;
+   color: #666;
+   display: block;
+ 	padding: 3px 3px;
+}
+#vertical_tab-container ul li:hover
+{
+   border-left: 4px solid #ffd04a;
+}
+#vertical_tab-container ul li a:hover
+{
+   color: #333;
+}
+#vertical_tab-container ul li.selected
+{
+   border-right: none;
+   background-color: #fff;
+   border-left: 4px solid #ffd04a;
+}
+#main-container
+{
+   min-height: 400px;
+   margin: 0 0 0 125px;
+   padding: 20px;
+   border-top: 1px solid #fff;  
+   border-right: 1px solid #fff;     
+   border-left: 1px solid #fff; 
+   border-bottom: 1px solid #fff;    
+}
+td{
+	margin:0 0 0 10px
+}
+td img
+{
+	width:250px; 
+	height:250px;
+	margin:10px 10px 10px 0px; 
+	border:3px solid #000; 
+
+}
+</style>
+
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<style>
+html, body, div, span, applet, object, iframes, h1, h2, h3, h4, h5, h6,
+   p, blockquote, pre, a, abbr, acronym, address, big, quotes, code, del,
+   dfn, em, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, u,
+   i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+   caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+   details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+   output, ruby, section, summary, time, mark, audio, video {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   
+   do: inherit;
+   vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup,
+   menu, nav, section {
+   display: block;
+}
+blockquote, q {
+   quotes: none;
+}
+blockquote : before, blockquote : after, q : before, q : after {
+   content: '';
+   content: none;
+}
+table {
+   border-collapse: collapse;
+   border-spacing: 0;
+}
+/*css �ʱ�ȭ*/
+.card {
+   float:left;
+   height: 500px;
+   width: 20%;
+   border-radius: 15px;
+   display: inline-block;
+   margin-top: 30px;
+   margin-left: 50px;
+   margin-bottom: 30px;
+   position: relative;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   overflow: hidden;
+}
+.card-header {
+   -webkit-transition: 0.5s; /*���ĸ� & ũ��*/
+    -moz-transition: 0.5s;  /*���̾�����*/
+    -ms-transition: 0.5s;   /*���ͳ� �ͽ��÷η�*/
+    -o-transition: 0.5s;  /*�����*/
+    transition: 0.5s;
+   width: 100%;
+   height: 270px;
+   border-radius: 15px 15px 0 0;
+   background-image: url("resources/images/no_image.png");
+   background-size: 100% 280px;
+   background-repeat: no-repeat;   
+}
+.card:hover .card-header  {
+   opacity: 0.8;
+   height: 100px;
+}
+.card-header-is_closed{
+    background-color: #EF5A31 ;
+    color: #FFF ;
+    font-weight: bold ;
+    text-align: center ;
+    float: right;
+    margin: 15px 15px 0 0;
+    border-radius: 50%;
+    font-weight: bold;
+    padding: 10px 10px;
+    line-height: 20px;
+}
+h1 {
+    font-size: 22px;
+    font-weight: bold;
+}
+.card-body {
+}
+.card-body-header{
+   line-height: 25px;
+   margin: 10px 20px 0px 20px;
+}
+.card-body-description  {
+    opacity: 0;
+    color: #757B82;
+    line-height: 25px;
+    -webkit-transition: .2s ease-in-out; /*���ĸ�&ũ��*/
+    -moz-transition: .2s ease-in-out; /*���̾�����*/
+    -ms-transition: .2s ease-in-out; /*�ͽ��÷η�*/
+    -o-transition: .2s ease-in-out; /*�����*/
+    transition : .2s ease-in-out;
+    overflow: hidden;
+   height: 180px;
+   margin: 5px 20px;
+}
+.card:hover .card-body-description {
+    opacity: 1;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -ms-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition : .5s ease-in-out;
+    overflow: scroll;
+}
+.card-body-hashtag {
+   color: #2478FF;
+   font-style: italic;
+}
+.card-body-footer {
+     position: absolute; 
+     margin-top: 15px;
+     margin-bottom: 6px;
+    bottom: 0; 
+    width: 314px;
+    font-size: 10px;
+    color: #9FA5A8;
+    padding: 0 10px;
+}
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+.icon-view_count {
+    width: 25px;
+    height: 17px;
+   background: url("images/eye.jpg") no-repeat;
+}
+.icon-comments_count {
+   margin-left: 5px;
+   width: 25px;
+    height: 17px;
+   background: url("images/comment.jpg") no-repeat;   
+}
+.reg_date {
+	margin-left: 15px;
+   float: ;
+}

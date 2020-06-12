@@ -6,9 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 <title>마이 페이지</title>
 </head>
 <body>
+
+
+
 	<center>마이페이지 메인!</center>
 	
 	<center>

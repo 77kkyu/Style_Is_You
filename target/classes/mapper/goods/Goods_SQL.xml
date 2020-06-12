@@ -67,37 +67,25 @@ SELECT
 	
 	
 	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 카테고리별 순서출력 -->
-		<include refid="common.pagingPre"/>
-		<![CDATA[
-			
-					SELECT ROW_NUMBER() OVER (ORDER BY GS.GOODS_NO DESC) RNUM,
-						gs.GOODS_NO,
-						gs.GOODS_CATEGORY,
-						gs.GOODS_NAME,
-						gs.GOODS_CONTENT,
-						gs.GOODS_ORIGIN_PRICE,
-						gs.GOODS_SELL_PRICE,
-						gs.GOODS_SALE_PRICE, 
-						gs.GOODS_DATE,
-						gs.GOODS_KEYWORD,
-						gs.GOODS_READCNT, 
-						gs.GOODS_PICK,
-						gs.GOODS_THUMBNAIL,
-						att.GOODS_ATT_COLOR,
-						att.GOODS_ATT_SIZE
-						FROM
-							GOODS GS ,GOODS_ATTRIBUTE ATT
-								WHERE GS.GOODS_NO = ATT.GOODS_NO
-	               					  AND GS.GOODS_CATEGORY = #{cate}
-
-		]]>
-		
-		<include refid="common.pagingPost"/>
-		<if test="orderBy != '' and orderBy != 'null'">
-			<![CDATA[
-				ORDER BY AAA.${orderBy} ${orderSort} 
-			]]>
-		</if> 		
+		<include refid="common.pagingPre2"/>
+			SELECT GOODS_NO,
+			       GOODS_CATEGORY,
+			       GOODS_NAME,
+			       GOODS_CONTENT,
+			       GOODS_ORIGIN_PRICE,
+			       GOODS_SELL_PRICE,
+			       GOODS_SALE_PRICE, 
+			       GOODS_DATE,
+			       GOODS_KEYWORD,
+			       GOODS_READCNT, 
+			       GOODS_PICK,
+			       GOODS_THUMBNAIL
+		      FROM GOODS GS 
+			 WHERE GOODS_CATEGORY = #{cate}
+           <if test="orderBy != '' and orderBy != 'null'">
+		     ORDER BY ${orderBy} ${orderSort} 
+		   </if> 	 
+		<include refid="common.pagingPost2"/>	
 	</select>
 
 	
@@ -106,28 +94,53 @@ SELECT
 	<select id="selectGoodsDetail" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
 		<![CDATA[
 			SELECT 
-				gs.GOODS_NO,
-				gs.GOODS_CATEGORY,
-				gs.GOODS_NAME,
-				gs.GOODS_CONTENT,
-				gs.GOODS_ORIGIN_PRICE,
-				gs.GOODS_SELL_PRICE,
-				gs.GOODS_SALE_PRICE, 
-				gs.GOODS_DATE,
-				gs.GOODS_KEYWORD,
-				gs.GOODS_READCNT, 
-				gs.GOODS_PICK,	
-				att.GOODS_ATT_COLOR,
-				att.GOODS_ATT_SIZE,
-				att.GOODS_ATT_AMOUNT
-				
+				GOODS_NO,
+				GOODS_CATEGORY,
+				GOODS_NAME,
+				GOODS_CONTENT,
+				GOODS_ORIGIN_PRICE,
+				GOODS_SELL_PRICE,
+				GOODS_SALE_PRICE, 
+				GOODS_DATE,
+				GOODS_KEYWORD,
+				GOODS_READCNT, 
+				GOODS_PICK,
+				GOODS_THUMBNAIL
 			FROM 
-				GOODS GS, GOODS_ATTRIBUTE ATT
-			WHERE GS.GOODS_NO = ATT.GOODS_NO
-	           	  AND GS.GOODS_NO = #{IDX}	
+				GOODS 
+			WHERE 
+	           	GOODS_NO = #{IDX}	
 
 		]]>
 	</select>
+	
+	<select id="selectGoodsAtt" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
+		<![CDATA[
+			SELECT 
+				LISTAGG(GOODS_ATT_COLOR,',') WITHIN GROUP(ORDER BY GOODS_ATT_COLOR) AS GOODS_ATT_COLOR,
+                LISTAGG(GOODS_ATT_SIZE,',') WITHIN GROUP(ORDER BY GOODS_ATT_SIZE) AS GOODS_ATT_SIZE
+			FROM 
+				GOODS_ATTRIBUTE
+			WHERE 
+	           	GOODS_NO = #{IDX}	
+
+		]]>
+	</select>
+	
+	<select id="selectGoodsAttNum" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
+		<![CDATA[
+			SELECT
+				GOODS_ATT_NO
+			FROM
+				GOODS_ATTRIBUTE	
+			WHERE
+				GOODS_NO = #{IDX}
+			AND GOODS_ATT_COLOR like '%' || #{SELECT_COLOR} || '%' 
+            AND GOODS_ATT_SIZE like  '%' || #{SELECT_SIZE} || '%'
+		]]>
+	</select>
+	
+	
 	
 	
 	<update id="goodsReadCntUp" parameterType="hashmap">
@@ -208,8 +221,8 @@ SELECT
 					(
 						GOODS_IMAGE_SEQ.NEXTVAL,
 						#{IDX},
-						'Empty',
-						#{FILES_STD}
+						'null',
+						#{UPLOAD_SAVE_NAME}
 					)
 		]]>
 	</insert>
@@ -231,6 +244,93 @@ SELECT
 			WHERE   GOODS_NO = #{IDX}
 		]]>
 	</update>
+	
+	<insert id="insertGoodsLike" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO GOODS_LIKE
+					(
+						LIKE_NO,
+						GOODS_NO,
+						MEMBER_NO,
+						LIKE_DATE,
+						LIKE_DELETE
+					)
+			VALUES
+					(
+						LIKE_NO_SEQ.NEXTVAL,
+						#{IDX},
+						2,
+						sysdate,
+						'0'
+					)
+		]]>
+	</insert>
+	
+	<delete id="deleteGoodsLike" parameterType="hashmap">
+		<![CDATA[
+			DELETE 
+			FROM    GOODS_LIKE 
+			WHERE   MEMBER_NO = #{MEMBER_NO}
+			AND     GOODS_NO = #{GOODS_NO}
+		]]>
+	</delete>
+	
+	<insert id="insertBasket" parameterType="hashmap">
+	<selectKey resultType="string" keyProperty="GOODS_ATT_NO" order="BEFORE">
+        SELECT
+				GOODS_ATT_NO
+			FROM
+				GOODS_ATTRIBUTE	
+			WHERE
+				GOODS_NO = #{IDX}
+			AND GOODS_ATT_COLOR like '%' || #{ORDER_COLOR} || '%' 
+            AND GOODS_ATT_SIZE like  '%' || #{ORDER_SIZE} || '%'       
+    </selectKey>
+		<![CDATA[
+			INSERT INTO BASKET(
+								BASKET_NO,
+								MEMBER_NO,
+								GOODS_NO,
+								GOODS_ATT_NO,
+								BASKET_GOODS_AMOUNT,
+								BASKET_DATE,
+								ORDER_COLOR,
+								ORDER_SIZE
+							 )
+						VALUES(
+								BASKET_NO_SEQ.NEXTVAL,
+								#{MEMBER_NO},
+								#{IDX},
+								#{GOODS_ATT_NO},
+								#{BASKET_GOODS_AMOUNT},
+								sysdate,
+								#{ORDER_COLOR},
+								#{ORDER_SIZE}
+							  )				
+		]]>
+	</insert>
+	
+	
+	<update id="updateGoodsAmount" parameterType="hashmap"><!-- 주문한 상품 수량변경 -->
+      <![CDATA[
+         UPDATE  GOODS_ATTRIBUTE 
+         SET     GOODS_ATT_AMOUNT = GOODS_ATT_AMOUNT-#{ORDER_DETAIL_AMOUNT}
+         WHERE   GOODS_ATT_NO = #{GOODS_ATT_NO}
+      ]]>
+   </update>
+   
+   <update id="updateGoodsDisplay" parameterType="hashmap"><!-- 재고수량 0이하  -->
+      <![CDATA[
+         UPDATE  
+            GOODS_ATTRIBUTE 
+         SET     
+            GOODS_ATT_DISPLAY = 1
+         WHERE   
+            GOODS_ATT_AMOUNT <= 0
+         AND GOODS_ATT_NO = #{GOODS_ATT_NO}
+         
+      ]]>
+   </update>
 	
 
 </mapper>

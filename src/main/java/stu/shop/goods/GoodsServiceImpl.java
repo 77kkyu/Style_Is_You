@@ -1,7 +1,5 @@
 package stu.shop.goods;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import stu.common.common.CommandMap;
 import stu.common.util.FileUtils;
 
 
@@ -46,11 +43,20 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public Map<String, Object> selectGoodsDetail(Map<String, Object> map) throws Exception {
+	public Map<String, Object> selectGoodsDetail(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		
 		goodsDao.goodsHitCnt(map);
+		System.out.println("map="+map);
 		Map<String, Object> resultMap = goodsDao.selectGoodsDetail(map);
 
+		return resultMap;
+	}
+	
+	@Override
+	public Map<String, Object> selectGoodsAtt(Map<String, Object> map) throws Exception {
+		
+		Map<String, Object> resultMap = goodsDao.selectGoodsAtt(map);
+		
 		return resultMap;
 	}
 
@@ -62,15 +68,19 @@ public class GoodsServiceImpl implements GoodsService {
 				String img_list[] = {}; // ','로 구분된 문자열을 나눠서 배열에 담음
 				String img_thumb=""; // img_list의 첫번째 경로를 저장함
 				String comp_text=" src=\"/stu/file/"; // 반복문 안에 temp와 비교될 텍스느. equals(" src=\"")는 안되길래 따로 빼둠
+				System.out.println("comp_text="+comp_text);
 				String content = (String)map.get("GOODS_CONTENT"); // 저장된 본문을 불러옴
-				int imgCount = 0;
+				int imgCount = 0;  // src="D:\sts4File\      " src=\"/nnS/file/";
 				for(int i = 0; i+16 < content.length(); i++) { // 텍스트 비교
 					String temp=""; // 잘라진 텍스트가 임시로 들어갈 공간
+					
 					temp = content.substring(i,i+16); // content에서 잘라낸 텍스트를 temp에 저장
 					if(temp.equals(comp_text)) { // temp와 temp_text가 같을 경우
 						img_templist += content.substring(i+16, i+52)+","; // img_list에 잘라진 텍스트 추가 및 구분을 위한 쉼표 삽입
+						System.out.println("img_templist = " + img_templist);
 						imgCount++;
 					}
+					System.out.println("temp =" + temp);
 				}
 				if(img_templist!="") { // img_list가 비어있지 않을 경우			
 					img_templist = img_templist.substring(0, img_templist.length()-1); // 경로 뒤에 남는 쉼표 제거
@@ -89,13 +99,38 @@ public class GoodsServiceImpl implements GoodsService {
 				if(img_templist!="") { // img_list가 비어있지 않을 경우			
 					img_list = img_templist.split(",");
 					for(int i = 0 ; i<imgCount; i++) {
-						map.put("FILES_STD", img_list[i]);
+						map.put("UPLOAD_SAVE_NAME", img_list[i]);
 						System.out.println((i+1)+"번째업로드 ==========================================");
 						goodsDao.insertFile(map); 
 						System.out.println((i+1)+"번째업로드끝=========================================");
 					}
 				}
-				goodsDao.goodsAttribute(map);
+				
+				map.get("GOODS_ATT_SIZE");
+				map.get("GOODS_ATT_COLOR");
+				System.out.println("선택한 컬러="+map.get("GOODS_ATT_COLOR"));
+				System.out.println("선택한 사이즈="+map.get("GOODS_ATT_SIZE"));
+				
+				String Size = map.get("GOODS_ATT_SIZE").toString();
+				String Color = map.get("GOODS_ATT_COLOR").toString();
+				String ColorList[] = Color.split(",");
+				String SizeList[] = Size.split(",");
+				System.out.println(ColorList.length);
+				
+				for(int i=0; i <=ColorList.length-1; i++) {
+					for(int j=0; j<=SizeList.length-1; j++) {
+						System.out.println("배열입니당="+ColorList[i]+","+SizeList[j]);
+						map.put("GOODS_ATT_SIZE", SizeList[j]);
+						map.put("GOODS_ATT_COLOR", ColorList[i]);
+						goodsDao.goodsAttribute(map);
+						
+					}
+				}
+				
+				System.out.println("옵션값="+map);
+				
+				
+				
 		
 	}
 
@@ -104,8 +139,93 @@ public class GoodsServiceImpl implements GoodsService {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void insertGoodsLike(Map<String, Object> map) throws Exception{
+		goodsDao.insertGoodsLike(map);
+	}
+
+	@Override
+	public void deleteGoodsLike(Map<String, Object> map) throws Exception{
+		goodsDao.deleteGoodsLike(map);
+	}
 
 
+//	@Override
+//	public int insertBasket(List<CommandMap> list, HttpServletRequest request) throws Exception {
+//		int resultYn = 0;
+////		Map<String,Object> map = new HashMap<String,Object>();
+////		if(null != list && list.size() >0) {
+////			for(CommandMap data : list) {
+////				for(Map.Entry<String, Object> entry : data.entrySet()) {
+////					String key = entry.getKey();
+////					Object value = entry.getValue();
+////					map.put(key, value);
+////					resultYn = goodsDao.insertBasket(map);
+////					return 0;
+////				}
+////			}
+////		}
+//		//resultYn = goodsDao.insertBasket(list.get(1)); 
+//		//String[] Size = (String[]) list.get(0).get("list");
+//		//System.out.println("사이즈입니당="+Size);
+//		System.out.println("서비스 호출전 전체"+list.get(0).get("ORDER_SIZE"));
+//		//System.out.println("서비스 호출전 0번 인덱스 list="+list.get(0).get("ORDER_SIZE"));
+//		//System.out.println("서비스 호출전 1번 인덱스 list="+list.get(1).get("ORDER_SIZE"));
+//		
+//		
+//		
+//		
+//		for(CommandMap data : list) {
+//			
+//			String[] Size = (String[])  data.getMap().get("ORDER_SIZE");
+//			System.out.println("data.getMap()="+Size);
+//			
+//			System.out.println("list00000="+ list.size());
+//			resultYn = goodsDao.insertBasket(data.getMap());
+//			
+//			
+//			if(resultYn < 1) {
+//				System.out.println("error : " + data.getMap());
+//				return 0;
+//			}
+//		}
+//		
+//		
+////		for(int i=0; i < list.size(); i++) {
+////			Map data = list.get(i).getMap();
+////			list.remove(i);
+////			System.out.println("list00000="+ list.size());
+////			resultYn = goodsDao.insertBasket(data);
+////			data.remove("resultList");  
+////			System.out.println("data.getMap()="+data);
+////			if(resultYn < 1) {
+////				System.out.println("error : " + data);
+////				return 0;
+////			}
+////		}
+//		
+//		return 1;
+//	}
+//	
+	
+	
+	
+	
+	@Override
+	public void insertBasket(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		map.remove("resultList");
+		System.out.println("서비스맵"+map);
+		goodsDao.insertBasket(map);
+			
+	}
+	
+
+	@Override
+	public Map<String, Object> selectGoodsAttNum(Map<String, Object> map) throws Exception {
+		
+		return goodsDao.selectGoodsAttNum(map);
+	}
 
 
 

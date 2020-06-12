@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <title>장바구니 목록</title>
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -109,7 +110,6 @@ function fn_allPrice(){
 		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
 		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
 		array3[i].value = pri;
-		
 	}
 	
 	var fee = document.getElementById("order_fee").value;
@@ -138,28 +138,33 @@ function fn_allPrice(){
 
 //선택상품 찜하기
 function fn_like(){
-	var arraycode = document.getElementsByName("chk");
-	var len = arraycode.length;
-	var val = 0;
-	for(var i=0; i<len; i++){
-		if(arraycode[i].checked==true){
-			val++;
-			var no = document.getElementsByName("goods_no");
-			var attno = document.getElementsByName("goods_att_no");
-			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/basket/like.do' />");
-			comSubmit.addParam("GOODS_NO", no[i].value);
-			comSubmit.addParam("GOODS_ATT_NO", attno[i].value);
-			comSubmit.submit();
+	
+	if(${sessionId ne null}){
+		var arraycode = document.getElementsByName("chk");
+		var len = arraycode.length;
+		var val = 0;
+		for(var i=0; i<len; i++){
+			if(arraycode[i].checked==true){
+				val++;
+				var no = document.getElementsByName("goods_no");
+				var attno = document.getElementsByName("goods_att_no");
+				var comSubmit = new ComSubmit();
+				comSubmit.setUrl("<c:url value='/basket/like.do' />");
+				comSubmit.addParam("GOODS_NO", no[i].value);
+				comSubmit.addParam("GOODS_ATT_NO", attno[i].value);
+				comSubmit.submit();
+			}
 		}
-	// 찜하기 버튼 클릭 > 
-	//선택한 상품만 Controller로 전송(찜하기insert실행): list? map(member_no,chk(BASKET_NO))?
+		if(val==0){
+			alert("상품을 선택해 주세요.");
+		}else{
+			alert("찜하기에 넣었습니다.");
+		}
+	}else {
+		alert("로그인 후 이용해주세요.");
+		location.href = "/stu/loginForm.do";
 	}
-	if(val==0){
-		alert("상품을 선택해 주세요.");
-	}else{
-		alert("찜하기에 넣었습니다.");
-	}
+	
 	
 }
 
@@ -174,10 +179,16 @@ function fn_select_order(){
     $('input:checkbox[name=chk]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
     	SELECT_BASKET_NO.push(this.value);
     });
-    var comSubmit = new ComSubmit();
-	comSubmit.setUrl("<c:url value='/order/basketSelectOrder.do' />");
-	comSubmit.addParam("SELECT_BASKET_NO", SELECT_BASKET_NO);
-	comSubmit.submit();
+    
+    if(SELECT_BASKET_NO[0] != null){
+    	var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/order/basketSelectOrder.do' />");
+		comSubmit.addParam("SELECT_BASKET_NO", SELECT_BASKET_NO);
+		comSubmit.submit();
+    }
+    else{
+    	alert("구매할 상품을 선택해 주세요.");
+    }
 }
 
 
@@ -189,20 +200,6 @@ function fn_select_order(){
 </head>
 <body onload="fn_allPrice()">
     <div class="container">
-
-      <div class="masthead">
-        <h3 class="text-muted">Project name</h3>
-        <nav>
-          <ul class="nav nav-justified">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">주문</a></li>
-            <li><a href="#">입금확인</a></li>
-            <li><a href="#">배송중</a></li>
-            <li><a href="#">수취확인</a></li>
-            <li><a href="#">거래완료</a></li>
-          </ul>
-        </nav>
-      </div>
       
       <div style="width:1000px; height:50px; margin:10px; padding:12px; border:1px solid #dcdcdc">
       	<table>
@@ -214,7 +211,7 @@ function fn_select_order(){
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
-      <form name="basket" action="/stu/order/basketAllOrderWrite.do">
+      <form name="basket" method="post" action="/stu/order/basketAllOrderWrite.do">
 		<input type="hidden" name="list" value="${list }">
 	</form>
           <div class="table-responsive">
@@ -256,7 +253,7 @@ function fn_select_order(){
                   				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
                   			</td>
                   			<td>
-                  				<img src="${row.UPLOAD_SAVE_NAME }" width="50" height="50">
+                  				<img src="${row.GOODS_THUMBNAIL }" width="50" height="50">
                   			</td>
 							<td>
 				  				<a href="#">${row.GOODS_NAME }</a> <br>
@@ -305,6 +302,8 @@ function fn_select_order(){
 			</c:choose>
           <br>
           <br>
+          <c:choose>
+		<c:when test="${fn:length(list) > 0}">
           <div class="table-responsive">
           	<table class="table table-striped">
           		<tr>
@@ -337,25 +336,14 @@ function fn_select_order(){
           		</tr>
           	</table>
           </div>
-          <div style="text-align:right">
-          	<input type="button" name="all_order" value="전체주문" onclick="fn_all_order()">
-            <input type="button" name="select_order" value="선택상품주문" onclick="fn_select_order()">
-          </div>
+          
+          		<div style="text-align:right">
+          			<input type="button" name="all_order" value="전체주문" onclick="fn_all_order()">
+            		<input type="button" name="select_order" value="선택상품주문" onclick="fn_select_order()">
+          		</div>
+          	</c:when>
+          </c:choose>
 
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-lg-4">
-          <h2>Safari bug warning!</h2>
-          <p class="text-danger">As of v8.0, Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon refreshing.</p>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
-        </div>
-      </div>
-
-      <!-- Site footer -->
-      <footer class="footer">
-        <p>&copy; Company 2014</p>
-      </footer>
 
     </div> <!-- /container -->
 

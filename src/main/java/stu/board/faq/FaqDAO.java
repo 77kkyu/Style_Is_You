@@ -32,9 +32,4 @@ public class FaqDAO extends AbstractDao{
 		update("faq.deleteFaq", map);
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectFileList(Map<String, Object> map) throws Exception{
-		return (List<Map<String, Object>>)selectList("faq.selectFileList", map);
-	}
-
 }
