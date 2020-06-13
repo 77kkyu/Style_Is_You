@@ -211,9 +211,10 @@ function fn_select_order(){
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
-      <form name="basket" method="post" action="/stu/order/basketAllOrderWrite.do">
+      	<form name="basket" method="post" action="/stu/order/basketAllOrderWrite.do">
 		<input type="hidden" name="list" value="${list }">
-	</form>
+		</form>
+		
           <div class="table-responsive">
           	<p><b>내가 담은 장바구니 상품리스트</b></p>
             <table class="table table-striped">

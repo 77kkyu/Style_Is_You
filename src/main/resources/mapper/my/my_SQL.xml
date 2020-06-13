@@ -185,6 +185,23 @@
 			MEMBER_NO = #{MEMBER_NO}
 	</update>
 
-	
+	<!-- 포인트 목록 -->
+	<select id="myPointList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT 
+				POINT_NO,POINT_VAL,POINT_SAVE_DATE,POINT_USE_DATE,POINT_TOTAL
+			FROM (
+  				SELECT 
+  					POINT_NO,POINT_VAL,POINT_SAVE_DATE,POINT_USE_DATE,POINT_TOTAL
+  				FROM 
+  					POINT
+  				WHERE
+					MEMBER_NO = 1
+  				ORDER BY POINT_NO DESC
+ 				)
+			WHERE 
+				ROWNUM <= 10
+		]]>
+	</select>
 		
 </mapper>

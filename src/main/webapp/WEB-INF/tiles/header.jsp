@@ -164,7 +164,7 @@ li {
 		</c:choose>
 			<td><a href="${url2}">장바구니</a></td> <td> | </td>
 			
-			<td><a href="">쿠폰</a></td>
+			<td><a href="/stu/my/myPointList.do">쿠폰</a></td>
 		</tr>
 	
 </form>
