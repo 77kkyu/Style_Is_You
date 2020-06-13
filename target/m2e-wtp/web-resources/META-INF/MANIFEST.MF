@@ -1,8 +1,13 @@
 Manifest-Version: 1.0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Built-By: ekwjd
 Build-Jdk: 13.0.2
+=======
+Built-By: user
+Build-Jdk: 1.8.0_231
+>>>>>>> parent of b259abf... d
 =======
 Built-By: user
 Build-Jdk: 1.8.0_231
