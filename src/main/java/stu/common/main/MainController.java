@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import stu.common.common.CommandMap;
 import stu.shop.goods.GoodsService;
 
 @Controller
@@ -23,14 +24,15 @@ public class MainController {
 	private GoodsService goodsService;
 	
 	@RequestMapping(value="main.do" ,method = RequestMethod.GET) // url 
-	public ModelAndView mainView(Map<String,Object> commandMap) throws Exception { // 메인 상품 리스트
+	public ModelAndView mainView(CommandMap commandMap) throws Exception { // 메인 상품 리스트
 		
 		ModelAndView mv = new ModelAndView("main"); // 보낼 url
 		
-		List<Map<String,Object>> newList = goodsService.newGoodsList(commandMap);
+		List<Map<String,Object>> newList = goodsService.newGoodsList(commandMap.getMap());
 		mv.addObject("newList", newList);
 		
-		List<Map<String,Object>> bestList = goodsService.bestGoodsList(commandMap);
+		
+		List<Map<String,Object>> bestList = goodsService.bestGoodsList(commandMap.getMap());
 		mv.addObject("bestList", bestList);
 		
 		return mv;

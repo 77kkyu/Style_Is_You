@@ -11,23 +11,20 @@ SELECT
 			FROM( select count(*) over() as total_count, AA.*
 			FROM(
 				select ROW_NUMBER() OVER (ORDER BY GOODS_DATE desc) RNUM,
-				gs.GOODS_NO,
-				gs.GOODS_CATEGORY,
-				gs.GOODS_NAME,
-				gs.GOODS_CONTENT,
-				gs.GOODS_ORIGIN_PRICE,
-				gs.GOODS_SELL_PRICE,
-				gs.GOODS_SALE_PRICE,
-				gs.GOODS_DATE,
-				gs.GOODS_KEYWORD,
-				gs.GOODS_READCNT,
-                gs.GOODS_PICK,
-				up.UPLOAD_SAVE_NAME,
-				att.GOODS_ATT_COLOR
+				GOODS_NO,
+				GOODS_CATEGORY,
+				GOODS_NAME,
+				GOODS_CONTENT,
+				GOODS_ORIGIN_PRICE,
+				GOODS_SELL_PRICE,
+				GOODS_SALE_PRICE,
+				GOODS_DATE,
+				GOODS_KEYWORD,
+				GOODS_READCNT,
+                GOODS_PICK,
+                GOODS_THUMBNAIL
 			FROM
-				goods gs ,upload up, goods_attribute att
-				WHERE gs.GOODS_NO = up.GOODS_NO AND gs.GOODS_NO = att.GOODS_NO
-                AND up.GOODS_NO = att.GOODS_NO
+				GOODS
 				) AA
 		      ) AAA
 		      WHERE AAA.RNUM BETWEEN 0 AND 12 
@@ -41,23 +38,20 @@ SELECT
 			FROM( select count(*) over() as total_count, AA.*
 			FROM(
 				select ROW_NUMBER() OVER (ORDER BY GOODS_READCNT desc) RNUM,
-				gs.GOODS_NO,
-				gs.GOODS_CATEGORY,
-				gs.GOODS_NAME,
-				gs.GOODS_CONTENT,
-				gs.GOODS_ORIGIN_PRICE,
-				gs.GOODS_SELL_PRICE,
-				gs.GOODS_SALE_PRICE,
-				gs.GOODS_DATE,
-				gs.GOODS_KEYWORD,
-				gs.GOODS_READCNT,
-				gs.GOODS_PICK,
-				up.UPLOAD_SAVE_NAME,
-				att.GOODS_ATT_COLOR
+				GOODS_NO,
+				GOODS_CATEGORY,
+				GOODS_NAME,
+				GOODS_CONTENT,
+				GOODS_ORIGIN_PRICE,
+				GOODS_SELL_PRICE,
+				GOODS_SALE_PRICE,
+				GOODS_DATE,
+				GOODS_KEYWORD,
+				GOODS_READCNT,
+				GOODS_PICK,
+				GOODS_THUMBNAIL
 			FROM
-				goods gs ,upload up, goods_attribute att
-			WHERE gs.GOODS_NO = up.GOODS_NO AND gs.GOODS_NO = att.GOODS_NO
-                AND up.GOODS_NO = att.GOODS_NO
+				GOODS 
 			) AA
 		      ) AAA
 		      WHERE AAA.RNUM BETWEEN 0 AND 28

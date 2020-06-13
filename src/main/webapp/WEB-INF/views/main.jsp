@@ -6,11 +6,18 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
 <title>메인화면</title>
+<link href="<c:url value="/css/board.css"/>" rel="stylesheet">
+<link href="<c:url value="/css/goods.css"/>" rel="stylesheet">
+<link href="<c:url value="/css/btn.css"/>" rel="stylesheet"> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <head>
 <script type="text/javascript">
- var img=new Array();
+/*  var img=new Array();
 img[0]=new Image(); img[0].src="/stu/img/옷1.JPG";
 img[1]=new Image(); img[1].src="/stu/img/옷2.JPG";
 img[2]=new Image(); img[2].src="/stu/img/옷3.JPG"; 
@@ -29,137 +36,106 @@ document.getElementById("slide").src=imgs[n];
 (n==(imgs.length-1))?n=0:n++;
 setTimeout("rotate()",interval);
 
-}
+} */
 </script>
 
 <style>
-.list li {
-  border-bottom: 1px solid #ccc;
-  display: table;
-  border-collapse: collapse;
-  width: 100%;
-}
-.inner {
-  display: table-row;
-  overflow: hidden;
-}
-.li-img {
-  display: table-cell;
-  vertical-align: middle;
-  width: 40%;
-  padding-right: 1em;
-}
-.li-img img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.li-text {
-  display: table-cell;
-  vertical-align: middle;
-  width: 60%;
-}
-.li-head {
-  margin: 0;
-}
-.li-sub {
-  margin: 0;
+
+/* 폰트 */
+.mTitle {
+    position: relative;
+    text-align: center;
+    padding: 50px 0 40px;
+    font-family: sans-serif;
+    color: #666;
+    font-size: 26px;
+    font-weight: 100;
+    margin: 0;
+    line-height: 0px;
+    align:center;
 }
 
-@media all and (min-width: 40em) {
-  .list {
-    padding: 0.5em;
-    max-width: 70em;
-    margin: 0 auto;
-    overflow: hidden;
-  }
-  .list li {
-    padding: 0.5em;
-    display: block;
-    width: 50%;
-    float: left;
-    background: none;
-    border: 0;
-  }
-  .inner {
-    display: block;
-  }
-  .li-img, .li-text, .inner {
-    display: block;
-    width: auto;
-    padding: 0;
-  }
-  .li-text {
-    padding: 0.5em 0;
-  }
-}
 
-@media all and (min-width: 60em) {
-  .list li {
-    width: 33.33333333%;
-  }
-}
+
 </style>
 
 </head>
-<body onload="rotate()">
+<body>
 
-<br><br><br>
+<br>
 <div align="center">
-<h3>NEW ITEM</h3>
-</div>
-<input type="hidden" name="MEMBER_NO">
-<c:set var="i" value="0" />
- <c:set var="j" value="4" />
- <table style="padding:200px; margin-top:-150px;">
-  <c:choose>
-   <c:when test="${newList != null && fn:length(newList) > 0 }">
-    <c:forEach items="${newList}" var="newList">
-     <c:if test="{i%j == 0}">
-      <tr>
-     </c:if>
-     <td>
-     <div class="list img-list">
-     <a href="" class="inner">
-     <div class="li-img">
-		<img src="/stu/img/옷1.JPG" id="slide"/>
-	</div>
-	<div align="left">
-	<!-- 반복문으로 뽑아서 배열 인덱스로 여러가지 추가? 해야함 -->
-		<c:choose>
-			<c:when test="${newList.GOODS_PICK == '0' }"></c:when>
-			<c:when test="${newList.GOODS_PICK == '1' }">BEST</c:when>
-			<c:when test="${newList.GOODS_PICK == '2' }">MD PICK</c:when>
-			<c:when test="${newList.GOODS_PICK == '3' }">MUSTHAVE</c:when>
-		</c:choose>
-		<br><br>
-		${newList.GOODS_NAME }<br><br>
-		${newList.GOODS_SELL_PRICE }원
-	</div>
-	</a>
-	</div>
-	</td>
-    <c:if test="${i%j == j-1}">
-     </tr>
-    </c:if> 
-   <c:set var="i" value="${i+1}" />
-    </c:forEach>
-   </c:when>
-  <c:otherwise>
-   <tr>
-    <td>존재하지 않습니다.</td>
-   </tr>
-  </c:otherwise>
-  </c:choose>
- </table>
-
-
-
-<div align="center" style="margin-top:-150px;">
-<h3>BEST ITEM</h3>
+<ul class="bxslider">
+      <li><a href="#"><img src="../stu/img/메인이미지2.jpg" ></a></li>
+      <li><a href="#"><img src="../stu/img/메인이미지1.jpg" alt="" ></a></li>
+      <li><a href="#"><img src="../stu/img/메인이미지3.jpg" alt="" ></a></li>
+      <li><a href="#"><img src="../stu/img/메인이미지4.jpg" alt="" ></a></li>
+</ul>
 </div>
 
-<c:set var="i" value="0" />
+
+
+
+<div align="center">
+	<h1 class="mTitle">NEW ITEM</h1>
+</div>
+
+<div id="main-container">
+
+<table class="board_list" style="width:'100%'">
+		<colgroup>
+			<col width="100%" />
+		</colgroup>
+		<thead>
+			<tr>
+			</tr>
+		</thead>
+		<tbody>
+		<c:forEach items="${newList}" var="newList">
+			<div class="card">
+			<a href="#this" name="title">
+			<img src="/stu/file/${newList.GOODS_THUMBNAIL}" width="400" height="400">
+			${newList.GOODS_NAME}<br>
+			${newList.GOODS_SELL_PRICE} 
+		</a>
+		</div>
+		</c:forEach>
+		</tbody>
+		</table>
+</div>
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<h1 class="mTitle">BEST ITEM</h1>
+
+
+<div id="main-container">
+		
+<table class="board_list" style="width:'100%'">
+		<colgroup>
+			<col width="100%" />
+		</colgroup>
+		<thead>
+			<tr>
+			</tr>
+		</thead>
+		<tbody>
+		
+		<c:forEach items="${bestList}" var="bestList">
+			<div class="card">
+			<a href="#this" name="title">
+			<img src="/stu/file/${bestList.GOODS_THUMBNAIL}" width="400" height="400">
+			${bestList.GOODS_NAME}<br>
+			${bestList.GOODS_SELL_PRICE} 
+		</a>
+		</div>
+		</c:forEach>
+		</tbody>
+		</table>
+</div> 
+<%-- <c:set var="i" value="0" />
  <c:set var="j" value="4" />
  <table style="padding:200px; margin-top:-150px;">
   <c:choose>
@@ -172,7 +148,7 @@ setTimeout("rotate()",interval);
      <div class="list img-list">
      <a href="" class="inner">
      <div class="li-img">
-		<img src="/stu/img/옷1.JPG" id="slide"/>
+		<img src="/stu/file/${bestList.GOODS_THUMBNAIL } width='400' height='400'" id="slide"/>
 	</div>
 	<div align="left">
 		<c:choose>
@@ -200,8 +176,33 @@ setTimeout("rotate()",interval);
    </tr>
   </c:otherwise>
   </c:choose>
- </table>
+ </table>  --%>
 
 
 </body>
 </html>
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+    $('.bxslider').bxSlider({
+        auto: true, // 자동으로 애니메이션 시작
+        speed: 500,  // 애니메이션 속도
+        pause: 3000,  // 애니메이션 유지 시간 (1000은 1초)
+        mode: 'horizontal', // 슬라이드 모드 ('fade', 'horizontal', 'vertical' 이 있음)
+        autoControls: false, // 시작 및 중지버튼 보여짐
+        pager: true, // 페이지 표시 보여짐
+        captions: true, // 이미지 위에 텍스트를 넣을 수 있음
+        slideWidth: 1260, // 크기
+        slideMargin: 0,
+        autoDelay: 0,
+        responsive: true,
+       	
+        
+        
+        
+    });
+});
+
+
+</script>

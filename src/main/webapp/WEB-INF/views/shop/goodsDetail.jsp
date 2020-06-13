@@ -64,9 +64,13 @@
   text-align: center;
 }
 
+
+
+
+
 </style>
 
-<body onload="init();">
+<body>
 
  <input type="hidden" id="IDX" name="IDX" value="${list.GOODS_NO}"> 
 
@@ -108,7 +112,8 @@
 		</tr>
 		
 		<tr>
-			<td style="font-weight: bold;"><fmt:formatNumber value="${list.GOODS_SELL_PRICE}" pattern="#,###"/>원</td>
+			<td id="price" style="font-weight: bold;"><fmt:formatNumber value="${list.GOODS_SELL_PRICE}" pattern="#,###"/>원</td>
+			<input type=number id="price" name="price" value="${list.GOODS_SELL_PRICE}">
 		</tr>
 		</table>
 		
@@ -149,6 +154,8 @@
 					</c:forEach>
 					</select>
 			</td>
+			<td><button onclick="tableCreate()" style="width:70px;">상품추가</button></td>
+			
 		</tr>
 			
 		<tr>
@@ -160,8 +167,7 @@
 					</c:forEach>
 				</select>
 			</td>
-			<td><button onclick="tableCreate()">상품추가</button></td>
-			<td><button onclick="tableDelete()">삭제</button></td>
+			<td><button onclick="tableDelete()" style="width:70px;">삭제</button></td>
 		</tr>
 		</table>
 		</div>
@@ -174,19 +180,26 @@
 		<table style="border: 1px;" id="dynamicTable">
 		<thead>
 		</thead>
+		
 		<tbody id="dynamicTbody">
 		
 		</tbody>
+		
 		</table>
 		</div>
 			
 		<table>
 			<tr>
-				<td><input type="text" name="sum" size="11" readonly>총상품금액</td>
+				<td></td>
 			</tr>
 		</table>
 	    	
 		</form>
+		
+		
+		<input type="text" name="dd" size="11" >원
+	
+
 		
 	    <button id="insertLike" onclick="fn_InsertLike()">좋아요</button>
 	    <button id="insertBasket" onclick="fn_InsertBasket()">장바구니</button>
@@ -208,7 +221,7 @@
 		
 	
 </div>
-</div>
+
 
 <div style="clear:both;">
 
@@ -325,6 +338,8 @@
 </body>
 </html>
 
+<form id="commonForm" name="commonForm"></form>
+
 <script type="text/javascript">
 
 var doubleSubmitFlag = false;
@@ -352,14 +367,15 @@ $(document).ready(function() {
 		fn_InsertBasket();	
 	});
 
+
 });
 
 
 function fn_InsertLike() { // 좋아요
 
-	var comSubmit = new ComSubmit("frm");
+	var comSubmit = new ComSubmit();
 	comSubmit.setUrl("<c:url value='/shop/goodsLike.do'/>");
-	
+	comSubmit.addParam("IDX", ${list.GOODS_NO});
 	comSubmit.submit();
 	
 }
@@ -487,38 +503,48 @@ function tableCreate(){
 	//var name = $(list.GOODS_NAME);			
 	var color = $("#ColorList option:selected").val();
 	var size = $("#SizeList option:selected").val();
+	var price = $("#price").val();
+	//console.log(price);
 	var IDX = $('#IDX').val();
 	if(color == "" || size =="") {
 		alert("옵션을 선택하주세요");
 	}else{
 
 	if(cnt < 6) {		
-	html = "<table>"
+
+
+		
+		
+	html = "<table style='border:1px solid #bdbebd; width:600px; margin-top:2px;'>"
 		 + "<tr>"
 		 + "<td>상품명 : </td>"
 		 + "<td>"
 		 + $("#goodsName").text()
 	     + "</td>"
-	     + "<input type='hidden' name='sell_price' value='5500'>"
-	     + "<td> <input type='text' name='amount' value='1' size='3' onchange='change();'> "
-	     + "<input type='button' value=' + ' onclick='add();'><input type='button' value=' - ' onclick='del();'> "
+	     + "<td>"   
+ 		 + " <div id='field"+cnt+"'> "
+		 + " <button type='button' id='sub' class='sub'></button> "
+		 + " <input type='number' class='i1' id='"+cnt+"' name='BASKET_GOODS_AMOUNT' value='1' min='1' max='5' /> "
+		 + " <button type='button' id='add' class='add'></button> </div> "
+		 + "<input type='text' id='sum' name='sum' size='11' value='0'>원" 
 	     + "</td>"
 	     + "</tr>"
 	     + "<tr>"
 	     + "<td>색상 :</td>"
 	     + "<td>"+color+"</td>"
+	     + "<td></td>"
 	     + "</tr>"
 	     + "<tr>"
 	     + "<td>사이즈 : </td>"
 	     + "<td>"+size+"</td>"
+	     + "<td></td>"
 	     + "</tr>"
 		 + "<input type='hidden' name='ORDER_COLOR' id='ORDER_COLOR' value='"+color+"'>"
 		 + "<input type='hidden' name='ORDER_SIZE' id='ORDER_SIZE' value='"+size+"'> "
-		 + "<input type='hidden' name='BASKET_GOODS_AMOUNT' id='BASKET_GOODS_AMOUNT' value='1'> "
 		 + "<input type='hidden' name='MEMBER_NO' id='MEMBER_NO' value='1'> "
 		 + "<input type='hidden' name='IDX' id='IDX' value='"+${list.GOODS_NO}+"'> "
 		 + "</table>";
-				
+		
 	$("#dynamicTable").append(html);
 				
 	$("#ColorList").val('');
@@ -535,8 +561,21 @@ function tableCreate(){
 }
 
 function tableDelete(){
-	$('#dynamicTable tbody td:last').remove();
+	$('#dynamicTable tbody:last').remove();
 }
+
+
+
+$('.add').click(function () {
+	if ($(this).prev().val() < 3) {
+	$(this).prev().val(+$(this).prev().val() + 1);
+	}
+});
+$('.sub').click(function () {
+	if ($(this).next().val() > 1) {
+	if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
+	}
+});
 
 
 
@@ -545,71 +584,33 @@ function tableDelete(){
 
 //전체주문금액구하기
 /* function fn_allPrice(){
+
 	
-	var array1 = document.getElementsByName("goods_sell_price");
-	var array2 = document.getElementsByName("basket_goods_amount");
-	var array3 = document.getElementsByName("order_price");
 	
-	var len = array2.length;
+	//console.log(array1);
+	//console.log(array2);
+	//var len = array2.length;
 	var hap = 0;
-	
-	for (var i=0; i<len; i++){
-		var sell = array1[i].value;
-		var amt = array2[i].value;
+	var aa = 1;
+	for (var i=aa; i<2; i++){
+		var array1 = $("#price").val();
+		
+		var array2 = $("#cnt"+aa+"").val();
+		
+		var sell = array1;
+		var amt = array2;
 		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
 		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
-		array3[i].value = pri;
 		
 	}
 	
-	var fee = document.getElementById("order_fee").value;
-	pay = Number(hap)+Number(fee);
 	
+	var array3 = $("#sum").val();
 	//hap = Number(hap).toLocaleString();
 	//pay = Number(pay).toLocaleString();
-	document.getElementById("all_price").value = hap; //상품금액
-	document.getElementById("pay_price").value = pay; //상품금액+배송비
-	document.getElementById("all_order_price").value = pay;
-
+	array3 = hap; //상품금액
+	
 	
 } */
-
-var sell_price;
-var amount;
-
-function init() {
-	sell_price = document.frm.sell_price.value;
-	amount = document.frm.amount.value;
-	document.frm.sum.value = sell_price;
-	change();
-}
-
-function add() {
-	hm = document.frm.amount;
-	sum = document.frm.sum;
-	hm.value ++ ;
-
-	sum.value = parseInt(hm.value) * sell_price;
-}
-
-function del() {
-	hm = document.frm.amount;
-	sum = document.frm.sum;
-		if (hm.value > 1) {
-			hm.value -- ;
-			sum.value = parseInt(hm.value) * sell_price;
-		}
-}
-
-function change() {
-	hm = document.frm.amount;
-	sum = document.frm.sum;
-
-		if (hm.value < 0) {
-			hm.value = 0;
-		}
-	sum.value = parseInt(hm.value) * sell_price;
-} 
-
 
 </script>

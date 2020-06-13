@@ -232,7 +232,7 @@ public class GoodsController {
 	
 	@RequestMapping(value="/shop/goodsLike.do", method = RequestMethod.POST)
 	public ModelAndView goodsLike(CommandMap commandMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/shop/goodsDetail.do");
+		ModelAndView mv = new ModelAndView("redirect:/shop/goodsDetail.do");
 		mv.addObject("IDX", commandMap.getMap().get("IDX"));
 		System.out.println("좋아요!!!!="+commandMap.getMap().get("GOODS_NO") );
 		//mv.addObject("MEMBER_NO", commandMap.getMap().get("MEMBER_NO"));

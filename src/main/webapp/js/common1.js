@@ -14,7 +14,6 @@ function ComSubmit(opt_formId) {
 	this.url = "";
 	
 	if(this.formId=="commonForm"){
-		$("#commonForm")[0].reset();
 		$("#commonForm").empty();
 	}
 	
