@@ -160,9 +160,32 @@ public class myController {
 		mv.addObject("list", list);
 		System.out.println(list);
 		return mv;
-		
 	}
 	
-	
+	//쿠폰 리스트 출력
+		@RequestMapping(value="/my/myCouponList.do")
+		public ModelAndView myCouponList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+			
+			ModelAndView mv = new ModelAndView("my/myCouponList");
+			
+			Object MEMBER_NO = ""; 
+			//세션값 가져오기 
+			HttpSession session = request.getSession(); 
+			MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
+			commandMap.remove("MEMBER_NO"); 
+			// 기존 회원번호 데이터 삭제 
+			commandMap.put("MEMBER_NO", MEMBER_NO); 
+			// 세션 값으로 적용
+			 
+			List<Map<String,Object>> list = myService.myCouponList(commandMap);
+			//COUPON_STATUS_NO, COUPON_USE_STATE, COUPON_ISSUE_DATE, COUPON_USE_DATE, 
+			//COUPON_NO, COUPON_ID, COUPON_VALUE, COUPON_S_VALIDITY, COUPON_E_VALIDITY
+			
+			mv.addObject("list", list);
+			System.out.println(list);
+			return mv;
+		}
+		
+		
 
 }

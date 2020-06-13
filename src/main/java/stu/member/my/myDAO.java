@@ -37,5 +37,8 @@ public class myDAO extends AbstractDao {
 	public List<Map<String, Object>> myPointList(CommandMap commandMap) {
 		return (List<Map<String,Object>>) selectList("my.myPointList",commandMap.getMap());
 	}
+	public List<Map<String, Object>> myCouponList(CommandMap commandMap) {
+		return (List<Map<String,Object>>) selectList("my.myCouponList",commandMap.getMap());
+	}
 
 }

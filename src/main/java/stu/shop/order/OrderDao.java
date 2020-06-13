@@ -89,6 +89,7 @@ public class OrderDao extends AbstractDao{
 		if(!commandMap.get("ORDER_USE_POINT").equals("0")) {
 			insert("point.usePoint", commandMap.getMap()); 
 		}
+		
 		insert("point.savePoint", commandMap.getMap());
 		
 		if(!commandMap.get("COUPON_STATUS_NO_1").equals("")) {

@@ -49,6 +49,13 @@ public class myServiceImpl implements myService {
 	public List<Map<String, Object>> myPointList(CommandMap commandMap) throws Exception {
 		return myDAO.myPointList(commandMap);
 	}
+
+	@Override
+	public List<Map<String, Object>> myCouponList(CommandMap commandMap) throws Exception {
+		return myDAO.myCouponList(commandMap);
+	}
+	
+	
 	
 	
 }

@@ -96,7 +96,6 @@ function fn_allDelete(){
 
 //전체주문금액구하기
 function fn_allPrice(){
-	
 	var array1 = document.getElementsByName("goods_sell_price");
 	var array2 = document.getElementsByName("basket_goods_amount");
 	var array3 = document.getElementsByName("order_price");

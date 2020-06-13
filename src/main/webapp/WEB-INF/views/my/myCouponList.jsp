@@ -33,8 +33,7 @@
 <div class="container">
 	<div class="row" align="center">
         <div>
-          <h2>포인트 적립/사용 내역</h2>
-          <p>최근 10건의 내역</p>
+          <h2>쿠폰 내역</h2>
         </div>
 	</div>
 	<br><br>
@@ -43,17 +42,19 @@
 			<colgroup>
 			<col width="10%" />
 			<col width="20%" />
-			<col width="30%" />
+			<col width="20%" />
+			<col width="10%" />
 			<col width="20%" />
 			<col width="20%" />
 			</colgroup>
 			<thead>
 				<tr>
 					<th style="text-align:center" scope="col">번호</th>
-					<th style="text-align:center" scope="col">적립/사용 포인트</th>
-					<th style="text-align:center" scope="col">구분</th>
-					<th style="text-align:center" scope="col">날짜</th>
-					<th style="text-align:center" scope="col">현재 보유포인트</th>
+					<th style="text-align:center" scope="col">쿠폰명(사용기한)</th>
+					<th style="text-align:center" scope="col">쿠폰할인</th>
+					<th style="text-align:center" scope="col">상태</th>
+					<th style="text-align:center" scope="col">발행날짜</th>
+					<th style="text-align:center" scope="col">사용날짜</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -70,23 +71,23 @@
     									<td style="text-align:center">
                   							- <input type="text" name="point_val" value="${row.POINT_VAL }" style="width:100px; border:none; text-align:center;">
                   						</td>
-        								<td style="text-align:center">
-											<input type="text" name="gubun" value="사용" style="width:100px; border:none; text-align:center;">
-										</td>
 										<td style="text-align:center">
         									<input type="text" name="date" value="${row.POINT_USE_DATE }" style="width:200px; border:none; text-align:center;">
         								</td>
+        								<td style="text-align:center">
+											<input type="text" name="gubun" value="사용" style="width:100px; border:none; text-align:center;">
+										</td>
    					 				</c:when>
    					 				<c:when test="${saveDate ne null}">
         								<td style="text-align:center">
                   							+ <input type="text" name="point_val" value="${row.POINT_VAL }" style="width:100px; border:none; text-align:center;">
                   						</td>
-   					 					<td style="text-align:center">
-											<input type="text" name="gubun" value="적립" style="width:100px; border:none; text-align:center;">
-										</td>
 										<td style="text-align:center">
         									<input type="text" name="date" value="${row.POINT_SAVE_DATE }" style="width:200px; border:none; text-align:center;">
    					 					</td>
+   					 					<td style="text-align:center">
+											<input type="text" name="gubun" value="적립" style="width:100px; border:none; text-align:center;">
+										</td>
    					 				</c:when>
 								</c:choose>
 							<td style="text-align:center">

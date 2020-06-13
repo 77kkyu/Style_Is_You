@@ -87,7 +87,11 @@ function fn_price(){
 
 	var f = document.orderWrite;
 	var hap_buy = Number(f.ORDER_TOTAL_ORDER_PRICE.value);  //총 주문금액
-	var u_p = ${map.POINT_TOTAL}; //보유포인트
+	if(${map.POINT_TOTAL eq null}){
+		var u_p = 0;
+	}else{
+		var u_p = ${map.POINT_TOTAL}; //보유포인트
+	}
 	var o_point = Number(f.ORDER_USE_POINT.value); //사용할포인트
 	var a = f.COUPON_VALUE.value; // 할인쿠폰 값
 

@@ -20,4 +20,6 @@ public interface myService {
 	
 	//포인트 목록
 	List<Map<String, Object>> myPointList(CommandMap commandMap) throws Exception;
+	//쿠폰 목록
+	List<Map<String, Object>> myCouponList(CommandMap commandMap) throws Exception;
 }
