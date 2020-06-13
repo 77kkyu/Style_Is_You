@@ -10,7 +10,7 @@
 <%
 	String sessionName = (String)session.getAttribute("MEMBER_NAME");
 	String sessionId = (String)session.getAttribute("MEMBER_ID");
-
+	String sessionEmail = (String)session.getAttribute("MEMBER_EMAIL");
 %>
 
 
