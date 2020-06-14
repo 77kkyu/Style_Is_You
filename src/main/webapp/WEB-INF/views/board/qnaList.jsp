@@ -35,8 +35,8 @@
 			
 		</tbody>
 	</table>
-	
-	<div id="PAGE_NAVI"></div>
+	<br>
+	<div class="pageNumber" id="PAGE_NAVI"></div>
 	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
 	
 	<br/>

@@ -12,7 +12,56 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
+<style>
+.wrapper3 {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  padding: 100px 0;
+  font-weight: normal;
+  font-size: 4em;
+  letter-spacing: 10px;
+}
+
+li {
+  list-style: none;
+  float: left;
+  
+}
+
+.bar {
+  height: 1.5px;
+  width: 100%;
+  background-color: #DCDCDC;
+}
+
+.flex-menu {
+  display: flex;
+  
+}
+
+.flex-menu li {
+  width: 100%;
+}
+</style>
 <body>
+<br>
+<div class="boardli">
+  <div class="wrapper3">
+    <ul class="board-menu">
+      <li><a href="http://localhost:8080/stu/faq/openFaqList.do">FAQ</a></li>
+      <li><a href="http://localhost:8080/stu/notice/openNoticeList.do">공지사항</a></li>
+      <li><a href="http://localhost:8080/stu/qna/openQnaList.do">QNA</a></li>
+    </ul>
+    <br>
+    <div class="bar">
+    </div>
+  </div>
+
+</div>
 <br/><br/><br/>
 	<h2>FAQ 자주묻는질문</h2>
 	<br/><br/>
