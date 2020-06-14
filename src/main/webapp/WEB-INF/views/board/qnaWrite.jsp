@@ -137,7 +137,8 @@
 			comSubmit.setUrl("<c:url value='/qna/insertQna.do' />");
 			comSubmit.submit();
 		}
-
+		
+		
 	</script>
 </body>
 </html>
