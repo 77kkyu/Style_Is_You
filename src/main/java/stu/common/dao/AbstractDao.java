@@ -127,6 +127,12 @@ public class AbstractDao {
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params);
 	      }
+	      public List<Map<String,Object>> as_admin_list(String queryId, Object params) { // 교환.환불.AS - 정보가져옴 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      
+	      
 	      
 	      //myDao
 	      public List<Map<String,Object>> myDash(String queryId, Object params) { // mypage대쉬보드 
@@ -172,11 +178,23 @@ public class AbstractDao {
 	         printQueryId(queryId);
 	         sqlSession.update(queryId,params);
 	      }
-	      public List<Map<String,Object>> changeForm_a(String queryId, Object params) { // 교환.환불.AS - 주문정보가져옴 
+	      public List<Map<String,Object>> changeForm_a(String queryId, Object params) { // 교환.환불.AS - 정보가져옴 
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params);
 	      }
-	      public List<Map<String,Object>> changeForm_b(String queryId, Object params) { // 교환.환불.AS - 주문디테일정보가져옴 
+	      public List<Map<String,Object>> changeForm_b(String queryId, Object params) { // 교환.환불.AS - 디테일정보가져옴 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      public String pwd_chk(String queryId, Object params) { // 패스워드 꺼내옴
+	         printQueryId(queryId);
+	         return sqlSession.selectOne(queryId,params);
+	      }
+	      public void order_change(String queryId, Object params) { // 패스워드 꺼내옴
+	         printQueryId(queryId);
+	        sqlSession.insert(queryId,params);
+	      }
+	      public List<Map<String,Object>> myAsList(String queryId, Object params) { // 마이페이지 - AS요청 리스트 
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params);
 	      }
@@ -193,10 +211,10 @@ public class AbstractDao {
 		}
 		
 		// 상품명, 상품속성번호
-				public List<Map<String,Object>> orderList2(String queryId, Object params) { //  
-					printQueryId(queryId);
-					return sqlSession.selectList(queryId,params);
-				}
+		public List<Map<String,Object>> orderList2(String queryId, Object params) { //  
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}
 
 
 		@SuppressWarnings("rawtypes")

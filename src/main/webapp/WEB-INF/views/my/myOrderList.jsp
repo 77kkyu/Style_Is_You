@@ -39,7 +39,7 @@ function order_change(mem_no, order_no){
 		return;
 	}
 	var comSubmit = new ComSubmit();
-	comSubmit.setUrl("<c:url value='/order_change.do' />");
+	comSubmit.setUrl("<c:url value='/order_as_form.do' />");
 	comSubmit.addParam("mem_no", mem_no);
 	comSubmit.addParam("order_no", order_no);
 	comSubmit.submit();

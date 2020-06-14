@@ -72,8 +72,8 @@ function order_state(state, no){
          }
       })}else{
          return;
-      }
 	}
+}
 
 function order_detail(no){
 	alert("작동됨?");

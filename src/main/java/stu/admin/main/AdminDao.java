@@ -49,6 +49,11 @@ public class AdminDao extends AbstractDao{
 		return (List<Map<String,Object>>) order_detail_sub("admin.order_detail_sub", commandMap.getMap());
 	}
 
+	public List<Map<String, Object>> as_admin_list(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) as_admin_list("admin.as_admin_list", commandMap.getMap());
+	}
+
 	
 	
 }

@@ -21,11 +21,10 @@
 		]]>
 	</select>
 	
-	
 	<select id="order_admin_a" parameterType="hashmap" resultType="hashmap"> <!-- 주문현황 보기 -->
 		<![CDATA[
 			select l.order_date, d.order_no, m.member_no, m.member_id, m.member_name, g.goods_name,
-  			      l.order_total_order_price, l.order_total_pay_price, l.order_state,
+  			      l.order_total_order_price, l.order_total_pay_price, TO_CHAR(l.order_date, 'YYYY-MM-DD HH24:MI:SS') order_date,
   			      l.order_pay_bank, l.order_express,
 	        
 	        (select count(SD.order_no) from order_detail SD where SD.order_no = D.order_no ) as hap_cnt
@@ -64,7 +63,7 @@
 		]]>
 	</select>
 	
-	<select id="order_detail" parameterType="hashmap" resultType="hashmap"> <!-- adminMain대쉬보드 -->
+	<select id="order_detail" parameterType="hashmap" resultType="hashmap"> <!-- 주문list 상세보기 -->
 		<![CDATA[
 			select m.member_name, m.member_phone, m.member_email,
 	        l.order_name, l.order_zipcode, l.order_addr1, l.order_addr2, l.order_phone,
@@ -78,7 +77,7 @@
 		]]>
 	</select>
 	
-		<select id="order_detail_sub" parameterType="hashmap" resultType="hashmap"> <!-- adminMain대쉬보드 -->
+	<select id="order_detail_sub" parameterType="hashmap" resultType="hashmap"> <!-- 주문detail 상세보기 -->
 		<![CDATA[
 			select g.goods_name, d.order_detail_color, d.order_detail_size, d.order_detail_amount,
 	        d.order_detail_price, d.coupon_discount, d.order_discount_apply
@@ -87,6 +86,22 @@
 			
 			where d.goods_no = g.goods_no
 			and d.order_no = ${order_no}
+			
+			order by as_sdate asc
+		]]>
+	</select>
+	
+	<select id="as_admin_list" parameterType="hashmap" resultType="hashmap"> <!-- 주문detail 상세보기 -->
+		<![CDATA[
+			select l.as_no, l.as_gubun, l.member_no, l.as_title, l.as_content, l.order_no, l.order_detail_no,
+	        l.as_state, TO_CHAR(l.as_sdate, 'YYYY-MM-DD HH24:MI:SS') as_sdate, TO_CHAR(l.as_edate, 'YYYY-MM-DD HH24:MI:SS') as_edate,
+	        m.member_id, m.member_name, m.member_phone, m.member_email, m.member_grade
+				
+	        from as_list l, member m
+	        
+	        where l.member_no = m.member_no
+	        and l.as_state = ${as_state }
+	        order by l.as_no asc
 		]]>
 	</select>
 	

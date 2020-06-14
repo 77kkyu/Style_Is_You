@@ -7,7 +7,7 @@
 	<!-- 마이페이지 내의 주문 / 배송 상태LIST -->
 	<select id="my_order_list" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
-			select l.member_no, l.order_date, l.order_no, l.order_state, g.goods_name,
+			select l.member_no, TO_CHAR(l.order_date, 'YYYY-MM-DD HH24:MI:SS') order_date, l.order_no, l.order_state, g.goods_name,
 		        l.order_total_pay_price, l.order_pay_option, l.order_express,
       
 		        (select count(SD.order_no) from order_detail SD where SD.order_no = D.order_no ) as hap_cnt
@@ -104,16 +104,49 @@
 		]]>
 	</update>
 	
-	<!-- 교환 / 환불 / AS -->	
-	<select id="changeForm_b" parameterType="hashmap" resultType="hashmap"> <!-- 신청에 필요한 주문내역 -->
+	<!-- 교환 / 환불 / AS 신청 -->
+	<select id="changeForm_a" parameterType="hashmap" resultType="hashmap"> <!-- 신청에 필요한 주문내역 -->
 		<![CDATA[
-			select order_detail_no, order_no, goods_no, goods_att_no, order_detail_color,
-			order_detail_size, order_detail_amount, order_discount_apply, order_detail_save_point
-			from order_detail 
+			select member_no, order_state, order_no
+			from order_list 
 			where order_no = ${order_no}
 		]]>
+	</select>	
+	<select id="changeForm_b" parameterType="hashmap" resultType="hashmap"> <!-- 신청에 필요한 주문내역 -->
+		<![CDATA[
+			select g.goods_name, d.order_detail_no, d.order_no, d.goods_no, d.goods_att_no, d.order_detail_color,
+			  d.order_detail_size, d.order_detail_amount, d.order_discount_apply, d.order_detail_save_point
+			from order_detail d, goods g 
+			where d.goods_no = g.goods_no
+			and order_no = ${order_no}
+		]]>
 	</select>
+	<select id="pwd_chk" parameterType="hashmap" resultType="string"> <!-- 패스워드 꺼내가기 -->
+		<![CDATA[
+			select member_passwd
+			from member 
+			where member_no = ${member_no}
+		]]>
+	</select>
+	<insert id="order_change" parameterType="hashmap"> <!-- 교환/환불/AS 신청insert -->
+		<![CDATA[
+			INSERT INTO AS_LIST (AS_NO, AS_GUBUN, MEMBER_NO, AS_TITLE, AS_CONTENT, ORDER_NO, 
+			ORDER_DETAIL_NO, AS_STATE, AS_SDATE, AS_EDATE)
+			VALUES 
+			( AS_NO_SEQ.NEXTVAL, #{gubun}, ${chfMember_no}, #{chfSubject}, #{chfContent},
+			 ${chfOrder_no}, ${select_detail_no}, '1', TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS') )
+		]]>
+	</insert>
 	
+	<!-- 교환 / 환불 / AS LIST 보기 -->
+	<select id="myAsList" parameterType="hashmap" resultType="hashmap"> <!-- 리스트 꺼내오기 -->
+		<![CDATA[
+			select as_no, as_gubun, member_no, as_title, as_content, order_no, order_detail_no, as_state, TO_CHAR(as_sdate, 'YYYY-MM-DD HH24:MI:SS') as_sdate
+			from as_list 
+			where member_no = ${member_no}
+			order by as_sdate desc
+		]]>
+	</select>
 	
 	
 	
@@ -174,8 +207,7 @@
 				MEMBER_PASSWD,
 				TO_CHAR(MEMBER_BIRTH,'YYYY/MM/DD') MEMBER_BIRTH,
 				MEMBER_EMAIL,
-				MEMBER_PHONE,
-				MEMBER_ZIPCODE,
+				MEMBER_PHONE,				MEMBER_ZIPCODE,
 				MEMBER_ADDR1,
 				MEMBER_ADDR2 
 			FROM 
