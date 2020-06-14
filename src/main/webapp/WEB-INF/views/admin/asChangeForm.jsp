@@ -82,7 +82,7 @@
         <c:forEach items="${as_change_form_a }" var="achfa">
          <input type="hidden" name="as_no" value="${achfa.AS_NO }"/>
         <input type="hidden" name="order_no" value="${achfa.ORDER_NO }"/>
-        <input type="hidden" name="old_goods_att_no" value="${achfa.goods_att_no }"/>
+        <input type="hidden" name="old_goods_att_no" value="${achfa.GOODS_ATT_NO }"/>
         <input type="hidden" name="goods_no" value="${achfa.GOODS_NO }"/>
         <input type="hidden" name="order_detail_price" value="${achfa.ORDER_DETAIL_PRICE }"/>       
         <input type="hidden" name="order_detail_color" value="${achfa.ORDER_DETAIL_COLOR }"/>

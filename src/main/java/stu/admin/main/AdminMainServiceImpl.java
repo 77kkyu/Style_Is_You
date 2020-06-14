@@ -123,5 +123,31 @@ public class AdminMainServiceImpl implements AdminMainService {
 		adminDao.change_final_orderState(commandMap);
 	}
 
+	@Override
+	public void order_list_chagam(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		adminDao.order_list_chagam(commandMap);
+	}
+
+	@Override
+	public void point_chagam(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		adminDao.point_chagam(commandMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> point_total(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return adminDao.point_total(commandMap);
+	}
+
+	@Override
+	public void as_ok_c(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		adminDao.as_final_state(commandMap);
+		adminDao.cashback_final_orderState(commandMap);
+	}
+
+	
 	
 }

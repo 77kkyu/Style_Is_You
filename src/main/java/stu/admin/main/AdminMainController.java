@@ -238,15 +238,10 @@ public class AdminMainController {
 				mv.setView(new RedirectView("/stu/asChangeForm.do"));
 				return mv;
 			} else if(gubun.equals("2")) { //환불
-				//상품회수후 AS_list에서 정보 가져옴  member_no,order_detail_no
-				//order_detail에서 detail_state 20(반품)
-				//order_detail정보 가져옴 상품속성번호, 할인적용가, 적립포인트, 수량
-				//order_list에서 총결제금액차감 , 총적립포인트차감
-				//point에서 적립포인트 차감
-				//goods_attribute에서 상품속성번호에 수량 증가
-				//order_detail에서 state로 카운터 해서 10짜리가 없으면(마지막에 state 돌릴때)
-				//환불 그대로,  10짜리가 있으면 state=거래완료
-				//AS_LIST에서 state = 3, edate=update 
+				mv.addObject("as_no", as_no);
+				mv.setView(new RedirectView("/stu/cashback_ok.do"));
+				return mv;
+				
 			} else if(gubun.equals("3")) { //AS
 				//상품회수후 AS_list에서 정보 가져옴  member_no,order_detail_no
 				//order_detail정보 가져옴 상품속성번호, 수량
@@ -299,7 +294,7 @@ public class AdminMainController {
 		return mv;
 	}
 	
-	// AS페이지 - 교환처리 폼
+	// AS페이지 - 교환처리
 	@RequestMapping(value="/asChange_ok.do")
 	public ModelAndView asChange_ok(CommandMap commandMap,HttpServletRequest request) throws Exception {
 		
@@ -321,6 +316,7 @@ public class AdminMainController {
 		String order_discount_apply = request.getParameter("order_discount_apply");
 		String order_detail_save_point = request.getParameter("order_detail_save_point");
 		System.out.println("new_goods_att_no"+new_goods_att_no);
+		System.out.println("old_goods_att_no"+old_goods_att_no);
 	
 		commandMap.put("as_no", as_no);
 		commandMap.put("order_no", order_no);
@@ -349,7 +345,63 @@ public class AdminMainController {
 		return mv;
 	}
 	
+	// AS페이지 - 환불처리 
+	@RequestMapping(value="/cashback_ok.do")
+	public ModelAndView cashback_ok(CommandMap commandMap,HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("admin/asChangeForm");
+
+		String as_no = request.getParameter("as_no");
+		System.out.println("as_no"+as_no);
+		//상품회수후 AS_list에서 정보 가져옴  member_no,order_detail_no
+		//order_detail에서 detail_state 20(반품)
+		//order_detail정보 가져옴 상품속성번호, 할인적용가, 적립포인트, 수량
+		//order_list에서 총결제금액차감 , 총적립포인트차감
+		//point에서 적립포인트 차감
+		//goods_attribute에서 상품속성번호 만큼 수량 증가
+		//order_detail에서 state로 카운터 해서 10짜리가 없으면(마지막에 state 돌릴때)
+		//환불 그대로,  10짜리가 있으면 state=거래완료
+		//AS_LIST에서 state = 3, edate=update
+		commandMap.put("as_no", as_no);
+		List<Map<String,Object>> as_change_form_a = adminMainService.change_form_a(commandMap);
+		System.out.println("as_change_form_a :"+as_change_form_a);
+		
+		String order_detail_no = as_change_form_a.get(0).get("ORDER_DETAIL_NO").toString();
+		commandMap.put("order_detail_no", order_detail_no);
+		adminMainService.change_detail_state(commandMap);//order_detail에서 detail_state 20(반품)
+		
+		String member_no = as_change_form_a.get(0).get("MEMBER_NO").toString();
+		String order_no = as_change_form_a.get(0).get("ORDER_NO").toString();
+		String order_state = as_change_form_a.get(0).get("ORDER_STATE").toString();
+		String goods_att_no = as_change_form_a.get(0).get("GOODS_ATT_NO").toString();
+		String order_discount_apply = as_change_form_a.get(0).get("ORDER_DISCOUNT_APPLY").toString();
+		int order_detail_save_point = Integer.parseInt(as_change_form_a.get(0).get("ORDER_DETAIL_SAVE_POINT").toString());
+		String order_detail_amount = as_change_form_a.get(0).get("ORDER_DETAIL_AMOUNT").toString();
+		
+		commandMap.put("member_no", member_no);
+		commandMap.put("order_no", order_no);
+		commandMap.put("old_goods_att_no", goods_att_no);
+		commandMap.put("order_discount_apply", order_discount_apply);
+		commandMap.put("order_detail_save_point", order_detail_save_point);
+		commandMap.put("order_detail_amount", order_detail_amount);
+		
+		adminMainService.order_list_chagam(commandMap); //order_list에서 총결제금액차감 , 총적립포인트차감
+		// member에 총결제금액도 차감해야함
+		
+		List<Map<String,Object>> point_total = adminMainService.point_total(commandMap); // order_no로 사용자의 최근 point_total을 가져옴
+		int total = Integer.parseInt(point_total.get(0).get("POINT_TOTAL").toString());
+		total = total - order_detail_save_point;
+		commandMap.put("total", total);
+		adminMainService.point_chagam(commandMap); //point에서 적립포인트 차감
+		
+		adminMainService.change_goods_att_plus(commandMap);//goods_attribute에서 상품속성번호 만큼 수량 증가
+		commandMap.put("order_state", order_state);
+		adminMainService.as_ok_c(commandMap);
+		//mv.addObject("as_change_form_a", as_change_form_a);
+		
 	
+		return mv;
+	}
 	
 	  
 	  

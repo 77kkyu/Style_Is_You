@@ -145,7 +145,7 @@
 	<select id="change_form_a" parameterType="hashmap" resultType="hashmap"> <!-- AS_list에서 정보 가져옴 -->
 		<![CDATA[
 			select l.as_no, l.as_gubun, l.member_no, l.as_title, l.as_content, l.order_no, l.order_detail_no,
-	        TO_CHAR(l.as_sdate, 'YYYY-MM-DD HH24:MI:SS') as_sdate, d.order_detail_price,
+	        TO_CHAR(l.as_sdate, 'YYYY-MM-DD HH24:MI:SS') as_sdate, d.order_detail_price, l.order_state,
 	        d.order_discount_apply, d.order_detail_save_point, d.goods_att_no,
 	        d.goods_no, d.order_detail_amount, d.order_detail_color, d.order_detail_size, g.goods_name
 				
@@ -212,8 +212,41 @@
 			WHERE order_no = ${order_no}
 		]]>
 	</update>
-	
-	
+	<update id="order_list_chagam" parameterType="hashmap" > <!--   -->
+		<![CDATA[
+			UPDATE order_list
+			SET
+			order_total_pay_price = order_total_pay_price - ${order_discount_apply}, 
+			order_save_point = order_save_point - ${order_detail_save_point}
+			WHERE order_no = ${order_no}
+		]]>
+	</update>
+	<insert id="point_chagam" parameterType="hashmap"> <!--  -->
+		<![CDATA[
+			INSERT INTO POINT (POINT_NO, MEMBER_NO, POINT_VAL, POINT_USE_DATE, POINT_TOTAL)
+			VALUES 
+			( POINT_NO_SEQ.NEXTVAL, ${member_no}, ${order_detail_save_point},
+			 TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), ${total})
+		]]>
+	</insert>
+	<select id="point_total" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			select * from (
+			select p.point_total
+		    from order_list l, point p
+		    where l.member_no = p.member_no
+		    and l.order_no = ${order_no}
+		    order by p.point_no desc )
+		    where rownum = 1
+		]]>
+	</select>
+	<update id="cashback_final_orderState" parameterType="hashmap" > <!--   -->
+		<![CDATA[
+			UPDATE order_list
+			SET order_state = ${order_state}
+			WHERE order_no = ${order_no}
+		]]>
+	</update>
 
 
 </mapper>

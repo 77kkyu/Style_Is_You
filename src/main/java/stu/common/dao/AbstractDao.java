@@ -179,6 +179,22 @@ public class AbstractDao {
 	         printQueryId(queryId);
 	         sqlSession.update(queryId,params);
 	      }
+	      public void order_list_chagam(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void point_chagam(String queryId, Object params) { // 
+	         printQueryId(queryId);
+	         sqlSession.insert(queryId,params);
+	      }
+	      public List<Map<String,Object>> point_total(String queryId, Object params) { // AS_list에서 정보 가져옴  전부다 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params); // 한줄데이터는 object로 가져올것
+	      }
+	      public void cashback_final_orderState(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
 	      
 	      
 	      

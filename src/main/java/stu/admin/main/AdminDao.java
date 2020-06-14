@@ -111,7 +111,27 @@ public class AdminDao extends AbstractDao{
 
 	public void change_final_orderState(CommandMap commandMap) throws Exception {
 		// TODO Auto-generated method stub
-		change_final_orderState("admin.change_final_orderState",commandMap.getMap());
+		change_final_orderState("admin.as_final_state",commandMap.getMap());
+	}
+
+	public void order_list_chagam(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		order_list_chagam("admin.order_list_chagam",commandMap.getMap());
+	}
+
+	public void point_chagam(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		point_chagam("admin.point_chagam",commandMap.getMap());
+	}
+
+	public List<Map<String, Object>> point_total(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) point_total("admin.point_total", commandMap.getMap());
+	}
+
+	public void cashback_final_orderState(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		cashback_final_orderState("admin.cashback_final_orderState",commandMap.getMap());
 	}
 
 	

@@ -41,4 +41,12 @@ public interface AdminMainService {
 
 	void as_ok_b(CommandMap commandMap) throws Exception; // AS_LIST에서 state = 3, edate=update
 
+	void order_list_chagam(CommandMap commandMap) throws Exception; ////order_list에서 총결제금액차감 , 총적립포인트차감
+
+	void point_chagam(CommandMap commandMap) throws Exception; //point에서 적립포인트 차감
+
+	List<Map<String, Object>> point_total(CommandMap commandMap) throws Exception ; // order_no로 사용자의 최근 point_total을 가져옴
+
+	void as_ok_c(CommandMap commandMap) throws Exception;
+
 }
