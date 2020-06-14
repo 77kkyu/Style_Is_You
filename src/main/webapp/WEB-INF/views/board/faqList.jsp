@@ -38,29 +38,25 @@ li {
   background-color: #DCDCDC;
 }
 
-.flex-menu {
-  display: flex;
-  
-}
-
 .flex-menu li {
+  text-align:center;
   width: 100%;
 }
 </style>
 <body>
-<br>
-<div class="boardli">
+
+<br/>
+<div class="pagemid">
   <div class="wrapper3">
-    <ul class="board-menu">
-      <li><a href="http://localhost:8080/stu/faq/openFaqList.do">FAQ</a></li>
-      <li><a href="http://localhost:8080/stu/notice/openNoticeList.do">공지사항</a></li>
-      <li><a href="http://localhost:8080/stu/qna/openQnaList.do">QNA</a></li>
+    <ul class="flex-menu">
+        <li><a href="http://localhost:8090/stu/faq/openFaqList.do">FAQ</a></li>
+    	<li><a href="http://localhost:8090/stu/notice/openNoticeList.do">공지사항</a></li>
+    	<li><a href="http://localhost:8090/stu/qna/openQnaList.do">QNA</a></li>
     </ul>
     <br>
     <div class="bar">
     </div>
   </div>
-
 </div>
 <br/><br/><br/>
 	<h2>FAQ 자주묻는질문</h2>
