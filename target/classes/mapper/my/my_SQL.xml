@@ -189,8 +189,8 @@
 	<select id="myPointList" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT 
-				POINT_NO,POINT_VAL,to_date(POINT_SAVE_DATE,'yyyy-mm-dd')POINT_SAVE_DATE, 
-				to_date(POINT_USE_DATE,'yyyy-mm-dd')POINT_USE_DATE,POINT_TOTAL
+				POINT_NO,POINT_VAL,to_char(POINT_SAVE_DATE,'yyyy/mm/dd')POINT_SAVE_DATE, 
+				to_char(POINT_USE_DATE,'yyyy/mm/dd')POINT_USE_DATE,POINT_TOTAL
 			FROM (
   				SELECT 
   					POINT_NO,POINT_VAL,POINT_SAVE_DATE,POINT_USE_DATE,POINT_TOTAL
@@ -209,13 +209,30 @@
 	<select id="myCouponList" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 				SELECT 
-  					S.COUPON_STATUS_NO,S.COUPON_USE_STATE,S.COUPON_ISSUE_DATE,S.COUPON_USE_DATE,
-  					C.COUPON_NO,C.COUPON_ID,C.COUPON_VALUE,C.COUPON_S_VALIDITY,C.COUPON_E_VALIDITY
+  					S.COUPON_STATUS_NO,S.COUPON_USE_STATE,to_char(S.COUPON_ISSUE_DATE,'yyyy/mm/dd')COUPON_ISSUE_DATE,
+  					to_char(S.COUPON_USE_DATE,'yyyy/mm/dd')COUPON_USE_DATE,
+  					C.COUPON_NO,C.COUPON_ID,C.COUPON_VALUE,to_char(C.COUPON_S_VALIDITY,'yyyy/mm/dd')COUPON_S_VALIDITY,
+  					to_char(C.COUPON_E_VALIDITY,'yyyy/mm/dd')COUPON_E_VALIDITY
   				FROM 
   					COUPON C, COUPON_STATUS S
   				WHERE
 					MEMBER_NO = 1
 				AND C.COUPON_NO = C.COUPON_NO
+					
+		]]>
+	</select>
+	
+	<!-- 좋아요(찜) 목록 -->
+	<select id="myLikeList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				SELECT 
+  					L.LIKE_NO,L.GOODS_NO,
+  					G.GOODS_NAME,G.GOODS_SELL_PRICE,G.GOODS_THUMBNAIL
+  				FROM 
+  					GOODS_LIKE L, GOODS G
+  				WHERE
+					L.MEMBER_NO = 1
+				AND L.GOODS_NO = G.GOODS_NO
 					
 		]]>
 	</select>

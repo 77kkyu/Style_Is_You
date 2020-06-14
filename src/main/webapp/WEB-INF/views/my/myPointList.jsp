@@ -42,8 +42,8 @@
 		<table class="table table-striped">
 			<colgroup>
 			<col width="10%" />
-			<col width="20%" />
 			<col width="30%" />
+			<col width="20%" />
 			<col width="20%" />
 			<col width="20%" />
 			</colgroup>
@@ -62,35 +62,35 @@
 					<c:forEach items="${list }" var="row">					
 						<tr>
 							<td style="text-align:center">
-                  				<input type="text" name="point_no" id="point_no" value="${row.POINT_NO }" style="width:50px; border:none; text-align:center;">
+                  				${row.POINT_NO }
                   			</td>
 								<c:set var="saveDate" value="${row.POINT_SAVE_DATE }" />
 								<c:choose>
     								<c:when test="${saveDate eq null}">
     									<td style="text-align:center">
-                  							- <input type="text" name="point_val" value="${row.POINT_VAL }" style="width:100px; border:none; text-align:center;">
+                  							- ${row.POINT_VAL }
                   						</td>
         								<td style="text-align:center">
-											<input type="text" name="gubun" value="사용" style="width:100px; border:none; text-align:center;">
+											사용
 										</td>
 										<td style="text-align:center">
-        									<input type="text" name="date" value="${row.POINT_USE_DATE }" style="width:200px; border:none; text-align:center;">
+        									${row.POINT_USE_DATE }
         								</td>
    					 				</c:when>
    					 				<c:when test="${saveDate ne null}">
         								<td style="text-align:center">
-                  							+ <input type="text" name="point_val" value="${row.POINT_VAL }" style="width:100px; border:none; text-align:center;">
+                  							+ ${row.POINT_VAL }
                   						</td>
    					 					<td style="text-align:center">
-											<input type="text" name="gubun" value="적립" style="width:100px; border:none; text-align:center;">
+											적립
 										</td>
 										<td style="text-align:center">
-        									<input type="text" name="date" value="${row.POINT_SAVE_DATE }" style="width:200px; border:none; text-align:center;">
+        									${row.POINT_SAVE_DATE }
    					 					</td>
    					 				</c:when>
 								</c:choose>
 							<td style="text-align:center">
-                  			<input type="text" name="point_total" value="${row.POINT_TOTAL }" style="width:100px; border:none; text-align:center;">
+                  				${row.POINT_TOTAL }
                   			</td>
 						</tr>
 					</c:forEach>
