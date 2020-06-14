@@ -94,7 +94,8 @@ Logger log = Logger.getLogger(this.getClass());
 	public ModelAndView order_cancle(CommandMap commandMap,HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("my/myOrderList");
-
+		
+		/* 추가작업 - 주문 취소시 state에 입금전이라면 Order_list에 주문만 취소 시킴 */
 		
 		String member_no = ""; String order_no = "";
   
@@ -168,6 +169,7 @@ Logger log = Logger.getLogger(this.getClass());
 		for(int i=0;i<detail_no.length;i++) {
 			System.out.println("detail_no : "+detail_no[i]);
 			order_detail_no = detail_no[i];
+			commandMap.put("order_state", order_state);
 			commandMap.put("order_detail_no", order_detail_no);
 			myOrderService.order_change(commandMap);
 			
@@ -196,6 +198,7 @@ Logger log = Logger.getLogger(this.getClass());
 		return dbPasswd;
 	}
 	
+	// 마이페이지 - 교환.환불.as 리스트
 	@RequestMapping(value="/myAsList.do")
 	public ModelAndView myAsList(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		

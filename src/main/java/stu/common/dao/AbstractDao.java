@@ -131,6 +131,55 @@ public class AbstractDao {
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params);
 	      }
+	      public void as_cancle_a(String queryId, Object params) { // as요청취소 - as_list state=3 edate갱싱 
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void order_list_cancle(String queryId, Object params) { // as요청취소 - order_list 원상복구 
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void as_ok_state(String queryId, Object params) { // 신규 as요청확인(AS_LIST state 확인중으로 변경) 
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void as_ok_orderState(String queryId, Object params) { // 신규 as요청확인(Order_LIST STATE변경) 
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public List<Map<String,Object>> change_form_a(String queryId, Object params) { // AS_list에서 정보 가져옴  전부다 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params); // 한줄데이터는 object로 가져올것
+	      }
+	      public List<Map<String,Object>> change_form_b(String queryId, Object params) { // AS_list에서 정보 가져옴  전부다 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params); // 한줄데이터는 object로 가져올것
+	      }
+	      public void change_detail_insert(String queryId, Object params) { // 
+	         printQueryId(queryId);
+	         sqlSession.insert(queryId,params);
+	      }
+	      public void change_detail_state(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void change_goods_att_plus(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void change_goods_att_minus(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void as_final_state(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void change_final_orderState(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      
 	      
 	      
 	      
@@ -152,11 +201,11 @@ public class AbstractDao {
 
 	      public void list_cancle(String queryId, Object params) { // 주문취소 -주문상태 변경 
 	         printQueryId(queryId);
-	         sqlSession.selectList(queryId,params);
+	         sqlSession.update(queryId,params);
 	      }
 	      public void detail_cancle(String queryId, Object params) { // 주문취소 -주문디테일 변경 
 	         printQueryId(queryId);
-	         sqlSession.selectList(queryId,params);
+	         sqlSession.update(queryId,params);
 	      }
 	      public List<Map<String,Object>> list_point_search(String queryId, Object params) { // 주문취소 -사용포인트값 가져오기 
 	         printQueryId(queryId);

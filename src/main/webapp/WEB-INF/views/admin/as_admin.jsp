@@ -42,31 +42,49 @@ $(document).ready(function() {
 	})
 });
 
-
-function order_state(state, no){
-	 var state = state;
-	 var no = no;
-	 var exp = $("#express").val();
-
-	if(confirm("확인하시겠습니까?")){
-	 $.ajax({
-        url: "/stu/as_admin.do.do",
-        data : {"order_state": state, "order_no": no, "express":exp},
-        type: "post",
-        async:false,
-        success : function(data){
-       	 alert("주문상태가 변경되었습니다.");
-        	 location.href = "/stu/order_admin_a.do?os="+state;
-/*              window.opener.location.reload(); */
-            /* self.close(); */
-        }
-     })}else{
-        return;
+function as_cancle(as_no, as_state, order_no, order_state){
+	alert("as취소확인");
+	var as_no = as_no;
+	var as_state = as_state;
+	var order_no = order_no;
+	var order_state = order_state;
+	
+	if(as_no == null || as_state == null || order_no == null || order_state == null
+		|| order_state == '' || as_no == '' || as_state == '' || order_no == '') {
+		alert("오류입니다.");
+		return false;
 	}
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/as_cancle.do' />");
+	comSubmit.addParam("as_no", as_no);
+	comSubmit.addParam("as_state", as_state);
+	comSubmit.addParam("order_no", order_no);
+	comSubmit.addParam("order_state", order_state);
+	comSubmit.submit();
 }
 
-
-
+function as_ok(as_no, as_state, order_no, order_state, gubun){
+	alert("as요청확인");
+	var as_no = as_no;
+	var as_state = as_state;
+	var order_no = order_no;
+	var order_state = order_state;
+	var gubun = gubun;
+		
+	if(as_no == null || as_state == null || order_no == null || order_state == null  || gubun == null
+		|| gubun == '' || order_state == '' || as_no == '' || as_state == '' || order_no == '') {
+		alert("오류입니다.");
+		return false;
+	}
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/as_ok.do' />");
+	comSubmit.addParam("as_no", as_no);
+	comSubmit.addParam("as_state", as_state);
+	comSubmit.addParam("order_no", order_no);
+	comSubmit.addParam("order_state", order_state);
+	comSubmit.addParam("gubun", gubun);
+	comSubmit.submit();
+}
 
 </script>
 
@@ -168,7 +186,7 @@ function order_state(state, no){
 			<tbody>
 			<c:choose>
 				<c:when test="${fn:length(as_admin_list) > 0}">
-					<c:forEach items="${as_admin_list }" var="aal">					
+					<c:forEach items="${as_admin_list }" var="aal">
 						<tr class="list_title">
 							<td>${aal.AS_SDATE }<br /> / ${aal.AS_NO }</td>
 							<td>${aal.MEMBER_ID }<br /> / ${aal.MEMBER_GRADE }</td>
@@ -185,10 +203,17 @@ function order_state(state, no){
 								</c:when>
 							</c:choose>
 							<c:choose>
-								<c:when test="${aal.AS_STATE < 3 }">
-									<td><input type="button" onclick="as_ok()" value="확인처리" />
-									<br /><input type="button" onclick="order_cancle()" value="요청취소" /></td>
+								<c:when test="${aal.AS_STATE eq '1' }">
+									<td><input type="button" onclick="as_ok(${aal.AS_NO }, ${aal.AS_STATE }, ${aal.ORDER_NO }, ${aal.ORDER_STATE }, ${aal.AS_GUBUN })" value="요청확인" />
+									<br /><input type="button" onclick="as_cancle(${aal.AS_NO }, ${aal.AS_STATE }, ${aal.ORDER_NO }, ${aal.ORDER_STATE })" value="요청취소" /></td>
 								</c:when>
+								<c:when test="${aal.AS_STATE eq '2' }">
+									<td><input type="button" onclick="as_ok(${aal.AS_NO }, ${aal.AS_STATE }, ${aal.ORDER_NO }, ${aal.ORDER_STATE }, ${aal.AS_GUBUN })" value="요청승인" />
+									<br /><input type="button" onclick="as_cancle(${aal.AS_NO }, ${aal.AS_STATE }, ${aal.ORDER_NO }, ${aal.ORDER_STATE })" value="요청취소" /></td>
+								</c:when>
+								<%-- <c:when test="${aal.AS_STATE eq '3' }">
+									<td>${aal.AS_EDATE }<br /> [처리완료]</td>
+								</c:when> --%>
 								<c:otherwise>
 									<td>${aal.AS_EDATE }<br /> [처리완료]</td>
 								</c:otherwise>
@@ -196,8 +221,14 @@ function order_state(state, no){
 						</tr>
 						
 						<tr class ="message list_hidden">
-					        <th>요청사항 상세</th>
-					        <td colspan="2">${aal.AS_CONTENT }</td>
+							<th>요청사항</th>
+					        <td colspan="4">
+							회원이름 : ${aal.MEMBER_NAME } <br />
+							회원등급 : ${aal.MEMBER_GRADE } <br />
+							회원연락처 : ${aal.MEMBER_PHONE } / 회원이메일 : ${aal.MEMBER_EMAIL }<br />
+							요청사항 : <br />
+					        ${aal.AS_CONTENT } <br />
+					        <p> </p></td>
 					    </tr>
 					    
 					</c:forEach>

@@ -131,10 +131,10 @@
 	<insert id="order_change" parameterType="hashmap"> <!-- 교환/환불/AS 신청insert -->
 		<![CDATA[
 			INSERT INTO AS_LIST (AS_NO, AS_GUBUN, MEMBER_NO, AS_TITLE, AS_CONTENT, ORDER_NO, 
-			ORDER_DETAIL_NO, AS_STATE, AS_SDATE, AS_EDATE)
+			ORDER_DETAIL_NO, AS_STATE, ORDER_STATE, AS_SDATE, AS_EDATE)
 			VALUES 
 			( AS_NO_SEQ.NEXTVAL, #{gubun}, ${chfMember_no}, #{chfSubject}, #{chfContent},
-			 ${chfOrder_no}, ${select_detail_no}, '1', TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS') )
+			 ${chfOrder_no}, ${select_detail_no}, '1', #{order_state}, TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(sysdate, 'YYYY-MM-DD HH24:MI:SS') )
 		]]>
 	</insert>
 	

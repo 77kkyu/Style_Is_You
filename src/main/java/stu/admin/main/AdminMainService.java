@@ -21,6 +21,24 @@ public interface AdminMainService {
 
 	List<Map<String, Object>> as_admin_list(CommandMap commandMap) throws Exception; // 교환.환불.AS 신청목록 
 
-	
+	void as_cancle_a(CommandMap commandMap) throws Exception; // 교환.환불.AS (1)요청확인전에서 취소
+
+	void as_cancle_b(CommandMap commandMap) throws Exception; // 교환.환불.AS (2)요청확인후에서 취소
+
+	void as_ok_a(CommandMap commandMap) throws Exception; // as_list 교환.환불.AS (1)신규요청 처리
+
+	List<Map<String, Object>> change_form_a(CommandMap commandMap) throws Exception; //AS_list에서 정보 가져옴  전부* 
+
+	List<Map<String, Object>> change_form_b(CommandMap commandMap) throws Exception; //교환요청한 상품속성 가져옴
+
+	void change_detail_insert(CommandMap commandMap) throws Exception; // order_detail에 insert 시킴 10(출고)
+
+	void change_detail_state(CommandMap commandMap) throws Exception; //order_detail에서 detail_state 20(반품)
+
+	void change_goods_att_plus(CommandMap commandMap) throws Exception; //goods_attribute에서 (반품)상품속성번호에 수량 증가
+
+	void change_goods_att_minus(CommandMap commandMap) throws Exception; //goods_attribute에서 (출고)상품속성번호에 수량 감소
+
+	void as_ok_b(CommandMap commandMap) throws Exception; // AS_LIST에서 state = 3, edate=update
 
 }
