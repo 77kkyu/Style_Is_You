@@ -24,10 +24,14 @@ String S_id = (String)session.getAttribute("member_id");
 
 <script>
 
+<<<<<<< Updated upstream
 
 
+=======
+/* 
+>>>>>>> Stashed changes
 $(document).ready(function(){
-		/* alert('동작함'); */
+		 alert('동작함'); 
 	var mem_no = "2";
 		
 	$.ajax({
@@ -36,13 +40,16 @@ $(document).ready(function(){
 		type: "GET",
 		async:false,
 		success : function(data){
-		alert("접속?");
+			var aaa = data.member_no;
+
+
+			alert("접속?");
 		
 		}
 	})
 
 });
-
+  */
 
 
 function logout(){
