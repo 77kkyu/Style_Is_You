@@ -53,9 +53,9 @@ public class LoginController {
 				//System.out.println("사용자가 입력한 비밀번호 : " + chk.get("MEMBER_PASSWD") + "\nDB에 저장된 비밀번호 : " + commandMap.get("MEMBER_PASSWD"));
 				
 				 if (chk.get("MEMBER_PASSWD").equals(commandMap.get("MEMBER_PASSWD"))) { // 비밀번호가 일치 했을때 -> DB 비밀번호랑, 적은 비밀번호랑 비교
-					 	session.setAttribute("MEMBER_ID", chk.get("MEMBER_ID"));
-			            session.setAttribute("MEMBER_NO", chk.get("MEMBER_NO"));   //세션에 회원번호 값 저장	
-			            session.setAttribute("MEMBER_NAME", chk.get("MEMBER_NAME"));
+					 	session.setAttribute("SESSION_ID", chk.get("MEMBER_ID"));
+			            session.setAttribute("SESSION_NO", chk.get("MEMBER_NO"));   //세션에 회원번호 값 저장	
+			            session.setAttribute("SESSION_NAME", chk.get("MEMBER_NAME"));
 			            // 세션 값이 잘 입력되었는지 확인
 			           // System.out.println("세션 값 : " + session.getAttribute("MEMBER_NO") + " + " + session.getAttribute("MEMBER_NAME"));			            
 			            mv = new ModelAndView("redirect:/main.do");

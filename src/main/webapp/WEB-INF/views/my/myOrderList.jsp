@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-<title>my주문메인</title>
+<title>my주문상태</title>
 
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,8 @@
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
-<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
+
+<script src="<c:url value='/js/common_s.js'/>" charset="utf-8"></script>
 
  <script>
  $(document).ready(function(){
@@ -32,20 +33,21 @@
 function order_change(mem_no, order_no){
 	var mem_no = mem_no;
 	var order_no = order_no;
-	
+	alert(mem_no+"/"+order_no);
 	if(mem_no == null || order_no == null || mem_no == '' || order_no == '') {
 		alert("오류입니다.");
 		return;
 	}
 	var comSubmit = new ComSubmit();
-	comSubmit.setUrl("<c:url value='/order_change.do' />");
-	comSubmit.addParam("member_no", mem_no);
+	comSubmit.setUrl("<c:url value='/order_as_form.do' />");
+	comSubmit.addParam("mem_no", mem_no);
 	comSubmit.addParam("order_no", order_no);
 	comSubmit.submit();
 }
  
 	
 function order_cancle(mem_no, order_no){
+	alert("취소확인동작");
 	var mem_no = mem_no;
 	var order_no = order_no;
 	
@@ -61,7 +63,7 @@ function order_cancle(mem_no, order_no){
 }
  
 function order_ok(mem_no, order_no){
-	alert("동작1");
+	alert("수취확인동작");
 	var mem_no = mem_no;
 	var order_no = order_no;
 	
@@ -215,14 +217,14 @@ function order_qna(mem_no, order_no){
 								<td><input type="button" onclick="order_cancle(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="주문취소"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '2' }">
-								<td><input type="button" onclick="order_change(${my_order.ORDER_NO })" value="교환/환불"></td>
+								<td><input type="button" onclick="order_change(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="교환/환불"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '3' }">
 								<td><input type="button" onclick="order_exp_num(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="송장확인"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '4' }">
 								<td><input type="button" onclick="order_exp_num(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="송장확인">
-								<br /><input type="button" onclick="order_change(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="교환/환불/AS요청"></td>
+								<br /><input type="button" onclick="order_change(${my_order.MEMBER_NO }, ${my_order.ORDER_NO })" value="교환/환불/AS요청"></td>
 								</c:when>
 								<c:when test="${my_order.ORDER_STATE eq '5' }"> <!-- 수취확인 후 교환-환불-AS는 상품문의 게시판으로 -->
 								<td><input type="button" onclick="order_review(${my_order.ORDER_STATE }, ${my_order.ORDER_NO })" value="리뷰쓰기">

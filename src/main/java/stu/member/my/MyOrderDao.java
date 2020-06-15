@@ -56,5 +56,25 @@ public class MyOrderDao extends AbstractDao {
 		// TODO Auto-generated method stub
 		list_stock_reset("my.list_stock_reset", map.getMap());
 	}
+	public List<Map<String, Object>> changeForm_a(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) changeForm_a("my.changeForm_a", map.getMap());
+	}
+	public List<Map<String, Object>> changeForm_b(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) changeForm_b("my.changeForm_b", map.getMap());
+	}
+	public String pwd_chk(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		return (String) pwd_chk("my.pwd_chk",  map.getMap());
+	}
+	public void order_change(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		order_change("my.order_change",  map.getMap());
+	}
+	public List<Map<String, Object>> myAsList(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) myAsList("my.myAsList", map.getMap());
+	}
 
 }

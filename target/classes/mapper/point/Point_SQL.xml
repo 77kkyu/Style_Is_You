@@ -10,7 +10,7 @@
 			FROM 
 				POINT
 			WHERE 
-				MEMBER_NO = 1
+				MEMBER_NO = #{MEMBER_NO}
             AND POINT_NO = (SELECT MAX(POINT_NO) FROM POINT)
 		</selectKey>
 		<![CDATA[
@@ -25,7 +25,7 @@
 			VALUES
 			(
 				POINT_NO_SEQ.NEXTVAL,
-				1,
+				#{MEMBER_NO},
 				${ORDER_USE_POINT},
 				SYSDATE,
 				${TOTAL}
@@ -40,7 +40,7 @@
 			FROM 
 				POINT
 			WHERE 
-				MEMBER_NO = 1
+				MEMBER_NO = #{MEMBER_NO}
             AND POINT_NO = (SELECT MAX(POINT_NO) FROM POINT)
 		</selectKey>
 		<![CDATA[
@@ -55,7 +55,7 @@
 			VALUES
 			(
 				POINT_NO_SEQ.NEXTVAL,
-				1,
+				#{MEMBER_NO},
 				${ORDER_SAVE_POINT},
 				SYSDATE,
 				${TOTAL}

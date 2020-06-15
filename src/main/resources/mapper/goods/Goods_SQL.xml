@@ -298,16 +298,14 @@ SELECT
 						LIKE_NO,
 						GOODS_NO,
 						MEMBER_NO,
-						LIKE_DATE,
-						LIKE_DELETE
+						LIKE_DATE
 					)
 			VALUES
 					(
 						LIKE_NO_SEQ.NEXTVAL,
 						#{IDX},
 						2,
-						sysdate,
-						'0'
+						sysdate
 					)
 		]]>
 	</insert>
