@@ -128,7 +128,7 @@ public class AbstractDao {
 	         return sqlSession.selectList(queryId,params);
 	      }
 	      
-	      //myDao
+	    //myDao
 	      public List<Map<String,Object>> myDash(String queryId, Object params) { // mypage대쉬보드 
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params);
@@ -146,11 +146,11 @@ public class AbstractDao {
 
 	      public void list_cancle(String queryId, Object params) { // 주문취소 -주문상태 변경 
 	         printQueryId(queryId);
-	         sqlSession.selectList(queryId,params);
+	         sqlSession.update(queryId,params);
 	      }
 	      public void detail_cancle(String queryId, Object params) { // 주문취소 -주문디테일 변경 
 	         printQueryId(queryId);
-	         sqlSession.selectList(queryId,params);
+	         sqlSession.update(queryId,params);
 	      }
 	      public List<Map<String,Object>> list_point_search(String queryId, Object params) { // 주문취소 -사용포인트값 가져오기 
 	         printQueryId(queryId);
@@ -171,6 +171,26 @@ public class AbstractDao {
 	      public void list_stock_reset(String queryId, Object params) { // 주문취소 - 상품속성에서 재고 수정 
 	         printQueryId(queryId);
 	         sqlSession.update(queryId,params);
+	      }
+	      public List<Map<String,Object>> changeForm_a(String queryId, Object params) { // 교환.환불.AS - 정보가져옴 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      public List<Map<String,Object>> changeForm_b(String queryId, Object params) { // 교환.환불.AS - 디테일정보가져옴 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      public String pwd_chk(String queryId, Object params) { // 패스워드 꺼내옴
+	         printQueryId(queryId);
+	         return sqlSession.selectOne(queryId,params);
+	      }
+	      public void order_change(String queryId, Object params) { // 패스워드 꺼내옴
+	         printQueryId(queryId);
+	        sqlSession.insert(queryId,params);
+	      }
+	      public List<Map<String,Object>> myAsList(String queryId, Object params) { // 마이페이지 - AS요청 리스트 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
 	      }
 
 	      

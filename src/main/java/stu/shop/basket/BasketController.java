@@ -32,7 +32,7 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		Object MEMBER_NO = ""; 
 		//세션값 가져오기 
 		HttpSession session = request.getSession(); 
-		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
 		commandMap.remove("MEMBER_NO"); 
 		// 기존 회원번호 데이터 삭제 
 		commandMap.put("MEMBER_NO", MEMBER_NO); 
@@ -75,7 +75,7 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		Object MEMBER_NO = ""; 
 		//세션값 가져오기 
 		HttpSession session = request.getSession(); 
-		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO");
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO");
 		// 기존 회원번호 데이터 삭제 
 		commandMap.remove("MEMBER_NO"); 
 		// 세션 값으로 적용
@@ -94,7 +94,7 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		Object MEMBER_NO = ""; 
 		//세션값 가져오기 
 		HttpSession session = request.getSession(); 
-		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO");
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO");
 		// 기존 회원번호 데이터 삭제 
 		commandMap.remove("MEMBER_NO"); 
 		// 세션 값으로 적용

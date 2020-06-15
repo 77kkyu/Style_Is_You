@@ -13,6 +13,7 @@ public class JoinDAO extends AbstractDao {
 	//
 	public void insertMember(Map<String, Object> map) throws Exception {
 		insert("join.insertMember", map);
+		insert("join.insertDefaultPoint", map);
 	}
 	
 	public int selectIdCheck(String MEMBER_ID) throws Exception{
