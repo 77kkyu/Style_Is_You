@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri="http://tiles.apache.org/tags-tiles" %>
-<% String sessionId = (String)session.getAttribute("MEMBER_NAME"); %>
+<% String sessionId = (String)session.getAttribute("SESSION_NAME"); %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
 <!-- jQuery -->

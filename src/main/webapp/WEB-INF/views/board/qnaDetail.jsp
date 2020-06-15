@@ -19,6 +19,8 @@
 <br/><br/><br/>
 	<h2>QNA상세</h2>
 	<br/><br/>
+
+
 	<table class="board_view">
 		<colgroup>
 			<col width="15%"/>
