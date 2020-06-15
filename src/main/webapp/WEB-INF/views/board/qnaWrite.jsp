@@ -3,8 +3,8 @@
 <html lang="ko">
 <head>
 <%
-	String sessionName = (String)session.getAttribute("MEMBER_NAME");
-	String sessionId = (String)session.getAttribute("MEMBER_ID");
+	String sessionName = (String)session.getAttribute("SESSION_NAME");
+	String sessionId = (String)session.getAttribute("SESSION_ID");
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  

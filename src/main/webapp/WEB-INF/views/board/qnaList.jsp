@@ -48,9 +48,9 @@ li {
 <div class="pagemid">
   <div class="wrapper3">
     <ul class="flex-menu">
-        <li><a href="http://localhost:8080/stu/faq/openFaqList.do">FAQ</a></li>
-    	<li><a href="http://localhost:8080/stu/notice/openNoticeList.do">공지사항</a></li>
-    	<li><a href="http://localhost:8080/stu/qna/openQnaList.do">QNA</a></li>
+        <li><a href="http://localhost:8090/stu/faq/openFaqList.do">FAQ</a></li>
+    	<li><a href="http://localhost:8090/stu/notice/openNoticeList.do">공지사항</a></li>
+    	<li><a href="http://localhost:8090/stu/qna/openQnaList.do">QNA</a></li>
     </ul>
     <br>
     <div class="bar">
@@ -101,6 +101,11 @@ li {
 			});	
 			
 			$("a[name='title']").on("click", function(e){ //제목 
+				console.log("asdasd", $(this).parent().parent());
+				$(this).parent().parent().find('#pwdChk').show();
+			});
+
+			$(".myButton").on("click", function(e){ //제목 
 				e.preventDefault();
 				fn_openQnaDetail($(this));
 			});
@@ -114,29 +119,16 @@ li {
 		}
 		
 		function fn_openQnaDetail(obj){
-
-// 		// [페이지1]  여기서 팝업 비밀번호 확인
-// 		var url = "popup.html";
-//         var name = "popup test";
-//         var option = "width = 500, height = 500, top = 100, left = 200, location = no"
-//         window.open(url, name, option);
-// 		}
-		
-// 		if(true){
 			
-// 			var comSubmit = new ComSubmit();
-// 			comSubmit.setUrl("<c:url value='/qna/openQnaDetail.do' />");
-// 			comSubmit.addParam("QNA_NO", obj.parent().find("input[name='title']").val());
-// 			comSubmit.submit();
-// 		}else{
-// 			return false;
-// 			}
-
-		var comSubmit = new ComSubmit();
-		comSubmit.setUrl("<c:url value='/qna/openQnaDetail.do' />"); /* 비밀번호 확인 페이지로 이동 */
-		comSubmit.addParam("QNA_NO", obj.parent().find("input[name='title']").val());
-		comSubmit.submit();
-	
+			//$('#pwdChk').show();
+			console.log("asdq",obj);
+			//if($('#qnaPasswd').val())
+			
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/qna/openQnaDetail.do' />"); 
+			comSubmit.addParam("QNA_NO", obj.parent().parent().find("input[name='title']").val());
+			comSubmit.submit();
+		
 		}
 		
 		function fn_selectQnaList(pageNo){
@@ -178,15 +170,14 @@ li {
 									"<input type='hidden' name='title' value=" + value.QNA_NO + ">" + 
 								"</td>" +
 								"<td>" + value.QNA_NAME + "</td>" + 
-								"<td>" + value.QNA_DATE + "</td>" + 
-							"</tr>";
+								"<td>" + value.QNA_DATE + "</td>";
+					str += '<td id="pwdChk" style="display:none;" colspan="4">Password : ';
+					str += '<input type="password" id="qnaPasswd" value="qna_passwd">';
+					str += '<a href="#" class="myButton">확인</a>'
+					str += '</td></tr>';
 				});
 				body.append(str);
 				
-				$("a[name='title']").on("click", function(e){ //제목 
-					e.preventDefault();
-					fn_openQnaDetail($(this));
-				});
 			}
 		}
 	</script>	

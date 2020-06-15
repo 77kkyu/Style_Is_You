@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
-<% String sessionId = (String)session.getAttribute("MEMBER_NAME"); %>
+<% String sessionId = (String)session.getAttribute("SESSION_NAME"); %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
 <!-- jQuery -->
@@ -49,9 +49,9 @@ li {
 <div class="pagemid">
   <div class="wrapper3">
     <ul class="flex-menu">
-        <li><a href="http://localhost:8080/stu/faq/openFaqList.do">FAQ</a></li>
-    	<li><a href="http://localhost:8080/stu/notice/openNoticeList.do">공지사항</a></li>
-    	<li><a href="http://localhost:8080/stu/qna/openQnaList.do">QNA</a></li>
+        <li><a href="http://localhost:8090/stu/faq/openFaqList.do">FAQ</a></li>
+    	<li><a href="http://localhost:8090/stu/notice/openNoticeList.do">공지사항</a></li>
+    	<li><a href="http://localhost:8090/stu/qna/openQnaList.do">QNA</a></li>
     </ul>
     <br>
     <div class="bar">
@@ -74,7 +74,6 @@ li {
 				<th scope="col">글번호</th>
 				<th scope="col">제목</th>
 				<th scope="col">작성일</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -99,7 +98,11 @@ li {
 				e.preventDefault();
 				fn_openFaqWrite();
 			});
-			
+
+			$("a[name='delete']").on("click", function(e){ //삭제
+				e.preventDefault();
+				fn_deleteFaq($(this));
+				
 			$("a[name='title']").on("click", function(e){ //제목 
 				e.preventDefault();
 				//fn_openFaqDetail($(this));
@@ -111,29 +114,24 @@ li {
 					$("#"+chkShow).show();
 					$("."+chkShow).parent().parent().attr('id', 'on');
 				}
-				
+			});
 		});
-			
-			$("a[name='delete']").on("click", function(e){ //제목 
-				e.preventDefault();
-				fn_deleteFaq($(this));
-			
 			<%
 			if(sessionId.trim().equals("admin")) { 
-			%>
-			
-				$("#wrapBtn").show()
+ 			%> 
+				$("#wrapBtn").show();
+				$(".deleteBtn").show();
 			<%
 			}
 			else{
 			}
-			%>
+ 			%>
 		});
 		
-		function fn_deleteFaq(){
+		function fn_deleteFaq(obj){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/faq/deleteFaq.do' />");
-			comSubmit.addParam("NOTICE_NO", $("#NOTICE_NO").val());
+			comSubmit.addParam("NOTICE_NO", obj.parent().find("input[name='delete']").val());
 			comSubmit.submit();			
 		}
 		
@@ -159,7 +157,7 @@ li {
 			body.empty();
 			if(total == 0){
 				var str = "<tr>" + 
-								"<td colspan='3'>조회된 결과가 없습니다.</td>" + 
+								"<td colspan='4'>조회된 결과가 없습니다.</td>" + 
 							"</tr>";
 				body.append(str);
 			}
@@ -175,17 +173,19 @@ li {
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr id='off'>" + 
-								"<td>" + value.NOTICE_NO + "</td>" + 
+								"<td>" + value.RNUM + "</td>" + 
 								"<td class='title'>" +
 									"<a href='#this' name='title' class='chk"+ value.RNUM +"'>" + value.NOTICE_TITLE + "</a>" +
-									"<input type='hidden' name='title' value=" + value.NOTICE_NO + ">" + 
+									"<input type='hidden' name='title' value='" + value.NOTICE_NO + "'>" + 
 								"</td>" +
 								"<td>" + value.NOTICE_DATE + "</td>" + 
+								"<td style='display:none;' class='deleteBtn'>" +
+								"<a href='#this' name='delete' class='chk"+ value.NOTICE_NO +"'>삭제</a>" +
+								"<input type='hidden' name='delete' value='" + value.NOTICE_NO + "'>" + 
+							"</td>" +
 							"</tr>" +
 							"<tr>" + 							
 							'<td colspan="3" style="display:none;" id="chk'+ value.RNUM + '">' + value.NOTICE_CONTENT + "</td>" + 
-							"<td class='delete'>" +
-								"<a href='#this' name='delete' class='chk"+  +"'>" + value.NOTICE_TITLE + "</a>" +
 							"</tr>" ;
 				});
 				body.append(str);

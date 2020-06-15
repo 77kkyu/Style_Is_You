@@ -12,7 +12,8 @@
 			    QNA_TITLE,
 			    QNA_NAME,
 			    TO_CHAR(QNA_DATE, 'YYYY.MM.DD') AS QNA_DATE,
-			    QNA_LEVEL
+			    QNA_LEVEL,
+			    QNA_PASSWD
 			FROM
 			    QNA
 		<include refid="common1.pagingPost1"/> 
