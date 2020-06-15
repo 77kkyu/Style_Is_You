@@ -46,7 +46,7 @@ Logger log = Logger.getLogger(this.getClass());
 		*/
 		
 		//테스트용 세션값
-		String member_no = "2";
+		String member_no = "1";
 		
 		// 세션이 존재할 때만
 		/*
