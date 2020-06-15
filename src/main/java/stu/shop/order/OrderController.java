@@ -79,7 +79,7 @@ public class OrderController {
 		
 		List<Map<String,Object>> list = basketService.basketSelectList(commandMap, request);
 		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
-		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
+		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, GOODS_THUMBNAIL, MEMBER_GRADE
 		Map<String,Object> map = orderService.orderMemberInfo(commandMap, request);
 		//MEMBER_NAME, MEMBER_PHONE, MEMBER_ZIPCODE,
 		//MEMBER_ADDR1, MEMBER_ADDR2, POINT_TOTAL
@@ -94,7 +94,7 @@ public class OrderController {
 		return mv;
 	}
 	
-	//상품결제
+	//상품 주문완료(결제)
 	@RequestMapping(value="/order/orderPay.do")
 	public ModelAndView orderPay(CommandMap commandMap, HttpServletRequest request) throws Exception {
 			

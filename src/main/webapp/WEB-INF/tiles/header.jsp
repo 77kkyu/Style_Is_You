@@ -130,13 +130,15 @@ li {
 					<td>Hi, ${SESSION_NAME }님!</td> <td> | </td>
 					<td><a href="/stu/logout.do">로그아웃</a></td> <td> | </td>
 					<td><a href="/stu/myOrderList.do">마이페이지</a></td> <td> | </td>
+					<td><a href="/stu/my/myPointList.do">포인트</a></td> <td> | </td>
+					<td><a href="/stu/my/myCouponList.do">쿠폰</a></td> <td> | </td>
+					<td><a href="/stu/my/myLikeList.do">좋아요</a></td> <td> | </td>
 					<c:set var="url2" value="/stu/basket/basketList.do" />
 				</c:otherwise>
 			</c:choose>
 			
 			<td><a href="${url2}">장바구니</a></td> <td> | </td>
 			<td><a href="/stu/faq/openFaqList.do">고객센터</a></td> <td> | </td>
-			<td><a href="">쿠폰</a></td>
 		</tr>
 	
 </form>

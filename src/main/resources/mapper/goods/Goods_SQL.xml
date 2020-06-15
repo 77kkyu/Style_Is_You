@@ -268,7 +268,7 @@ SELECT
 		<![CDATA[
 			DELETE 
 			FROM    GOODS_LIKE 
-			WHERE   MEMBER_NO = 1
+			WHERE   MEMBER_NO = #{MEMBER_NO}
 			AND     GOODS_NO = #{GOODS_NO}
 		]]>
 	</delete>

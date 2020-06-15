@@ -40,6 +40,25 @@
 		]]>
 	</insert>
 	
+	<insert id="insertDefaultPoint" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO POINT
+			(
+				POINT_NO,
+			    MEMBER_NO, 
+			    POINT_VAL,
+			    POINT_TOTAL
+			)
+			VALUES
+			(
+				POINT_NO_SEQ.NEXTVAL,
+				#{MEMBER_NO},
+				0,
+				0
+			)
+		]]>
+	</insert>
+	
 	<!-- 아이디 중복확인-->
 	<select id="selectIdCheck" parameterType="String" resultType="int">
 	<![CDATA[

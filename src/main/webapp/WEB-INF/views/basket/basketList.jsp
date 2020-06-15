@@ -253,7 +253,7 @@ function fn_select_order(){
                   				<input type="checkbox" name="chk" id="chk" value="${row.BASKET_NO }">
                   			</td>
                   			<td>
-                  				<img src="${row.GOODS_THUMBNAIL }" width="50" height="50">
+                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }'>
                   			</td>
 							<td>
 				  				<a href="#">${row.GOODS_NAME }</a> <br>
@@ -264,7 +264,7 @@ function fn_select_order(){
                   				<input type="number" name="basket_goods_amount" value="${row.BASKET_GOODS_AMOUNT }" min="1" max="${row.GOODS_ATT_AMOUNT }" style="width:50px; text-align:right" >
                   			</td>
 							<td style="text-align:center">
-								<c:set var="price" value="${row.GOODS_SALE_PRICE }" />
+								<%-- <c:set var="price" value="${row.GOODS_SALE_PRICE }" />
 								<c:choose>
     								<c:when test="${price eq null}">
         								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }"style="width:60px; text-align:right; border:none;">원
@@ -272,7 +272,8 @@ function fn_select_order(){
    					 				<c:when test="${price ne null}">
         								<input type="text" name="goods_sell_price" value="${row.GOODS_SALE_PRICE }"style="width:60px; text-align:right; border:none;">원
    					 				</c:when>
-								</c:choose>
+								</c:choose> --%>
+								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }"style="width:60px; text-align:right; border:none;">원
 							</td>
 							<td style="text-align:center">
 								<input type="text" name="order_price" value="" style="width:60px; text-align:right; border:none;">원

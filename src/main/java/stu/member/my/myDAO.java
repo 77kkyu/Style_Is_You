@@ -5,10 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-<<<<<<< HEAD
-=======
 import stu.common.common.CommandMap;
->>>>>>> origin/다정다정다정613
 import stu.common.dao.AbstractDao;
 
 @Repository("myDAO")
@@ -37,8 +34,7 @@ public class myDAO extends AbstractDao {
 	public void memberDelete(Map<String, Object> map) throws Exception {
 		update("my.memberDelete", map);
 	}
-<<<<<<< HEAD
-=======
+	
 	public List<Map<String, Object>> myPointList(CommandMap commandMap) {
 		return (List<Map<String,Object>>) selectList("my.myPointList",commandMap.getMap());
 	}
@@ -50,8 +46,7 @@ public class myDAO extends AbstractDao {
 	}
 	public void goodsLikeDelete(CommandMap commandMap) {
 		delete("goods.deleteGoodsLike", commandMap.getMap());
-		
 	}
->>>>>>> origin/다정다정다정613
+	
 
 }

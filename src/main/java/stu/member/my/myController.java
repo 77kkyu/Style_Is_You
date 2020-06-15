@@ -148,31 +148,20 @@ public class myController {
 		Object MEMBER_NO = ""; 
 		//세션값 가져오기 
 		HttpSession session = request.getSession(); 
-		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
 		commandMap.remove("MEMBER_NO"); 
 		// 기존 회원번호 데이터 삭제 
 		commandMap.put("MEMBER_NO", MEMBER_NO); 
 		// 세션 값으로 적용
-		 
-<<<<<<< HEAD
-		List<Map<String,Object>> list = basketService.basketList(commandMap);
-		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
-		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
-=======
+		
 		List<Map<String,Object>> list = myService.myPointList(commandMap);
 		//POINT_NO, POINT_VAL, POINT_SAVE_DATE, POINT_USE_DATE, POINT_TOTAL
->>>>>>> origin/다정다정다정613
 		
 		mv.addObject("list", list);
 		System.out.println(list);
 		return mv;
-<<<<<<< HEAD
-		
 	}
 	
-	
-=======
-	}
 	
 	//쿠폰 리스트 출력
 		@RequestMapping(value="/my/myCouponList.do")
@@ -183,7 +172,7 @@ public class myController {
 			Object MEMBER_NO = ""; 
 			//세션값 가져오기 
 			HttpSession session = request.getSession(); 
-			MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
+			MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
 			commandMap.remove("MEMBER_NO"); 
 			// 기존 회원번호 데이터 삭제 
 			commandMap.put("MEMBER_NO", MEMBER_NO); 
@@ -207,7 +196,7 @@ public class myController {
 			Object MEMBER_NO = ""; 
 			//세션값 가져오기 
 			HttpSession session = request.getSession(); 
-			MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
+			MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
 			commandMap.remove("MEMBER_NO"); 
 			// 기존 회원번호 데이터 삭제 
 			commandMap.put("MEMBER_NO", MEMBER_NO); 
@@ -229,7 +218,7 @@ public class myController {
 			Object MEMBER_NO = ""; 
 			//세션값 가져오기 
 			HttpSession session = request.getSession(); 
-			MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
+			MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
 			commandMap.remove("MEMBER_NO"); 
 			// 기존 회원번호 데이터 삭제 
 			commandMap.put("MEMBER_NO", MEMBER_NO); 
@@ -239,7 +228,5 @@ public class myController {
 		}
 		
 		
-		
->>>>>>> origin/다정다정다정613
 
 }

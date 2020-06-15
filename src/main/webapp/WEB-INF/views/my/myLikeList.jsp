@@ -79,7 +79,7 @@ function fn_likeDelete(index){
 					<input type="hidden" name="goods_no" value="${row.GOODS_NO }">
 						<tr>
                   			<td>
-                  				<img src="${row.GOODS_THUMBNAIL }" width="50" height="50">
+                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }'>
                   			</td>
 							<td style="text-align:left">
 				  				<a href="#">${row.GOODS_NAME }</a>
