@@ -162,10 +162,6 @@
 			and m.member_no = 2
 		]]>
 	</select>
-	
-	
-	
-	
 <!-- ************************************************************************************** -->
 	<!--  로그인 한 회원의 상품 주문 일자, 총 주문 금액, 주문상태 출력 -->
 	<select id="selectOrderList" parameterType="hashmap" resultType="hashmap">
