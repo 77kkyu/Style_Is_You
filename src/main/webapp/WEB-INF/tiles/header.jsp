@@ -5,16 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-    
-    
-<%
-	String sessionName = (String)session.getAttribute("MEMBER_NAME");
-	String sessionId = (String)session.getAttribute("MEMBER_ID");
-
-%>
-
-
-    
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -127,43 +117,25 @@ li {
 <form name="frm">
 	
 		<tr>
-		<%
-			if(sessionId == null) { // 로그인 전 (세션 값 X)
-		%>
-			<td><a href="/stu/loginForm.do">로그인</a></td> <td> | </td>
-			<td><a href="/stu/joinForm.do">회원가입</a></td> <td> | </td>
-		<%
-			} else if(sessionId != null) { // 로그인 후 (세션 값 O)
-		%>
-			<td>Hi, ${MEMBER_NAME }님!</td> <td> | </td>
-			<td><a href="/stu/logout.do">로그아웃</a></td> <td> | </td>
-		<%
-			}
-		%>
-		<%
-			if(sessionId != null) {
-		%>
-			<td><a href="/stu/myOrderList.do">마이페이지</a></td> <td> | </td>
-		<%
-			} else {
-		%>
-			<td><a href="/stu/loginForm.do">마이페이지</a></td> <td> | </td>
-		<%
-			}
-		%>
-			<td><a href="/stu/faq/openFaqList.do">고객센터</a></td> <td> | </td>
 		
-		<c:set var="MEMBER_NO" value="${MEMBER_NO}" />
-		<c:choose>
-			<c:when test="${MEMBER_NO eq null}">
-				<c:set var="url2" value="/stu/loginForm.do" />
-			</c:when>
-			<c:otherwise>
-				<c:set var="url2" value="/stu/basket/basketList.do" />
-			</c:otherwise>
-		</c:choose>
-			<td><a href="${url2}">장바구니</a></td> <td> | </td>
+			<c:set var="MEMBER_NO" value="${SESSION_NO }" />
+			<c:choose>
+				<c:when test="${MEMBER_NO eq null}">
+					<td><a href="/stu/loginForm.do">로그인</a></td> <td> | </td>
+					<td><a href="/stu/joinForm.do">회원가입</a></td> <td> | </td>
+					<td><a href="/stu/loginForm.do">마이페이지</a></td> <td> | </td>
+					<c:set var="url2" value="/stu/loginForm.do" />
+				</c:when>
+				<c:otherwise>
+					<td>Hi, ${SESSION_NAME }님!</td> <td> | </td>
+					<td><a href="/stu/logout.do">로그아웃</a></td> <td> | </td>
+					<td><a href="/stu/myOrderList.do">마이페이지</a></td> <td> | </td>
+					<c:set var="url2" value="/stu/basket/basketList.do" />
+				</c:otherwise>
+			</c:choose>
 			
+			<td><a href="${url2}">장바구니</a></td> <td> | </td>
+			<td><a href="/stu/faq/openFaqList.do">고객센터</a></td> <td> | </td>
 			<td><a href="">쿠폰</a></td>
 		</tr>
 	

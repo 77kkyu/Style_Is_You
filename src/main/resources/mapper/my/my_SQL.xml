@@ -16,7 +16,7 @@
 				
 			where l.order_no = d.order_no
 				and d.goods_no = g.goods_no
-				and l.member_no = #{member_no}
+				and l.member_no = #{MEMBER_NO}
 				and D.ORDER_DETAIL_NO in (select min(ORDER_DETAIL_NO) as Dno from order_detail group by order_no)
 				
 			order by l.order_date desc
