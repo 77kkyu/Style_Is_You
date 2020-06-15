@@ -67,14 +67,14 @@ li {
 			<col width="10%"/>
 			<col width="*"/>
 			<col width="20%"/>
-			<col width="5%"/>
+			<col width="8%"/>
 		</colgroup>
 		<thead>
 			<tr>
 				<th scope="col">글번호</th>
 				<th scope="col">제목</th>
 				<th scope="col">작성일</th>
-				<th></th>
+				<th scope="col">삭제버튼</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -99,6 +99,11 @@ li {
 				e.preventDefault();
 				fn_openFaqWrite();
 			});
+
+			$("a[name='del']").on("click", function(e){ //제목 
+				e.preventDefault();
+				fn_deleteFaq($(this));
+			});
 			
 			$("a[name='title']").on("click", function(e){ //제목 
 				e.preventDefault();
@@ -114,14 +119,9 @@ li {
 				
 		});
 			
-			$("a[name='delete']").on("click", function(e){ //제목 
-				e.preventDefault();
-				fn_deleteFaq($(this));
-			
 			<%
 			if(sessionId.trim().equals("admin")) { 
 			%>
-			
 				$("#wrapBtn").show()
 			<%
 			}
@@ -130,10 +130,11 @@ li {
 			%>
 		});
 		
-		function fn_deleteFaq(){
+		//alert 경고창 띄우기
+		function fn_deleteFaq(obj){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/faq/deleteFaq.do' />");
-			comSubmit.addParam("NOTICE_NO", $("#NOTICE_NO").val());
+			comSubmit.addParam("NOTICE_NO", obj.parent().find("input[name='del']").val());
 			comSubmit.submit();			
 		}
 		
@@ -148,7 +149,7 @@ li {
 			comAjax.setUrl("<c:url value='/faq/selectFaqList.do' />");
 			comAjax.setCallback("fn_selectFaqListCallback");
 			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
-			comAjax.addParam("PAGE_ROW", 15);
+			comAjax.addParam("PAGE_ROW", 10);
 			comAjax.addParam("NOTICE_NO_FE", $("#NOTICE_NO_FE").val());
 			comAjax.ajax();
 		}
@@ -159,7 +160,7 @@ li {
 			body.empty();
 			if(total == 0){
 				var str = "<tr>" + 
-								"<td colspan='3'>조회된 결과가 없습니다.</td>" + 
+								"<td colspan='4'>조회된 결과가 없습니다.</td>" + 
 							"</tr>";
 				body.append(str);
 			}
@@ -171,21 +172,23 @@ li {
 					eventName : "fn_selectFaqList"
 				};
 				gfn_renderPaging(params);
-
+				
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr id='off'>" + 
-								"<td>" + value.NOTICE_NO + "</td>" + 
+								"<td>" + value.RNUM + "</td>" + 
 								"<td class='title'>" +
 									"<a href='#this' name='title' class='chk"+ value.RNUM +"'>" + value.NOTICE_TITLE + "</a>" +
 									"<input type='hidden' name='title' value=" + value.NOTICE_NO + ">" + 
 								"</td>" +
 								"<td>" + value.NOTICE_DATE + "</td>" + 
+								"<td>" + 
+									"<a href='#this' name='del' "+ value.NOTICE_NO +">" + value.RNUM + "</a>" +
+									"<input type='hidden' name='del' value=" + value.NOTICE_NO + ">" +
+								"</td>" + 
 							"</tr>" +
 							"<tr>" + 							
 							'<td colspan="3" style="display:none;" id="chk'+ value.RNUM + '">' + value.NOTICE_CONTENT + "</td>" + 
-							"<td class='delete'>" +
-								"<a href='#this' name='delete' class='chk"+  +"'>" + value.NOTICE_TITLE + "</a>" +
 							"</tr>" ;
 				});
 				body.append(str);
