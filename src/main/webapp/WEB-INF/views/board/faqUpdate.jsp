@@ -94,8 +94,7 @@
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/faq/deleteFaq.do' />");
 			comSubmit.addParam("NOTICE_NO", $("#NOTICE_NO").val());
-			comSubmit.submit();
-			
+			comSubmit.submit();			
 		}
 
 	</script>

@@ -44,5 +44,5 @@ public class QnaServiceImpl implements QnaService{
 	public void deleteQna(Map<String, Object> map) throws Exception {
 		qnaDAO.deleteQna(map);
 	}
-
+	
 }

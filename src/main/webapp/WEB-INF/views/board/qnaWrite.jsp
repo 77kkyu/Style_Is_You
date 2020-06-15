@@ -57,7 +57,7 @@
 				<tbody><tr>
 					<td width="100" bgcolor="f6f6f6">글쓴이</td>
 					<td align="left" class="gray" style="padding-left:10px;text-align:left;">
-						<input type="text" name="QNA_NAME" id="member_name" style="width:90%;" maxlength="50" value="${sessionName}">
+						<input type="text" name="QNA_NAME" id="member_name" style="width:90%;" maxlength="50" value=<%=sessionId %>>
 					</td>
 					<td width="100" bgcolor="f6f6f6" class="gray_6">이메일</td>
 					<td align="left" class="gray" style="padding-left:10px; text-align:left;">

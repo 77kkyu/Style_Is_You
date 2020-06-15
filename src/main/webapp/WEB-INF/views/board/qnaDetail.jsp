@@ -17,7 +17,7 @@
 </head>
 <body>
 <br/><br/><br/>
-	<h2>QNA상세</h2>
+	<h2>문의보기</h2>
 	<br/><br/>
 
 
@@ -31,30 +31,35 @@
 		<tbody>
 			<tr>
 				<th scope="row">글 번호</th>
-				<td>${map.QNA_NO }</td>
+				<td align="center">${map.QNA_NO }</td>
 				<th scope="row">문의내용</th>
-				<td id="qna_gubunaa"></td>
+				<td id="qna_gubunaa" align="center"></td>
 			</tr>
 			<tr>
 				<th scope="row">작성자</th>
-				<td><%=sessionName%></td>
+				<td align="center"><%=sessionName%></td>
 				<th scope="row">작성시간</th>
-				<td>${map.QNA_DATE }</td>
+				<td align="center">${map.QNA_DATE }</td>
 			</tr>
 			<tr>
 				<th scope="row">제목</th>
-				<td colspan="3">${map.QNA_TITLE }</td>
+				<td colspan="3" align="left">${map.QNA_TITLE }</td>
 			</tr>
 			<tr>
-				<td colspan="4">${map.QNA_CONTENT }</td>
+				<th scope="row">내용</th>
+				<td colspan="4" align="left">${map.QNA_CONTENT }</td>
 			</tr>
 		</tbody>
+		<tr rows="10" cols="140" title="답변">
+			<th scope="row">답변</th>
+			<td colspan="4" align="left" id="qna_an"><font color="blue" size="5px">${map.QNA_AN }</font></td>
+		</tr>
 	</table>
 	<br/>
 	
 	<p>
 	<a href="#this" class="btn" id="list">목록으로</a>
-	<a href="#this" class="btn" id="update">수정하기</a>
+	<a href="#this" class="btn" id="update">수정/답변하기</a>
 	</p>
 	
 <!-- 	<table class="board_view"> -->

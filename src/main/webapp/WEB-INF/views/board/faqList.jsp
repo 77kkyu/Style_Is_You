@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
-<% String sessionId = (String)session.getAttribute("SESSION_NAME"); %>
+<% String sessionId = (String)session.getAttribute("MEMBER_NAME"); %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
 <!-- jQuery -->
@@ -49,18 +49,16 @@ li {
 <div class="pagemid">
   <div class="wrapper3">
     <ul class="flex-menu">
-        <li><a href="http://localhost:8090/stu/faq/openFaqList.do">FAQ</a></li>
-    	<li><a href="http://localhost:8090/stu/notice/openNoticeList.do">공지사항</a></li>
-    	<li><a href="http://localhost:8090/stu/qna/openQnaList.do">QNA</a></li>
+        <li><a href="http://localhost:8080/stu/faq/openFaqList.do">FAQ</a></li>
+    	<li><a href="http://localhost:8080/stu/notice/openNoticeList.do">공지사항</a></li>
+    	<li><a href="http://localhost:8080/stu/qna/openQnaList.do">QNA</a></li>
     </ul>
     <br>
     <div class="bar">
     </div>
   </div>
 </div>
-<button type="button" class="navyBtn" onClick="location.href='noticeList.jsp'">하이</button>
-<!-- <button onclick="location.href='noticeList.jsp'">공지사항</button> -->
-<!-- <button onclick="location.href='qnaList.jsp'">QNA</button> -->
+
 <br/><br/><br/>
 	<h2>FAQ 자주묻는질문</h2>
 	<br/><br/>
@@ -69,12 +67,14 @@ li {
 			<col width="10%"/>
 			<col width="*"/>
 			<col width="20%"/>
+			<col width="5%"/>
 		</colgroup>
 		<thead>
 			<tr>
 				<th scope="col">글번호</th>
 				<th scope="col">제목</th>
 				<th scope="col">작성일</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -114,6 +114,10 @@ li {
 				
 		});
 			
+			$("a[name='delete']").on("click", function(e){ //제목 
+				e.preventDefault();
+				fn_deleteFaq($(this));
+			
 			<%
 			if(sessionId.trim().equals("admin")) { 
 			%>
@@ -126,6 +130,12 @@ li {
 			%>
 		});
 		
+		function fn_deleteFaq(){
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/faq/deleteFaq.do' />");
+			comSubmit.addParam("NOTICE_NO", $("#NOTICE_NO").val());
+			comSubmit.submit();			
+		}
 		
 		function fn_openFaqWrite(){
 			var comSubmit = new ComSubmit();
@@ -161,7 +171,7 @@ li {
 					eventName : "fn_selectFaqList"
 				};
 				gfn_renderPaging(params);
-				
+
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr id='off'>" + 
@@ -174,6 +184,8 @@ li {
 							"</tr>" +
 							"<tr>" + 							
 							'<td colspan="3" style="display:none;" id="chk'+ value.RNUM + '">' + value.NOTICE_CONTENT + "</td>" + 
+							"<td class='delete'>" +
+								"<a href='#this' name='delete' class='chk"+  +"'>" + value.NOTICE_TITLE + "</a>" +
 							"</tr>" ;
 				});
 				body.append(str);
