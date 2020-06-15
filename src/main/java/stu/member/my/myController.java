@@ -138,5 +138,32 @@ public class myController {
 		
 		return mv;
 	}
+	
+	//포인트 리스트 출력
+	@RequestMapping(value="/my/myPointList.do")
+	public ModelAndView myPointList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("my/myPointList");
+		
+		Object MEMBER_NO = ""; 
+		//세션값 가져오기 
+		HttpSession session = request.getSession(); 
+		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
+		commandMap.remove("MEMBER_NO"); 
+		// 기존 회원번호 데이터 삭제 
+		commandMap.put("MEMBER_NO", MEMBER_NO); 
+		// 세션 값으로 적용
+		 
+		List<Map<String,Object>> list = basketService.basketList(commandMap);
+		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
+		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
+		
+		mv.addObject("list", list);
+		System.out.println(list);
+		return mv;
+		
+	}
+	
+	
 
 }
