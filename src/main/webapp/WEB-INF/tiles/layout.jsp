@@ -13,7 +13,6 @@
 <body>
 
 	<header id="header">
-
 		<tiles:insertAttribute name="header" ignore="true"/><!-- // header -->
 	</header>
 	
