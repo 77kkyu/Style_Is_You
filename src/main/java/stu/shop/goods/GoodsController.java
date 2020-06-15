@@ -576,4 +576,5 @@ public class GoodsController {
 		
 		return mv;
 	}
+
 }

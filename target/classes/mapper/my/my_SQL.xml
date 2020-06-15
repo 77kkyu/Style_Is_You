@@ -162,6 +162,7 @@
 			and m.member_no = 2
 		]]>
 	</select>
+
 <!-- ************************************************************************************** -->
 	<!--  로그인 한 회원의 상품 주문 일자, 총 주문 금액, 주문상태 출력 -->
 	<select id="selectOrderList" parameterType="hashmap" resultType="hashmap">
@@ -205,8 +206,7 @@
 				MEMBER_PASSWD,
 				TO_CHAR(MEMBER_BIRTH,'YYYY/MM/DD') MEMBER_BIRTH,
 				MEMBER_EMAIL,
-				MEMBER_PHONE,
-				MEMBER_ZIPCODE,
+				MEMBER_PHONE,				MEMBER_ZIPCODE,
 				MEMBER_ADDR1,
 				MEMBER_ADDR2 
 			FROM 

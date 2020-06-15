@@ -127,6 +127,77 @@ public class AbstractDao {
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params);
 	      }
+	      public List<Map<String,Object>> as_admin_list(String queryId, Object params) { // 교환.환불.AS - 정보가져옴 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params);
+	      }
+	      public void as_cancle_a(String queryId, Object params) { // as요청취소 - as_list state=3 edate갱싱 
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void order_list_cancle(String queryId, Object params) { // as요청취소 - order_list 원상복구 
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void as_ok_state(String queryId, Object params) { // 신규 as요청확인(AS_LIST state 확인중으로 변경) 
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void as_ok_orderState(String queryId, Object params) { // 신규 as요청확인(Order_LIST STATE변경) 
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public List<Map<String,Object>> change_form_a(String queryId, Object params) { // AS_list에서 정보 가져옴  전부다 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params); // 한줄데이터는 object로 가져올것
+	      }
+	      public List<Map<String,Object>> change_form_b(String queryId, Object params) { // AS_list에서 정보 가져옴  전부다 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params); // 한줄데이터는 object로 가져올것
+	      }
+	      public void change_detail_insert(String queryId, Object params) { // 
+	         printQueryId(queryId);
+	         sqlSession.insert(queryId,params);
+	      }
+	      public void change_detail_state(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void change_goods_att_plus(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void change_goods_att_minus(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void as_final_state(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void change_final_orderState(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void order_list_chagam(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      public void point_chagam(String queryId, Object params) { // 
+	         printQueryId(queryId);
+	         sqlSession.insert(queryId,params);
+	      }
+	      public List<Map<String,Object>> point_total(String queryId, Object params) { // AS_list에서 정보 가져옴  전부다 
+	         printQueryId(queryId);
+	         return sqlSession.selectList(queryId,params); // 한줄데이터는 object로 가져올것
+	      }
+	      public void cashback_final_orderState(String queryId, Object params) { //  
+	         printQueryId(queryId);
+	         sqlSession.update(queryId,params);
+	      }
+	      
+	      
+	      
 	      
 	    //myDao
 	      public List<Map<String,Object>> myDash(String queryId, Object params) { // mypage대쉬보드 
@@ -196,6 +267,8 @@ public class AbstractDao {
 	      
 	      
 	      
+	      
+	      
 		// 마이 페이지 (메인)
 		public List<Map<String,Object>> orderList(String queryId, Object params) { //  
 			printQueryId(queryId);
@@ -203,10 +276,10 @@ public class AbstractDao {
 		}
 		
 		// 상품명, 상품속성번호
-				public List<Map<String,Object>> orderList2(String queryId, Object params) { //  
-					printQueryId(queryId);
-					return sqlSession.selectList(queryId,params);
-				}
+		public List<Map<String,Object>> orderList2(String queryId, Object params) { //  
+			printQueryId(queryId);
+			return sqlSession.selectList(queryId,params);
+		}
 
 
 		@SuppressWarnings("rawtypes")

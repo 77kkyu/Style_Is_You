@@ -90,7 +90,6 @@
 			AND A.BASKET_NO IN (${SELECT_BASKET_NO})
 		    AND A.GOODS_NO=D.GOODS_NO
         	AND A.GOODS_ATT_NO=E.GOODS_ATT_NO
-
 		]]>
 	</select>
 	

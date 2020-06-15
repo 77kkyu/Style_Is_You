@@ -67,5 +67,11 @@ public class myServiceImpl implements myService {
 		
 	}
 	
+	@Override
+	public List<Map<String, Object>> myDash(CommandMap map) throws Exception {
+		// TODO Auto-generated method stub
+		return myDAO.myDash(map);		
+	}
+	
 	
 }

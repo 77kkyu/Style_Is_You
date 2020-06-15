@@ -12,7 +12,53 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
+<style>
+.wrapper3 {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  padding: 100px 0;
+  font-weight: normal;
+  font-size: 4em;
+  letter-spacing: 10px;
+}
+
+li {
+  list-style: none;
+  float: left;
+  
+}
+
+.bar {
+  height: 1.5px;
+  width: 100%;
+  background-color: #DCDCDC;
+}
+
+.flex-menu li {
+  text-align:center;
+  width: 100%;
+}
+</style>
 <body>
+
+<br/>
+<div class="pagemid">
+  <div class="wrapper3">
+    <ul class="flex-menu">
+        <li><a href="http://localhost:8080/stu/faq/openFaqList.do">FAQ</a></li>
+    	<li><a href="http://localhost:8080/stu/notice/openNoticeList.do">공지사항</a></li>
+    	<li><a href="http://localhost:8080/stu/qna/openQnaList.do">QNA</a></li>
+    </ul>
+    <br>
+    <div class="bar">
+    </div>
+  </div>
+</div>
+
 <br/><br/><br/>
 	<h2>FAQ 자주묻는질문</h2>
 	<br/><br/>
@@ -21,12 +67,14 @@
 			<col width="10%"/>
 			<col width="*"/>
 			<col width="20%"/>
+			<col width="8%"/>
 		</colgroup>
 		<thead>
 			<tr>
 				<th scope="col">글번호</th>
 				<th scope="col">제목</th>
 				<th scope="col">작성일</th>
+				<th scope="col">삭제버튼</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,6 +99,11 @@
 				e.preventDefault();
 				fn_openFaqWrite();
 			});
+
+			$("a[name='del']").on("click", function(e){ //제목 
+				e.preventDefault();
+				fn_deleteFaq($(this));
+			});
 			
 			$("a[name='title']").on("click", function(e){ //제목 
 				e.preventDefault();
@@ -69,7 +122,6 @@
 			<%
 			if(sessionId.trim().equals("admin")) { 
 			%>
-			
 				$("#wrapBtn").show()
 			<%
 			}
@@ -78,6 +130,13 @@
 			%>
 		});
 		
+		//alert 경고창 띄우기
+		function fn_deleteFaq(obj){
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/faq/deleteFaq.do' />");
+			comSubmit.addParam("NOTICE_NO", obj.parent().find("input[name='del']").val());
+			comSubmit.submit();			
+		}
 		
 		function fn_openFaqWrite(){
 			var comSubmit = new ComSubmit();
@@ -90,7 +149,7 @@
 			comAjax.setUrl("<c:url value='/faq/selectFaqList.do' />");
 			comAjax.setCallback("fn_selectFaqListCallback");
 			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
-			comAjax.addParam("PAGE_ROW", 15);
+			comAjax.addParam("PAGE_ROW", 10);
 			comAjax.addParam("NOTICE_NO_FE", $("#NOTICE_NO_FE").val());
 			comAjax.ajax();
 		}
@@ -101,7 +160,7 @@
 			body.empty();
 			if(total == 0){
 				var str = "<tr>" + 
-								"<td colspan='3'>조회된 결과가 없습니다.</td>" + 
+								"<td colspan='4'>조회된 결과가 없습니다.</td>" + 
 							"</tr>";
 				body.append(str);
 			}
@@ -117,12 +176,16 @@
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr id='off'>" + 
-								"<td>" + value.NOTICE_NO + "</td>" + 
+								"<td>" + value.RNUM + "</td>" + 
 								"<td class='title'>" +
 									"<a href='#this' name='title' class='chk"+ value.RNUM +"'>" + value.NOTICE_TITLE + "</a>" +
 									"<input type='hidden' name='title' value=" + value.NOTICE_NO + ">" + 
 								"</td>" +
 								"<td>" + value.NOTICE_DATE + "</td>" + 
+								"<td>" + 
+									"<a href='#this' name='del' "+ value.NOTICE_NO +">" + value.RNUM + "</a>" +
+									"<input type='hidden' name='del' value=" + value.NOTICE_NO + ">" +
+								"</td>" + 
 							"</tr>" +
 							"<tr>" + 							
 							'<td colspan="3" style="display:none;" id="chk'+ value.RNUM + '">' + value.NOTICE_CONTENT + "</td>" + 

@@ -32,7 +32,7 @@ Logger log = Logger.getLogger(this.getClass());
 	@RequestMapping(value="/myOrderList.do", method = RequestMethod.GET)
 	public ModelAndView myOrderList(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		
-		ModelAndView mv = new ModelAndView("my/myOrderList");
+		ModelAndView mv = new ModelAndView("/my/myOrderList");
 		
 		Object SESSION_NO = "";
 		  
