@@ -96,7 +96,6 @@ function fn_allDelete(){
 
 //전체주문금액구하기
 function fn_allPrice(){
-	
 	var array1 = document.getElementsByName("goods_sell_price");
 	var array2 = document.getElementsByName("basket_goods_amount");
 	var array3 = document.getElementsByName("order_price");
@@ -211,9 +210,10 @@ function fn_select_order(){
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>
-      <form name="basket" method="post" action="/stu/order/basketAllOrderWrite.do">
+      	<form name="basket" method="post" action="/stu/order/basketAllOrderWrite.do">
 		<input type="hidden" name="list" value="${list }">
-	</form>
+		</form>
+		
           <div class="table-responsive">
           	<p><b>내가 담은 장바구니 상품리스트</b></p>
             <table class="table table-striped">

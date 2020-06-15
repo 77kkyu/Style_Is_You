@@ -3,6 +3,13 @@ package stu.member.my;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
+=======
+import javax.servlet.http.HttpServletRequest;
+
+import stu.common.common.CommandMap;
+
+>>>>>>> origin/다정다정다정613
 public interface myService {
 	
 	// 구매 목록
@@ -15,4 +22,16 @@ public interface myService {
 	void memberModifyAction(Map<String, Object> map) throws Exception;
 	
 	void memberDelete(Map<String, Object> map) throws Exception;
+<<<<<<< HEAD
+=======
+	
+	//포인트 목록
+	List<Map<String, Object>> myPointList(CommandMap commandMap) throws Exception;
+	//쿠폰 목록
+	List<Map<String, Object>> myCouponList(CommandMap commandMap) throws Exception;
+	//좋아요 목록
+	List<Map<String, Object>> myLikeList(CommandMap commandMap) throws Exception;
+	//좋아요 삭제
+	void goodsLikeDelete(CommandMap commandMap, HttpServletRequest request) throws Exception;
+>>>>>>> origin/다정다정다정613
 }

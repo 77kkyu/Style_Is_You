@@ -252,16 +252,14 @@ SELECT
 						LIKE_NO,
 						GOODS_NO,
 						MEMBER_NO,
-						LIKE_DATE,
-						LIKE_DELETE
+						LIKE_DATE
 					)
 			VALUES
 					(
 						LIKE_NO_SEQ.NEXTVAL,
 						#{IDX},
 						2,
-						sysdate,
-						'0'
+						sysdate
 					)
 		]]>
 	</insert>
@@ -270,7 +268,7 @@ SELECT
 		<![CDATA[
 			DELETE 
 			FROM    GOODS_LIKE 
-			WHERE   MEMBER_NO = #{MEMBER_NO}
+			WHERE   MEMBER_NO = 1
 			AND     GOODS_NO = #{GOODS_NO}
 		]]>
 	</delete>

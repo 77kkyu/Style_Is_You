@@ -4,10 +4,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+<<<<<<< HEAD
+=======
+import javax.servlet.http.HttpServletRequest;
+>>>>>>> origin/다정다정다정613
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
+=======
+import stu.common.common.CommandMap;
+
+>>>>>>> origin/다정다정다정613
 
 
 @Service("myService")
@@ -42,6 +51,32 @@ public class myServiceImpl implements myService {
 	public void memberDelete(Map<String, Object> map) throws Exception {
 		myDAO.memberDelete(map);
 	}
+<<<<<<< HEAD
+=======
+
+	@Override
+	public List<Map<String, Object>> myPointList(CommandMap commandMap) throws Exception {
+		return myDAO.myPointList(commandMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> myCouponList(CommandMap commandMap) throws Exception {
+		return myDAO.myCouponList(commandMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> myLikeList(CommandMap commandMap) throws Exception {
+		return myDAO.myLikeList(commandMap);
+	}
+
+	@Override
+	public void goodsLikeDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		myDAO.goodsLikeDelete(commandMap);
+		
+	}
+	
+	
+>>>>>>> origin/다정다정다정613
 	
 	
 }
