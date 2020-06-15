@@ -1,5 +1,6 @@
 package stu.board.qna;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,23 +24,25 @@ public class QnaServiceImpl implements QnaService{
 
 	@Override
 	public void insertQna(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		qnaDAO.insertQna(map);		
+		qnaDAO.insertQna(map);
+	}
+
+	@Override
+	public Map<String, Object> selectQnaDetail(Map<String, Object> map) throws Exception {
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		Map<String, Object> tempMap = qnaDAO.selectQnaDetail(map);
+		resultMap.put("map", tempMap);		
+		return resultMap;
 	}
 
 	@Override
 	public void updateQna(Map<String, Object> map, HttpServletRequest request) throws Exception{
 		qnaDAO.updateQna(map);
-
-	}
+			}
 
 	@Override
 	public void deleteQna(Map<String, Object> map) throws Exception {
 		qnaDAO.deleteQna(map);
 	}
-
-	@Override
-	public Map<String, Object> selectQnaDetail(Map<String, Object> map) throws Exception {
-		return qnaDAO.selectQnaDetail(map);
-	}
-
+	
 }

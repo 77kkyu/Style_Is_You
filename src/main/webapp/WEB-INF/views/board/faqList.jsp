@@ -12,7 +12,53 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 </head>
+<style>
+.wrapper3 {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  padding: 100px 0;
+  font-weight: normal;
+  font-size: 4em;
+  letter-spacing: 10px;
+}
+
+li {
+  list-style: none;
+  float: left;
+  
+}
+
+.bar {
+  height: 1.5px;
+  width: 100%;
+  background-color: #DCDCDC;
+}
+
+.flex-menu li {
+  text-align:center;
+  width: 100%;
+}
+</style>
 <body>
+
+<br/>
+<div class="pagemid">
+  <div class="wrapper3">
+    <ul class="flex-menu">
+        <li><a href="http://localhost:8080/stu/faq/openFaqList.do">FAQ</a></li>
+    	<li><a href="http://localhost:8080/stu/notice/openNoticeList.do">공지사항</a></li>
+    	<li><a href="http://localhost:8080/stu/qna/openQnaList.do">QNA</a></li>
+    </ul>
+    <br>
+    <div class="bar">
+    </div>
+  </div>
+</div>
+
 <br/><br/><br/>
 	<h2>FAQ 자주묻는질문</h2>
 	<br/><br/>
@@ -21,12 +67,14 @@
 			<col width="10%"/>
 			<col width="*"/>
 			<col width="20%"/>
+			<col width="5%"/>
 		</colgroup>
 		<thead>
 			<tr>
 				<th scope="col">글번호</th>
 				<th scope="col">제목</th>
 				<th scope="col">작성일</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -66,6 +114,10 @@
 				
 		});
 			
+			$("a[name='delete']").on("click", function(e){ //제목 
+				e.preventDefault();
+				fn_deleteFaq($(this));
+			
 			<%
 			if(sessionId.trim().equals("admin")) { 
 			%>
@@ -78,6 +130,12 @@
 			%>
 		});
 		
+		function fn_deleteFaq(){
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/faq/deleteFaq.do' />");
+			comSubmit.addParam("NOTICE_NO", $("#NOTICE_NO").val());
+			comSubmit.submit();			
+		}
 		
 		function fn_openFaqWrite(){
 			var comSubmit = new ComSubmit();
@@ -113,7 +171,7 @@
 					eventName : "fn_selectFaqList"
 				};
 				gfn_renderPaging(params);
-				
+
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr id='off'>" + 
@@ -126,6 +184,8 @@
 							"</tr>" +
 							"<tr>" + 							
 							'<td colspan="3" style="display:none;" id="chk'+ value.RNUM + '">' + value.NOTICE_CONTENT + "</td>" + 
+							"<td class='delete'>" +
+								"<a href='#this' name='delete' class='chk"+  +"'>" + value.NOTICE_TITLE + "</a>" +
 							"</tr>" ;
 				});
 				body.append(str);
