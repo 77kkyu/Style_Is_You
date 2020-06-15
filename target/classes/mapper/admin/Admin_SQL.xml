@@ -86,8 +86,6 @@
 			
 			where d.goods_no = g.goods_no
 			and d.order_no = ${order_no}
-			
-			order by as_sdate asc
 		]]>
 	</select>
 	

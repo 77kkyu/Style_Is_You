@@ -144,9 +144,10 @@ public class myController {
 	@RequestMapping(value="/my_side.do")
 	public ModelAndView myView(CommandMap commandMap) throws Exception {
 		
-		ModelAndView mv = new ModelAndView("my/mySide");
+		ModelAndView mv = new ModelAndView("mypage");
 		
 		List<Map<String,Object>> mydashList = myService.myDash(commandMap);
+		System.out.println("mydashList : "+mydashList);
 		mv.addObject("mydashList", mydashList);
 			
 		return mv;

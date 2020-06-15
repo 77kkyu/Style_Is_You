@@ -13,6 +13,32 @@
   	
   </definition>
   
+  <definition name="mypage" template="/WEB-INF/tiles/adminLayout.jsp">
+  
+  	<put-attribute name="left" value="/stu/my_side.do"/>
+  	<put-attribute name="body" value=""/>
+  	
+  </definition>
+  
+  
+  <!-- mypage test -->
+  <definition name="/my/myOrderList" extends="base">
+  
+  	<put-attribute name="body" value="/WEB-INF/views/my/myOrderList.jsp"/>
+  	
+  </definition>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <!-- base를 상속받는 -->
   <definition name="main" extends="base">
   

@@ -23,6 +23,27 @@ String S_id = (String)session.getAttribute("member_id");
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <script>
+
+
+$(document).ready(function(){
+		/* alert('동작함'); */
+	var mem_no = "2";
+		
+	$.ajax({
+		url: "/stu/my_side.do",
+		data : ,
+		type: "GET",
+		async:false,
+		success : function(data){
+		alert("접속?");
+		
+		}
+	})
+
+});
+
+
+
 function logout(){
 	
 	var con = confirm("접속을 종료하시겠습니까");
