@@ -12,9 +12,9 @@
 
 <body>
 
-	<header id="header">
+	<div id="header">
 		<tiles:insertAttribute name="header" ignore="true"/><!-- // header -->
-	</header>
+	</div>
 	
 	<div id="content">
 		<tiles:insertAttribute name="content" ignore="true" />
