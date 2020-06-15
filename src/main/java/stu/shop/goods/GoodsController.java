@@ -9,6 +9,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import stu.common.common.CommandMap;
+import stu.shop.basket.BasketDao;
+import stu.shop.basket.BasketService;
+import stu.shop.order.OrderDao;
+import stu.shop.order.OrderService;
 
 @Controller
 public class GoodsController {
@@ -30,6 +35,12 @@ public class GoodsController {
 	
 	@Resource(name="goodsService")
 	private GoodsService goodsService;
+	
+	@Resource(name="orderService")
+	private OrderService orderService;
+	
+	@Resource(name="basketService")
+	private BasketService basketService;
 	
 	@RequestMapping(value="/shop/newGoodsList.do") // url 
 	public ModelAndView goodsCateList(CommandMap commandMap) throws Exception { // 최신상품 리스트 출력
@@ -67,6 +78,8 @@ public class GoodsController {
     	ModelAndView mv = new ModelAndView("/shop/cateGoodsList");
     	commandMap.put("cate", cate);
     	request.setAttribute("keyword", keyword);
+    	System.out.println("카테고리 검색확인="+commandMap.getMap());
+    	System.out.println("검색키워드="+keyword);
     	mv.addObject("IDX", commandMap.getMap().get("IDX"));
     	if( "NewItem".equals(orderBy) ) { // 신상품순
 			commandMap.put("orderBy", "GOODS_DATE");
@@ -126,6 +139,12 @@ public class GoodsController {
 		 * list.get(0).get("TOTAL_COUNT");
 		 */
 		System.out.println("토탈카운트"+list.get(0).get("TOTAL_COUNT"));
+		
+		list.get(0);
+		if(list.size() != 0) {
+			list.get(0).get("");
+		}
+		
 		mv.addObject("list", list);
 		if(list.size() > 0){
             mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
@@ -137,6 +156,58 @@ public class GoodsController {
 
 		return mv;
 	}
+	
+	
+	
+	@RequestMapping(value="/shop/openMainSearch.do")
+    public ModelAndView openMainSearch(CommandMap commandMap,
+			@RequestParam(value = "keyword", defaultValue="") String keyword, HttpServletRequest request ) throws Exception{
+    	ModelAndView mv = new ModelAndView("/shop/mainSearch");
+    	
+    	request.setAttribute("keyword", keyword);
+    	System.out.println("카테고리 검색확인="+commandMap.getMap());
+    	System.out.println("검색키워드="+keyword);
+    	mv.addObject("keyword");
+    	mv.addObject("IDX", commandMap.getMap().get("IDX"));
+    	
+    	String filePath_temp = request.getContextPath() + "/file/";
+		mv.addObject("path", filePath_temp);
+		request.setAttribute("path", filePath_temp);
+    	return mv;
+    }
+	
+	
+	
+	@RequestMapping(value="/shop/mainSearch.do")
+	public ModelAndView mainSearch(CommandMap commandMap,
+			@RequestParam(value = "keyword", defaultValue="") String keyword, HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String,Object>> list = null;
+		
+		System.out.println("메인검색어: " + keyword);
+			
+		list = goodsService.mainSearch(commandMap.getMap(), keyword);
+		
+		System.out.println("토탈카운트"+list.get(0).get("TOTAL_COUNT"));
+		
+		list.get(0);
+		if(list.size() != 0) {
+			list.get(0).get("");
+		}
+		
+		mv.addObject("list", list);
+		if(list.size() > 0){
+            mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
+        }
+        else{
+            mv.addObject("TOTAL", 0);
+        }
+
+		return mv;
+	}
+	
+	
 	
 //	@RequestMapping(value="/shop/cateGoodsList11/{cate}/{orderBy}.do", method=RequestMethod.GET)
 //	public ModelAndView cateList(CommandMap commandMap, @PathVariable String cate, @PathVariable String orderBy,
@@ -194,7 +265,7 @@ public class GoodsController {
 		
 		System.out.println("arrColor="+ arrColor);
 		System.out.println("arrSize="+arrSize);
-		
+		int ColorSize = arrColor.size();
 		//Map<String,Object> map2 = goodsService.selectGoodsAttNum(commandMap.getMap());
 		
 		//System.out.println("map22222="+map2);
@@ -202,6 +273,7 @@ public class GoodsController {
 		
 		
 		mv.addObject("Color", arrColor);
+		mv.addObject("ColorSize", ColorSize);
 		mv.addObject("Size", arrSize);
 		return mv;
 		 
@@ -213,7 +285,8 @@ public class GoodsController {
 	public ModelAndView goodsWriteForm(CommandMap commandMap) throws Exception { // 글쓰기 폼
 		
 		ModelAndView mv = new ModelAndView("shop/goodsWrite"); // 보낼 url
-		
+		mv.addObject("type", "write");
+		mv.addObject("title", "상품등록");
 		return mv;
 		
 	}
@@ -237,6 +310,13 @@ public class GoodsController {
 		System.out.println("좋아요!!!!="+commandMap.getMap().get("GOODS_NO") );
 		//mv.addObject("MEMBER_NO", commandMap.getMap().get("MEMBER_NO"));
 		goodsService.insertGoodsLike(commandMap.getMap());
+		return mv;
+	}
+	
+	@RequestMapping(value="/shop/basketPopUp.do", method = RequestMethod.GET)
+	public ModelAndView basketPopUp(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("/shop/basketPopUp");
+		
 		return mv;
 	}
 	
@@ -311,7 +391,7 @@ public class GoodsController {
 	
 	@RequestMapping(value="/shop/insertBasket.do", method = RequestMethod.POST)
 	public ModelAndView insertBasket(CommandMap commandMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/main.do");
+		ModelAndView mv = new ModelAndView("redirect:/shop/goodsDetail.do");
 		
 		System.out.println("CommandMap="+commandMap.getMap());
 		commandMap.remove("resultList");
@@ -339,7 +419,7 @@ public class GoodsController {
 			map.put("ORDER_SIZE", commandMap.get("ORDER_SIZE"));
 			map.put("ORDER_COLOR", commandMap.get("ORDER_COLOR"));
 			map.put("BASKET_GOODS_AMOUNT", commandMap.get("BASKET_GOODS_AMOUNT"));
-			
+			map.put("GUBUN", "0");
 			goodsService.insertBasket(map, request);
 		}else {
 			System.out.println("CommandMap2="+commandMap.getMap());
@@ -351,16 +431,22 @@ public class GoodsController {
 			System.out.println("다중 사이즈0="+ Goods_No[0]);
 			System.out.println("다중 사이즈1="+ Goods_No[1]);
 			Map<String,Object> map1 = new HashMap<String,Object>();
+			
 			for(int j=0; j<=Size.length-1; j++) {
 			map1.put("ORDER_SIZE", Size[j]);
 			map1.put("ORDER_COLOR", Color[j]);
 			map1.put("BASKET_GOODS_AMOUNT", Amount[j]);
 			map1.put("IDX", Goods_No[j]);
 			map1.put("MEMBER_NO", Member_No[j]);
+			map1.put("GUBUN", "0");
 			System.out.println("Size1111="+Size[j]);
 			goodsService.insertBasket(map1, request);
 			}
 		}
+		
+		
+		
+		
 			
 		
 //		List<CommandMap> resultList = new ArrayList<CommandMap>();
@@ -379,8 +465,117 @@ public class GoodsController {
 //			//resultYn = goodsService.insertBasket(resultList, request);
 //			System.out.println("resultList.add(commandMap);"+commandMap);
 //		}
+		mv.addObject("IDX", commandMap.getMap().get("IDX"));
+		return mv;
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value="/shop/goodsOrder.do", method = RequestMethod.POST)
+	public ModelAndView goodsOrder(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		ModelAndView mv = new ModelAndView("order/orderWrite");
+		
+		System.out.println("CommandMap="+commandMap.getMap());
+		commandMap.remove("resultList");
+		
+		if(commandMap.get("ORDER_SIZE").getClass().getName().equals("java.lang.String")){ 
+			Map<String,Object> map = new HashMap<String,Object>();
+			System.out.println("CommandMap1="+commandMap.getMap());
+			
+			map.put("IDX", commandMap.get("IDX"));
+			map.put("MEMBER_NO", commandMap.get("MEMBER_NO"));
+			map.put("ORDER_SIZE", commandMap.get("ORDER_SIZE"));
+			map.put("ORDER_COLOR", commandMap.get("ORDER_COLOR"));
+			map.put("BASKET_GOODS_AMOUNT", commandMap.get("BASKET_GOODS_AMOUNT"));
+			map.put("GUBUN", "1");
+			goodsService.insertBasket(map, request);
+		}else {
+			System.out.println("CommandMap2="+commandMap.getMap());
+			String[] Size = (String[])commandMap.getMap().get("ORDER_SIZE");
+			String[] Color = (String[])commandMap.getMap().get("ORDER_COLOR");
+			String[] Amount = (String[])commandMap.getMap().get("BASKET_GOODS_AMOUNT");
+			String[] Goods_No = (String[])commandMap.getMap().get("IDX");
+			String[] Member_No =  (String[])commandMap.getMap().get("MEMBER_NO");
+			
+			System.out.println("다중 사이즈0="+ Goods_No[0]);
+			System.out.println("다중 사이즈1="+ Goods_No[1]);
+			Map<String,Object> map1 = new HashMap<String,Object>();
+			for(int j=0; j<=Size.length-1; j++) {
+			map1.put("ORDER_SIZE", Size[j]);
+			map1.put("ORDER_COLOR", Color[j]);
+			map1.put("BASKET_GOODS_AMOUNT", Amount[j]);
+			map1.put("IDX", Goods_No[j]);
+			map1.put("MEMBER_NO", Member_No[j]);
+			map1.put("GUBUN", "1");
+			System.out.println("Size1111="+Size[j]);
+			goodsService.insertBasket(map1, request);
+			}
+		}	
+		//List basketNo = new ArrayList<>();
+		
+		  Object MEMBER_NO = ""; 
+	      //세션값 가져오기 
+	      HttpSession session = request.getSession(); 
+	      MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
+	      commandMap.remove("MEMBER_NO"); 
+	      // 기존 회원번호 데이터 삭제 
+	      commandMap.put("MEMBER_NO", MEMBER_NO); 
+	      // 세션 값으로 적용
+		
+		List<Map<String,Object>> list0 = goodsService.selectBasketNo(commandMap.getMap());
+		System.out.println("장바구니넘버111111"+list0.get(0).get("BASKET_NO"));
+		
+		
+		commandMap.remove("BASKET_NO");
+		commandMap.put("SELECT_BASKET_NO", list0.get(0).get("BASKET_NO"));
+		
+		List<Map<String,Object>> list = basketService.basketSelectList(commandMap, request);
+		//GOODS_NO, BASKET_NO, MEMBER_NO, BASKET_GOODS_AMOUNT, GOODS_ATT_NO, GOODS_ATT_SIZE,
+		//GOODS_ATT_COLOR, GOODS_NAME, GOODS_SELL_PRICE, GOODS_SALE_PRICE, UPLOAD_SAVE_NAME, MEMBER_GRADE
+		Map<String,Object> map = orderService.orderMemberInfo(commandMap, request);
+		//MEMBER_NAME, MEMBER_PHONE, MEMBER_ZIPCODE,
+		//MEMBER_ADDR1, MEMBER_ADDR2, POINT_TOTAL
+		List<Map<String,Object>> list2 = orderService.memberCoupon(commandMap);
+		//COUPON_ID, COUPON_VALUE, COUPON_NO, COUPON_STATUS_NO
+		mv.addObject("list", list);
+		mv.addObject("map", map);
+		mv.addObject("list2", list2);
+		System.out.println(list);
+		System.out.println(map);
+		System.out.println(list2);
+		return mv;
+	}
+	
+	
+	
+	@RequestMapping(value="/shop/goodsModifyForm.do")
+	public ModelAndView goodsModifyForm(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		ModelAndView mv = new ModelAndView("shop/goodsWrite");
+
+		Map<String,Object> map = goodsService.selectGoodsDetail(commandMap.getMap(), request);
+		System.out.println("수정폼1="+commandMap.getMap());
+		System.out.println("수정폼2="+map);
+		mv.addObject("map", map);
+		mv.addObject("list", map.get("list"));
+		mv.addObject("type", "modify");
+		mv.addObject("title", "수정하기");
+		System.out.println("수정폼3="+map);
+		return mv;
+	}
+	
+	@RequestMapping(value="/shop/goodsModify.do")
+	public ModelAndView goodsModify(CommandMap commandMap, HttpServletRequest request) throws Exception{
+		ModelAndView mv = new ModelAndView("redirect:/main.do");
+
+		goodsService.updateGoods(commandMap.getMap(), request);
+		System.out.println("업데이트Map="+commandMap);
+		System.out.println("업데이트Map="+commandMap.getMap());
+		mv.addObject("IDX", commandMap.getMap().get("IDX"));
 		
 		return mv;
 	}
+	
 	
 }

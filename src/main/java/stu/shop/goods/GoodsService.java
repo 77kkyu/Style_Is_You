@@ -15,6 +15,10 @@ public interface GoodsService {
 		
 	List<Map<String, Object>> cateGoodsList(Map<String, Object> map, String keyword) throws Exception; // 카테고리별 상품순
 	
+	List<Map<String, Object>> mainSearch(Map<String, Object> map, String keyword) throws Exception; // 메인검색
+	
+	List<Map<String, Object>> selectBasketNo(Map<String, Object> map) throws Exception; // 구매할때 시퀀스값 가져오기
+	
 	Map<String, Object> selectGoodsDetail(Map<String,Object> map, HttpServletRequest request) throws Exception; // 상품 디테일
 	
 	Map<String, Object> selectGoodsAtt(Map<String,Object> map) throws Exception; // 상품속성 디테일
@@ -26,6 +30,8 @@ public interface GoodsService {
 	void insertGoodsLike(Map<String, Object> map) throws Exception;
 	
 	void deleteGoodsLike(Map<String, Object> map) throws Exception;
+	
+	//void attributeDelete(Map<String, Object> map) throws Exception;
 	
 //	int insertBasket(List<CommandMap> map, HttpServletRequest request) throws Exception;
 	

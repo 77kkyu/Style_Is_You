@@ -7,69 +7,18 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-
-<title>메인화면</title>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
-
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>상품리스트</title>
 <link href="<c:url value="/css/board.css"/>" rel="stylesheet">
 <link href="<c:url value="/css/goods.css"/>" rel="stylesheet">
 <link href="<c:url value="/css/btn.css"/>" rel="stylesheet"> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/ui.css'/>" />
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <head>
-<script type="text/javascript">
-/*  var img=new Array();
-img[0]=new Image(); img[0].src="/stu/img/옷1.JPG";
-img[1]=new Image(); img[1].src="/stu/img/옷2.JPG";
-img[2]=new Image(); img[2].src="/stu/img/옷3.JPG"; 
-var interval=1500;
-var n=0;
-
-var imgs = new Array("/stu/img/옷1.JPG","/stu/img/옷2.JPG","/stu/img/옷3.JPG","/stu/img/옷4.JPG");
-
-function rotate() {
-	
-if(navigator.appName=="Netscape" && document.getElementById) {
-	
-document.getElementById("slide").src=imgs[n];
-
-}else document.images.slide.src=imgs[n];
-(n==(imgs.length-1))?n=0:n++;
-setTimeout("rotate()",interval);
-
-} */
-</script>
-
+</head>
 <style>
-
-/* 폰트 */
-.mTitle {
-    position: relative;
-    text-align: center;
-    padding: 50px 0 40px;
-    font-family: sans-serif;
-    color: #666;
-    font-size: 26px;
-    font-weight: 100;
-    margin: 0;
-    line-height: 0px;
-    align:center;
-}
-
-
-
-.bx-wrapper {
-    -moz-box-shadow: 0 0 5px #ccc;
-    -webkit-box-shadow: 0 0 5px #ccc;
-    box-shadow: 0 0 #ccc;
-    border: #fff;
-    background: #fff;
-}
 
 .font1 {
 	font-size: 14px;
@@ -245,25 +194,12 @@ h1 {
    float: ;
 }
 </style>
-
-</head>
 <body>
 
-<br>
+
+<br><br>
 <div align="center">
-<ul class="bxslider">
-      <li><a href="#"><img src="../stu/img/메인이미지2.jpg" ></a></li>
-      <li><a href="#"><img src="../stu/img/메인이미지1.jpg" alt="" ></a></li>
-      <li><a href="#"><img src="../stu/img/메인이미지3.jpg" alt="" ></a></li>
-      <li><a href="#"><img src="../stu/img/메인이미지4.jpg" alt="" ></a></li>
-</ul>
-</div>
-
-
-
-
-<div align="center">
-	<h1 class="mTitle">NEW ITEM</h1>
+<h2>${titleMain}</h2>
 </div>
 
 <div id="main-container">
@@ -277,103 +213,42 @@ h1 {
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${newList}" var="newList">
+		<c:forEach items="${list}" var="list">
 			<div class="card">
 			<a href="#this" name="title">
-			<img src="/stu/file/${newList.GOODS_THUMBNAIL}" width="400" height="400">
-			<c:set var="PICK" value="${fn:split(newList.GOODS_PICK,',')}"/>
+			<img src="/stu/file/${list.GOODS_THUMBNAIL}" width="400" height="400">
+			<c:set var="PICK" value="${fn:split(list.GOODS_PICK,',')}"/>
 			<c:forEach var="PICK1" items="${PICK}" varStatus="g">
 				<c:if test="${g.count == 1 }">
-			 <span style="background-color:#ff80bf; line-height: 27px; border-radius: 10px;"><font color="#ffffff" >${PICK1}</font></span>
+			 <span style="background-color:#ff80bf; line-height: 27px; border-radius: 10px;"><font color="#ffffff" size="2" >${PICK1}</font></span>
 				</c:if>
 				<c:if test="${g.count == 2 }">
-			 <span style="background-color:#d456dc; line-height: 27px; border-radius: 10px;"><font color="#ffffff">${PICK1}</font></span>
+			 <span style="background-color:#d456dc; line-height: 27px; border-radius: 10px;"><font color="#ffffff" size="2">${PICK1}</font></span>
 				</c:if>
 				<c:if test="${g.count == 3 }">
-			 <span style="background-color:#33b7ff; line-height: 27px; border-radius: 10px;"><font color="#ffffff">${PICK1}</font></span>
+			 <span style="background-color:#33b7ff; line-height: 27px; border-radius: 10px;"><font color="#ffffff" size="2">${PICK1}</font></span>
 				</c:if>
 			</c:forEach>
 			<br>
-			<font class="font1">${newList.GOODS_NAME}</font><br>
-			<font class="font2"><fmt:formatNumber value="${newList.GOODS_SELL_PRICE}" pattern="#,###"/>원 </font>
-			<input type="hidden" id="IDX" name="IDX" value="${newList.GOODS_NO}"> 
+			
+			<font class="font1" >${list.GOODS_NAME}</font><br>
+			<font class="font2"><fmt:formatNumber value="${list.GOODS_SELL_PRICE}" pattern="#,###"> </fmt:formatNumber>원</font>
+			<input type="hidden" id="IDX" name="IDX" value="${list.GOODS_NO}"> 
 		</a>
 		</div>
 		</c:forEach>
 		</tbody>
 		</table>
 </div>
-
-
-
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<h1 class="mTitle">BEST ITEM</h1>
-
-
-<div id="main-container">
-		
-<table class="board_list" style="width:'100%'">
-		<colgroup>
-			<col width="100%" />
-		</colgroup>
-		<thead>
-			<tr>
-			</tr>
-		</thead>
-		<tbody>
-		
-		<c:forEach items="${bestList}" var="bestList">
-			<div class="card">
-			<a href="#this" name="title">
-			<img src="/stu/file/${bestList.GOODS_THUMBNAIL}" width="400" height="400">
-			<c:set var="PICK" value="${fn:split(bestList.GOODS_PICK,',')}"/>
-			<c:forEach var="PICK1" items="${PICK}" varStatus="g">
-				<c:if test="${g.count == 1 }">
-			 <span style="background-color:#ff80bf"><font color="#ffffff" >${PICK1}</font></span>
-				</c:if>
-				<c:if test="${g.count == 2 }">
-			 <span style="background-color:#d456dc"><font color="#ffffff">${PICK1}</font></span>
-				</c:if>
-				<c:if test="${g.count == 3 }">
-			 <span style="background-color:#33b7ff"><font color="#ffffff">${PICK1}</font></span>
-				</c:if>
-			</c:forEach>
-			<br>
-			${bestList.GOODS_NAME}<br>
-			<fmt:formatNumber value="${bestList.GOODS_SELL_PRICE}" pattern="#,###"/>원
-			<input type="hidden" id="IDX" name="IDX" value="${bestList.GOODS_NO}">  
-		</a>
-		</div>
-		</c:forEach>
-		</tbody>
-		</table>
-</div> 
 
 <form id="commonForm" name="commonForm"></form>
-
 </body>
 </html>
-
 
 <script type="text/javascript">
 
 $(document).ready(function () {
-    $('.bxslider').bxSlider({
-        auto: true, // 자동으로 애니메이션 시작
-        speed: 500,  // 애니메이션 속도
-        pause: 3000,  // 애니메이션 유지 시간 (1000은 1초)
-        mode: 'horizontal', // 슬라이드 모드 ('fade', 'horizontal', 'vertical' 이 있음)
-        autoControls: false, // 시작 및 중지버튼 보여짐
-        pager: true, // 페이지 표시 보여짐
-        captions: true, // 이미지 위에 텍스트를 넣을 수 있음
-        slideWidth: 1260, // 크기
-        slideMargin: 0,
-        autoDelay: 0,
-        responsive: true,      
-    });
-
+  
     $("a[name='title']").on("click", function(e){ //제목 //name 이 title인거
     	console.log("잘들어옴");
     	e.preventDefault();

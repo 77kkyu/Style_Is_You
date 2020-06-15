@@ -1,0 +1,320 @@
+@charset "utf-8";
+
+html,body,h1,h2,h3,h4,h5,h6,div,p,blockquote,pre,code,address,ul,ol,li,menu,nav,section,article,aside,
+dl,dt,dd,table,thead,tbody,tfoot,label,caption,th,td,form,fieldset,legend,hr,input,button,textarea,object,img {margin:0;padding:0;}
+html,body{width:100%;height:100%;}
+html{overflow-y:scroll;}
+body{word-wrap:break-word;word-break:break-all;min-width:320px;line-height:140%;-webkit-text-size-adjust:none;}
+body,table,input,select,textarea,button,h1,h2,h3,h4,h5,h6{font-family:'맑은 고딕',Malgun Gothic,sans-serif;font-size:12px;color:#666;font-weight:400;}
+input,select,textarea,button{border:none;} 
+form,fieldset,img {border:none;}
+nav,ul,ol,li{list-style:none;}
+table{width:100%;border-spacing:0;border-collapse:collapse;word-break:break-all;table-layout:fixed;}
+table thead th,table tbody th, .fb{font-family:'맑은 고딕',Malgun Gothic,sans-serif;font-weight:800;}
+address,caption,cite,code,em{font-style:normal;font-weight:normal;}
+caption{margin:0;padding:0;font-size:0;line-height:0;overflow:hidden;visibility:hidden;}
+legend{}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display:block;}
+textarea,label, input, button, select, img {vertical-align:middle;}
+button {cursor:pointer;}
+hr{display:none;}
+pre{overflow-x:scroll;font-size:1.1em;}
+a{color:#707070;text-decoration:none;}
+iframe{max-width:100%;}
+a:hover,a:focus,a:active{text-decoration:none;}
+
+/* @font-face {
+  font-family:'Nanum Gothic';
+  font-style:normal;
+  font-weight:400;
+  src: url(/fonts/NanumGothic-Regular.eot);
+  src: url(/fonts/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+		 url(/fonts/NanumGothic-Regular.woff2) format('woff2'),
+		 url(/fonts/NanumGothic-Regular.woff) format('woff'),
+		 url(/fonts/NanumGothic-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family:'Nanum Gothic-Bold';
+  font-style:normal;
+  font-weight:800;
+  src: url(/fonts/NanumGothic-Bold.eot);
+  src: url(/fonts/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+		 url(/fonts/NanumGothic-Bold.woff2) format('woff2'),
+		 url(/fonts/NanumGothic-Bold.woff) format('woff'),
+		 url(/fonts/NanumGothic-Bold.ttf) format('truetype');
+} */
+
+/* Align_Style
+-------------------------------------------------------------- */
+.cb{clear:both;}
+.clearFix{display:block;content:"";clear:both;}
+.fl{float:left !important;}
+.fr{float:right !important;}
+.tal{text-align:left !important;}
+.tac{text-align:center !important;}
+.tar{text-align:right !important;}
+.vat{vertical-align:top !important;}
+.vam{vertical-align:middle !important;}
+.vab{vertical-align:bottom !important;}
+.block{display:block !important;}
+.inline{display:inline !important;}
+.inblock{display:inline-block !important;}
+.tb{display:table !important;}
+.tr{display:table-row !important;}
+.tc{display:table-cell !important;}
+
+/* Align_Space
+-------------------------------------------------------------- */
+.mt0{margin-top:0 !important;}
+.mt5{margin-top:5px !important;}
+.mt10{margin-top:10px !important;}
+.mt15{margin-top:15px !important;}
+.mt20{margin-top:20px !important;}
+.mt30{margin-top:30px !important;}
+.mb0{margin-bottom:0 !important;}
+.mb5{margin-bottom:5px !important;}
+.mb10{margin-bottom:10px !important;}
+.mb15{margin-bottom:15px !important;}
+.mb20{margin-bottom:20px !important;}
+.mb30{margin-bottom:30px !important;}
+.ml0{margin-left:0 !important;}
+.ml5{margin-left:5px !important;}
+.ml10{margin-left:10px !important;}
+.ml15{margin-left:15px !important;}
+.ml20{margin-left:20px !important;}
+.ml30{margin-left:30px !important;}
+.mr0{margin-right:0 !important;}
+.mr5{margin-right:5px !important;}
+.mr10{margin-right:10px !important;}
+.mr15{margin-right:15px !important;}
+.mr20{margin-right:20px !important;}
+.mr30{margin-right:30px !important;}
+.pt0{padding-top:0 !important;}
+.pt5{padding-top:5px !important;}
+.pt10{padding-top:10px !important;}
+.pt15{padding-top:15px !important;}
+.pt20{padding-top:20px !important;}
+.pt30{padding-top:30px !important;}
+.pb0{padding-bottom:0 !important;}
+.pb5{padding-bottom:5px !important;}
+.pb10{padding-bottom:10px !important;}
+.pb15{padding-bottom:15px !important;}
+.pb20{padding-bottom:20px !important;}
+.pb30{padding-bottom:30px !important;}
+.pl0{padding-left:0 !important;}
+.pl5{padding-left:5px !important;}
+.pl10{padding-left:10px !important;}
+.pl15{padding-left:15px !important;}
+.pl20{padding-left:20px !important;}
+.pl30{padding-left:30px !important;}
+.pr0{padding-right:0 !important;}
+.pr5{padding-right:5px !important;}
+.pr10{padding-right:10px !important;}
+.pr15{padding-right:15px !important;}
+.pr20{padding-right:20px !important;}
+.pr30{padding-right:30px !important;}
+
+/* Border , Background
+-------------------------------------------------------------- */
+.bd0{border:0 !important;}
+.bdt0{border-top:0 !important;}
+.bdb0{border-bottom:0 !important;}
+.bdl0{border-left:0 !important;}
+.bdr0{border-right:0 !important;}
+.bgn{background:none !important;}
+
+
+/* Form
+-------------------------------------------------------------- */
+input[type="submit"], input[type="button"]{padding:0;}
+input[type="text"], input[type="tel"] , input[type="number"], input[type="search"], input[type="password"],input[type="email"],select{
+	text-indent:5px;
+	font-size:12px;
+	border:1px solid #cfcecd;
+	background:#fff;
+}
+
+/* Input
+-------------------------------- */
+/* input.txt{width:100%;height:29px;line-height:29px;} */
+input.txt{    padding: 2px 2px 2px 4px;
+    border: 1px solid #d9d9d9;
+    color: #555;
+}
+textarea {border: 1px solid #d9d9d9;}
+select.slct{width:100%;height:29px;line-height:29px;}
+
+
+/* reply_grp
+-------------------------------------------------------------- */
+.reply_grp{margin-top:50px;}
+.reply_grp .reply_form{margin-bottom:30px;}
+.reply_grp .reply_form .reply_write{position:relative;top:0;left:0;padding-right:110px;}
+.reply_grp .reply_form .reply_write .reply_btn{position:absolute;top:0;right:0;}
+.reply_grp .reply_form .reply_write .reply_btn input{width:90px;height:55px;}
+.reply_grp .reply_form .reply_inp{margin-bottom:15px;}
+.reply_grp .reply_form .reply_inp:after{display:block;content:"";clear:both;}
+.reply_grp .reply_form .reply_inp .inner{float:left;margin-right:15px;}
+ 
+.reply_grp .reply_num{height:25px;line-height:25px;padding-top:15px;border-top:2px solid #ccc;}
+.reply_grp .reply_view{border:1px solid #ccc;padding:10px;margin-top:10px;}
+.reply_grp .reply_view .reply_tit{position:relative;top:0;left:0;}
+.reply_grp .reply_view .reply_tit .tit{padding:10px 0;border-bottom:1px solid #ccc;}
+.reply_grp .reply_view .reply_tit .tit .so{position:absolute;top:0;right:0}
+.reply_grp .reply_view .reply_tit .ip{display:inline-block;margin-left:50px;}
+.reply_grp .reply_view .reply_tit .btn{position:absolute;top:50%;right:0;margin-top:-12.5px;}
+ 
+ .reply_grp .reply_view .reply_cts{padding: 10px 50px 10px 0;}
+.reply_grp .reply_view .reply_cts p{line-height:140%;}
+
+/* Btn
+-------------------------------------------------------------- */
+.btn_type_01{margin-top:10px;text-align:center;font-size:0;}
+.btn_type_02{margin-top:15px;text-align:center;font-size:0;}
+.btn_type_03{margin-top:20px;text-align:center;font-size:0;}
+.btn_type_04{margin-top:40px;text-align:center;font-size:0;}
+.btn_type_05{margin-top:40px;text-align:right;font-size:0;}
+.btn_type_06{margin-top:10px;text-align:right;font-size:0;}
+
+.btn{
+	display:inline-block;
+	vertical-align:middle;
+	text-align:center;
+	overflow:visible;
+}
+.btn input, .btn span{
+	display:block;
+	overflow:visible;
+	border:0;
+	cursor:pointer;
+	font-size:14px;
+	color:#fff;
+	-webkit-border-radius:3px;
+		-moz-border-radius:3px;
+			  border-radius:3px;
+	-webkit-text-shadow:0 1px 1px rgba(0, 0, 0, 0.6);
+		-moz-text-shadow:0 1px 1px rgba(0, 0, 0, 0.6);
+			  text-shadow:0 1px 1px rgba(0, 0, 0, 0.6);
+	/* 
+	-webkit-box-shadow:inset -1px 1px 0px 1px rgba(255,255,255,0.35);
+	   -moz-box-shadow:inset -1px 1px 0px 1px rgba(255,255,255,0.35);
+			  box-shadow:inset -1px 1px 0px 1px rgba(255,255,255,0.35); */
+}
+/* Btn Color
+-------------------------------- */
+.btn.btnC_01 input, .btn.btnC_01 span{background:#ee1c25;border:1px solid #ee1c25;} /* 로고색 */
+.btn.btnC_02 input, .btn.btnC_02 span{background:#fff;border:1px solid #efebdb;} /* 베이지색선 */
+.btn.btnC_03 input, .btn.btnC_03 span{background:#9b9c9c;border:1px solid #919191;} /* 연회색 -기본 */
+.btn.btnC_04 input, .btn.btnC_04 span{background:#009bd7;border:1px solid #009bd7;} /* 파랑 */
+.btn.btnC_05 input, .btn.btnC_05 span{background:#2a2e33;border:1px solid #2a2e33;} /* 검정 */
+
+/* Btn all
+-------------------------------- */
+.btn.btnA_01,
+.btn.btnA_02{width:100%;}
+.btn.btnA_01 input, .btn.btnA_01 span{
+	width:100%;
+	height:60px;
+	line-height:58px;
+	font-size:16px;
+}
+.btn.btnA_02 input, .btn.btnA_02 span{
+	width:100%;
+	height:30px;
+	line-height:28px;
+	font-size:14px;
+	text-shadow:none;
+	color:#666;
+}
+
+/* Btn padding Type
+-------------------------------- */
+.btn.btnP_01 input, .btn.btnP_01 span{
+	height:30px;
+	line-height:28px;
+	padding:0 10px;
+	text-shadow:none;
+	color:#666;
+}
+.btn.btnP_02 input, .btn.btnP_02 span{
+	height:25px;
+	line-height:23px;
+	border:1px solid #ccc;
+	padding:0 5px;
+	color:#666;
+	background:#fff;
+	text-shadow:none;
+}
+.btn.btnP_03 input, .btn.btnP_03 span{
+	height:29px;
+	line-height:27px;
+	padding:0 5px;
+	text-shadow:none;
+	font-size:12px;
+}
+.btn.btnP_04 input, .btn.btnP_04 span{
+	height:29px;
+	line-height:27px;
+	padding:0 10px;
+	text-shadow:none;
+}
+
+/* Btn fix Type
+-------------------------------- */
+.btn.btnF_01 input, .btn.btnF_01 span{
+	width:130px;
+	height:38px;
+	line-height:36px;
+	text-shadow:none;
+	color:#666;
+}
+.btn.btnF_02 input, .btn.btnF_02 span{
+	width:100px;
+	height:40px;
+	line-height:38px;
+	font-size:16px;
+}
+.btn.btnF_03 input, .btn.btnF_03 span{
+	width:60px;
+	height:30px;
+	line-height:28px;
+	font-size:12px;
+	color:#666;
+	text-shadow:none;
+}
+.btn.btnF_04 input, .btn.btnF_04 span{
+	width:60px;
+	height:30px;
+	line-height:28px;
+	font-size:12px;
+	text-shadow:none;
+}
+.btn.btn_login input, .btn.btn_login span{
+	width:65px;
+	height:65px;
+	line-height:48px;
+	background:#49be5a;
+	color:#fff;
+}
+
+.textarea_grp textarea {
+    min-height: 55px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.reply_grp .reply_form {
+    margin-bottom: 30px;
+}
+.reply_grp .reply_form .reply_write {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding-right: 110px;
+}
+.btn.btnC_05 input[type="button"], .btn.btnC_05 span {
+    background: #2a2e33;
+    border: 1px solid #2a2e33;
+}

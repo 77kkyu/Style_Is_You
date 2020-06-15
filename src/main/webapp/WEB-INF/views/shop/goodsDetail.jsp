@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <!DOCTYPE>
 <html>
@@ -14,7 +15,6 @@
 
 <!-- CSS only -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
 <!-- JS, Popper.js, and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -23,49 +23,12 @@
 <style>
 .layer { display: none; }
 
-/* 버튼 */
-
-
-.button_slide {
-  color: #FFF;
-  border: 2px solid rgb(216, 2, 134);
-  border-radius: 0px;
-  padding: 18px 36px;
-  display: inline-block;
-  font-family: "Lucida Console", Monaco, monospace;
-  font-size: 14px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  box-shadow: inset 0 0 0 0 #D80286;
-  -webkit-transition: ease-out 0.4s;
-  -moz-transition: ease-out 0.4s;
-  transition: ease-out 0.4s;
+/* css초기화 끝 */
+.option_section {
+    float: left;
+    color: #777;
+    font-weight: 400;
 }
-
-.slide_down:hover {
-  box-shadow: inset 0 100px 0 0 #D80286;
-}
-
-.slide_right:hover {
-  box-shadow: inset 400px 0 0 0 #D80286;
-}
-
-.slide_left:hover {
-  box-shadow: inset 0 0 0 50px #D80286;
-}
-
-.slide_diagonal:hover {
-  box-shadow: inset 400px 50px 0 0 #D80286;
-}
-
-#outer {
-  width: 364px;
-  margin: 50px auto 0 auto;
-  text-align: center;
-}
-
-
-
 
 
 </style>
@@ -76,23 +39,34 @@
 
 <br>
 
-<div style="">
+<div>
 
 <div style="float:left; margin-left:350px">
-	<table border="1">
+	<table border="0">
 		<tr>
-			<td><img src="/stu/file/${list.GOODS_THUMBNAIL }" width="450" height="500"/></td>
+			<td><img src="/stu/file/${list.GOODS_THUMBNAIL }" width="500" height="500"/></td>
 		</tr>
 	</table>
 </div>
 
 <div style="float:left; margin-left:40px">
-	<table border="1">
+	<table border="0">
 	
 		<tr>
-			<c:set var="GOODS_PICK" value="${list.GOODS_PICK}"/>
-			<c:set var="PICK" value="${fn:replace(GOODS_PICK,',' , ' ') }"/>
-			<td>${PICK }</td>		
+			<td>
+			<c:set var="PICK" value="${fn:split(list.GOODS_PICK,',')}"/>
+			<c:forEach var="PICK1" items="${PICK}" varStatus="g">
+				<c:if test="${g.count == 1 }">
+			 <span style="background-color:#ff80bf; line-height: 27px; border-radius: 10px;"><font color="#ffffff" size="2" >${PICK1}</font></span>
+				</c:if>
+				<c:if test="${g.count == 2 }">
+			 <span style="background-color:#d456dc; line-height: 27px; border-radius: 10px;"><font color="#ffffff" size="2">${PICK1}</font></span>
+				</c:if>
+				<c:if test="${g.count == 3 }">
+			 <span style="background-color:#33b7ff; line-height: 27px; border-radius: 10px;"><font color="#ffffff" size="2">${PICK1}</font></span>
+				</c:if>
+			</c:forEach>
+			</td>		
 		</tr>
 		
 <!-- 		<tr>
@@ -100,7 +74,7 @@
 		</tr> -->
 		
 		<tr>
-			<td id="goodsName"><font size="5">${list.GOODS_NAME}</font></td>
+			<td id="goodsName"><font size="5" style="box-sizing:border-box;position:relative;">${list.GOODS_NAME}</font></td>
 		</tr>
 		
 		<tr>
@@ -112,31 +86,30 @@
 		</tr>
 		
 		<tr>
-			<td id="price" style="font-weight: bold;"><fmt:formatNumber value="${list.GOODS_SELL_PRICE}" pattern="#,###"/>원</td>
-			<input type=number id="price" name="price" value="${list.GOODS_SELL_PRICE}">
+			<td id="price" style="font-weight:600px; font-Size:24px; line-height:42px;">
+			<fmt:formatNumber value="${list.GOODS_SELL_PRICE}" pattern="#,###"/>원
+			</td>
+		</tr>
+		</table>
+				
+		<table>
+		<tr>
+			<td><hr style="border-top:1px solid #bbb;"  width=670px><td>
 		</tr>
 		</table>
 		
 		<br>
 		
 		<table>
-		<tr>
-			<td><hr style="border-top:1px solid #bbb;"  width=600px><td>
-		</tr>
-		</table>
-		
-		<br>
-		
-		<table>
-		<tr>
-			<td width="300px"><font size="3">배송비</font></td>
+		<tr class="option_section">
+			<td width="340px"><font size="3">배송비</font></td>
 			<td><font size="3">선불3,000원(50,000원 이상 무료배송)</font></td>
 		</tr>
 		</table>
 		
 		<table>
-		<tr>
-			<td width="525px"><font size="3">배송종류</font></td>
+		<tr class="option_section">
+			<td width="537px"><font size="3">배송종류</font></td>
 			<td><font size="3">국내배송</font></td>
 		</tr>
 		</table>
@@ -154,7 +127,7 @@
 					</c:forEach>
 					</select>
 			</td>
-			<td><button onclick="tableCreate()" style="width:70px;">상품추가</button></td>
+			<td>&nbsp;<button class="btn btn-outline-danger" onclick="tableCreate()" style="width:70px; height:30px;">추가</button></td>
 			
 		</tr>
 			
@@ -167,7 +140,7 @@
 					</c:forEach>
 				</select>
 			</td>
-			<td><button onclick="tableDelete()" style="width:70px;">삭제</button></td>
+			<td>&nbsp;<button class="btn btn-outline-danger" onclick="tableDelete()" style="width:70px; height:30px;">삭제</button></td>
 		</tr>
 		</table>
 		</div>
@@ -195,31 +168,26 @@
 		</table>
 	    	
 		</form>
+		<br>
+		<!-- <div style="margin-left:405px;">
+		총상품금액&nbsp;<input type="text" name="dd" size="11" >
+		</div> -->
+		<br>
+		<table>
+		<tr>
+			<td><hr style="border-top:1px solid #bbb;"  width=670px><td>
+		</tr>
+		</table>
 		
-		
-		<input type="text" name="dd" size="11" >원
-	
+	    <button style="width:124px; height:58px;" class="btn btn-outline-danger" id="insertLike" onclick="fn_InsertLike()">
+	    <font size="5px">♥</font>
+	    </button>
+	    <button style="width:270px; height:58px;" class="btn btn-outline-danger" id="insertBasket" onclick="fn_InsertBasket()">장바구니</button>
+		<button style="width:270px; height:58px;" class="btn btn-outline-danger" id="goodsOrder" onclick="fn_GoodsOrder()" >구매하기</button>
+		<br>
+		<button id="update" onclick="fn_update()">수정하기</button>
 
-		
-	    <button id="insertLike" onclick="fn_InsertLike()">좋아요</button>
-	    <button id="insertBasket" onclick="fn_InsertBasket()">장바구니</button>
-		<button>구매하기</button>
 
-
-
-		<div id="outer">
-  <div class="button_slide slide_down"><font color="black">BUTTON: SLIDE DOWN </font></div>
-  <br /> <br /><br />
-  <div class="button_slide slide_right">BUTTON: SLIDE RIGHT </div>
-  <br /> <br /><br />
-  <div class="button_slide slide_left">BUTTON: SLIDE INSIDE </div>
-  <br /> <br /><br />
-  <div class="button_slide slide_diagonal">BUTTON: SLIDE DIAGONAL </div>
-  <br /> <br /><br />
-</div>
-		
-		
-	
 </div>
 
 
@@ -245,7 +213,13 @@
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">${list.GOODS_CONTENT}</div> <!-- 상세정보 -->
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div> <!-- 상품문의 -->
+  
+  
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> <!-- 상품문의 -->
+  	
+  </div> 
+  
+  
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab" align="left" style="margin-left:400px"> <!-- 쇼핑가이드 -->
   <%@ include file="/WEB-INF/views/shop/guide.jsp" %>
   </div> 
@@ -272,7 +246,25 @@
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade" id="home1" role="tabpanel" aria-labelledby="home-tab">${list.GOODS_CONTENT}</div> <!-- 상세정보 -->
-  <div class="tab-pane fade show active" id="profile1" role="tabpanel" aria-labelledby="profile-tab">...</div> <!-- 상품문의 -->
+  
+  <div class="tab-pane fade show active" id="profile1" role="tabpanel" aria-labelledby="profile-tab"> <!-- 상품문의 -->
+  
+  <table class="board_list">
+	
+		<thead>
+			<tr>
+				<td>번호</td>
+				<td>문의</td>
+				<td>작성자</td>
+				<td>작성일</td>
+				<td>답변</td>
+			</tr>
+		</thead>
+		
+	</table>
+  
+  </div> 
+ 
   <div class="tab-pane fade" id="contact1" role="tabpanel" aria-labelledby="contact-tab" align="left" style="margin-left:400px"> <!-- 쇼핑가이드 -->
   <%@ include file="/WEB-INF/views/shop/guide.jsp" %>
   </div> 
@@ -367,9 +359,20 @@ $(document).ready(function() {
 		fn_InsertBasket();	
 	});
 
+	$("#goodsOrder").on("click", function(e){ // 구매 버튼
+		e.preventDefault(); 
+		fn_GoodsOrder();	
+	});
+
 
 });
 
+function fn_update() {
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/shop/goodsModifyForm.do'/>");
+	comSubmit.addParam("IDX", ${list.GOODS_NO});
+	comSubmit.submit();
+}
 
 function fn_InsertLike() { // 좋아요
 
@@ -380,13 +383,47 @@ function fn_InsertLike() { // 좋아요
 	
 }
 
+function fn_GoodsOrder() { // 구매하기
+	if(doubleSubmitCheck()) return; // 중복클릭 방지
+	//BASKET_GOODS_AMOUNT
+	
+	//var amount = $('input[name=BASKET_GOODS_AMOUNT]').val();
+	/* var amount = $('.field1').val();
+	console.log(amount);
+	if(amount == null){
+		alert("상품이 없습니다.");
+		return false;
+	} */
+	
+    var comSubmit = new ComSubmit("frm");
+	comSubmit.setUrl("<c:url value='/shop/goodsOrder.do'/>");
+	comSubmit.submit();
+	
+}
+
 function fn_InsertBasket() { // 장바구니
 	
 	if(doubleSubmitCheck()) return; // 중복클릭 방지
+	//BASKET_GOODS_AMOUNT
+	
+	//var amount = $('input[name=BASKET_GOODS_AMOUNT]').val();
+	/* var amount = $('.field1').val();
+	console.log(amount);
+	if(amount == null){
+		alert("상품이 없습니다.");
+		return false;
+	} */
+	
+	var url = "/stu/shop/basketPopUp.do";
+	var name = "popup";
+	var option = "width=382, height=227, top=500, left=800, location=no";
 	
     var comSubmit = new ComSubmit("frm");
 	comSubmit.setUrl("<c:url value='/shop/insertBasket.do'/>");
-
+	window.open(url,name,option);
+	comSubmit.submit();
+	
+	
 	/* var resultList = new Array();
 	for(var i=0; i<$("input[name=ORDER_COLOR]").length; i++){
 		var keyArray = {
@@ -400,7 +437,7 @@ function fn_InsertBasket() { // 장바구니
 		}
 	console.log(resultList);
 	comSubmit.addParam("resultList", resultList); */
-	comSubmit.submit();
+	
 
 	//map = [{},{}]
 	/* map.put=({

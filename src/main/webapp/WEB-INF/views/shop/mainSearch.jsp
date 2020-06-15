@@ -12,12 +12,16 @@
 <head>
 
 <link href="<c:url value="/css/board.css"/>" rel="stylesheet">
-
+ <link href="<c:url value="/css/goods.css"/>" rel="stylesheet">
 <link href="<c:url value="/css/btn.css"/>" rel="stylesheet">
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/ui.css'/>" />
+
+<!-- bx슬라이더 -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> -->
 
 <style>
 
@@ -31,6 +35,7 @@
    border-left: 1px solid #fff; 
    border-bottom: 1px solid #fff;    
 }
+
 
 
 
@@ -79,14 +84,14 @@ body{
 .wrap{
   width: 20%;
   position: absolute;
-  top: 300px;
+  top: 400px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 /* 검색버튼 끝 */
 
-.font1 {
-	font-size: 14px;
+.font2 {
+	font-size: 16px;
     color: #666;
     letter-spacing: -0.5px;
     line-height: 24px;
@@ -94,12 +99,12 @@ body{
     line-height: 27px;
 }
 
-.font2 {
-	display: block;
-    font-size: 16px;
-    font-weight: 400;
-    color: #333;
-    font-family: unset;
+.font1 {
+	font-size: 14px;
+    color: #666;
+    letter-spacing: -0.5px;
+    line-height: 24px;
+    white-space: normal;
     line-height: 27px;
 }
 
@@ -190,6 +195,8 @@ table {
     line-height: 20px;
 }
 h1 {
+    /* font-size: 22px;
+    font-weight: bold; */
     text-align: center;
   padding: 50px 0;
   font-weight: normal;
@@ -264,38 +271,8 @@ h1 {
 
 <body>
 
-<div style="margin-top:0px;">
-<form method="post">		
-				<%-- <input type="text" class="txt" placeholder="Search" name="keyword" id="keyword" value="${keyword}"/>&nbsp;
-				<input type="submit" value="상품검색" class="search_btn" onClick="onSearch()"/> --%>
-				<input type="hidden" id="path" value="${path}" />	
-				<div class="wrap">
-				   <div class="search">
-				      <input type="text" class="searchTerm" name="keyword" id="keyword" placeholder="Search" value="${keyword}">
-				      <input type="submit" value="검색" class="searchButton" onClick="onSearch()"/>
-				        <i class="fa fa-search"></i>
-				   </div>
-				</div>			
-</form>
-</div>
-
-
-<br><br><br><br><br>
-
-<div align="right" style="margin-right:410px">
-	<table>
-		<tr>
-			<td>
-			<div style="margin-right:600px">
-				 <%-- 총 ${TOTAL} 개의 상품이 있습니다 --%> 
-			</div>
-			</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/NewItem.do">신상품순</a></td> <td>|</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/favorite.do">인기상품순</a></td> <td>|</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/high.do">높은가격순</a></td> 
-		</tr>
-	</table>
+<div align="center">
+<font class="font2" ><h2>검색목록</h2></font>
 </div>
 
 <div id="main-container">
@@ -312,14 +289,12 @@ h1 {
 		</table>
 
 
-
-</div>
-<br>
 <div id="PAGE_NAVI" align="center"></div>
-<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX" />
+		<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX" />
 
-
-
+<input type="hidden" id="keyword" name="keyword" value="${keyword}" />
+<br><br>
+</div>
 
 <form id="commonForm" name="commonForm"></form>
 
@@ -349,7 +324,7 @@ function fn_selectGoodsList(pageNo) {
 	var comAjax = new ComAjax();
 
 	//alert(${orderBy});
-	comAjax.setUrl("<c:url value='/shop/cateGoodsList/${category}/${orderBy}.do' />");
+	comAjax.setUrl("<c:url value='/shop/mainSearch.do' />");
 	comAjax.setCallback("fn_selectGoodsListCallback");
 	comAjax.addParam("PAGE_INDEX", pageNo);
 	comAjax.addParam("PAGE_ROW", 16);
@@ -378,98 +353,64 @@ function fn_selectGoodsListCallback(data) {
 
 		var str = "";
 		$.each(data.list, function(key, value) {
-							var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
-							var Pick = value.GOODS_PICK.split(',');
-							var pick1 = "";
-							var pick2 = "";
-							var pick3 = "";
-							var pick4 = "";
-							var num = "";
-							for (var i=0; i<Pick.length; i++) {
-									Pick[i];
-									if(Pick[0] == null){
-										pick1 = "";
-									}else{
-										pick1 = Pick[0];
-									}
-									if(Pick[1] == null){
-										pick2 = "";
-									}else {
-										pick2 = Pick[1];
-									}
-									if(Pick[2] == null){
-										pick3 = "";
-									}else {
-										pick3 = Pick[2];
-									}
-									if(Pick[3] == null){
-										pick4 = "";
-									}else{
-										pick4 = Pick[3];
-									}
-								}
-							
-							
-									
-							
-							str += "<div class='card'>"
-								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
-								+     " <c:if test='${"+num+" ne "+pick1+"}'> "
-								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick1 +"</font></span>"	
-								+	  " </c:if>"
-								+     " <c:if test='${"+num+" ne "+pick2+"}'> "
-								+     " <span style='background-color:#d456dc; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick2 + "</font></span>"
-								+	  " </c:if>"
-								+     " <c:if test='${"+num+" ne "+pick3+" }'> "
-								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
-								+       pick3 + "</font></span>"
-								+	  " </c:if>"
-								+     " <c:if test='${"+num+" ne "+pick4+" }'> "
-								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
-								+       pick4 + "</font></span>"
-								+	  " </c:if> <br>"
-								+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
-								+     " <font class='font2'>"+value.GOODS_SELL_PRICE+"원</font> "   
-								+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
-								+	  " </a>"
-								+	  " </div>";
-							
-							/* str += "<div class='card'>"
-								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
-								+     " <c:if test='${!empty "+pick1+"}'> "
-								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick1 +"</font></span>"	
-								+	  " </c:if>"
-								+     " <c:if test='${!empty "+pick2+"}'> "
-								+     " <span style='background-color:#d456dc; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick2 + "</font></span>"
-								+	  " </c:if>"
-								+     " <c:if test='${!empty "+pick3+"}'> "
-								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
-								+       pick3 + "</font></span>"
-								+	  " </c:if>"
-								+		
-								+		value.GOODS_NAME +	"<br>"
-								+		value.GOODS_SELL_PRICE 
-								+  	"<input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
-								+	   "</a>"
-								+	   "</div>"; */
-
-
-					
-							/* str += "<div class='card'>"
-								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
-								+ 					Pick +	"<br>"
-								+		value.GOODS_NAME +	"<br>"
-								+		value.GOODS_SELL_PRICE 
-								+  	"<input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
-								+	   "</a>"
-								+	   "</div>"; */
+													var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
+													var Pick = value.GOODS_PICK.split(',');
+													var pick1 = "";
+													var pick2 = "";
+													var pick3 = "";
+													var pick4 = "";
+													var num = "";
+													for (var i=0; i<Pick.length; i++) {
+															Pick[i];
+															if(Pick[0] == null){
+																pick1 = "";
+															}else{
+																pick1 = Pick[0];
+															}
+															if(Pick[1] == null){
+																pick2 = "";
+															}else {
+																pick2 = Pick[1];
+															}
+															if(Pick[2] == null){
+																pick3 = "";
+															}else {
+																pick3 = Pick[2];
+															}
+															if(Pick[3] == null){
+																pick4 = "";
+															}else{
+																pick4 = Pick[3];
+															}
+														}
+													
+													
+															
+													
+													str += "<div class='card'>"
+														+		"<a href='#this' name='title'>"
+														+ 			imgpath + "<br>"
+														+     " <c:if test='${"+num+" ne "+pick1+"}'> "
+														+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
+														+		pick1 +"</font></span>"	
+														+	  " </c:if>"
+														+     " <c:if test='${"+num+" ne "+pick2+"}'> "
+														+     " <span style='background-color:#d456dc; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
+														+		pick2 + "</font></span>"
+														+	  " </c:if>"
+														+     " <c:if test='${"+num+" ne "+pick3+" }'> "
+														+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
+														+       pick3 + "</font></span>"
+														+	  " </c:if>"
+														+     " <c:if test='${"+num+" ne "+pick4+" }'> "
+														+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
+														+       pick4 + "</font></span>"
+														+	  " </c:if> <br>"
+														+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
+														+     " <font class='font2'>"+value.GOODS_SELL_PRICE+"원</font> "   
+														+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
+														+	  " </a>"
+														+	  " </div>";
 
 							
 						});

@@ -47,22 +47,30 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 
 <br><br>
 <div align="center">
-<h2>상품등록</h2>
+<h2>${title}</h2>
 </div>
 
 <br><br>
+<div align="center">
 <form name="frm" id="frm" enctype="multipart/form-data" method="post">
 		<table align="center" border="0">
 				
 				<tr>
 					<th>상품이름 </th>
-					<td><input type="text" id="GOODS_NAME" name="GOODS_NAME" placeholder="상품이름입력" size="40" style="padding:10px;"></td>
+					<td>
+						<input type="text" id="GOODS_NAME" name="GOODS_NAME" placeholder="상품이름입력" size="40" 
+						style="padding:10px;" value=<c:if test="${type eq 'modify'}">"${map.GOODS_NAME}"</c:if>>
+					</td>
 				</tr>
 				
 				
 				<tr>
 					<th>상품내용 </th>
-					<td><textarea rows="30" cols="100" id="GOODS_CONTENT" name="GOODS_CONTENT"></textarea></td>
+					<td>
+						<textarea rows="30" cols="100" id="GOODS_CONTENT" name="GOODS_CONTENT">
+						<c:if test="${type eq 'modify'}">${map.GOODS_CONTENT}</c:if>
+						</textarea>
+					</td>
 				</tr>
 
 				<tr>
@@ -80,22 +88,34 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 				
 				<tr>
 					<th>상품원가 </th>
-					<td><input type="text" name="GOODS_ORIGIN_PRICE" id="GOODS_ORIGIN_PRICE" placeholder="상품원가" size="40" style="padding:10px;"></td>
+					<td>
+						<input type="text" name="GOODS_ORIGIN_PRICE" id="GOODS_ORIGIN_PRICE" placeholder="상품원가" size="40" 
+						style="padding:10px;" value=<c:if test="${type eq 'modify'}">"${map.GOODS_ORIGIN_PRICE}"</c:if>> 
+					</td>
 				</tr>
 				
 				<tr>
 					<th>상품할인가 </th>
-					<td><input type="text" name="GOODS_SALE_PRICE" id="GOODS_SALE_PRICE" placeholder="상품할인가" size="40" style="padding:10px;"></td>
+					<td>
+						<input type="text" name="GOODS_SALE_PRICE" id="GOODS_SALE_PRICE" placeholder="상품할인가" size="40" 
+						style="padding:10px;" value=<c:if test="${type eq 'modify'}">"${map.GOODS_SALE_PRICE}"</c:if>>
+					</td>
 				</tr>
 				
 				<tr>
 					<th>상품판매가 </th>
-					<td><input type="text" name="GOODS_SELL_PRICE" id="GOODS_SELL_PRICE" placeholder="상품판매가" size="40" style="padding:10px;"></td>
+					<td>
+						<input type="text" name="GOODS_SELL_PRICE" id="GOODS_SELL_PRICE" placeholder="상품판매가" size="40" 
+						style="padding:10px;" value=<c:if test="${type eq 'modify'}">"${map.GOODS_SELL_PRICE}"</c:if>>
+					</td>
 				</tr>
 				
 				<tr>
 					<th>키워드 </th>
-					<td><input type="text" name="GOODS_KEYWORD" id="GOODS_KEYWORD" placeholder="키워드" size="40" style="padding:10px;"></td>
+					<td>
+						<input type="text" name="GOODS_KEYWORD" id="GOODS_KEYWORD" placeholder="키워드" size="40" 
+						style="padding:10px;" value=<c:if test="${type eq 'modify'}">"${map.GOODS_KEYWORD}"</c:if>>
+					</td>
 				</tr>
 				
 				<tr>
@@ -123,23 +143,31 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 				
 				<tr>
 					<th>상품색상 </th>
-					<td><input type="text" name="GOODS_ATT_COLOR" id="GOODS_ATT_COLOR" placeholder="컬러" size="40" style="padding:10px;"></td>
+					<td>
+						<input type="text" name="GOODS_ATT_COLOR" id="GOODS_ATT_COLOR" placeholder="컬러" size="40" 
+						style="padding:10px;" value=<c:if test="${type eq 'modify'}">${map.GOODS_ATT_COLOR}</c:if>>
+					</td>
 				</tr>
 				
 				<tr>
 					<th>상품수량 </th>
-					<td><input type="text" name="GOODS_ATT_AMOUNT" id="GOODS_ATT_AMOUNT" placeholder="상품수량" size="40" style="padding:10px;"></td>
+					<td>
+					<input type="text" name="GOODS_ATT_AMOUNT" id="GOODS_ATT_AMOUNT" placeholder="상품수량" size="40" 
+					style="padding:10px;" value=<c:if test="${type eq 'modify'}">${map.GOODS_ATT_AMOUNT}</c:if>>
+					</td>
 				</tr>
-				
+				<input type="hidden" id="IDX" name="IDX" value="${map.GOODS_NO}"> 
 		</table>
 	
 	<br>	
 	<div align="center">
-	<a href="#this" class="btn" id="write" onClick="fn_chk()">작성하기</a>
+	<c:if test="${type eq 'write'}"><a href="#this" class="btn" id="write" onClick="fn_chk()">작성하기</a></c:if>
+	<c:if test="${type eq 'modify'}"><a href="#this" class="btn" id="update" onClick="fn_chk()">수정하기</a></c:if>
 	<a href="#this" class="btn" id="list">목록으로</a>
 	</div>
 </form>
 
+</div>
 <!-- commandForm  -->
 <form id="commonForm" name="commonForm"></form>
 
@@ -176,6 +204,11 @@ $(document).ready(function() {
 		fn_insertBoard();
 	});
 
+	$("#update").on("click", function(e){ //수정하기 버튼
+		e.preventDefault();
+		fn_updateGoods();	
+	});
+
 	
 	
 });
@@ -187,6 +220,12 @@ function fn_openBoardList() {
 	comSubmit.setUrl("<c:url value='/sample/openBoardList.do' />");//이동할 url
 	comSubmit.submit(); //전송
 	
+}
+
+function fn_updateGoods(){
+	var comSubmit = new ComSubmit("frm");
+	comSubmit.setUrl("<c:url value='/shop/goodsModify.do' />");
+	comSubmit.submit();
 }
 
 function fn_insertBoard() { // 유효성체크
@@ -265,7 +304,7 @@ function fn_chk() {
 	});
 	$('#GOODS_PICK').val(chkArray);
 
-	alert($('#GOODS_PICK').val());
+	//alert($('#GOODS_PICK').val());
 
 	
 	var obj1 = $("[name=SIZE]");
@@ -276,7 +315,7 @@ function fn_chk() {
 	});
 	$('#GOODS_ATT_SIZE').val(chkArray1);
 
-	alert($('#GOODS_ATT_SIZE').val());
+	//alert($('#GOODS_ATT_SIZE').val());
 		
 }
 

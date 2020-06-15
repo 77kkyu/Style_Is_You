@@ -79,7 +79,33 @@ SELECT
            <if test="orderBy != '' and orderBy != 'null'">
 		     ORDER BY ${orderBy} ${orderSort} 
 		   </if> 	 
-		<include refid="common.pagingPost2"/>	
+		<include refid="common.pagingPost2"/>
+		   <if test="keyword != null">
+		   	 AND GOODS_NAME LIKE '%' || #{keyword} || '%'
+		   </if>
+	</select>
+	
+	
+	<select id="mainSearch" parameterType="hashmap" resultType="hashmap"> <!-- 메인검색 순서출력 -->
+		<include refid="common.pagingPre2"/>
+			SELECT GOODS_NO,
+			       GOODS_CATEGORY,
+			       GOODS_NAME,
+			       GOODS_CONTENT,
+			       GOODS_ORIGIN_PRICE,
+			       GOODS_SELL_PRICE,
+			       GOODS_SALE_PRICE, 
+			       GOODS_DATE,
+			       GOODS_KEYWORD,
+			       GOODS_READCNT, 
+			       GOODS_PICK,
+			       GOODS_THUMBNAIL
+		      FROM GOODS GS 
+		     ORDER BY GOODS_NO DESC 
+		<include refid="common.pagingPost2"/>
+		   <if test="keyword != null">
+		   	 AND GOODS_NAME LIKE '%' || #{keyword} || '%'
+		   </if>
 	</select>
 
 	
@@ -181,6 +207,24 @@ SELECT
 							  )				
 		]]>
 	</insert>
+	
+	<update id="updateGoods" parameterType="hashmap">
+		<![CDATA[
+			UPDATE  GOODS
+			SET     GOODS_CATEGORY = #{GOODS_CATEGORY},
+			        GOODS_NAME = #{GOODS_NAME},
+			        GOODS_CONTENT = #{GOODS_CONTENT},
+			        GOODS_ORIGIN_PRICE = #{GOODS_ORIGIN_PRICE},
+			        GOODS_SELL_PRICE = #{GOODS_SELL_PRICE},
+			        GOODS_SALE_PRICE = #{GOODS_SALE_PRICE},
+			        GOODS_DATE = sysdate,
+			        GOODS_KEYWORD = #{GOODS_KEYWORD},
+			        GOODS_PICK = #{GOODS_PICK}
+			WHERE   GOODS_NO = #{IDX}
+		]]>
+	</update>
+	
+	
 
 	<insert id="attributeInsert" parameterType="hashmap">
 		<![CDATA[
@@ -189,18 +233,28 @@ SELECT
 										GOODS_NO,
 										GOODS_ATT_SIZE,
 										GOODS_ATT_COLOR,
-										GOODS_ATT_AMOUNT
+										GOODS_ATT_AMOUNT,
+										GOODS_ATT_DISPLAY
 										)
 								values(
 										GOODS_ATT_NO_SEQ.NEXTVAL,
 										#{IDX},
 										#{GOODS_ATT_SIZE},
 										#{GOODS_ATT_COLOR},
-										#{GOODS_ATT_AMOUNT}
+										#{GOODS_ATT_AMOUNT},
+										'0'
 									    )
 		
 		]]>
 	</insert>
+	
+	<delete id="attributeDelete" parameterType="hashmap">
+		<![CDATA[
+			DELETE  
+			  FROM  GOODS_ATTRIBUTE
+			WHERE   GOODS_NO = #{IDX}
+		]]>
+	</delete>
 	
 	<insert id="insertFile" parameterType="hashmap">
 		<![CDATA[
@@ -221,20 +275,18 @@ SELECT
 		]]>
 	</insert>
 	
+	<delete id="deleteFile" parameterType="hashmap">
+		<![CDATA[
+			DELETE  
+			  FROM  GOODS_IMAGE
+			WHERE   GOODS_NO = #{IDX}
+		]]>
+	</delete>
+	
 	<update id="updateGoodsThumbnail" parameterType="hashmap">
 		<![CDATA[
 			UPDATE  GOODS 
-			SET     GOODS_THUMBNAIL = (
-			                    SELECT  GOODS_IMAGE_STD
-			                    FROM    (
-			                            SELECT  GOODS_IMAGE_STD 
-			                            FROM    GOODS_IMAGE 
-			                            WHERE   GOODS_NO = #{IDX}
-			                           			 AND GOODS_IMAGE_DEL_GB = 'N'
-			                            ORDER BY GOODS_IMAGE_NUM ASC
-			                            )
-			                    WHERE   ROWNUM <= 1
-			                    )
+			SET     GOODS_THUMBNAIL = #{GOODS_THUMBNAIL}
 			WHERE   GOODS_NO = #{IDX}
 		]]>
 	</update>
@@ -289,7 +341,8 @@ SELECT
 								BASKET_GOODS_AMOUNT,
 								BASKET_DATE,
 								ORDER_COLOR,
-								ORDER_SIZE
+								ORDER_SIZE,
+								GUBUN
 							 )
 						VALUES(
 								BASKET_NO_SEQ.NEXTVAL,
@@ -299,10 +352,25 @@ SELECT
 								#{BASKET_GOODS_AMOUNT},
 								sysdate,
 								#{ORDER_COLOR},
-								#{ORDER_SIZE}
+								#{ORDER_SIZE},
+								#{GUBUN}
 							  )				
 		]]>
 	</insert>
+	
+	<select id="selectBasketNo" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
+		<![CDATA[
+			SELECT 
+        			LISTAGG(BASKET_NO,',') WITHIN GROUP(ORDER BY BASKET_NO) AS BASKET_NO
+			FROM 
+					BASKET
+			WHERE 
+	           	    MEMBER_NO = #{MEMBER_NO}
+              AND   GUBUN = '1'
+		]]>
+	</select>
+	
+	
 	
 	
 	<update id="updateGoodsAmount" parameterType="hashmap"><!-- 주문한 상품 수량변경 -->

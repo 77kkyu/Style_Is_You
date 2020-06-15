@@ -26,6 +26,18 @@
   	
 
   </definition> 
+  
+  <definition name="/shop/cateGoodsList" extends="base">
+  
+     <put-attribute name="content" value="/WEB-INF/views/shop/cateGoodsList.jsp"/>
+     
+  </definition>
+  
+  <definition name="/shop/mainSearch" extends="base">
+  
+     <put-attribute name="content" value="/WEB-INF/views/shop/mainSearch.jsp"/>
+     
+  </definition>
  
   
   <definition name="login/*" extends="base">

@@ -86,8 +86,11 @@ public class OrderDao extends AbstractDao{
 			bod.put("GOODS_ATT_NO", b);
 			delete("basket.basketOrderDelete", bod);
 		}
-		insert("point.usePoint", commandMap.getMap()); 
-		insert("point.savePoint", commandMap.getMap());
+		if(!commandMap.get("ORDER_USE_POINT").equals("0")) {
+	         insert("point.usePoint", commandMap.getMap()); 
+	      }
+	      
+	      insert("point.savePoint", commandMap.getMap());
 		
 		if(!commandMap.get("COUPON_STATUS_NO_1").equals("")) {
 			update("coupon.useCoupon", commandMap.getMap());

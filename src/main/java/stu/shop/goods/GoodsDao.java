@@ -32,6 +32,18 @@ public class GoodsDao extends AbstractDao{
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> mainSearch(Map<String, Object> map) throws Exception { // 카테고리 별 상품
+		System.out.println("mainSearch"+map);
+	    return (List<Map<String,Object>>) selectPagingList("goods.mainSearch" , map); 
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectBasketNo(Map<String, Object> map) throws Exception { // 구매시 시퀀스번호 가져오기 
+		System.out.println("selectBasketNo"+map);
+	    return (List<Map<String,Object>>) selectList("goods.selectBasketNo" , map); 
+	}
+	
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectGoodsDetail(Map<String, Object> map) throws Exception{
 		return (Map<String, Object>) selectOne("goods.selectGoodsDetail", map);
 	}
@@ -54,12 +66,28 @@ public class GoodsDao extends AbstractDao{
 		update("goods.updateGoods", map);
 	}
 	
-	public void goodsAttribute(Map<String, Object> map) throws Exception { // 상품속성
+	public void updateGoodsThumbnail(Map<String, Object> map) throws Exception{
+		update("goods.updateGoodsThumbnail", map);
+	}
+	
+	public void goodsAttribute(Map<String, Object> map) throws Exception { // 상품옵션
 		insert("goods.attributeInsert", map);
+	}
+	
+	public void attributeDelete(Map<String, Object> map) throws Exception { // 상품옵션 삭제
+		insert("goods.attributeDelete", map);
+	}
+	
+	public void insertGoodsThumbnail(Map<String, Object> map) throws Exception{
+		update("goods.updateGoodsThumbnail", map);
 	}
 	
 	public void insertFile(Map<String, Object> map) throws Exception { // 파일등록
 		insert("goods.insertFile", map);
+	}
+	
+	public void deleteFile(Map<String, Object> map) throws Exception { // 파일삭제
+		insert("goods.deleteFile", map);
 	}
 	
 	public void deleteFileList(Map<String, Object> map) throws Exception { // 파일삭제
