@@ -49,6 +49,91 @@ public class AdminDao extends AbstractDao{
 		return (List<Map<String,Object>>) order_detail_sub("admin.order_detail_sub", commandMap.getMap());
 	}
 
+	public List<Map<String, Object>> as_admin_list(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) as_admin_list("admin.as_admin_list", commandMap.getMap());
+	}
+
+	public void as_cancle_a(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		as_cancle_a("admin.as_cancle_a",commandMap.getMap());
+	}
+
+	public void order_list_cancle(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		order_list_cancle("admin.order_list_cancle",commandMap.getMap());
+	}
+
+	public void as_ok_state(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		as_ok_state("admin.as_ok_state",commandMap.getMap());
+	}
+
+	public void as_ok_orderState(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		as_ok_orderState("admin.as_ok_orderState",commandMap.getMap());
+	}
+
+	public List<Map<String, Object>> change_form_a(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) change_form_a("admin.change_form_a", commandMap.getMap());
+	}
+
+	public List<Map<String, Object>> change_form_b(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) change_form_b("admin.change_form_b", commandMap.getMap());
+	}
+
+	public void change_detail_insert(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		change_detail_insert("admin.change_detail_insert",commandMap.getMap());
+	}
+
+	public void change_detail_state(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		change_detail_state("admin.change_detail_state",commandMap.getMap());
+	}
+
+	public void change_goods_att_plus(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		change_goods_att_plus("admin.change_goods_att_plus",commandMap.getMap());
+	}
+
+	public void change_goods_att_minus(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		change_goods_att_minus("admin.change_goods_att_minus",commandMap.getMap());
+	}
+
+	public void as_final_state(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		as_final_state("admin.as_final_state",commandMap.getMap());
+	}
+
+	public void change_final_orderState(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		change_final_orderState("admin.as_final_state",commandMap.getMap());
+	}
+
+	public void order_list_chagam(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		order_list_chagam("admin.order_list_chagam",commandMap.getMap());
+	}
+
+	public void point_chagam(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		point_chagam("admin.point_chagam",commandMap.getMap());
+	}
+
+	public List<Map<String, Object>> point_total(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		return (List<Map<String,Object>>) point_total("admin.point_total", commandMap.getMap());
+	}
+
+	public void cashback_final_orderState(CommandMap commandMap) throws Exception {
+		// TODO Auto-generated method stub
+		cashback_final_orderState("admin.cashback_final_orderState",commandMap.getMap());
+	}
+
 	
 	
 }

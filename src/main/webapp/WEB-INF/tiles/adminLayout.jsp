@@ -7,19 +7,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>tiles layout</title>
+<title>tiles adminLwayout</title>
 </head>
 
 <body>
 
-	<header id="header">
-
-		<tiles:insertAttribute name="header" ignore="true"/><!-- // header -->
-	</header>
+	<%-- <header id="header">
+		<tiles:insertAttribute name="header"/><!-- // header -->
+	</header> --%>
 	
-	<div id="content">
-		<tiles:insertAttribute name="content" ignore="true" />
-	</div>	
+	<div id="left">
+		<tiles:insertAttribute name="left"/>
+	</div>
+	<div id="body">
+		<tiles:insertAttribute name="body"/>
+	</div>
 
 
 

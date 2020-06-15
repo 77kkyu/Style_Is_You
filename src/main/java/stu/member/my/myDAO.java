@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import stu.common.common.CommandMap;
 import stu.common.dao.AbstractDao;
 
+
 @Repository("myDAO")
 public class myDAO extends AbstractDao {
 	
@@ -35,6 +36,7 @@ public class myDAO extends AbstractDao {
 		update("my.memberDelete", map);
 	}
 	
+
 	public List<Map<String, Object>> myPointList(CommandMap commandMap) {
 		return (List<Map<String,Object>>) selectList("my.myPointList",commandMap.getMap());
 	}
@@ -48,5 +50,11 @@ public class myDAO extends AbstractDao {
 		delete("goods.deleteGoodsLike", commandMap.getMap());
 	}
 	
+
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> myDash(CommandMap map) throws Exception { //adminMain대쉬보드 
+		return (List<Map<String,Object>>) myDash("my.my_side",map);
+	}
+
 
 }

@@ -32,7 +32,7 @@ Logger log = Logger.getLogger(this.getClass());
 	@RequestMapping(value="/myOrderList.do", method = RequestMethod.GET)
 	public ModelAndView myOrderList(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		
-		ModelAndView mv = new ModelAndView("my/myOrderList");
+		ModelAndView mv = new ModelAndView("/my/myOrderList");
 		
 		Object SESSION_NO = "";
 		  
@@ -45,6 +45,20 @@ Logger log = Logger.getLogger(this.getClass());
 		commandMap.put("SESSION_NO", SESSION_NO); // 세션 값으로 적용 추후에 바꿈
 		*/
 		
+
+		Object SESSION_NO = "";
+		  
+		/*
+		//세션값 가져오기
+		HttpSession session = request.getSession();
+		SESSION_NO = (Object)session.getAttribute("SESSION_NO");
+		
+		commandMap.remove("SESSION_NO"); // 기존 회원번호 데이터 삭제
+		commandMap.put("SESSION_NO", SESSION_NO); // 세션 값으로 적용 추후에 바꿈
+		*/
+		
+
+
 		//테스트용 세션값
 		String member_no = "2";
 		
@@ -160,8 +174,45 @@ Logger log = Logger.getLogger(this.getClass());
 		int member_no = Integer.parseInt(commandMap.getMap().get("chfMember_no").toString());
 		//System.out.println("member_no :"+member_no);
 		System.out.println("commandMap.getMap() :"+commandMap.getMap());
+
+
 		
 		
+		/* 현재 테이블에 2개 이상 신청시 한꺼번에 묶어줄 컬럼이 없기 때문에 여러개 신청시 레코드를 여러개 만들고 1개씩 처리 하는 방식으로 함
+		   select_detail_no값을 ','로 잘라서 신청한 물품당 1개씩 AS_LIST테이블에 레코드 처리  - AS_STATE는 1신청, 2처리중, 3처리완료    */
+		String[] detail_no = request.getParameter("select_detail_no").split(",");
+		String order_detail_no = "";
+		for(int i=0;i<detail_no.length;i++) {
+			System.out.println("detail_no : "+detail_no[i]);
+			order_detail_no = detail_no[i];
+			commandMap.put("order_state", order_state);
+			commandMap.put("order_detail_no", order_detail_no);
+			myOrderService.order_change(commandMap);
+			
+		}
+		
+		commandMap.put("member_no", member_no);
+		//처리후 다시 리스트 불러오기
+		List<Map<String, Object>> my_order = myOrderService.myOrderList(commandMap);
+		mv.addObject("my_order", my_order);
+		
+		return mv;
+	}
+	
+	// 비밀번호 가져오기
+	@RequestMapping(value="/password_f.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String password_f(CommandMap commandMap,HttpServletRequest request) throws Exception {
+
+		int member_no = Integer.parseInt(request.getParameter("mem_no"));
+		//System.out.println("컨트롤러member_no :"+member_no);
+		commandMap.put("member_no", member_no);
+
+		
+		String dbPasswd = myOrderService.pwd_chk(commandMap);
+		//System.out.println("컨트롤러dbPasswd :"+dbPasswd);
+		
+
 		/* 현재 테이블에 2개 이상 신청시 한꺼번에 묶어줄 컬럼이 없기 때문에 여러개 신청시 레코드를 여러개 만들고 1개씩 처리 하는 방식으로 함
 		   select_detail_no값을 ','로 잘라서 신청한 물품당 1개씩 AS_LIST테이블에 레코드 처리  - AS_STATE는 1신청, 2처리중, 3처리완료    */
 		String[] detail_no = request.getParameter("select_detail_no").split(",");
@@ -197,6 +248,7 @@ Logger log = Logger.getLogger(this.getClass());
 		
 		return dbPasswd;
 	}
+	
 	
 	// 마이페이지 - 교환.환불.as 리스트
 	@RequestMapping(value="/myAsList.do")
