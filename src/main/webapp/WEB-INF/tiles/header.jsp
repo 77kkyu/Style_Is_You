@@ -185,17 +185,17 @@ li {
 <!-- 메뉴 -->
 <div class="pagemid">
   <div class="wrapper2">
-   <I><h1><a href="http://localhost:8090/stu/main.do">STYLE IS YOU</a></h1></I>
+   <I><h1><a href="http://localhost:8080/stu/main.do">STYLE IS YOU</a></h1></I>
     <ul class="flex-menu">
       <li>&nbsp;</li>
       <li><a href="#">서비스소개</a></li>
-      <li><a href="http://localhost:8090/stu/shop/bestGoodsList.do">BEST</a></li>
-      <li><a href="http://localhost:8090/stu/shop/newGoodsList.do">NEW</a></li>
-      <li><a href="http://localhost:8090/stu/shop/goodsList/outer/NewItem.do">OUTER</a></li>
-      <li><a href="http://localhost:8090/stu/shop/goodsList/top/NewItem.do">TOP</a></li>
-      <li><a href="http://localhost:8090/stu/shop/goodsList/one-piece/NewItem.do">ONE-PIECE</a></li>
-      <li><a href="http://localhost:8090/stu/shop/goodsList/bottom/NewItem.do">BOTTOM</a></li>
-      <li><a href="http://localhost:8090/stu/shop/goodsList/acc/NewItem.do">ACC</a></li>
+      <li><a href="http://localhost:8080/stu/shop/bestGoodsList.do">BEST</a></li>
+      <li><a href="http://localhost:8080/stu/shop/newGoodsList.do">NEW</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/outer/NewItem.do">OUTER</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/top/NewItem.do">TOP</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/one-piece/NewItem.do">ONE-PIECE</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/bottom/NewItem.do">BOTTOM</a></li>
+      <li><a href="http://localhost:8080/stu/shop/goodsList/acc/NewItem.do">ACC</a></li>
     </ul>
     <br>
     <div class="bar">

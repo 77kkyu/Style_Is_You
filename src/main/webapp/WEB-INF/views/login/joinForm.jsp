@@ -334,7 +334,7 @@ function fn_pop1() {
 	var popupX = (window.screen.width / 2) - (popupWidth / 2);
 	var popupY = (window.screen.height / 2) - (popupHeight / 2);
 	
-	var url = "http://localhost:8090/stu/pop1.do";
+	var url = "http://localhost:8080/stu/pop1.do";
 	window.open(url, 'pop1', 'status=no,scrollbars=yes, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 }
 
@@ -346,7 +346,7 @@ function fn_pop1() {
 		var popupX = (window.screen.width / 2) - (popupWidth / 2);
 		var popupY = (window.screen.height / 2) - (popupHeight / 2);
 		
-		var url = "http://localhost:8090/stu/pop2.do";
+		var url = "http://localhost:8080/stu/pop2.do";
 		window.open(url, 'pop2', 'status=no,scrollbars=yes, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 	}
 </script>

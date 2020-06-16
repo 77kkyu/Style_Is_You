@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
-<% String sessionId = (String)session.getAttribute("SESSION_NAME"); %>
+<% String sessionName = (String)session.getAttribute("SESSION_NAME"); %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
 <!-- jQuery -->
@@ -49,9 +49,9 @@ li {
 <div class="pagemid">
   <div class="wrapper3">
     <ul class="flex-menu">
-        <li><a href="http://localhost:8090/stu/faq/openFaqList.do">FAQ</a></li>
-    	<li><a href="http://localhost:8090/stu/notice/openNoticeList.do">공지사항</a></li>
-    	<li><a href="http://localhost:8090/stu/qna/openQnaList.do">QNA</a></li>
+        <li><a href="http://localhost:8080/stu/faq/openFaqList.do">FAQ</a></li>
+    	<li><a href="http://localhost:8080/stu/notice/openNoticeList.do">공지사항</a></li>
+    	<li><a href="http://localhost:8080/stu/qna/openQnaList.do">QNA</a></li>
     </ul>
     <br>
     <div class="bar">
@@ -117,7 +117,7 @@ li {
 			});
 		});
 			<%
-			if(sessionId.trim().equals("admin")) { 
+			if(sessionName.trim().equals("admin")) { 
  			%> 
 				$("#wrapBtn").show();
 				$(".deleteBtn").show();
@@ -180,7 +180,7 @@ li {
 								"</td>" +
 								"<td>" + value.NOTICE_DATE + "</td>" + 
 								"<td style='display:none;' class='deleteBtn'>" +
-								"<a href='#this' name='delete' class='chk"+ value.NOTICE_NO +"'>삭제</a>" +
+								"<a href='#this' name='delete'"+ value.NOTICE_NO +"'>삭제</a>" +
 								"<input type='hidden' name='delete' value='" + value.NOTICE_NO + "'>" + 
 							"</td>" +
 							"</tr>" +

@@ -48,9 +48,9 @@ li {
 <div class="pagemid">
   <div class="wrapper3">
     <ul class="flex-menu">
-        <li><a href="http://localhost:8090/stu/faq/openFaqList.do">FAQ</a></li>
-    	<li><a href="http://localhost:8090/stu/notice/openNoticeList.do">공지사항</a></li>
-    	<li><a href="http://localhost:8090/stu/qna/openQnaList.do">QNA</a></li>
+        <li><a href="http://localhost:8080/stu/faq/openFaqList.do">FAQ</a></li>
+    	<li><a href="http://localhost:8080/stu/notice/openNoticeList.do">공지사항</a></li>
+    	<li><a href="http://localhost:8080/stu/qna/openQnaList.do">QNA</a></li>
     </ul>
     <br>
     <div class="bar">
