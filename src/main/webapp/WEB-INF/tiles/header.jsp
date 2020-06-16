@@ -7,8 +7,9 @@
 
 
 <%
-	String sessionName = (String)session.getAttribute("MEMBER_NAME");
-	String sessionId = (String)session.getAttribute("MEMBER_ID");
+
+	String sessionName = (String)session.getAttribute("SESSION_NAME");
+	String sessionId = (String)session.getAttribute("SESSION_ID");
 	String sessionNo = (String)session.getAttribute("SESSION_NO");
 	
 	if(sessionId.equals("admin") || sessionNo.equals("7777")){

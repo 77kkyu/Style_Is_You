@@ -5,7 +5,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri="http://tiles.apache.org/tags-tiles" %>
-<% String sessionId = (String)session.getAttribute("MEMBER_NAME"); %>
+<%
+	String sessionName = (String)session.getAttribute("SESSION_NAME");
+	
+	if(sessionName == null || sessionName.equals("")){
+		sessionName = "nomal";
+	}
+
+	
+%>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
 <!-- jQuery -->
@@ -104,15 +112,18 @@ li {
 			});
 			
 			<%
-			if(sessionId.trim().equals("admin")) { 
-			%>
-			
-				$("#wrapBtn").show()
+			if(sessionName.trim().equals("admin")) { 
+ 			%> 
+				$("#wrapBtn").show();
+				$(".deleteBtn").show();
 			<%
 			}
-			else{
-			}
+			else if(sessionName.trim().equals("nomal")){
 			%>
+				/* $("#wrapBtn").show(); */
+			<%
+			}
+ 			%>
 		});
 
 		function fn_openNoticeWrite(){
@@ -160,7 +171,7 @@ li {
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr>" + 
-								"<td>" + value.NOTICE_NO + "</td>" + 
+								"<td>" + value.RNUM + "</td>" + 
 								"<td class='title'>" +
 									"<a href='#this' name='title'>" + value.NOTICE_TITLE + "</a>" +
 									"<input type='hidden' name='title' value=" + value.NOTICE_NO + ">" + 

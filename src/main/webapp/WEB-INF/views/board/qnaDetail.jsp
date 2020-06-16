@@ -3,8 +3,8 @@
 <html lang="ko">
 <head>
 <%
-	String sessionName = (String)session.getAttribute("MEMBER_NAME");
-	String sessionId = (String)session.getAttribute("MEMBER_ID");
+	String sessionId = (String)session.getAttribute("SESSION_NAME");
+	String sessionName = (String)session.getAttribute("SESSION_ID");
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
@@ -37,7 +37,7 @@
 			</tr>
 			<tr>
 				<th scope="row">작성자</th>
-				<td align="center"><%=sessionName%></td>
+				<td align="center"><%=sessionId%></td>
 				<th scope="row">작성시간</th>
 				<td align="center">${map.QNA_DATE }</td>
 			</tr>
@@ -59,7 +59,7 @@
 	
 	<p>
 	<a href="#this" class="btn" id="list">목록으로</a>
-	<a href="#this" class="btn" id="update">수정/답변하기</a>
+	<a href="#this" style="display:none;" class="btn" id="update">수정/답변하기</a>
 	</p>
 	
 <!-- 	<table class="board_view"> -->
@@ -83,6 +83,15 @@
 				fn_openQnaUpdate();
 			});
 
+			<%
+			if(sessionId.trim().equals("admin")) { 
+ 			%> 
+				$("#update").show();
+			<%
+			}
+			else{
+			}
+ 			%>
 		});
 		
 		function fn_openQnaList(){
