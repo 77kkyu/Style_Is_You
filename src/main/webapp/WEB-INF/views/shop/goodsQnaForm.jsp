@@ -47,7 +47,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 
 <br><br>
 <div align="center">
-<h2>${title}</h2>
+<h2>상품문의</h2>
 </div>
 
 <br><br>
@@ -75,6 +75,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 		</table>
 						<input type="hidden" id="IDX" name="IDX" value="${IDX}">
 						<input type="hidden" id="MEMBER_NO" name="MEMBER_NO" value="${SESSION_NO}">	
+						<input type="hidden" id="MEMBER_NAME" name="MEMBER_NAME" value="${SESSION_NAME}">
 	<br>	
 </form>
 </div>
@@ -134,7 +135,7 @@ $(document).ready(function() {
 function fn_openGoodsDetail() {
 
 	var comSubmit = new ComSubmit();
-	comSubmit.setUrl("<c:url value='/sample/openBoardList.do' />");//이동할 url
+	comSubmit.setUrl("<c:url value='/shop/goodsDetail.do' />");//이동할 url
 	comSubmit.submit(); //전송
 	
 }

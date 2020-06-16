@@ -21,6 +21,8 @@ public interface GoodsService {
 	
 	List<Map<String, Object>> selectGoodsQna(Map<String, Object> map) throws Exception; // 상품Qna 리스트
 	
+	List<Map<String, Object>> selectReviewList(Map<String, Object> map) throws Exception; // 리뷰 리스트
+	
 	Map<String, Object> selectGoodsDetail(Map<String,Object> map, HttpServletRequest request) throws Exception; // 상품 디테일
 	
 	Map<String, Object> selectGoodsAtt(Map<String,Object> map) throws Exception; // 상품속성 디테일
@@ -42,5 +44,7 @@ public interface GoodsService {
 	Map<String, Object> selectGoodsAttNum(Map<String,Object> map) throws Exception; // 상품속성 디테일
 	
 	void insertGoodsQna(Map<String, Object> map, HttpServletRequest request) throws Exception; // 상품문의 등록
+	
+	void insertGoodsReview(Map<String, Object> map, HttpServletRequest request) throws Exception; // 리뷰 등록
 
 }

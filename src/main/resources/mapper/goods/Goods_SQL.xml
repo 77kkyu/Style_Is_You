@@ -275,6 +275,25 @@ SELECT
 		]]>
 	</insert>
 	
+	<insert id="insertReviewFile" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO REVIEW_IMAGE
+					(
+						REVIEW_IMAGE_NUM,
+						GOODS_NO,
+						REVIEW_IMAGE_ORG,
+						REVIEW_IMAGE_STD
+					)
+			VALUES
+					(
+						REVIEW_IMAGE_SEQ.NEXTVAL,
+						#{IDX},
+						'null',
+						#{UPLOAD_SAVE_NAME}
+					)
+		]]>
+	</insert>
+	
 	<delete id="deleteFile" parameterType="hashmap">
 		<![CDATA[
 			DELETE  
@@ -408,7 +427,8 @@ SELECT
 				GOODS_QNA_TITLE,
 				GOODS_QNA_CONTENT,
 				GOODS_QNA_DATE,
-				GOODS_QNA_SECRET
+				GOODS_QNA_SECRET,
+				MEMBER_NAME
 			FROM
 				GOODS_QNA
 				) AA
@@ -427,7 +447,8 @@ SELECT
 								GOODS_QNA_LEVEL,
 								GOODS_QNA_TITLE,
 								GOODS_QNA_CONTENT,
-								GOODS_QNA_DATE
+								GOODS_QNA_DATE,
+								MEMBER_NAME
 								)
 						values(
 								GOODS_QNA_NO_SEQ.NEXTVAL,
@@ -436,7 +457,67 @@ SELECT
 								0,
 								#{GOODS_QNA_TITLE},
 								#{GOODS_QNA_CONTENT},
-								sysdate
+								sysdate,
+								#{MEMBER_NAME}
+							   )
+		]]>
+	</insert>
+	
+	
+	
+	<select id="selectReviewList" parameterType="hashmap" resultType="hashmap"> <!-- 리뷰 리스트 -->
+		<![CDATA[
+		
+		SELECT 	AAA.* 
+			FROM( 
+				SELECT 	COUNT(*) OVER() AS TOTAL_COUNT1, 
+					AA.*,
+					ROWNUM AS NUM
+				FROM(
+					SELECT
+					REVIEW_NO,
+					MEMBER_NO,
+					ORDER_NO,
+					ORDER_DETAIL_NO,
+					REVIEW_TITLE,
+					REVIEW_CONTENT,
+					REVIEW_RATING,
+					REVIEW_DATE,
+					GOODS_NO,
+					REVIEW_READCNT,
+					REVIEW_IMG,
+					MEMBER_NAME
+					FROM
+						REVIEW
+				WHERE GOODS_NO = #{IDX}
+				ORDER BY REVIEW_NO DESC
+					  ) AA 
+					) AAA 
+				WHERE 	AAA.NUM BETWEEN #{START} AND #{END}
+		]]>
+	</select>
+	
+	<insert id="insertGoodsReview" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO REVIEW(
+								REVIEW_NO,
+								MEMBER_NO,
+								REVIEW_TITLE,
+								REVIEW_CONTENT,
+								REVIEW_DATE,
+								GOODS_NO,
+								REVIEW_IMG,
+								MEMBER_NAME
+								)
+						values(
+								REVIEW_NO_SEQ.NEXTVAL,
+								#{MEMBER_NO},
+								#{REVIEW_TITLE},
+								#{REVIEW_CONTENT},
+								sysdate,
+								#{IDX},
+								#{REVIEW_IMG},
+								#{MEMBER_NAME}
 							   )
 		]]>
 	</insert>

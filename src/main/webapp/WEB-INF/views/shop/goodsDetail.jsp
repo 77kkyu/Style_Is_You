@@ -94,7 +94,101 @@
 p.a {
         cursor: pointer;
        }
-       
+
+
+/* 리뷰리스트 */
+::selection {
+    background: #888;
+    /* color: #fff; */ 
+    text-shadow: none;
+}
+
+.xans-product-additional div.board {
+    margin: 0 auto;
+    padding: 27px 0 40px;
+    max-width: 1220px;
+    color: #353535;
+    line-height: 18px;
+}
+
+.ec-base-table.typeList table {
+    border-top: 1px solid #e5e5e5;
+}
+
+.ec-base-table table {
+    position: relative;
+    margin: 10px 0 0;
+    border: 1px solid #e5e5e5;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    /* color: #fff; */
+    line-height: 1.5;
+}
+
+.ec-base-table table:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background: #e5e5e5;
+}
+
+.displaynone {
+    display: none !important;
+}
+
+.ec-base-table thead th {
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e5e5;
+    color: #353535;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: 500;
+    background: #f9f9f9;
+}
+
+.xans-product-additional div.board {
+    margin: 0 auto;
+    padding: 27px 0 40px;
+    max-width: 1220px;
+    color: #353535;
+    line-height: 18px;
+}
+
+.ec-base-table th:first-child {
+    border-left: 0;
+}
+
+th {
+    text-align: center;
+}
+
+.td1{
+	text-align: center;
+	    color: #777;
+	    padding: 12px 0;
+}
+
+.td2{
+	    color: #777;
+	    padding: 12px 0;
+}
+
+.desc {
+    padding: 0 0 20px;
+    color: #777;
+    font-size: 12px;
+    text-align: center;
+}
+
+.d{
+	width:100%;
+	heiht:100%;
+}
 </style>
 
 <body>
@@ -249,21 +343,10 @@ p.a {
 	    <button style="width:270px; height:58px;" class="btn btn-outline-danger" id="insertBasket" onclick="fn_InsertBasket()">장바구니</button>
 		<button style="width:270px; height:58px;" class="btn btn-outline-danger" id="goodsOrder" onclick="fn_GoodsOrder()" >구매하기</button>
 		<br>
-		<button id="update" onclick="fn_update()">수정하기</button>
-	 <div id='aaa'> 
-		<tr>
-					<td align='center' > "+value.RNUM+"</td>
-					<td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>
-						<td align='center'> "+value.MEMBER_NO+"</td>
-							<td align='center' > "+date+"</td>
-							<td align='center'> <span class='btn btn-danger'>답변완료</span></td>
-				</tr> 
-						</div> 
-						<p class='b'> 
-							하하하 
-								</p>
-
+		<!-- <button id="update" onclick="fn_update()">수정하기</button> -->
 </div>
+</div>
+
 
 
 <div style="clear:both;">
@@ -423,18 +506,50 @@ p.a {
   </div> 
   <div class="tab-pane fade show active" id="re3" role="tabpanel" aria-labelledby="contact-tab"> <!-- 상품평 -->
   	
-  	<table>
-  		<tr>
-  			<td></td>
-  		</tr>
-  	</table>
+  	<div class="xans-element- xans-product xans-product-review">
+  	<div class="ec-base-table typeList">
+  			<br>
+  			<h3>REVIEW</h3>
+  		<p class="desc">상품의 사용후기를 적어주세요.</p>
+  		<table border="1" width="60%">
+  			<caption></caption>
+  			<colgroup>
+  				<col style="width:70px;">
+  				<col style="width:auto">
+  				<col style="width:120px;">
+  				<col style="width:120px;">
+  				<col style="width:80px;">
+  				<col style="width:80px;" class="displaynone">
+  			</colgroup>
+  			<thead>
+  				<tr>
+  					<th scope="col">번호</th>
+  					<th scope="col" >제목</th>
+  					<th scope="col">작성자</th>
+  					<th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성일</th>
+  					<th scope="col">조회</th>
+  					<th scope="col" class="displaynone">평점</th>
+  				</tr>
+  			</thead>
+  			
+  			<tbody id="reviewList" name="reviewList">
+  			</tbody>
+  			
+  		</table>
+  		</div>
+  	</div>
+  	
+  			<div id="PAGE_NAVI"></div>
+			<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
+  	<div style="margin-left:1050px">
+  <button type="button" class="btn btn-secondary btn-sm" onclick="fn_Review()">WRITE</button>
+  </div>
   	
   </div> 
 </div>
 </div>
 
-<div id="PAGE_NAVI"></div>
-	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
+
 <form id="commonForm" name="commonForm"></form>
 </body>
 </html>
@@ -442,6 +557,7 @@ p.a {
 
 
 <script type="text/javascript">
+
 
 var doubleSubmitFlag = false;
 function doubleSubmitCheck(){
@@ -455,7 +571,8 @@ function doubleSubmitCheck(){
 
 $(document).ready(function() {
 
-	fn_selectGoodsList(1);
+	fn_selectGoodsList(1); // 상품문의 페이징x
+	fn_selectReviewList(1); // 리뷰리스트 페이징처리
 
 	$("#insertLike").on("click", function(e){// 좋아요 버튼
 		//html 에서 a 태그나 submit 태그는 고유의 동작이 있다. 
@@ -475,14 +592,40 @@ $(document).ready(function() {
 		fn_GoodsOrder();	
 	});
 
+	$("a[name='review_detail']").on("click", function(e){ //리뷰 클릭
+		e.preventDefault();
+		fn_openBoardDetail($(this));
+	});
+
 
 });
 
 function fn_Qna(){ // 상품문의 작성
-	var comSubmit = new ComSubmit();
-	comSubmit.setUrl("<c:url value='/shop/openQnaForm.do'/>");
-	comSubmit.addParam("IDX", ${list.GOODS_NO});
-	comSubmit.submit();
+
+	if(${SESSION_NO ne null}){
+		var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/shop/openQnaForm.do'/>");
+		comSubmit.addParam("IDX", ${list.GOODS_NO});
+		comSubmit.submit();
+	}else {
+		alert("로그인 후 이용해주세요.");
+		location.href = "/stu/loginForm.do";
+	}
+	
+}
+
+function fn_Review(){
+
+	if(${SESSION_NO ne null}){
+		var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/shop/openReviewForm.do'/>");
+		comSubmit.addParam("IDX", ${list.GOODS_NO});
+		comSubmit.submit();
+	}else {
+		alert("로그인 후 이용해주세요.");
+		location.href = "/stu/loginForm.do";
+	}
+	
 }
 
 function fn_update() {
@@ -793,6 +936,7 @@ function fn_selectGoodsListCallback(data) {
 		gfn_renderPaging(params);
 
 		var str = "";
+		var cnt = 1;
 		$.each(data.list, function(key, value) {
 								var date = moment(value.GOODS_QNA_DATE).format("YYYY-MM-DD");
 							  var Level = value.GOODS_QNA_LEVEL;
@@ -810,9 +954,10 @@ function fn_selectGoodsListCallback(data) {
 								//var Level = 0;
 								//alert(value.GOODS_QNA_LEVEL == 1);
 								
+								
 								if(Level == 1){
 							str += " <div> "
-								+  " <tr id='show'> "
+								+  " <tr id='show"+cnt+"'> "
 								+  " <td align='center' > "+value.RNUM+"</td>"
 								+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>"
 								+  " <td align='center'> "+value.MEMBER_NO+"</td>"
@@ -823,14 +968,14 @@ function fn_selectGoodsListCallback(data) {
 								+  " <div> "
 								+  " <tr width='100%' align='center' bgcolor='#f1f3f5'> "
 								+  " <td></td> "
-								+  " <td id='hide' height='50px;'>하하하ddddddddddddddㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td> "
+								+  " <td id='hide"+cnt+"' height='50px;'>하하하ddddddddddddddㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td> "
 								+  " <td></td><td></td><td></td> "
 								+  " </tr>"
 								+  " </div> ";
-							
+									cnt++
 								}else{
 
-								str += " <tr align='center' id='show' > "
+								str += " <tr align='center' id='show"+cnt+"' > "
 									+  " <td > "+value.RNUM+"</td>"
 									+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>"
 									+  " <td align='center'> "+value.MEMBER_NO+"</td>"
@@ -840,31 +985,203 @@ function fn_selectGoodsListCallback(data) {
 									+  " <div> "
 									+  " <tr width='100%' align='center' bgcolor='#f1f3f5'> "
 									+  " <td></td>"
-									+  " <td id='hide' height='50px;'>하하하ddddddddddddddㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td> "
+									+  " <td id='hide"+cnt+"' height='50px;'>하하하ddddddddddddddㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td> "
 									+  " <td></td><td></td><td></td> "
 									+  " </tr>"
 									+  " </div> ";
+									cnt++
 								}
 							//" <td > <span class='btn btn-danger'>답변완료</span></td>"
 							////+  " <td>"+value.GOODS_QNA_LEVEL+"</td>"
 						});
 		body.append(str);
-		$("a[name='title']").on("click", function(e){ //제목 
-			e.preventDefault();
-			fn_openBoardDetail($(this));
-		});
 	}
 }
 
-$(document).ready( function() {
-    $( 'tr#show' ).click( function() {
-      $( 'td#hide' ).toggle( 'slow' );
+$(document).ready( function() { // 상품문의 토글
+    $( 'tr#show1' ).click( function() {
+      $( 'td#hide1' ).toggle( 'slow' );
     });
+
+    $( 'tr#show2' ).click( function() {
+        $( 'td#hide2' ).toggle( 'slow' );
+      });
+
+    $( 'tr#show3' ).click( function() {
+        $( 'td#hide3' ).toggle( 'slow' );
+      });
+
+    $( 'tr#show4' ).click( function() {
+        $( 'td#hide4' ).toggle( 'slow' );
+      });
+
+    $( 'tr#show5' ).click( function() {
+        $( 'td#hide5' ).toggle( 'slow' );
+      });
+
+    $( 'tr#show6' ).click( function() {
+        $( 'td#hide6' ).toggle( 'slow' );
+      });
+
+    $( 'tr#show7' ).click( function() {
+        $( 'td#hide7' ).toggle( 'slow' );
+      });
+
+    $( 'tr#show8' ).click( function() {
+        $( 'td#hide' ).toggle( 'slow' );
+      });
+
+    $( 'tr#show8' ).click( function() {
+        $( 'td#hide' ).toggle( 'slow' );
+      });
+
+    $( 'tr#show9' ).click( function() {
+        $( 'td#hide9' ).toggle( 'slow' );
+      });
   });
 
 
+function fn_selectReviewList(pageNo) {
+	var comAjax = new ComAjax();
+
+	//alert(${orderBy});
+	comAjax.setUrl("<c:url value='/shop/goodsDetailList.do' />");
+	comAjax.setCallback("fn_selectReviewListCallback");
+	comAjax.addParam("PAGE_INDEX", pageNo);
+	comAjax.addParam("PAGE_ROW", 16);
+	comAjax.addParam("IDX", $("#IDX").val());
+	comAjax.ajax();
+}
+
+function fn_selectReviewListCallback(data) {
+	var total = data.TOTAL1;
+	var body = $("#reviewList");
+	body.empty();
+	
+	if (total == 0) {
+		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>"
+				+ "</tr>";
+		body.append(str);
+	} else {
+		var params = {
+			divId : "PAGE_NAVI",
+			pageIndex : "PAGE_INDEX",
+			totalCount : total,
+			recordCount : 16,
+			eventName : "fn_selectReviewList"
+		};
+		gfn_renderPaging(params);
+
+		var str = "";
+		var cnt = 1;
+		$.each(data.reviewList, function(key, value) {
+							var date = moment(value.REVIEW_DATE).format("YYYY-MM-DD");
+							var img = "<img src='/stu/img/icon_201602021908415400.jpg' >"
+							var REVIEW_IMG = value.REVIEW_IMG;
+							var gubun = value.REVIEW_NO;
+							var imgpath = "<img src='/stu/file/"+value.REVIEW_IMG+"' width='500' height='400'>";
+							
+							
+							if(REVIEW_IMG == null){
+							str += " <tr id='show1"+cnt+"'> "
+								+  " <td class='td1'>"+value.NUM+"</td> "
+								+  " <td class='td2'>&nbsp;&nbsp;"+value.REVIEW_TITLE+"</td> "
+								+  " <td class='td1'>"+value.MEMBER_NAME+"</td> "
+								+  " <td class='td1'>"+date+"</td> "
+								+  " <td class='td1'>"+value.REVIEW_READCNT+"</td> "
+								+  " </tr> "
+								+  " <tr id='hide1"+cnt+"'> "
+								+  " <td colspan='5'> "+value.REVIEW_CONTENT+" </td>"
+								+  " </tr> ";
+								cnt++;
+								
+							}else{
+								str += " <tr id='show1"+cnt+"'> "
+									+  " <td class='td1'>"+value.NUM+"</td> "
+									+  " <td class='td2'>&nbsp;&nbsp;"+value.REVIEW_TITLE+" "+img+ "</td> "
+									+  " <td class='td1'>"+value.MEMBER_NAME+"</td> "
+									+  " <td class='td1'>"+date+"</td> "
+									+  " <td class='td1'>"+value.REVIEW_READCNT+"</td> "
+									+  " </tr> "
+									+  " <tr id='hide1"+cnt+"'> "
+									+  " <td colspan='5'> "+value.REVIEW_CONTENT+" </td>"
+									+  " </tr> ";
+								cnt++;
+
+							}
+							
+						});
+		body.append(str);
+	}
+}
+
+$(document).ready( function() { // 상품문의 토글
+	
+    $( 'tr#show11' ).click( function() {
+      $( 'tr#hide11' ).toggle( 'slow' );
+    });
+    $( 'tr#show12').click( function() {
+        $( 'tr#hide12').toggle( 'slow' );
+      });
 
 
+    $( 'tr#show13' ).click( function() {
+        $( 'tr#hide13' ).toggle( 'slow' );
+      });
+      $( 'tr#show14').click( function() {
+          $( 'tr#hide14').toggle( 'slow' );
+        });
 
+
+      $( 'tr#show15' ).click( function() {
+          $( 'tr#hide15' ).toggle( 'slow' );
+        });
+        $( 'tr#show16').click( function() {
+            $( 'tr#hide16').toggle( 'slow' );
+          });
+
+
+        $( 'tr#show17' ).click( function() {
+            $( 'tr#hide17' ).toggle( 'slow' );
+          });
+          $( 'tr#show18').click( function() {
+              $( 'tr#hide18').toggle( 'slow' );
+            });
+
+
+          $( 'tr#show19' ).click( function() {
+              $( 'tr#hide19' ).toggle( 'slow' );
+            });
+            
+  }); 
+ 
+
+
+/* if(REVIEW_IMG == null){
+	str += " <tr id='show1'> "
+		+  " <td class='td1'>"+value.NUM+"</td> "
+		+  " <td class='td2'> <a href='#this' name='review_detail'> &nbsp;&nbsp;"+value.REVIEW_TITLE+"</a></td> "
+		+  " <td class='td1'>"+value.MEMBER_NO+"</td> "
+		+  " <td class='td1'>"+date+"</td> "
+		+  " <td class='td1'>"+value.REVIEW_READCNT+"</td> "
+		+  " </tr> "
+		+  " <tr id='hide1'> "
+		+  " <p> "+imgpath+" </p> <br> "
+		+  " <p> "+value.REVIEW_CONTENT+" </p> "
+		+  " </tr> ";
+		
+	}else{
+		str += " <tr id='show1'> "
+			+  " <td class='td1'>"+value.NUM+"</td> "
+			+  " <td class='td2'> <a href='#this' name='review_detail'> &nbsp;&nbsp;"+value.REVIEW_TITLE+" "+img+ "</a></td> "
+			+  " <td class='td1'>"+value.MEMBER_NO+"</td> "
+			+  " <td class='td1'>"+date+"</td> "
+			+  " <td class='td1'>"+value.REVIEW_READCNT+"</td> "
+			+  " </tr> "
+			+  " <tr id='hide1'> "
+			+  " <p> "+imgpath+" </p> <br> "
+			+  " <p> "+value.REVIEW_CONTENT+" </p> "
+			+  " </tr> ";
+	} */
 
 </script>

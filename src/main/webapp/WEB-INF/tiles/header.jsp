@@ -45,9 +45,7 @@ a:hover {
   background-color: yellow;
 }
 
-.pagetop {
-  background-color: rgba(0, 0, 0, 0.1);
-}
+
 
 .wrapper {
 /*   background-color: pink; */

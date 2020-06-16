@@ -285,7 +285,8 @@ public class GoodsController {
 		ModelAndView mv = new ModelAndView("jsonView");
 		List<Map<String,Object>> list = null;
 			
-		list = goodsService.selectGoodsQna(commandMap.getMap());
+		list = goodsService.selectGoodsQna(commandMap.getMap()); //QNA리스트 
+		
 		System.out.println("디테일리스트="+list);	
 		list.get(0);
 		if(list.size() != 0) {
@@ -299,9 +300,25 @@ public class GoodsController {
         else{
             mv.addObject("TOTAL", 0);
         }
+		
+		
+		List<Map<String,Object>> reviewList = goodsService.selectReviewList(commandMap.getMap()); // 리뷰리스트
+		System.out.println("리뷰리스트="+reviewList);
+		if(reviewList.size() != 0) {
+			reviewList.get(0).get("");
+		}
+		mv.addObject("reviewList", reviewList);
+		if(reviewList.size() > 0){
+            mv.addObject("TOTAL1", reviewList.get(0).get("TOTAL_COUNT1"));
+        }
+        else{
+            mv.addObject("TOTAL1", 0);
+        }
+		
 
 		return mv;
 	}
+	
 	
 	
 	
@@ -620,7 +637,7 @@ public class GoodsController {
 	
 	
 	@RequestMapping(value="/shop/openQnaForm.do") // url 
-	public ModelAndView openGoodsQna(CommandMap commandMap) throws Exception { // 글쓰기 폼
+	public ModelAndView openGoodsQna(CommandMap commandMap) throws Exception { // QNA 등록 폼
 		
 		ModelAndView mv = new ModelAndView("shop/goodsQnaForm"); // 보낼 url
 		mv.addObject("IDX", commandMap.get("IDX"));
@@ -628,7 +645,7 @@ public class GoodsController {
 		
 	}
 	
-	@RequestMapping(value="/shop/goodsQnaInsert.do" ,method = RequestMethod.POST) // url 
+	@RequestMapping(value="/shop/goodsQnaInsert.do" ,method = RequestMethod.POST) // QNA 등록
 	public ModelAndView insertGoodsQna(CommandMap commandMap, HttpServletRequest request) throws Exception { // 글쓰기 작성완료
 		
 		ModelAndView mv = new ModelAndView("redirect:/shop/goodsDetail.do"); // 보낼 url
@@ -640,5 +657,30 @@ public class GoodsController {
 		return mv;
 		
 	}
+	
+	
+	@RequestMapping(value="/shop/openReviewForm.do") 
+	public ModelAndView reviewForm(CommandMap commandMap) throws Exception { // 리뷰 등록 폼
+		
+		ModelAndView mv = new ModelAndView("shop/reviewForm"); // 보낼 url
+		System.out.println("111111111리뷰폼11111111="+commandMap.getMap());
+		mv.addObject("IDX", commandMap.get("IDX"));
+		return mv;
+		
+	}
+	
+	
+	@RequestMapping(value="/shop/insertReview.do" ,method = RequestMethod.POST)  
+	public ModelAndView insertGoodsReview(CommandMap commandMap, HttpServletRequest request) throws Exception { // 리뷰 등록
+		
+		ModelAndView mv = new ModelAndView("redirect:/shop/goodsDetail.do"); // 보낼 url
+		System.out.println("리뷰등록="+commandMap.getMap());
+		goodsService.insertGoodsReview(commandMap.getMap(), request);
+		
+		mv.addObject("IDX", commandMap.get("IDX"));
+		return mv;
+		
+	}
+	
 
 }

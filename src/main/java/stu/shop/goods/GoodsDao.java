@@ -59,6 +59,12 @@ public class GoodsDao extends AbstractDao{
 		return (List<Map<String,Object>>) selectList("goods.selectGoodsQna", map);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectReviewList(Map<String, Object> map) throws Exception { // 리뷰리스트
+		System.out.println("selectReviewList="+map);
+	    return (List<Map<String,Object>>) selectPagingList("goods.selectReviewList" , map); 
+	}
+	
 	public void goodsHitCnt(Map<String,Object> map) throws Exception { // 조회수 증가
 		System.out.println("goodsHitCntDao="+map);
 		update("goods.goodsReadCntUp", map);
@@ -88,8 +94,12 @@ public class GoodsDao extends AbstractDao{
 		update("goods.updateGoodsThumbnail", map);
 	}
 	
-	public void insertFile(Map<String, Object> map) throws Exception { // 파일등록
+	public void insertFile(Map<String, Object> map) throws Exception { // 상품이미지파일등록
 		insert("goods.insertFile", map);
+	}
+	
+	public void insertReviewFile(Map<String, Object> map) throws Exception { // 리뷰이미지파일등록
+		insert("goods.insertReviewFile", map);
 	}
 	
 	public void deleteFile(Map<String, Object> map) throws Exception { // 파일삭제
@@ -132,6 +142,10 @@ public class GoodsDao extends AbstractDao{
 	
 	public void insertGoodsQna(Map<String, Object> map) throws Exception { // 상품문의 등록
 		insert("goods.insertGoodsQna", map);
+	}
+	
+	public void insertGoodsReview(Map<String, Object> map) throws Exception { // 리뷰 등록
+		insert("goods.insertGoodsReview", map);
 	}
 
 }
