@@ -60,7 +60,7 @@
            
             <div style="text-align:center">
           		<input type="button" name="main" value="메인으로" onClick="location.href='/stu/main.do'">
-            	<input type="button" name="orderList" value="주문확인" onclick="location.href='#">
+            	<input type="button" name="orderList" value="주문확인" onclick="location.href='/stu/myOrderList.do'">
             </div>
 
   </body>

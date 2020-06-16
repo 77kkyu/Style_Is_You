@@ -376,10 +376,16 @@ function fn_update() {
 
 function fn_InsertLike() { // 좋아요
 
-	var comSubmit = new ComSubmit();
-	comSubmit.setUrl("<c:url value='/shop/goodsLike.do'/>");
-	comSubmit.addParam("IDX", ${list.GOODS_NO});
-	comSubmit.submit();
+	if(${SESSION_NO ne null}){
+		var comSubmit = new ComSubmit();
+		comSubmit.setUrl("<c:url value='/shop/goodsLike.do'/>");
+		comSubmit.addParam("GOODS_NO", ${list.GOODS_NO});
+		comSubmit.submit();
+	}else {
+		alert("로그인 후 이용해주세요.");
+		location.href = "/stu/loginForm.do";
+	}
+	
 	
 }
 
@@ -394,10 +400,21 @@ function fn_GoodsOrder() { // 구매하기
 		alert("상품이 없습니다.");
 		return false;
 	} */
-	
-    var comSubmit = new ComSubmit("frm");
-	comSubmit.setUrl("<c:url value='/shop/goodsOrder.do'/>");
-	comSubmit.submit();
+	if(${SESSION_NO ne null}){
+		var arraycode = document.getElementsByName("BASKET_GOODS_AMOUNT");
+		var len = arraycode.length;
+		if(len==0){
+			alert("상품을 추가해 주세요.");
+		}else{
+			var comSubmit = new ComSubmit("frm");
+			comSubmit.setUrl("<c:url value='/shop/goodsOrder.do'/>");
+			comSubmit.submit();
+		}
+	}else {
+		alert("로그인 후 이용해주세요.");
+		location.href = "/stu/loginForm.do";
+	}
+   
 	
 }
 
@@ -413,15 +430,27 @@ function fn_InsertBasket() { // 장바구니
 		alert("상품이 없습니다.");
 		return false;
 	} */
+
+	if(${SESSION_NO ne null}){
+		var arraycode = document.getElementsByName("BASKET_GOODS_AMOUNT");
+		var len = arraycode.length;
+		if(len==0){
+			alert("상품을 추가해 주세요.");
+		}else{
+			var url = "/stu/shop/basketPopUp.do";
+			var name = "popup";
+			var option = "width=382, height=227, top=500, left=800, location=no";
+			
+		    var comSubmit = new ComSubmit("frm");
+			comSubmit.setUrl("<c:url value='/shop/insertBasket.do'/>");
+			window.open(url,name,option);
+			comSubmit.submit();
+		}
+	}else {
+		alert("로그인 후 이용해주세요.");
+		location.href = "/stu/loginForm.do";
+	}
 	
-	var url = "/stu/shop/basketPopUp.do";
-	var name = "popup";
-	var option = "width=382, height=227, top=500, left=800, location=no";
-	
-    var comSubmit = new ComSubmit("frm");
-	comSubmit.setUrl("<c:url value='/shop/insertBasket.do'/>");
-	window.open(url,name,option);
-	comSubmit.submit();
 	
 	
 	/* var resultList = new Array();
@@ -578,7 +607,6 @@ function tableCreate(){
 	     + "</tr>"
 		 + "<input type='hidden' name='ORDER_COLOR' id='ORDER_COLOR' value='"+color+"'>"
 		 + "<input type='hidden' name='ORDER_SIZE' id='ORDER_SIZE' value='"+size+"'> "
-		 + "<input type='hidden' name='MEMBER_NO' id='MEMBER_NO' value='1'> "
 		 + "<input type='hidden' name='IDX' id='IDX' value='"+${list.GOODS_NO}+"'> "
 		 + "</table>";
 		

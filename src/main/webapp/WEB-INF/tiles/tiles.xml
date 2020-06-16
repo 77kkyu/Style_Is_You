@@ -10,18 +10,18 @@
   
   	<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
   	<put-attribute name="content" value=""/>
+  	<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
   	
   </definition>
-  
+ <!--  
   <definition name="mypage" template="/WEB-INF/tiles/adminLayout.jsp">
   
-  	<put-attribute name="left" value="/stu/my_side.do"/>
+  	<put-attribute name="left" value="/stu/mySide.jsp"/>
   	<put-attribute name="content" value=""/>
   	
   </definition>
   
   
-  <!-- mypage test -->
   <definition name="/my/myOrderList" extends="mypage">
   
   	<put-attribute name="content" value="/WEB-INF/views/my/myOrderList.jsp"/>
@@ -31,7 +31,7 @@
   
   
   
-  
+   -->
   
   
   
@@ -71,13 +71,7 @@
   	<put-attribute name="content" value="/WEB-INF/views/login/{1}.jsp"/>
   	
   </definition>
-  <!-- 
-  <definition name="my/*" extends="base">
   
-  	<put-attribute name="content" value="/WEB-INF/views/my/{1}.jsp"/>
-  	
-  </definition> 
-	 -->
   <definition name="basket/*" extends="base">
   
   	<put-attribute name="content" value="/WEB-INF/views/basket/{1}.jsp"/>
@@ -89,7 +83,19 @@
   	<put-attribute name="content" value="/WEB-INF/views/order/{1}.jsp"/>
   	
   </definition>
-
+  
+  <definition name="my/*" extends="base">
+  
+  	<put-attribute name="content" value="/WEB-INF/views/my/{1}.jsp"/>
+  	
+  </definition>
+  
+  <definition name="/my/myOrderList" extends="base">
+  
+  	<put-attribute name="content" value="/WEB-INF/views/my/myOrderList.jsp"/>
+  	
+  </definition>
+  
 
   <!-- 수민 -->
        <!--FAQ -->

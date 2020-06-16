@@ -108,7 +108,7 @@ public class AdminMainController {
 	}
 	 
 	// 주문/변경 상세보기 
-	@RequestMapping(value = "/order_detail.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/order_detail.do")
 	public ModelAndView order_detail(CommandMap commandMap, HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView("admin/order_detail");

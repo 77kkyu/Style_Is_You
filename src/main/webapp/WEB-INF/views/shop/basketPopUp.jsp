@@ -76,6 +76,7 @@ display: inline-block;
 
  function go_cart(){
 	opener.location.href="/stu/basket/basketList.do";
+	close();
 }
  
 function cart_close(){
