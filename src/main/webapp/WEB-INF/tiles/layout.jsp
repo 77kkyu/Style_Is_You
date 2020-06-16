@@ -12,7 +12,7 @@
 
 <body>
 
-<div id="wrapper">
+
 	<div id="header">
 		<tiles:insertAttribute name="header" ignore="true"/><!-- // header -->
 	</div>
@@ -25,7 +25,7 @@
 	<div id="footer">
 		<tiles:insertAttribute name="footer" ignore="true"/>	
 	</div>
-</div>
+
 
 </body>
 </html>

@@ -221,7 +221,7 @@ function fn_order_pay(){
 						<input type="hidden" name="basket_no" value="${row.BASKET_NO }">
 						<tr>
                   			<td>
-                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }'>
+                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }' width="70px" height="70px">
                   			</td>
 							<td>
 				  				<a href="#">${row.GOODS_NAME }</a> <br>

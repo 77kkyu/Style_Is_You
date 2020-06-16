@@ -14,6 +14,16 @@
   	
   </definition>
 
+  <definition name="mypage" template="/WEB-INF/tiles/adminLayout.jsp">
+  
+  	<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
+  	<put-attribute name="left" value="/WEB-INF/tiles/mySide.jsp"/>
+  	<put-attribute name="content" value=""/>
+  	<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
+  	
+  </definition>
+
+
  <!--  
   <definition name="mypage" template="/WEB-INF/tiles/adminLayout.jsp">
   
@@ -89,9 +99,9 @@
   	
   </definition>
   
-  <definition name="/my/myOrderList" extends="base">
+  <definition name="/my/myOrderList" extends="mypage">
   
-  	<put-attribute name="content" value="/WEB-INF/views/my/myOrderList.jsp"/>
+	<put-attribute name="content" value="/WEB-INF/views/my/myOrderList.jsp"/>
   	
   </definition>
   

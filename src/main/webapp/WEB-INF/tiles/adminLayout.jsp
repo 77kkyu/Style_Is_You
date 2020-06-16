@@ -12,22 +12,29 @@
 
 <body>
 
-	<%-- <header id="header">
-		<tiles:insertAttribute name="header"/><!-- // header -->
-	</header> --%>
+<div>
+	<div>
+	<div id="header">
+		<tiles:insertAttribute name="header" ignore="true"/><!-- // header -->
+	</div>
+	</div>
 	
+	<div>
 	<div id="left">
 		<tiles:insertAttribute name="left" ignore="true"/>
 	</div>
 	<div id="content">
-		<tiles:insertAttribute name="content" ignore="true"/>
+		<tiles:insertAttribute name="content" ignore="true" />
+	</div>	
+<br>
+<br>
 	</div>
-
-
-
-	<%-- <footer id="footer">
+	<div>
+	<div id="footer">
 		<tiles:insertAttribute name="footer" ignore="true"/>	
-	</footer> --%>
+	</div>
+	</div>
+</div>
 
 
 </body>

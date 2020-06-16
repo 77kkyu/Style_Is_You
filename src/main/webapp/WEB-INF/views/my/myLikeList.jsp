@@ -60,9 +60,9 @@ function fn_likeDelete(index){
           <div class="table-responsive">
             <table class="table table-striped">
             <colgroup>
-				<col width="20%" />
-				<col width="50%" />
-				<col width="15*" />
+				<col width="10%" />
+				<col width="*" />
+				<col width="15%" />
 				<col width="15%" />
 			</colgroup>
               <thead>
@@ -79,7 +79,7 @@ function fn_likeDelete(index){
 					<input type="hidden" name="goods_no" value="${row.GOODS_NO }">
 						<tr>
                   			<td>
-                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }'>
+                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }' width="70px" height="70px">
                   			</td>
 							<td style="text-align:left">
 				  				<a href="#">${row.GOODS_NAME }</a>

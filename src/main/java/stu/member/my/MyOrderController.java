@@ -230,10 +230,10 @@ Logger log = Logger.getLogger(this.getClass());
 		String order_no = request.getParameter("order_no");
 
 		List<Map<String, Object>> my_detail = adminMainService.order_detail(commandMap);
-		System.out.println("order_detail:" + my_detail);
+		System.out.println("my_detail:" + my_detail);
 
 		List<Map<String, Object>> my_detail_sub = adminMainService.order_detail_sub(commandMap);
-		System.out.println("order_detail_sub:" + my_detail_sub);
+		System.out.println("my_detail_sub:" + my_detail_sub);
 
 		mv.addObject("my_detail", my_detail);
 		mv.addObject("my_detail_sub", my_detail_sub);

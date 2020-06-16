@@ -42,11 +42,9 @@ function order_list() {
 </head>
 <body>
 <div class="container">
-	<%@include file="/WEB-INF/tiles/adminSide.jsp" %>
+	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
 	<div class="row">
-        <div>
-			<p><a href="#" onclick="order_list(); return false;">목록으로</a></p>
-        </div>
+        
         <c:forEach items="${my_detail }" var="detail">
         <div style="border: 1px solid gray; bottom: 20px; width: 80%;">
           <h2>받으시는분</h2>
@@ -62,16 +60,7 @@ function order_list() {
 				<tr>									
 					<td>주문자</td><td>${detail.MEMBER_NAME }</td>
 				</tr>
-				<tr>	
-					<td>연락처</td><td>${detail.MEMBER_PHONE }</td>
-				</tr>
-				<tr>	
-					<td>이메일</td><td>${detail.MEMBER_EMAIL }</td>
-				</tr>
 				<br />
-				<tr>
-					<td>배송상태</td><td>${detail.ORDER_STATE }</td>
-				</tr>
 				<br />
 				<tr>
 					<td>결제수단</td><td>${detail.ORDER_PAY_OPTION }</td>
@@ -89,8 +78,7 @@ function order_list() {
 					<td>최종결제금액</td><td>${detail.ORDER_TOTAL_PAY_PRICE }</td>
 				</tr>								
 
-<%--			<td><input type="button" onclick="order_detail(${order.ORDER_NO })" value="상세보기">
-				<br /><input type="button" onclick="order_state(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼"></td> --%>
+
 			</tbody>
 		</table>
         </c:forEach>
@@ -118,16 +106,14 @@ function order_list() {
 			<tbody>
 			<c:choose>
 				<c:when test="${fn:length(my_detail_sub) > 0}">
-					<c:forEach items="${my_detail_sub }" var="detail_sub">					
+					<c:forEach items="${my_detail_sub }" var="detail_sub">		
+					${detail_sub }			
 						<tr>
 							<td>${detail_sub.GOODS_NAME }</td>
 							<td>${detail_sub.ORDER_DETAIL_PRICE }</td>
 							<td>${detail_sub.ORDER_DETAIL_AMOUNT }</a>
-							<td>${detail_sub.COUPON_DISCOUNT }개</td>
+							<td>${detail_sub.COUPON_DISCOUNT }원</td>
 							<td>${detail_sub.ORDER_DISCOUNT_APPLY }원</td>
-
-<%-- 							<td><input type="button" onclick="order_detail(${order.ORDER_NO })" value="상세보기">
-							<br /><input type="button" onclick="order_state(${order.ORDER_STATE }, ${order.ORDER_NO })" value="확인버튼"></td> --%>
 						</tr>
 					</c:forEach>
 				</c:when>

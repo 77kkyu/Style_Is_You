@@ -169,11 +169,11 @@ function order_qna(mem_no, order_no){
 							<td >
 							<c:choose>
 								<c:when test="${my_order.HAP_CNT eq '1' }">
-								<a href="/stu/order_detail.do?order_no=${my_order.ORDER_NO  }" name="title">${my_order.GOODS_NAME }</a>
+								<a href="/stu/my_detail.do?order_no=${my_order.ORDER_NO  }" name="title">${my_order.GOODS_NAME }</a>
 								<input type="hidden" id="member_no" value="${my_order.MEMBER_NO }">
 								</c:when>
 								<c:otherwise>
-								<a href="/stu/order_detail.do?order_no=${my_order.ORDER_NO  }" name="title">${my_order.GOODS_NAME }</a>외 ${my_order.HAP_CNT -1 }건
+								<a href="/stu/my_detail.do?order_no=${my_order.ORDER_NO  }" name="title">${my_order.GOODS_NAME }</a>외 ${my_order.HAP_CNT -1 }건
 								<input type="hidden" id="member_no" value="${my_order.MEMBER_NO }">
 								</c:otherwise>
 							</c:choose>
