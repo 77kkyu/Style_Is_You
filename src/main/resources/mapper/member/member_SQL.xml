@@ -24,7 +24,7 @@
 			VALUES
 			(
 				MEMBER_NO_SEQ.NEXTVAL,
-				TRIM (BOTH FROM #{MEMBER_ID}),
+				#{MEMBER_ID},
 				#{MEMBER_PASSWD},
 				#{MEMBER_NAME},
 				#{MEMBER_BIRTH},
@@ -41,6 +41,12 @@
 	</insert>
 	
 	<insert id="insertDefaultPoint" parameterType="hashmap">
+		<selectKey keyProperty="MEMBER_NO" resultType="int" order="BEFORE">
+			SELECT 
+				MAX(MEMBER_NO)
+			FROM 
+				MEMBER
+		</selectKey>
 		<![CDATA[
 			INSERT INTO POINT
 			(
