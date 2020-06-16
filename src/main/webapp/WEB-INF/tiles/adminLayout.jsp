@@ -17,10 +17,10 @@
 	</header> --%>
 	
 	<div id="left">
-		<tiles:insertAttribute name="left"/>
+		<tiles:insertAttribute name="left" ignore="true"/>
 	</div>
-	<div id="body">
-		<tiles:insertAttribute name="body"/>
+	<div id="content">
+		<tiles:insertAttribute name="content" ignore="true"/>
 	</div>
 
 

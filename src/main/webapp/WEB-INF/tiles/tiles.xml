@@ -22,7 +22,7 @@
   
   
   <!-- mypage test -->
-  <definition name="/my/myOrderList" extends="base">
+  <definition name="/my/myOrderList" extends="mypage">
   
   	<put-attribute name="content" value="/WEB-INF/views/my/myOrderList.jsp"/>
   	
