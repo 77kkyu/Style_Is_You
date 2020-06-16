@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-<title>admin주문디테일</title>
+<title>my주문디테일</title>
 
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@ function order_list() {
         <div>
 			<p><a href="#" onclick="order_list(); return false;">목록으로</a></p>
         </div>
-        <c:forEach items="${order_detail }" var="detail">
+        <c:forEach items="${my_detail }" var="detail">
         <div style="border: 1px solid gray; bottom: 20px; width: 80%;">
           <h2>받으시는분</h2>
           <p>받는분 이름 : ${detail.ORDER_NAME } / 받는분 연락처 : ${detail.ORDER_PHONE }</p>
@@ -117,8 +117,8 @@ function order_list() {
 			
 			<tbody>
 			<c:choose>
-				<c:when test="${fn:length(order_detail_sub) > 0}">
-					<c:forEach items="${order_detail_sub }" var="detail_sub">					
+				<c:when test="${fn:length(my_detail_sub) > 0}">
+					<c:forEach items="${my_detail_sub }" var="detail_sub">					
 						<tr>
 							<td>${detail_sub.GOODS_NAME }</td>
 							<td>${detail_sub.ORDER_DETAIL_PRICE }</td>

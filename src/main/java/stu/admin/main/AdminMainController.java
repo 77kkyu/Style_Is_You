@@ -108,7 +108,7 @@ public class AdminMainController {
 	}
 	 
 	// 주문/변경 상세보기 
-	@RequestMapping(value = "/order_detail.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/order_detail.do")
 	public ModelAndView order_detail(CommandMap commandMap, HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView("admin/order_detail");
@@ -243,11 +243,9 @@ public class AdminMainController {
 				return mv;
 				
 			} else if(gubun.equals("3")) { //AS
-				//상품회수후 AS_list에서 정보 가져옴  member_no,order_detail_no
-				//order_detail정보 가져옴 상품속성번호, 수량
-				//goods_attribute에서 상품속성번호에 수량 감소
-				//order_list state=2(배송준비)
-				//AS_LIST에서 state = 3, edate=update
+				mv.addObject("as_no", as_no);
+				mv.setView(new RedirectView("/stu/coolAs_ok.do"));
+				return mv;
 			}
 
 		}
@@ -349,7 +347,7 @@ public class AdminMainController {
 	@RequestMapping(value="/cashback_ok.do")
 	public ModelAndView cashback_ok(CommandMap commandMap,HttpServletRequest request) throws Exception {
 		
-		ModelAndView mv = new ModelAndView("admin/asChangeForm");
+		ModelAndView mv = new ModelAndView("admin/as_admin");
 
 		String as_no = request.getParameter("as_no");
 		System.out.println("as_no"+as_no);
@@ -399,10 +397,62 @@ public class AdminMainController {
 		adminMainService.as_ok_c(commandMap);
 		//mv.addObject("as_change_form_a", as_change_form_a);
 		
+		String as_state = "1";
+		commandMap.put("as_state", as_state);
+		List<Map<String,Object>> as_admin_list = adminMainService.as_admin_list(commandMap);
+		mv.addObject("as_admin_list", as_admin_list);
+		mv.addObject("as_state", as_state);
 	
 		return mv;
 	}
 	
+	// AS페이지 - AS처리 
+	@RequestMapping(value="/coolAs_ok.do")
+	public ModelAndView coolAs_ok(CommandMap commandMap,HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("admin/as_admin");
+
+		String as_no = request.getParameter("as_no");
+		System.out.println("as_no"+as_no);
+		//상품회수후 AS_list에서 정보 가져옴  member_no,order_detail_no
+		//order_detail정보 가져옴 상품속성번호, 수량
+		//goods_attribute에서 상품속성번호에 수량 감소
+		//order_list state=2(배송준비)
+		//AS_LIST에서 state = 3, edate=update
+		commandMap.put("as_no", as_no);
+		List<Map<String,Object>> as_change_form_a = adminMainService.change_form_a(commandMap);
+		System.out.println("as_change_form_a :"+as_change_form_a);
+		
+		String order_detail_no = as_change_form_a.get(0).get("ORDER_DETAIL_NO").toString();
+		commandMap.put("order_detail_no", order_detail_no);
+		String member_no = as_change_form_a.get(0).get("MEMBER_NO").toString();
+		String order_no = as_change_form_a.get(0).get("ORDER_NO").toString();
+		String order_state = as_change_form_a.get(0).get("ORDER_STATE").toString();
+		String goods_att_no = as_change_form_a.get(0).get("GOODS_ATT_NO").toString();
+		String order_discount_apply = as_change_form_a.get(0).get("ORDER_DISCOUNT_APPLY").toString();
+		int order_detail_save_point = Integer.parseInt(as_change_form_a.get(0).get("ORDER_DETAIL_SAVE_POINT").toString());
+		String order_detail_amount = as_change_form_a.get(0).get("ORDER_DETAIL_AMOUNT").toString();
+		
+		commandMap.put("member_no", member_no);
+		commandMap.put("order_no", order_no);
+		commandMap.put("new_goods_att_no", goods_att_no);
+		commandMap.put("order_discount_apply", order_discount_apply);
+		commandMap.put("order_detail_save_point", order_detail_save_point);
+		commandMap.put("order_detail_amount", order_detail_amount);
+		
+		adminMainService.change_goods_att_minus(commandMap);//goods_attribute에서 상품속성번호 만큼 수량 차감
+		commandMap.put("order_state", order_state);
+		adminMainService.as_ok_b(commandMap);
+		//mv.addObject("as_change_form_a", as_change_form_a);
+		
+		String as_state = "1";
+		commandMap.put("as_state", as_state);
+		List<Map<String,Object>> as_admin_list = adminMainService.as_admin_list(commandMap);
+		mv.addObject("as_admin_list", as_admin_list);
+		mv.addObject("as_state", as_state);
+	
+		return mv;
+	}
 	  
 	  
 }

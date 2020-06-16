@@ -13,29 +13,6 @@
   	
   </definition>
   
-  <definition name="mypage" template="/WEB-INF/tiles/adminLayout.jsp">
-  
-  	<put-attribute name="left" value="/stu/my_side.do"/>
-  	<put-attribute name="content" value=""/>
-  	
-  </definition>
-  
-  
-  <!-- mypage test -->
-  <definition name="/my/myOrderList" extends="base">
-  
-  	<put-attribute name="content" value="/WEB-INF/views/my/myOrderList.jsp"/>
-  	
-  </definition>
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
   

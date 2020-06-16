@@ -68,6 +68,7 @@ $(document).ready(function() {
 </head>
 <body>
 <div class="container">
+	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
 	<div class="row" align="center">
         <div>
           <h2>교환/환불/AS내역</h2>
