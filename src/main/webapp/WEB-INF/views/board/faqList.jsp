@@ -5,7 +5,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
-<% String sessionName = (String)session.getAttribute("SESSION_NAME"); %>
+<%
+	String sessionName = (String)session.getAttribute("SESSION_NAME");
+	
+	if(sessionName == null || sessionName.equals("")){
+		sessionName = "nomal";
+	}
+
+	
+%>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
 <!-- jQuery -->
@@ -98,11 +106,12 @@ li {
 				e.preventDefault();
 				fn_openFaqWrite();
 			});
-
+			
 			$("a[name='delete']").on("click", function(e){ //삭제
 				e.preventDefault();
 				fn_deleteFaq($(this));
-				
+			});
+			
 			$("a[name='title']").on("click", function(e){ //제목 
 				e.preventDefault();
 				//fn_openFaqDetail($(this));
@@ -114,16 +123,20 @@ li {
 					$("#"+chkShow).show();
 					$("."+chkShow).parent().parent().attr('id', 'on');
 				}
-			});
 		});
 			<%
 			if(sessionName.trim().equals("admin")) { 
  			%> 
+ 				alert("작동1");
 				$("#wrapBtn").show();
 				$(".deleteBtn").show();
 			<%
 			}
-			else{
+			else if(sessionName.trim().equals("nomal")){
+			%>
+				alert("작동2");
+				/* $("#wrapBtn").show(); */
+			<%
 			}
  			%>
 		});
