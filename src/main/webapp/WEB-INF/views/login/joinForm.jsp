@@ -17,16 +17,16 @@
 
 <style>
 .yes {
-	border: 2px solid black;
-	background-color: red;
-	color: white;
+	border: 1px solid #bebebe;
+	background-color: salmon;
+	color: black;
 	width: 300px;
 	height: 50px;
 	font-size: 20px;
 }
 
 .no {
-	border: 2px solid black;
+	border: 1px solid #bebebe;
 	background-color: white;
 	width: 300px;
 	height: 50px;

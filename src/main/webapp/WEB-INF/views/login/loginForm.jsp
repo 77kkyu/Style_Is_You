@@ -21,7 +21,7 @@
 	}
 	
 	.Action {
-		border:0px;
+		border:1px solid #bebebe;
 		font-size:20px;
 		width:410px;
 		height:50px;
