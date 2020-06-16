@@ -315,6 +315,18 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.selectBasketNo(map);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectGoodsQna(Map<String, Object> map) throws Exception { // 상품Qna 리스트
+		
+		return goodsDao.selectGoodsQna(map);
+	}
+
+	@Override
+	public void insertGoodsQna(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		goodsDao.insertGoodsQna(map);
+		
+	}
+
 	
 	/*
 	 * @Override public void attributeDelete(Map<String, Object> map) throws

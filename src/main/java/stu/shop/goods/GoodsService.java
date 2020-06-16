@@ -19,6 +19,8 @@ public interface GoodsService {
 	
 	List<Map<String, Object>> selectBasketNo(Map<String, Object> map) throws Exception; // 구매할때 시퀀스값 가져오기
 	
+	List<Map<String, Object>> selectGoodsQna(Map<String, Object> map) throws Exception; // 상품Qna 리스트
+	
 	Map<String, Object> selectGoodsDetail(Map<String,Object> map, HttpServletRequest request) throws Exception; // 상품 디테일
 	
 	Map<String, Object> selectGoodsAtt(Map<String,Object> map) throws Exception; // 상품속성 디테일
@@ -38,6 +40,7 @@ public interface GoodsService {
 	void insertBasket(Map<String,Object> map, HttpServletRequest request) throws Exception;
 
 	Map<String, Object> selectGoodsAttNum(Map<String,Object> map) throws Exception; // 상품속성 디테일
-
+	
+	void insertGoodsQna(Map<String, Object> map, HttpServletRequest request) throws Exception; // 상품문의 등록
 
 }

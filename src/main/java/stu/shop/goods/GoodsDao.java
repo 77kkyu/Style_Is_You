@@ -53,6 +53,12 @@ public class GoodsDao extends AbstractDao{
 		return (Map<String, Object>) selectOne("goods.selectGoodsAtt", map);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Map<String,Object>> selectGoodsQna(Map<String,Object> map) throws Exception { // 상품QNA 출력 
+		
+		return (List<Map<String,Object>>) selectList("goods.selectGoodsQna", map);
+	}
+	
 	public void goodsHitCnt(Map<String,Object> map) throws Exception { // 조회수 증가
 		System.out.println("goodsHitCntDao="+map);
 		update("goods.goodsReadCntUp", map);
@@ -122,6 +128,10 @@ public class GoodsDao extends AbstractDao{
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectGoodsAttNum(Map<String, Object> map) throws Exception{ // 상품 옵션 번호 뽑아오기
 		return (Map<String, Object>) selectOne("goods.selectGoodsAttNum", map);
+	}
+	
+	public void insertGoodsQna(Map<String, Object> map) throws Exception { // 상품문의 등록
+		insert("goods.insertGoodsQna", map);
 	}
 
 }

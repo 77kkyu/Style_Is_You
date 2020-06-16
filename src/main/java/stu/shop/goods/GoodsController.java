@@ -271,7 +271,6 @@ public class GoodsController {
 		//System.out.println("map22222="+map2);
 		//System.out.println("commandMap.getMap()222="+commandMap.getMap());
 		
-		
 		mv.addObject("Color", arrColor);
 		mv.addObject("ColorSize", ColorSize);
 		mv.addObject("Size", arrSize);
@@ -279,7 +278,32 @@ public class GoodsController {
 		 
 	}
 	
+	
+	@RequestMapping(value="/shop/goodsDetailList.do")
+	public ModelAndView goodsDetailList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("jsonView");
+		List<Map<String,Object>> list = null;
+			
+		list = goodsService.selectGoodsQna(commandMap.getMap());
+		System.out.println("디테일리스트="+list);	
+		list.get(0);
+		if(list.size() != 0) {
+			list.get(0).get("");
+		}
+		
+		mv.addObject("list", list);
+		if(list.size() > 0){
+            mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
+        }
+        else{
+            mv.addObject("TOTAL", 0);
+        }
 
+		return mv;
+	}
+	
+	
 	
 	@RequestMapping(value="/shop/openGoodsWrite.do") // url 
 	public ModelAndView goodsWriteForm(CommandMap commandMap) throws Exception { // 글쓰기 폼
@@ -578,5 +602,27 @@ public class GoodsController {
 	}
 	
 	
+	
+	@RequestMapping(value="/shop/openQnaForm.do") // url 
+	public ModelAndView openGoodsQna(CommandMap commandMap) throws Exception { // 글쓰기 폼
+		
+		ModelAndView mv = new ModelAndView("shop/goodsQnaForm"); // 보낼 url
+		mv.addObject("IDX", commandMap.get("IDX"));
+		return mv;
+		
+	}
+	
+	@RequestMapping(value="/shop/goodsQnaInsert.do" ,method = RequestMethod.POST) // url 
+	public ModelAndView insertGoodsQna(CommandMap commandMap, HttpServletRequest request) throws Exception { // 글쓰기 작성완료
+		
+		ModelAndView mv = new ModelAndView("redirect:/shop/goodsDetail.do"); // 보낼 url
+		
+		goodsService.insertGoodsQna(commandMap.getMap(), request);
+		System.out.println("상품문의작성="+commandMap.getMap());
+        mv.addObject("IDX", commandMap.get("IDX"));
+		
+		return mv;
+		
+	}
 
 }

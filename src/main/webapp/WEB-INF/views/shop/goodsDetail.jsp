@@ -10,13 +10,14 @@
 <head>
 <meta charset="utf-8">
 <title>상품 상세보기</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- CSS only -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </head>
@@ -30,7 +31,70 @@
     font-weight: 400;
 }
 
+/* 상품문의 */
+.board_list th {
+    padding: 14px 0;
+    background: url(/css/images/ico_board_th_bar.gif) no-repeat 0 center #f5f5f5;
+    font-size: 14px;
+    color: #666;
+    font-weight: 400;
+    text-align: center;
+}
 
+.board_list {
+    width: 60%;
+    margin-top: 0px;
+    background: #fff;
+    font-size: 15px;
+    line-height: 18px;
+} 
+.board_list2 {
+    width: 60%;
+    margin-top: 0px;
+    background: #fff;
+    font-size: 15px;
+    line-height: 18px;
+} 
+
+.board_list2 .tit {
+    background: #fff;
+    font-size: 15px;
+}
+
+.board_list2 .tit td {
+    position: relative;
+    padding: 20px 0;
+    box-sizing: border-box;
+    border-top: 1px solid #f2f2f2;
+}
+.td {
+    position: relative;
+    box-sizing: border-box;
+    border-top: 1px solid #f2f2f2;
+   	margin-left: 100px;
+ 
+}
+.align_left {
+    text-align: left !important;
+}
+
+.board_list2 td.align_left {
+    padding: 16px 110px;
+}
+
+.board_list td {
+    padding: 16px 0;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
+    color: #444;
+    vertical-align: top;
+}
+
+p.a {
+        cursor: pointer;
+       }
+       
 </style>
 
 <body>
@@ -186,7 +250,18 @@
 		<button style="width:270px; height:58px;" class="btn btn-outline-danger" id="goodsOrder" onclick="fn_GoodsOrder()" >구매하기</button>
 		<br>
 		<button id="update" onclick="fn_update()">수정하기</button>
-
+	 <div id='aaa'> 
+		<tr>
+					<td align='center' > "+value.RNUM+"</td>
+					<td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>
+						<td align='center'> "+value.MEMBER_NO+"</td>
+							<td align='center' > "+date+"</td>
+							<td align='center'> <span class='btn btn-danger'>답변완료</span></td>
+				</tr> 
+						</div> 
+						<p class='b'> 
+							하하하 
+								</p>
 
 </div>
 
@@ -249,19 +324,43 @@
   
   <div class="tab-pane fade show active" id="profile1" role="tabpanel" aria-labelledby="profile-tab"> <!-- 상품문의 -->
   
-  <table class="board_list">
-	
+  <table align="center" class="board_list">
+		 <colgroup>
+			<col width="9%"/>
+			<col>
+			<col width="15%"/>
+			<col width="14%"/>
+			<col width="13%"/>
+		</colgroup>
 		<thead>
-			<tr>
-				<td>번호</td>
-				<td>문의</td>
-				<td>작성자</td>
-				<td>작성일</td>
-				<td>답변</td>
-			</tr>
-		</thead>
-		
-	</table>
+      		<tr>
+      			<th>번호</th>
+      			<th>문의</th>
+      			<th>작성자</th>
+      			<th>작성일</th>
+      			<th>답변</th>
+      		</tr>
+     	</thead>
+  </table>
+  <table class="board_list2">
+ 		
+     	<tbody id="board_list1" name="board_list1">
+     	<colgroup>
+			<col width="9%"/>
+			<col>
+			<col width="10%"/>
+			<col width="13%"/>
+			<col width="13%"/>
+		</colgroup>
+     		
+     	</tbody>
+  </table> 
+  <br>
+  <div style="margin-left:1050px">
+  <button type="button" class="btn btn-secondary btn-sm" onclick="fn_Qna()">상품문의</button>
+  </div>  	
+   
+   
   
   </div> 
  
@@ -322,15 +421,25 @@
   <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab" align="left" style="margin-left:400px"> <!-- 쇼핑가이드 -->
   <%@ include file="/WEB-INF/views/shop/guide.jsp" %>
   </div> 
-  <div class="tab-pane fade show active" id="re3" role="tabpanel" aria-labelledby="contact-tab">...</div> <!-- 상품평 -->
+  <div class="tab-pane fade show active" id="re3" role="tabpanel" aria-labelledby="contact-tab"> <!-- 상품평 -->
+  	
+  	<table>
+  		<tr>
+  			<td></td>
+  		</tr>
+  	</table>
+  	
+  </div> 
 </div>
 </div>
 
-
+<div id="PAGE_NAVI"></div>
+	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
+<form id="commonForm" name="commonForm"></form>
 </body>
 </html>
 
-<form id="commonForm" name="commonForm"></form>
+
 
 <script type="text/javascript">
 
@@ -345,6 +454,8 @@ function doubleSubmitCheck(){
 }
 
 $(document).ready(function() {
+
+	fn_selectGoodsList(1);
 
 	$("#insertLike").on("click", function(e){// 좋아요 버튼
 		//html 에서 a 태그나 submit 태그는 고유의 동작이 있다. 
@@ -366,6 +477,13 @@ $(document).ready(function() {
 
 
 });
+
+function fn_Qna(){ // 상품문의 작성
+	var comSubmit = new ComSubmit();
+	comSubmit.setUrl("<c:url value='/shop/openQnaForm.do'/>");
+	comSubmit.addParam("IDX", ${list.GOODS_NO});
+	comSubmit.submit();
+}
 
 function fn_update() {
 	var comSubmit = new ComSubmit();
@@ -617,37 +735,108 @@ $('.sub').click(function () {
 
 
 
-
-
-//전체주문금액구하기
-/* function fn_allPrice(){
-
+function fn_selectGoodsList(pageNo) {
+	var comAjax = new ComAjax();
 	
+	comAjax.setUrl("<c:url value='/shop/goodsDetailList.do' />");
+	comAjax.setCallback("fn_selectGoodsListCallback");
+	comAjax.addParam("IDX", $("#IDX").val());
+	comAjax.ajax();
+}
+
+
+function fn_selectGoodsListCallback(data) {
+	var total = data.TOTAL;
+	var body = $("#board_list1");
+	body.empty();
 	
-	//console.log(array1);
-	//console.log(array2);
-	//var len = array2.length;
-	var hap = 0;
-	var aa = 1;
-	for (var i=aa; i<2; i++){
-		var array1 = $("#price").val();
-		
-		var array2 = $("#cnt"+aa+"").val();
-		
-		var sell = array1;
-		var amt = array2;
-		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
-		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
-		
+	if (total == 0) {
+		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>"
+				+ "</tr>";
+		body.append(str);
+	} else {
+		var params = {
+			divId : "PAGE_NAVI",
+			pageIndex : "PAGE_INDEX",
+			totalCount : total,
+			recordCount : 16,
+			eventName : "fn_selectGoodsList"
+		};
+		gfn_renderPaging(params);
+
+		var str = "";
+		$.each(data.list, function(key, value) {
+								var date = moment(value.GOODS_QNA_DATE).format("YYYY-MM-DD");
+							  var Level = value.GOODS_QNA_LEVEL;
+								/* var Level1 = "0";
+								$.each(Level,function(idx,row){
+									if(Level[idx].NAME == "0"){
+										return Level[idx];	
+									}else if(Level[idx].NAME == "0") {
+										return Level[idx];
+									}
+									return ""
+								});
+								alert(Level);  */
+
+								//var Level = 0;
+								//alert(value.GOODS_QNA_LEVEL == 1);
+								
+								if(Level == 1){
+							str += " <div> "
+								+  " <tr id='show'> "
+								+  " <td align='center' > "+value.RNUM+"</td>"
+								+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>"
+								+  " <td align='center'> "+value.MEMBER_NO+"</td>"
+								+  " <td align='center' > "+date+"</td>"
+								+  " <td align='center'> <span class='btn btn-danger'>답변완료</span></td>"
+								+  " </tr> "
+								+  " </div> "
+								+  " <div> "
+								+  " <tr width='100%' align='center' bgcolor='#f1f3f5'> "
+								+  " <td></td> "
+								+  " <td id='hide' height='50px;'>하하하ddddddddddddddㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td> "
+								+  " <td></td><td></td><td></td> "
+								+  " </tr>"
+								+  " </div> ";
+							
+								}else{
+
+								str += " <tr align='center' id='show' > "
+									+  " <td > "+value.RNUM+"</td>"
+									+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>"
+									+  " <td align='center'> "+value.MEMBER_NO+"</td>"
+									+  " <td align='center' > "+date+"</td>"
+									+  " <td align='center' width='90px' height='38px'></td>"
+									+  " </tr> "
+									+  " <div> "
+									+  " <tr width='100%' align='center' bgcolor='#f1f3f5'> "
+									+  " <td></td>"
+									+  " <td id='hide' height='50px;'>하하하ddddddddddddddㅇㅇㅇㅇㅇㅇㅇㅇㅇ</td> "
+									+  " <td></td><td></td><td></td> "
+									+  " </tr>"
+									+  " </div> ";
+								}
+							//" <td > <span class='btn btn-danger'>답변완료</span></td>"
+							////+  " <td>"+value.GOODS_QNA_LEVEL+"</td>"
+						});
+		body.append(str);
+		$("a[name='title']").on("click", function(e){ //제목 
+			e.preventDefault();
+			fn_openBoardDetail($(this));
+		});
 	}
-	
-	
-	var array3 = $("#sum").val();
-	//hap = Number(hap).toLocaleString();
-	//pay = Number(pay).toLocaleString();
-	array3 = hap; //상품금액
-	
-	
-} */
+}
+
+$(document).ready( function() {
+    $( 'tr#show' ).click( function() {
+      $( 'td#hide' ).toggle( 'slow' );
+    });
+  });
+
+
+
+
+
 
 </script>

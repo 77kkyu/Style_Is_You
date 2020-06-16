@@ -392,5 +392,53 @@ SELECT
       ]]>
    </update>
 	
+	
+	<select id="selectGoodsQna" parameterType="hashmap" resultType="hashmap"> <!-- 상품 QNA -->
+		<![CDATA[
+			
+			SELECT
+				  AAA.* 
+			FROM( select count(*) over() as total_count, AA.*
+			FROM(
+				select ROW_NUMBER() OVER (ORDER BY GOODS_QNA_DATE desc) RNUM,
+				GOODS_QNA_NO,
+				GOODS_NO,
+				MEMBER_NO,
+				GOODS_QNA_LEVEL,
+				GOODS_QNA_TITLE,
+				GOODS_QNA_CONTENT,
+				GOODS_QNA_DATE,
+				GOODS_QNA_SECRET
+			FROM
+				GOODS_QNA
+				) AA
+		          ) AAA
+               WHERE GOODS_NO = #{IDX}
+              	AND AAA.RNUM BETWEEN 0 AND 5 
+		]]>
+	</select>
+	
+	<insert id="insertGoodsQna" parameterType="hashmap">
+		<![CDATA[
+			INSERT INTO GOODS_QNA(
+								GOODS_QNA_NO,
+								GOODS_NO,
+								MEMBER_NO,
+								GOODS_QNA_LEVEL,
+								GOODS_QNA_TITLE,
+								GOODS_QNA_CONTENT,
+								GOODS_QNA_DATE
+								)
+						values(
+								GOODS_QNA_NO_SEQ.NEXTVAL,
+								#{IDX},
+								#{MEMBER_NO},
+								0,
+								#{GOODS_QNA_TITLE},
+								#{GOODS_QNA_CONTENT},
+								sysdate
+							   )
+		]]>
+	</insert>
 
 </mapper>
