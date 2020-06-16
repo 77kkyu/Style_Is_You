@@ -23,6 +23,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
 
+<style>
+a { text-decoration:none ; color:#000000}
+</style>
+
+
 <script type="text/javascript">
 
 //상품선택

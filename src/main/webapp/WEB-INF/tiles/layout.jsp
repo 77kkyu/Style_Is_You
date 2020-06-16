@@ -12,6 +12,7 @@
 
 <body>
 
+<div id="wrapper">
 	<div id="header">
 		<tiles:insertAttribute name="header" ignore="true"/><!-- // header -->
 	</div>
@@ -19,13 +20,12 @@
 	<div id="content">
 		<tiles:insertAttribute name="content" ignore="true" />
 	</div>	
-
-
-
-	<%-- <footer id="footer">
+<br>
+<br>
+	<div id="footer">
 		<tiles:insertAttribute name="footer" ignore="true"/>	
-	</footer> --%>
-
+	</div>
+</div>
 
 </body>
 </html>

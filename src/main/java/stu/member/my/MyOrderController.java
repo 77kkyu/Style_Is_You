@@ -29,31 +29,19 @@ Logger log = Logger.getLogger(this.getClass());
 	/* mvc:annotation-driven을 선언하면 HandlerMethodArgumentResolver가 Map형식일때 동작을 못함 해서
 	 * 기본 Map형식이 아닌 map을 가지는 클래스를 만들어 사용 commandMap */
 	// 마이페이지 - 주문리스트
-	@RequestMapping(value="/myOrderList.do", method = RequestMethod.GET)
+	@RequestMapping(value="/myOrderList.do")
 	public ModelAndView myOrderList(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("/my/myOrderList");
 		
-		Object SESSION_NO = "";
-		  
-		/*
-		//세션값 가져오기
-		HttpSession session = request.getSession();
-		SESSION_NO = (Object)session.getAttribute("SESSION_NO");
-		
-		commandMap.remove("SESSION_NO"); // 기존 회원번호 데이터 삭제
-		commandMap.put("SESSION_NO", SESSION_NO); // 세션 값으로 적용 추후에 바꿈
-		*/
-		
-		//테스트용 세션값
-		String member_no = "2";
-		
-		// 세션이 존재할 때만
-		/*
-		 * if (member_no == null) { mv.addObject("order_msg", "로그인한 사용자만 이용할수 있습니다.");
-		 * return mv; }
-		 */
-		commandMap.put("member_no", member_no);
+		Object MEMBER_NO = ""; 
+		//세션값 가져오기 
+		HttpSession session = request.getSession(); 
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
+		commandMap.remove("MEMBER_NO"); 
+		// 기존 회원번호 데이터 삭제 
+		commandMap.put("member_no", MEMBER_NO); 
+		// 세션 값으로 적용
 		
 		List<Map<String,Object>> my_order = myOrderService.myOrderList(commandMap);
 		mv.addObject("my_order", my_order);

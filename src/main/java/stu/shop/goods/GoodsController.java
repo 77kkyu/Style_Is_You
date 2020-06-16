@@ -328,12 +328,27 @@ public class GoodsController {
 	}
 	
 	@RequestMapping(value="/shop/goodsLike.do", method = RequestMethod.POST)
-	public ModelAndView goodsLike(CommandMap commandMap) throws Exception{
+	public ModelAndView goodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/shop/goodsDetail.do");
-		mv.addObject("IDX", commandMap.getMap().get("IDX"));
+		
+		mv.addObject("IDX", commandMap.getMap().get("GOODS_NO"));
 		System.out.println("좋아요!!!!="+commandMap.getMap().get("GOODS_NO") );
-		//mv.addObject("MEMBER_NO", commandMap.getMap().get("MEMBER_NO"));
-		goodsService.insertGoodsLike(commandMap.getMap());
+
+		Object MEMBER_NO = ""; 
+		//세션값 가져오기 
+		HttpSession session = request.getSession(); 
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO");
+		// 기존 회원번호 데이터 삭제 
+		commandMap.remove("MEMBER_NO"); 
+		// 세션 값으로 적용
+		commandMap.put("MEMBER_NO", MEMBER_NO); 
+		  
+		Map<String,Object> map = basketService.selectGoodsLike(commandMap, request);
+		String like_cnt = String.valueOf(map.get("LIKE_CNT"));
+		  
+		if(like_cnt.equals("0")) { 
+			basketService.insertGoodsLike(commandMap, request);
+		}
 		return mv;
 	}
 	
@@ -425,7 +440,14 @@ public class GoodsController {
 //		String[] Goods_No = (String[])commandMap.getMap().get("IDX");
 //		String[] Member_No =  (String[])commandMap.getMap().get("MEMBER_NO");
 		
-	      
+		Object MEMBER_NO = ""; 
+		//세션값 가져오기 
+		HttpSession session = request.getSession(); 
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO");
+		// 기존 회원번호 데이터 삭제 
+		commandMap.remove("MEMBER_NO"); 
+		// 세션 값으로 적용
+		commandMap.put("MEMBER_NO", MEMBER_NO);   
 
 		if(commandMap.get("ORDER_SIZE").getClass().getName().equals("java.lang.String")){ 
 			Map<String,Object> map = new HashMap<String,Object>();
@@ -451,7 +473,6 @@ public class GoodsController {
 			String[] Color = (String[])commandMap.getMap().get("ORDER_COLOR");
 			String[] Amount = (String[])commandMap.getMap().get("BASKET_GOODS_AMOUNT");
 			String[] Goods_No = (String[])commandMap.getMap().get("IDX");
-			String[] Member_No =  (String[])commandMap.getMap().get("MEMBER_NO");
 			System.out.println("다중 사이즈0="+ Goods_No[0]);
 			System.out.println("다중 사이즈1="+ Goods_No[1]);
 			Map<String,Object> map1 = new HashMap<String,Object>();
@@ -461,17 +482,12 @@ public class GoodsController {
 			map1.put("ORDER_COLOR", Color[j]);
 			map1.put("BASKET_GOODS_AMOUNT", Amount[j]);
 			map1.put("IDX", Goods_No[j]);
-			map1.put("MEMBER_NO", Member_No[j]);
+			map1.put("MEMBER_NO", commandMap.get("MEMBER_NO"));
 			map1.put("GUBUN", "0");
 			System.out.println("Size1111="+Size[j]);
 			goodsService.insertBasket(map1, request);
 			}
 		}
-		
-		
-		
-		
-			
 		
 //		List<CommandMap> resultList = new ArrayList<CommandMap>();
 //		resultList.add(commandMap);
@@ -501,6 +517,15 @@ public class GoodsController {
 	public ModelAndView goodsOrder(CommandMap commandMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("order/orderWrite");
 		
+		Object MEMBER_NO = ""; 
+		//세션값 가져오기 
+		HttpSession session = request.getSession(); 
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO");
+		// 기존 회원번호 데이터 삭제 
+		commandMap.remove("MEMBER_NO"); 
+		// 세션 값으로 적용
+		commandMap.put("MEMBER_NO", MEMBER_NO); 
+	      
 		System.out.println("CommandMap="+commandMap.getMap());
 		commandMap.remove("resultList");
 		
@@ -521,7 +546,6 @@ public class GoodsController {
 			String[] Color = (String[])commandMap.getMap().get("ORDER_COLOR");
 			String[] Amount = (String[])commandMap.getMap().get("BASKET_GOODS_AMOUNT");
 			String[] Goods_No = (String[])commandMap.getMap().get("IDX");
-			String[] Member_No =  (String[])commandMap.getMap().get("MEMBER_NO");
 			
 			System.out.println("다중 사이즈0="+ Goods_No[0]);
 			System.out.println("다중 사이즈1="+ Goods_No[1]);
@@ -531,7 +555,7 @@ public class GoodsController {
 			map1.put("ORDER_COLOR", Color[j]);
 			map1.put("BASKET_GOODS_AMOUNT", Amount[j]);
 			map1.put("IDX", Goods_No[j]);
-			map1.put("MEMBER_NO", Member_No[j]);
+			map1.put("MEMBER_NO", commandMap.get("MEMBER_NO"));
 			map1.put("GUBUN", "1");
 			System.out.println("Size1111="+Size[j]);
 			goodsService.insertBasket(map1, request);
@@ -539,20 +563,12 @@ public class GoodsController {
 		}	
 		//List basketNo = new ArrayList<>();
 		
-		  Object MEMBER_NO = ""; 
-	      //세션값 가져오기 
-	      HttpSession session = request.getSession(); 
-	      MEMBER_NO = (Object)session.getAttribute("MEMBER_NO"); 
-	      commandMap.remove("MEMBER_NO"); 
-	      // 기존 회원번호 데이터 삭제 
-	      commandMap.put("MEMBER_NO", MEMBER_NO); 
-	      // 세션 값으로 적용
 		
 		List<Map<String,Object>> list0 = goodsService.selectBasketNo(commandMap.getMap());
 		System.out.println("장바구니넘버111111"+list0.get(0).get("BASKET_NO"));
 		
 		
-		commandMap.remove("BASKET_NO");
+		commandMap.remove("SELECT_BASKET_NO");
 		commandMap.put("SELECT_BASKET_NO", list0.get(0).get("BASKET_NO"));
 		
 		List<Map<String,Object>> list = basketService.basketSelectList(commandMap, request);

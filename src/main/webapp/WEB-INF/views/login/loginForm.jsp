@@ -21,11 +21,11 @@
 	}
 	
 	.Action {
-		border:2px solid black;
+		border:0px;
 		font-size:20px;
 		width:410px;
 		height:50px;
-		background-color:red;
+		background-color:salmon;
 		color:white;
 	}
 </style>
@@ -63,28 +63,6 @@
 	</form>
 	
 	<br>
-	<br>
-	
-	<form name="frm" method="POST" action="#">
-	<table align="center" cellspacing="15" width="300" style="margin:auto;">
-			<!-- <input type="hidden" name="MEMBER_NO">
-			<input type="hidden" name="MEMBER_NAME"> -->
-		<tr>
-			<td>
-				<input type="text" name="" placeholder="이름" size="50" style="padding:15px;" maxlength="20">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="password" name="" placeholder="주문번호"size="50" style="padding:15px;" maxlength="15">
-			</td>
-		</tr>
-	</table>
-		<p align="center">
-			<input type="submit" class="Action" value="비회원 주문 확인">
-		</p>
-	</form>
-	
 	<br>
 	<br>
 	
