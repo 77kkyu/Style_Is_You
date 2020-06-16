@@ -95,6 +95,7 @@ function as_ok(as_no, as_state, order_no, order_state, gubun){
 </head>
 <body>
 <div class="container">
+	<%@include file="/WEB-INF/tiles/adminSide.jsp" %>
 	<div class="masthead">
 		<h3 class="text-muted">교환/환불/AS 요청처리</h3>
 		<p>가급적 오래된 것 부터 처리.</p>

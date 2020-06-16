@@ -1,3 +1,4 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -45,13 +46,10 @@
 </script>
  -->
  
- <script>
- $(document).ready(function(){
-		/* alert('동작함'); */
-	});
-
-	
  
+ <script>
+
+  
  
 function order_state(state, no){
 	 var state = state;
@@ -89,7 +87,13 @@ function order_detail(no){
  
 </head>
 <body>
+
+
 <div class="container">
+	
+	<%@include file="/WEB-INF/tiles/adminSide.jsp" %> 
+
+
 	<div class="masthead">
 		<h3 class="text-muted">주문배송 관리</h3>
 		<nav>

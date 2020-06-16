@@ -13,6 +13,7 @@
   	<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
   	
   </definition>
+
  <!--  
   <definition name="mypage" template="/WEB-INF/tiles/adminLayout.jsp">
   
@@ -27,14 +28,12 @@
   	<put-attribute name="content" value="/WEB-INF/views/my/myOrderList.jsp"/>
   	
   </definition>
-  
-  
-  
-  
+ 
    -->
   
   
   
+
   
   
   

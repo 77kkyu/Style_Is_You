@@ -108,6 +108,7 @@ function order_qna(mem_no, order_no){
 </head>
 <body>
 <div class="container">
+	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
 	<div class="row" align="center">
         <div>
           <h2>주문 배송 내역</h2>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import stu.common.common.CommandMap;
+import stu.admin.main.*;
 
 @Controller
 public class MyOrderController {
@@ -25,6 +26,9 @@ Logger log = Logger.getLogger(this.getClass());
 	
 	@Resource(name="myOrderService")
 	private MyOrderService myOrderService;
+	
+	@Resource(name="adminMainService")
+	private AdminMainService adminMainService;
 	
 	/* mvc:annotation-driven을 선언하면 HandlerMethodArgumentResolver가 Map형식일때 동작을 못함 해서
 	 * 기본 Map형식이 아닌 map을 가지는 클래스를 만들어 사용 commandMap */
@@ -217,6 +221,25 @@ Logger log = Logger.getLogger(this.getClass());
 		return mv;
 	}
 	
+	// 주문/변경 상세보기 
+	@RequestMapping(value = "/my_detail.do")
+	public ModelAndView my_detail(CommandMap commandMap, HttpServletRequest request) throws Exception {
+
+		ModelAndView mv = new ModelAndView("my/my_detail");
+
+		String order_no = request.getParameter("order_no");
+
+		List<Map<String, Object>> my_detail = adminMainService.order_detail(commandMap);
+		System.out.println("order_detail:" + my_detail);
+
+		List<Map<String, Object>> my_detail_sub = adminMainService.order_detail_sub(commandMap);
+		System.out.println("order_detail_sub:" + my_detail_sub);
+
+		mv.addObject("my_detail", my_detail);
+		mv.addObject("my_detail_sub", my_detail_sub);
+
+		return mv;
+	}
 	
 	
 }

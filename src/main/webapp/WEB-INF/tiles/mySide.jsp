@@ -24,27 +24,6 @@ String S_id = (String)session.getAttribute("member_id");
 
 <script>
 
-
-
-$(document).ready(function(){
-		/* alert('동작함'); */
-	var mem_no = "2";
-		
-	$.ajax({
-		url: "/stu/my_side.do",
-		data : ,
-		type: "GET",
-		async:false,
-		success : function(data){
-		alert("접속?");
-		
-		}
-	})
-
-});
-
-
-
 function logout(){
 	
 	var con = confirm("접속을 종료하시겠습니까");
@@ -87,25 +66,7 @@ function logout(){
 	
 	<div style="width: 200px; height: 250px; background-color: #F8F8F8;">
 		<br />
-		
-		<table align="right" style="width: 185px;">
-			<c:forEach items="${mydashList}" var="dashList">			
-			<tr >
-				<td>회원등급</td><td>${dashList.M_CNT }등급</td>
-			</tr>
-			<tr>
-				<td>총주문금액</td><td>${dashList.O_CNT_A }원</td>
-			</tr>
-				<td>포인트</td><td>${dashList.O_CNT_C }원</td>
-			</tr>
-			<tr>
-				<td>할인쿠폰</td><td>${dashList.O_CNT_D }개</td>
-			</tr>
-			<tr>
-				<td>찜 상품</td><td>${dashList.O_CNT_E }개</td>
-			</tr>
-			</c:forEach>
-		</table>
+	
 	</div>
 
 	<!-- /.navbar-header -->
@@ -113,13 +74,12 @@ function logout(){
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu">
 			
-				<li class="active"><a href="#" style="background: #F8F8F8;">
+				<li><a href="#" style="background: #F8F8F8;">
 						<b class="fa fa-bar-chart-o fa-fw">나의 쇼핑정보</b> <span class="fa arrow">▼</span>
 				</a>
 					<ul class="nav nav-second-level">
-						<li><a href="">- 주문/배송 내역</a></li>
-						<li><a href="">- 취소/반품 내역</a></li>
-						<li><a href="">- 교환/AS 내역</a></li>
+						<li><a href="/stu/myOrderList.do">- 주문/배송 내역</a></li>
+						<li><a href="/sty/myAsList.do">- 교환/환불/AS 내역</a></li>
 						<li><a href="">- 포인트</a></li>
 						<li><a href="">- 할인쿠폰</a></li>
 						<li><a href="">- 찜 상품</a></li>
