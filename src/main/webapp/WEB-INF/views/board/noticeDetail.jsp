@@ -35,27 +35,24 @@ h1 {
 		<colgroup>
 			<col width="15%"/>
 			<col width="35%"/>
-			<col width="15%"/>
-			<col width="35%"/>
+			<col width="*%"/>
+			<col width="*%"/>
 		</colgroup>
-		<caption>게시글</caption>
 		<tbody>
 			<tr>
 				<th scope="row">글 번호</th>
-				<td>${map.NOTICE_NO }</td>
-			</tr>
-			<tr>
-				<th scope="row">작성자</th>
-				<td>관리자</td>
+				<td align="center">${map.NOTICE_NO }</td>
 				<th scope="row">작성시간</th>
-				<td>${map.NOTICE_DATE }</td>
+				<td align="center">${map.NOTICE_DATE }</td>
 			</tr>
 			<tr>
 				<th scope="row">제목</th>
-				<td colspan="3">${map.NOTICE_TITLE }</td>
+				<td align="left" left-padding="10px">${map.NOTICE_TITLE }</td>
+				<th scope="row">작성자</th>
+				<td align="center">관리자</td>
 			</tr>
 			<tr>
-				<td colspan="4">${map.NOTICE_CONTENT }</td>
+				<td colspan="4" align="center">${map.NOTICE_CONTENT }</td>
 			</tr>
 		</tbody>
 	</table>

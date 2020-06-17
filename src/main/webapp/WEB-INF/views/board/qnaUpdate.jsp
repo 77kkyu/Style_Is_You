@@ -39,8 +39,8 @@ h1 {
 			<colgroup>
 				<col width="15%"/>
 				<col width="35%"/>
-				<col width="15%"/>
-				<col width="35%"/>
+				<col width="*%"/>
+				<col width="*%"/>
 			</colgroup>
 			<tbody>
 				<tr>

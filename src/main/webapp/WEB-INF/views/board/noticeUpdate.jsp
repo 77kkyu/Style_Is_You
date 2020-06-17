@@ -29,7 +29,7 @@ h1 {
 </style>
 <body>
 <br/><br/><br/>
-	<h2>공지사항</h2>
+	<h2 style="font-size:30px;">공지사항</h2>
 	<br/><br/>
 	<form id="frm" name="frm" enctype="multipart/form-data">
 		<table class="board_view">
@@ -39,30 +39,30 @@ h1 {
 				<col width="15%"/>
 				<col width="35%"/>
 			</colgroup>
-			<caption>글수정</caption>
+			<br/>
+			<h3 align="center">글수정하기</h3>
+			<br/>
 			<tbody>
 				<tr>
 					<th scope="row">글 번호</th>
-					<td>
+					<td align="center">
 						${map.NOTICE_NO }
 						<input type="hidden" id="NOTICE_NO" name="NOTICE_NO" value="${map.NOTICE_NO }">
 					</td>
+					<th scope="row">작성시간</th>
+					<td align="center">${map.NOTICE_DATE }</td>
 				</tr>
 				<tr>
 					<th scope="row">작성자</th>
-					<td>${map.MEMBER_NAME }</td>
-					<th scope="row">작성시간</th>
-					<td>${map.NOTICE_DATE }</td>
-				</tr>
-				<tr>
+					<td align="center">관리자</td>
 					<th scope="row">제목</th>
-					<td colspan="3">
+					<td>
 						<input type="text" id="NOTICE_TITLE" name="NOTICE_TITLE" class="wdp_90" value="${map.NOTICE_TITLE }"/>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="4" class="view_text">
-						<textarea rows="20" cols="100" title="내용" id="NOTICE_CONTENT" name="NOTICE_CONTENT">${map.NOTICE_CONTENT }</textarea>
+						<textarea rows="20" cols="140" title="내용" id="NOTICE_CONTENT" name="NOTICE_CONTENT">${map.NOTICE_CONTENT }</textarea>
 					</td>
 				</tr>
 			</tbody>

@@ -65,6 +65,7 @@ function logout(){
 						<li><a href="/stu/my/myPointList.do">- 포인트</a></li>
 						<li><a href="/stu/my/myCouponList.do">- 할인쿠폰</a></li>
 						<li><a href="/stu/my/myLikeList.do">- 찜 상품</a></li>
+
 					</ul></li>
 
 				<li class="active">
