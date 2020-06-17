@@ -163,7 +163,7 @@ li {
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr>" + 
-								"<td>" + value.QNA_NO + "</td>" + 
+								"<td>" + value.RNUM + "</td>" + 
 								"<td class='title'>" +
 									"<a href='#this' name='title'>" + value.QNA_TITLE + "   " +
 									+ value.QNA_LEVEL + "</a>" +

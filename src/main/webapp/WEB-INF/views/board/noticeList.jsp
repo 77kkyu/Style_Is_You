@@ -10,9 +10,7 @@
 	
 	if(sessionName == null || sessionName.equals("")){
 		sessionName = "nomal";
-	}
-
-	
+	}	
 %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
@@ -70,6 +68,7 @@ li {
 <br/><br/><br/>
 	<h2>공지사항</h2>
 	<br/><br/>
+	
 	<table class="board_list">
 		<colgroup>
 			<col width="10%"/>

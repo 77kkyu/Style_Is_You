@@ -51,22 +51,9 @@ function logout(){
 		<h2>마이페이지</h2>
 		<p>MYPAGE</p>
 	</div>
-	<%
-		if( S_no != null && !S_no.equals("")){
-		%>
+	
 			<p style="text-align: center;"><%=S_no %>님 반갑습니다 ^^/</p>
 			<p style="text-align: center;"><a href="#" onclick="logout()">로그아웃</a>하시겠습니까</p>
-		<%
-		} else{
-		%>
-		<script>
-		alert("로그인 정보가 없습니다.");
-		location="/stu/login.do";
-		</script>
-		<%
-		}
-	%>
-	
 		
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu">
