@@ -6,6 +6,21 @@
 <meta charset="UTF-8">
 <title>회원 탈퇴</title>
 
+
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="/stu/css/bootstrap.min.css">
+<!-- Custom styles for this template -->
+<link href="css/dashboard.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="css/justified-nav.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="/stu/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="/stu/js/bootstrap.min.js"></script>
+
+
 <script type="text/javascript">
 function SubmitChk() {
 	var f = document.frm;
@@ -44,7 +59,7 @@ function cancel() {
 		height:400px;
 		font-size:16px;
 		border:1px solid black;
-		margin:auto;
+		
 		padding:20px;
 		line-height:1.6;
 	}
@@ -80,8 +95,8 @@ function cancel() {
 		margin-left:140px;
 	}
 	.yes {
-		border:2px solid black;
-		background-color:red;
+		border:1px solid;
+		background-color:salmon;
 		color:white;
 		width:300px;
 		height:50px;
@@ -89,41 +104,61 @@ function cancel() {
 	}
 	
 	.no {
-		border:2px solid black;
+		border:1px solid black;
 		background-color:white;
 		width:300px;
 		height:50px;
 		font-size:20px;
 	}
+	
+	#memberDelete {
+	width : 800px;
+	position: relative;
+	top : -580px;
+	left: 560px;
+
+	}
+	
+	#mySide {
+	left: 500px;
+	}
+	
 </style>
 
 </head>
+
 <body>
-<br>
-<br>
+
+<div class="container">	
+	
+	<div id="mySide">
+	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+	</div>
+
+	<div id="memberDelete">
+	<div>
 	<h2 align="center">회원 탈퇴</h2>
-<br>
-<br>
-<br>
-<br>
-<div id="One">
-	<div id="Content">
-		<h4><u>회원탈퇴신청에 앞서 아래의 사항을 반드시 확인하시기 바랍니다</u></h4> <br>
-		<p>- 탈퇴 후 고객님의 정보는 전자상거래 소비자보호법에 의거한 개인정보보호정책에 따라 관리됩니다.</p>
-		<p>- 탈퇴 후 일정기간 재가입 여부판단을 목적으로 고객님의 최소정보(아이디, 성명)를 보존합니다.</p>
-		<p>- 탈퇴 시 고객님께서 보유하셨던 적립금, 쿠폰, 위시리스트의 저장상품은 모두 삭제되며, 복구되지 않습니다.</p>
-		<p>- 꼭 확인하시고 신중하게 탈퇴 신청해 주시기 바랍니다.</p>
 	</div>
-	<br><br><br><br>
-	<div id="Content2">
-		<h4><u>다음의 경우는 회원탈퇴에 주의가 필요합니다.</u></h4> <br>
-		<p>- 현재 고객님의 반품처리 요청사항이나 고객서비스가 완료되지 않은 경우에는 서비스 처리완료 후 탈퇴가능합니다.</p>
-		<p>- 거래가 진행중인 경우 진행중인 거래를 우선 마무리 해주시기 바랍니다.</p>
-		<p>- 회원탈퇴를 하시면, 보유하고 있는 적립금과 위시리스트의 저장상품들은 자동 소멸됩니다.</p>
-		<p>- 탈퇴 후 3개월 내(90일) 재가입시 신규회원가입혜택이 지급되지 않습니다.</p>
+	<div id="One">
+		<div id="Content">
+			<h4><u>회원탈퇴신청에 앞서 아래의 사항을 반드시 확인하시기 바랍니다</u></h4> <br>
+			<p>- 탈퇴 후 고객님의 정보는 전자상거래 소비자보호법에 의거한 개인정보보호정책에 따라 관리됩니다.</p>
+			<p>- 탈퇴 후 일정기간 재가입 여부판단을 목적으로 고객님의 최소정보(아이디, 성명)를 보존합니다.</p>
+			<p>- 탈퇴 시 고객님께서 보유하셨던 적립금, 쿠폰, 위시리스트의 저장상품은 모두 삭제되며, 복구되지 않습니다.</p>
+			<p>- 꼭 확인하시고 신중하게 탈퇴 신청해 주시기 바랍니다.</p>
+		</div>
+		<br><br><br><br>
+		<div id="Content2">
+			<h4><u>다음의 경우는 회원탈퇴에 주의가 필요합니다.</u></h4> <br>
+			<p>- 현재 고객님의 반품처리 요청사항이나 고객서비스가 완료되지 않은 경우에는 서비스 처리완료 후 탈퇴가능합니다.</p>
+			<p>- 거래가 진행중인 경우 진행중인 거래를 우선 마무리 해주시기 바랍니다.</p>
+			<p>- 회원탈퇴를 하시면, 보유하고 있는 적립금과 위시리스트의 저장상품들은 자동 소멸됩니다.</p>
+			<p>- 탈퇴 후 3개월 내(90일) 재가입시 신규회원가입혜택이 지급되지 않습니다.</p>
+		</div>
 	</div>
-</div>
 <br>
+
+<div>
 <form name="frm" method="post">
 <h2 align="center">※이용하시면서 불편하셨던 사항을 체크해 주세요 (중복체크가능)</h2><br>
 <div id="Two">
@@ -207,5 +242,9 @@ function cancel() {
 			<input type="button" class="no" value="취소" onclick="cancel()">
 	</p>
 </form>
+</div>
+</div>
+</div>
+
 </body>
 </html>

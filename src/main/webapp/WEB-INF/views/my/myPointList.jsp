@@ -9,19 +9,26 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>장바구니 목록</title>
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="/stu/css/bootstrap.min.css">
-
+<!-- Custom styles for this template -->
+<link href="css/dashboard.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="css/justified-nav.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="/stu/css/bootstrap-theme.min.css">
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
 <!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+
 <script src="/stu/js/common.js" charset="utf-8"></script>
+
 
 <style>
 
@@ -38,6 +45,17 @@ h1 {
     font-size: 2em;
     letter-spacing: 10px;
 }  
+
+<style type="text/css">
+
+#pointList {
+	width : 800px;
+	position: relative;
+	top : -600px;
+	left: 320px;
+
+}
+
 </style>
  
 </head>
@@ -59,13 +77,15 @@ h1 {
 </style>
 <body>
 <div class="container">
+	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+	<div id="pointList">
 	<div class="row" align="center">
         <div>
           <h2>포인트 적립/사용 내역</h2>
           <p>최근 10건의 내역</p>
         </div>
 	</div>
-	<br><br>
+
 	<div class="table-responsive">
 		<table class="table table-striped">
 			<colgroup>
@@ -131,6 +151,7 @@ h1 {
 			</c:choose>
 		</tbody>
 		</table>
+	</div>
 	</div>
 
 </div>

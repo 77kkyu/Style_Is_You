@@ -25,6 +25,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
 
+
 <style>
 
 a {
@@ -39,11 +40,26 @@ h1 {
     font-size: 2em;
     letter-spacing: 10px;
 }  
+
+<style type="text/css">
+
+#myCouponList {
+	width : 800px;
+	position: relative;
+	top : -600px;
+	left: 320px;
+
+}
+
+
 </style>
  
 </head>
 <body>
 <div class="container">
+<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+	
+	<div id="myCouponList">
 	<div class="row" align="center">
         <div>
           <h2>쿠폰 내역</h2>
@@ -140,6 +156,7 @@ h1 {
 			</c:choose>
 		</tbody>
 		</table>
+	</div>
 	</div>
 
 </div>

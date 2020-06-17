@@ -13,7 +13,7 @@
   	<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
   	
   </definition>
-
+<!-- 
   <definition name="mypage" template="/WEB-INF/tiles/adminLayout.jsp">
   
   	<put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>
@@ -23,11 +23,11 @@
   	
   </definition>
 
-
+ -->
  <!--  
   <definition name="mypage" template="/WEB-INF/tiles/adminLayout.jsp">
   
-  	<put-attribute name="left" value="/stu/mySide.jsp"/>
+  	<put-attribute name="left" value="/WEB-INF/tiles/mySide.jsp"/>
   	<put-attribute name="content" value=""/>
   	
   </definition>
@@ -40,14 +40,6 @@
   </definition>
  
    -->
-  
-  
-  
-
-  
-  
-  
-  
   <!-- base를 상속받는 -->
   <definition name="main" extends="base">
   
@@ -99,9 +91,15 @@
   	
   </definition>
   
-  <definition name="/my/myOrderList" extends="mypage">
+  <definition name="/my/myOrderList" extends="base">
   
 	<put-attribute name="content" value="/WEB-INF/views/my/myOrderList.jsp"/>
+  	
+  </definition>
+  
+  <definition name="/my/myPointList" extends="base">
+  
+	<put-attribute name="content" value="/WEB-INF/views/my/myPointList.jsp"/>
   	
   </definition>
   
