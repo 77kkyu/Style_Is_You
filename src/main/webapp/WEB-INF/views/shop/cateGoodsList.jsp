@@ -286,14 +286,14 @@ h1 {
 	<table>
 		<tr>
 			<td>
-			<div style="margin-right:600px">
+			<div style="margin-right:400px">
 				 <%-- 총 ${TOTAL} 개의 상품이 있습니다 --%> 
 			</div>
 			</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/NewItem.do">신상품순</a></td> <td>|</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/favorite.do">인기상품순</a></td> <td>|</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/high.do">높은가격순</a></td> 
+			<td class="font1"><a href="/stu/shop/goodsList/${category}/NewItem.do">신상품순</a></td> <td>|</td>
+			<td class="font1"><a href="/stu/shop/goodsList/${category}/favorite.do">인기상품순</a></td> <td>|</td>
+			<td class="font1"><a href="/stu/shop/goodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
+			<td class="font1"><a href="/stu/shop/goodsList/${category}/high.do">높은가격순</a></td> 
 		</tr>
 	</table>
 </div>

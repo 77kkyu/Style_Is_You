@@ -25,22 +25,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
 
-
-<style>
-
-a {
-  text-decoration: none;
-  color: #666;
-}
-
-h1 {
-    text-align: center;
-    padding: 50px 0;
-    font-weight: normal;
-    font-size: 2em;
-    letter-spacing: 10px;
-}  
-
 <style type="text/css">
 
 #myCouponList {
@@ -50,7 +34,6 @@ h1 {
 	left: 320px;
 
 }
-
 
 </style>
  

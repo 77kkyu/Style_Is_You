@@ -25,27 +25,9 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
 <!-- jQuery -->
-
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
 <script src="/stu/js/common.js" charset="utf-8"></script>
-
-
-<style>
-
-a {
-  text-decoration: none;
-  color: #666;
-  text-decoration:none
-}
-
-h1 {
-    text-align: center;
-    padding: 50px 0;
-    font-weight: normal;
-    font-size: 2em;
-    letter-spacing: 10px;
-}  
 
 <style type="text/css">
 
@@ -59,60 +41,17 @@ h1 {
 
 </style>
  
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
-<script src="/stu/js/common.js" charset="utf-8"></script>
-
-<style type="text/css">
-
-#pointList {
-position: relative
-	float:left;
-	display: inline;
-	width: 1250px;
-}
-
-#pointBox{
-	top: -500px;
-	position: relative;
-	float:right;
-}
-
-</style>
-
 </head>
-<style>
-
-a {
-  text-decoration: none;
-  color: #666;
-  text-decoration:none
-}
-
-h1 {
-    text-align: center;
-    padding: 50px 0;
-    font-weight: normal;
-    font-size: 2em;
-    letter-spacing: 10px;
-}  
-</style>
 <body>
-
 <div class="container">
-
-
-	
-	<div id="pointList" >
 	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
-	<div id="pointBox">
-        <div align="center">
+	<div id="pointList">
+	<div class="row" align="center">
+        <div>
           <h2>포인트 적립/사용 내역</h2>
           <p>최근 10건의 내역</p>
         </div>
-	
-	<br><br>
+	</div>
 
 	<div class="table-responsive">
 		<table class="table table-striped">
@@ -182,9 +121,7 @@ h1 {
 	</div>
 	</div>
 
-
 </div>
-
 
 
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->

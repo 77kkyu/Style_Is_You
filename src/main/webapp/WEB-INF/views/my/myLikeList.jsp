@@ -55,21 +55,6 @@ function fn_likeDelete(index){
 </style>
 
 </head>
-<style>
-
-a {
-  text-decoration: none;
-  color: #666;
-}
-
-h1 {
-    text-align: center;
-    padding: 50px 0;
-    font-weight: normal;
-    font-size: 2em;
-    letter-spacing: 10px;
-}  
-</style>
 <body>
     <div class="container">
     <%@include file="/WEB-INF/tiles/mySide.jsp" %>
