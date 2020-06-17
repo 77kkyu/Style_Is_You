@@ -17,24 +17,27 @@
 </head>
 <body>
 
+<br/><br/><br/>
+	<h2 align="center">문의하기</h2>
+	<br/><br/>
+	
 	<form id="frm" name="frm" enctype="multipart/form-data">
 		<table class="board_view">
 			<colgroup>
 				<col width="15%">
-				<col width="*"/>
+				<col width="*%"/>
 			</colgroup>
-			<caption>문의하기</caption>
 			<tbody><tr>
 			<td style="padding:0px; border:none;">
-				<table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+				<table style="width:100%; height:30px; border:0; cellpadding:0; cellspacing:0;">
 				<tbody><tr>
-					<td width="100" bgcolor="f6f6f6">제목</td>
-					<td width="475" class="gray" style="padding-left:10px;text-align:left;" align="left">
-						<input type="text" id="qna_title" name="QNA_TITLE" style="width:70%;" maxlength="100">
+					<td width="10%" bgcolor="f6f6f6" align="center">제목</td>
+					<td width="450px" class="gray" style="padding-left:10px;text-align:left;" align="left">
+						<input type="text" id="qna_title" name="QNA_TITLE" style="width:90%;" maxlength="100">
 					</td>
 					
-					<td width="100" bgcolor="f6f6f6">문의유형</td>
-					<td align="left" class="gray" style="padding-left:10px; text-align:left;">
+					<td width="10%" bgcolor="f6f6f6" align="center">문의유형</td>
+					<td width="450px" align="left" class="gray" style="padding-left:10px; text-align:left;">
 						<select id="group" name="QNA_CATEGORY" id="qna_category" style="width:90%;">
 						<option value="61">1. 상품문의 드려요~♥</option>
 						<option value="62">2. 배송문의 드려요~♥</option>
@@ -53,13 +56,13 @@
 		<!-- 글쓴이 이메일 시작 -->
 		<tr>
 			<td style="padding:0px; border-bottom:none;">
-				<table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+				<table style="width:100%; height:30px; border:0; cellpadding:0; cellspacing:0;">
 				<tbody><tr>
-					<td width="100" bgcolor="f6f6f6">글쓴이</td>
+					<td width="10%" bgcolor="f6f6f6" align="center">글쓴이</td>
 					<td align="left" class="gray" style="padding-left:10px;text-align:left;">
 						<input type="text" name="QNA_NAME" id="member_name" style="width:90%;" maxlength="50" value=<%=sessionId %>>
 					</td>
-					<td width="100" bgcolor="f6f6f6" class="gray_6">이메일</td>
+					<td width="10%" bgcolor="f6f6f6" class="gray_6" align="center">이메일</td>
 					<td align="left" class="gray" style="padding-left:10px; text-align:left;">
 						<input type="text" name="MEMBER_EMAIL" id="member_email" style="width:90%;" maxlength="100">
 					</td>
@@ -73,7 +76,7 @@
 		<!--내용입력 -->
 		<tr>
 			<td colspan="2" class="view_text">
-				<textarea rows="20" cols="120" title="내용" id="qna_content" name="QNA_CONTENT"></textarea>
+				<textarea rows="20" cols="130" title="내용" id="qna_content" name="QNA_CONTENT"></textarea>
 			</td>
 		</tr>
 		<!-- 내용입력 : 끝 -->
@@ -81,11 +84,11 @@
 		<!-- 비밀번호-->
 		<tr>
 			<td style="padding:0px; border-bottom:none;">
-				<table width="100%" height="30" border="0" cellpadding="0" cellspacing="0">
+				<table style="width:100%; height:30px; border:0; cellpadding:0; cellspacing:0;">
 				<tbody><tr>
-					<td width="100" bgcolor="f6f6f6">비밀번호</td>
+					<td width="100" bgcolor="f6f6f6" align="center">비밀번호</td>
 					<td align="left" class="gray" style="padding-left:10px;text-align:left;">
-						<input autocomplete="off" type="password" name="QNA_PASSWD" id="qna_passwd" style="width:120px;" maxlength="20" value="">&nbsp;&nbsp;
+						<input autocomplete="off" type="password" name="QNA_PASSWD" id="qna_passwd" style="width:150px;" maxlength="20" value="">&nbsp;&nbsp;
 						<!-- <input type="checkbox" name="isSecret" value="T" style="margin-right:5px;">비밀글(관리자만 볼수 있습니다.) -->
 					</td>
 				</tr>

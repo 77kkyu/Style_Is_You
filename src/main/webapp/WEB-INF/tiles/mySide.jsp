@@ -76,8 +76,8 @@ function logout(){
 				</a>
 					<ul class="nav nav-second-level">
 						<li><a href="/stu/myOrderList.do">- 주문/배송 내역</a></li>
-						<li><a href="/myAsList.do">- 교환/환불/AS 내역</a></li>
-						<li><a href="">- 포인트</a></li>
+						<li><a href="/stu/myAsList.do">- 교환/환불/AS 내역</a></li>
+						<li><a href="/stu/my/myPointList.do">- 포인트</a></li>
 						<li><a href="">- 할인쿠폰</a></li>
 						<li><a href="">- 찜 상품</a></li>
 					</ul></li>
