@@ -40,13 +40,27 @@ function fn_likeDelete(index){
 	}
 	return false;
 }
-	
 </script>
+
+<style type="text/css">
+
+#myLikeList {
+	width : 800px;
+	position: relative;
+	top : -600px;
+	left: 320px;
+
+}
+
+</style>
 
 </head>
 <body>
     <div class="container">
-    
+    <%@include file="/WEB-INF/tiles/mySide.jsp" %>
+
+		<div id="myLikeList">
+
       	<div class="row" align="center">
         	<div>
           	<h2>좋아요</h2>
@@ -74,7 +88,9 @@ function fn_likeDelete(index){
               </thead>
               <tbody>
               	<c:choose>
-				<c:when test="${fn:length(list) > 0}">
+
+					<c:when test="${fn:length(list) > 0}">
+
 					<c:forEach items="${list }" var="row" varStatus="status">
 					<input type="hidden" name="goods_no" value="${row.GOODS_NO }">
 						<tr>
@@ -93,22 +109,22 @@ function fn_likeDelete(index){
                   			</td>
 						</tr>
 					</c:forEach>
-					</tbody>
-            	</table>
-          		</div>
-				</c:when>
-				<c:otherwise>
+					</c:when>	
+					<c:otherwise>
 					<tr>
 						<td colspan="7">조회된 결과가 없습니다.</td>
 					</tr>
-				</tbody>
+				</c:otherwise>
+				</c:choose>
+					
+					</tbody>
             	</table>
           		</div>
-				</c:otherwise>
-			</c:choose>
+				
+				
           <br>
           <br>
-          
+          </div>
     </div> <!-- /container -->
 
 

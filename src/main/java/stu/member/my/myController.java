@@ -45,7 +45,7 @@ public class myController {
 		
 		//세션값 가져오기
 		HttpSession session = request.getSession();
-		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO");
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO");
 
 		commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제
 		commandMap.put("MEMBER_NO", MEMBER_NO); // 세션 값으로 적용
@@ -64,13 +64,13 @@ public class myController {
 	// 회원 정보 수정 처리
 	@RequestMapping(value="/my/memberModifyAction.do",method=RequestMethod.POST)
 	public ModelAndView memberModifyAction(Map<String, Object> commandMap, HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView("my/myMain");
+		ModelAndView mv = new ModelAndView("my/myOrderList");
 		
 			Object MEMBER_NO = "";
 			
 			//세션값 가져오기
 			HttpSession session = request.getSession();
-			MEMBER_NO = (Object)session.getAttribute("MEMBER_NO");
+			MEMBER_NO = (Object)session.getAttribute("SESSION_NO");
 	
 			commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제
 			commandMap.put("MEMBER_NO", MEMBER_NO); // 세션 값으로 적용
@@ -130,7 +130,7 @@ public class myController {
 		Object MEMBER_NO = "";
 		
 		HttpSession session = request.getSession();
-		MEMBER_NO = (Object)session.getAttribute("MEMBER_NO");
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO");
 		
 		commandMap.remove("MEMBER_NO");
 		commandMap.put("MEMBER_NO", MEMBER_NO);

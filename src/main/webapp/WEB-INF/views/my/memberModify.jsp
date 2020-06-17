@@ -8,7 +8,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>회원정보 수정</title>
+
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="/stu/css/bootstrap.min.css">
+<!-- Custom styles for this template -->
+<link href="css/dashboard.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="css/justified-nav.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="/stu/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="/stu/js/bootstrap.min.js"></script>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.7.js"></script>
 <script src="<c:url value='/js/common.js'/>" charset="utf-8"></script>
@@ -20,13 +37,22 @@
 		border-collapse:collapse;
 	}
 	.yes {
-		border:2px solid black;
-		background-color:red;
+		border:1px solid;
+		background-color:salmon;
 		color:white;
 		width:300px;
 		height:50px;
 		font-size:20px;
 	}
+	
+	#memberModify {
+	width : 800px;
+	position: relative;
+	top : -580px;
+	left: 360px;
+
+	}
+	
 </style>
 
 <script>
@@ -43,14 +69,18 @@
 
 </head>
 <body>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+<div class="container">	
+	
+	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+	
+	
+	<div id="memberModify">
+	<div style="text-align: center;">
+	<h2>회 원 수 정</h2>  <br />
+	</div>
 	<form name="frm" method="post" action="/stu/my/memberModifyAction.do">
 	<table align="center" class="tab" cellspacing="0" border="1" height="700"
-		  color="#e2e2e2" style="margin:auto" width="700">
+		  color="#e2e2e2" style="width: 700px;">
 		 	<input type="hidden" name="MEMBER_NO" value="${MEMBER.MEMBER_NO }">
 		<tr>
 			<th bgcolor="#e2e2e2" width="200" height="40">아이디</th>
@@ -170,5 +200,7 @@
 			<input type="submit" id="submit" class="yes" value="회원 정보 수정" onclick="fn_alert()">
 		</p>
 	</form>
+	</div>
+</div>	
 </body>
 </html>
