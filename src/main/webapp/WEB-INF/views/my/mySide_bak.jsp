@@ -22,6 +22,21 @@ String S_id = (String)session.getAttribute("member_id");
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
+<style>
+
+a {
+  text-decoration: none;
+  color: #666;
+}
+
+h1 {
+    text-align: center;
+    padding: 50px 0;
+    font-weight: normal;
+    font-size: 2em;
+    letter-spacing: 10px;
+}  
+</style>
 <script>
 
 <<<<<<< Updated upstream

@@ -25,10 +25,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
 
-<script>
+<style>
 
+a {
+  text-decoration: none;
+  color: #666;
+}
 
-</script>
+h1 {
+    text-align: center;
+    padding: 50px 0;
+    font-weight: normal;
+    font-size: 2em;
+    letter-spacing: 10px;
+}  
+</style>
  
 </head>
 <body>

@@ -21,7 +21,22 @@
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
 
- 
+ <style>
+
+a {
+  text-decoration: none;
+  color: #666;
+  text-decoration:none
+}
+
+h1 {
+    text-align: center;
+    padding: 50px 0;
+    font-weight: normal;
+    font-size: 2em;
+    letter-spacing: 10px;
+}  
+</style>
  <script>
 $(document).ready(function(){
 	

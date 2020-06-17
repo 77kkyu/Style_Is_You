@@ -189,6 +189,24 @@ th {
 	width:100%;
 	heiht:100%;
 }
+
+body {
+ /*  font-family: Verdana, Arial; */
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #666;
+}
+
+h1 {
+    text-align: center;
+    padding: 50px 0;
+    font-weight: normal;
+    font-size: 2em;
+    letter-spacing: 10px;
+}  
 </style>
 
 <body>

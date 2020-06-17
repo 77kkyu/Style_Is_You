@@ -32,17 +32,18 @@
 }
 
 body {
-  font-family: Verdana, Arial;
+ /*  font-family: Verdana, Arial; */
+  font-family: 'Open Sans', sans-serif;
 }
 
 a {
   text-decoration: none;
-  color: #000000;
+  color: #666;
   
 }
 
 a:hover {
-  background-color: yellow;
+  /* background-color: yellow; */
 }
 
 

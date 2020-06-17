@@ -33,6 +33,23 @@
 
 </head>
 
+<style>
+
+a {
+  text-decoration: none;
+  color: #666;
+  text-decoration:none
+}
+
+h1 {
+    text-align: center;
+    padding: 50px 0;
+    font-weight: normal;
+    font-size: 2em;
+    letter-spacing: 10px;
+}  
+</style>
+
 <body>
     <div class="container">
 
