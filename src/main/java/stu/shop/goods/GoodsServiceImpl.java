@@ -26,43 +26,42 @@ public class GoodsServiceImpl implements GoodsService {
 	private FileUtils fileUtils;
 
 	@Override
-	public List<Map<String, Object>> newGoodsList(Map<String, Object> map) throws Exception { // 새상품 
+	public List<Map<String, Object>> newGoodsList(Map<String, Object> map) throws Exception { // 최신 상품 리스트 
 		
 		return goodsDao.newGoodsList(map);
 	}
 
 	@Override
-	public List<Map<String, Object>> bestGoodsList(Map<String, Object> map) throws Exception { // best 상품
+	public List<Map<String, Object>> bestGoodsList(Map<String, Object> map) throws Exception { // 베스트 상품 리스트
 		
 		return goodsDao.bestGoodsList(map);
 	}
 
 	@Override
-	public List<Map<String, Object>> cateGoodsList(Map<String, Object> map, String keyword) throws Exception { // 카테고리별 상품
+	public List<Map<String, Object>> cateGoodsList(Map<String, Object> map, String keyword) throws Exception { // 카테고리별 상품 리스트
 		map.put("keyword", keyword);
 		return goodsDao.cateGoodsList(map);
 	}
 	
 	@Override
-	public List<Map<String, Object>> mainSearch(Map<String, Object> map, String keyword) throws Exception { // 메인 검색
+	public List<Map<String, Object>> mainSearch(Map<String, Object> map, String keyword) throws Exception { // 메인 검색 
 		map.put("keyword", keyword);
 		return goodsDao.mainSearch(map);
 	}
 
 	@Override
-	public Map<String, Object> selectGoodsDetail(Map<String, Object> map, HttpServletRequest request) throws Exception {
+	public Map<String, Object> selectGoodsDetail(Map<String, Object> map, HttpServletRequest request) throws Exception { // 상품 디테일
 		System.out.println("map1111111="+map.get("IDX"));
-		if(map.get("IDX").getClass().getName().equals("java.lang.String")){ 
+		if(map.get("IDX").getClass().getName().equals("java.lang.String")){  // PK값이 일반 스트링으로 왔을 때
 			Map<String,Object> map1 = new HashMap<String,Object>();
 			map1.put("IDX", map.get("IDX"));
-			goodsDao.goodsHitCnt(map1);
-		}else {
+			goodsDao.goodsHitCnt(map1); //조회수
+		}else { // PK값이 배열로 넘어 왔을 때 
 			String[] Goods_No = (String[])map.get("IDX");
 			map.put("IDX", Goods_No[0]);
-			goodsDao.goodsHitCnt(map);
+			goodsDao.goodsHitCnt(map); //조회수
 		}
 		
-		//goodsDao.goodsHitCnt(map);
 		System.out.println("map="+map);
 		Map<String, Object> resultMap = goodsDao.selectGoodsDetail(map);
 
@@ -70,7 +69,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	@Override
-	public Map<String, Object> selectGoodsAtt(Map<String, Object> map) throws Exception {
+	public Map<String, Object> selectGoodsAtt(Map<String, Object> map) throws Exception { // 상품 상세보기 컬러랑 사이즈 가져오기(배열로 되있음)
 		
 		Map<String, Object> resultMap = goodsDao.selectGoodsAtt(map);
 		
@@ -78,7 +77,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void insertGoods(Map<String, Object> map, HttpServletRequest request) throws Exception {
+	public void insertGoods(Map<String, Object> map, HttpServletRequest request) throws Exception { // 상품등록
 		
 				// 내용에서 이미지 긁어오기 시작
 				String img_templist=""; // 이미지 링크를 ','를 기준으로 냐열해둠, 아직 사용 안함
@@ -134,7 +133,7 @@ public class GoodsServiceImpl implements GoodsService {
 				String SizeList[] = Size.split(",");
 				System.out.println(ColorList.length);
 				
-				for(int i=0; i <=ColorList.length-1; i++) {
+				for(int i=0; i <=ColorList.length-1; i++) { // 상품등록시 선택한 사이즈 컬러 하나하나씩 상품옵션테이블에 등록해줌
 					for(int j=0; j<=SizeList.length-1; j++) {
 						System.out.println("배열입니당="+ColorList[i]+","+SizeList[j]);
 						map.put("GOODS_ATT_SIZE", SizeList[j]);
@@ -152,10 +151,10 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void updateGoods(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		goodsDao.updateGoods(map);
-		goodsDao.attributeDelete(map);
-		goodsDao.deleteFile(map);
+	public void updateGoods(Map<String, Object> map, HttpServletRequest request) throws Exception { // 상품 수정
+		goodsDao.updateGoods(map); // 상품테이블 업데이트
+		goodsDao.attributeDelete(map); // 기존 상품에 있는 옵션들 삭제
+		goodsDao.deleteFile(map);  // 이미지 삭제
 		// 내용에서 이미지 긁어오기 시작
 		String img_templist=""; // 이미지 링크를 ','를 기준으로 냐열해둠, 아직 사용 안함
 		String img_list[] = {}; // ','로 구분된 문자열을 나눠서 배열에 담음
@@ -185,7 +184,7 @@ public class GoodsServiceImpl implements GoodsService {
 		// 내용에서 이미지 긁어오기 끝
 		
 		// 상품정보 등록 쿼리 실행
-		goodsDao.updateGoodsThumbnail(map);
+		goodsDao.updateGoodsThumbnail(map); // 상품테이블에 있는 썸네일 사진 업데이트 
 		System.out.println("****12132* " + map);
 		
 		// 상품 등록 시 IDX 값을 받아 이미지 테이블에 값들을 담아줌
@@ -215,7 +214,7 @@ public class GoodsServiceImpl implements GoodsService {
 				System.out.println("배열입니당="+ColorList[i]+","+SizeList[j]);
 				map.put("GOODS_ATT_SIZE", SizeList[j]);
 				map.put("GOODS_ATT_COLOR", ColorList[i]);
-				goodsDao.goodsAttribute(map);
+				goodsDao.goodsAttribute(map); // 상품 수정시 선택한 컬러 사이즈 다시 등록
 				
 			}
 		}
@@ -223,12 +222,12 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 	
 	@Override
-	public void insertGoodsLike(Map<String, Object> map) throws Exception{
+	public void insertGoodsLike(Map<String, Object> map) throws Exception{ // 상품디테일에서 좋아요
 		goodsDao.insertGoodsLike(map);
 	}
 
 	@Override
-	public void deleteGoodsLike(Map<String, Object> map) throws Exception{
+	public void deleteGoodsLike(Map<String, Object> map) throws Exception{ // 상품 좋아요 삭제 
 		goodsDao.deleteGoodsLike(map);
 	}
 
@@ -289,13 +288,10 @@ public class GoodsServiceImpl implements GoodsService {
 //		
 //		return 1;
 //	}
-//	
-	
-	
-	
+
 	
 	@Override
-	public void insertBasket(Map<String, Object> map, HttpServletRequest request) throws Exception {
+	public void insertBasket(Map<String, Object> map, HttpServletRequest request) throws Exception { // 상품디테일에서 장바구니 추가
 		map.remove("resultList");
 		System.out.println("서비스맵"+map);
 		goodsDao.insertBasket(map);
@@ -304,19 +300,19 @@ public class GoodsServiceImpl implements GoodsService {
 	
 
 	@Override
-	public Map<String, Object> selectGoodsAttNum(Map<String, Object> map) throws Exception {
+	public Map<String, Object> selectGoodsAttNum(Map<String, Object> map) throws Exception { // 상품옵션 PK값 가져오기
 		
 		return goodsDao.selectGoodsAttNum(map);
 	}
 
 	@Override
-	public List<Map<String, Object>> selectBasketNo(Map<String, Object> map) throws Exception {
+	public List<Map<String, Object>> selectBasketNo(Map<String, Object> map) throws Exception { // 장바구니 PK값 가져오기
 		
 		return goodsDao.selectBasketNo(map);
 	}
 
 	@Override
-	public List<Map<String, Object>> selectGoodsQna(Map<String, Object> map) throws Exception { // 상품Qna 리스트
+	public List<Map<String, Object>> selectGoodsQna(Map<String, Object> map) throws Exception { // 상품 QNA 리스트
 		
 		return goodsDao.selectGoodsQna(map);
 	}
@@ -328,12 +324,12 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectReviewList(Map<String, Object> map) throws Exception {// 리뷰리스트
+	public List<Map<String, Object>> selectReviewList(Map<String, Object> map) throws Exception {// Review 리스트
 		return goodsDao.selectReviewList(map);
 	}
 
 	@Override
-	public void insertGoodsReview(Map<String, Object> map, HttpServletRequest request) throws Exception {// 리뷰 등록
+	public void insertGoodsReview(Map<String, Object> map, HttpServletRequest request) throws Exception {// Review 등록
 		
 		// 내용에서 이미지 긁어오기 시작
 		String img_templist=""; // 이미지 링크를 ','를 기준으로 냐열해둠, 아직 사용 안함
@@ -364,7 +360,7 @@ public class GoodsServiceImpl implements GoodsService {
 		// 내용에서 이미지 긁어오기 끝
 		
 		// 상품정보 등록 쿼리 실행
-		goodsDao.insertGoodsReview(map);
+		goodsDao.insertGoodsReview(map); // 리뷰 등록
 		System.out.println("****12132* " + map);
 		
 		// 상품 등록 시 IDX 값을 받아 이미지 테이블에 값들을 담아줌
@@ -373,7 +369,7 @@ public class GoodsServiceImpl implements GoodsService {
 			for(int i = 0 ; i<imgCount; i++) {
 				map.put("UPLOAD_SAVE_NAME", img_list[i]);
 				System.out.println((i+1)+"번째업로드 ==========================================");
-				goodsDao.insertReviewFile(map); 
+				goodsDao.insertReviewFile(map); // 리뷰 이미지 등록
 				System.out.println((i+1)+"번째업로드끝=========================================");
 			}
 		}

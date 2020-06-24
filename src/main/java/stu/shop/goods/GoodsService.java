@@ -9,7 +9,7 @@ import stu.common.common.CommandMap;
 
 public interface GoodsService {
 	
-	List<Map<String, Object>> newGoodsList(Map<String, Object> map) throws Exception; // 카테고리 상품 리스트
+	List<Map<String, Object>> newGoodsList(Map<String, Object> map) throws Exception; // 최신 상품 리스트
 	
 	List<Map<String, Object>> bestGoodsList(Map<String, Object> map) throws Exception; // 베스트 상품 리스트
 		
@@ -31,15 +31,11 @@ public interface GoodsService {
 	
 	void updateGoods(Map<String, Object> map, HttpServletRequest request) throws Exception; //업데이트 
 	
-	void insertGoodsLike(Map<String, Object> map) throws Exception;
+	void insertGoodsLike(Map<String, Object> map) throws Exception; // 디테일에서 상품 좋아요 
 	
-	void deleteGoodsLike(Map<String, Object> map) throws Exception;
-	
-	//void attributeDelete(Map<String, Object> map) throws Exception;
-	
-//	int insertBasket(List<CommandMap> map, HttpServletRequest request) throws Exception;
-	
-	void insertBasket(Map<String,Object> map, HttpServletRequest request) throws Exception;
+	void deleteGoodsLike(Map<String, Object> map) throws Exception; // 상품 좋아요 삭제
+		
+	void insertBasket(Map<String,Object> map, HttpServletRequest request) throws Exception; // 장바구니 추가 
 
 	Map<String, Object> selectGoodsAttNum(Map<String,Object> map) throws Exception; // 상품속성 디테일
 	
