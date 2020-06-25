@@ -377,7 +377,7 @@ h1 {
 			
 			<div class="totals-item totals-item-total">
 	      <label>총상품금액</label>
-	      <div class="totals-value" id="cart-total"></div>
+	      <div class="totals-value" id="cart-total"></div>원
 	    </div>
 	    
 			<br>
@@ -972,18 +972,13 @@ function tableCreate() {
  		 + " <input type='number' name='BASKET_GOODS_AMOUNT' value='1' min='1' max='5'> "
  		 + " </div> "
  		 + " <div class='product-removal'> </div> "
- 		 + " <div class='product-line-price'>"+numberWithCommas(${list.GOODS_SELL_PRICE})+"</div>"  
+ 	 	 + " <div class='product-line-price'>"+${list.GOODS_SELL_PRICE}+"</div>원"	 
  		 + " <div class='product-removal'>"
  	     + " <button class='remove-product'>"
  	     + " Remove "
  	     + " </button> "
  	     + " </div> "
- 		 //
-		// + " <button type='button' id='sub' class='sub'></button> "
-		// + " <input type='number' class='i1' id='"+cnt+"' name='BASKET_GOODS_AMOUNT' value='1' min='1' max='5' /> "
-		// + " <button type='button' id='add' class='add'></button> </div> "
-	    // + " <input type='text' id='sum' name='sum' size='11' value='0'>원 " 
-		 //
+ 	     // 수정전 
 	     + "</td>"
 	     + "</tr>"
 	     + "<tr>"
@@ -1014,8 +1009,7 @@ function tableCreate() {
 }
 
 	/* Set rates + misc */
-	//var taxRate = 0.05;
-	var shippingRate = 15; 
+
 	var fadeTime = 300;
 
 
@@ -1033,19 +1027,16 @@ function tableCreate() {
 	  /* Sum up row totals */
 	  $('.product').each(function () {
 	    subtotal += parseInt($(this).children('.product-line-price').text());
+	    
 	  });
 	  
 	  /* Calculate totals */
-	  //var tax = subtotal * taxRate;
-	  var shipping = (subtotal > 0 ? shippingRate : 0);
-	  var total = subtotal + shipping;
-	  
+	 
+	  var total = subtotal 
+	     
 	  /* Update totals display */
 	  $('.totals-value').fadeOut(fadeTime, function() {
-	    //$('#cart-subtotal').html(subtotal);
-	    //$('#cart-tax').html(tax.toFixed(2));
-	    $('#cart-shipping').html(shipping);
-	    $('#cart-total').html(total);
+	    $('#cart-total').html(numberWithCommas(total));
 	    if(total == 0){
 	      $('.checkout').fadeOut(fadeTime);
 	    }else{
@@ -1069,8 +1060,9 @@ function tableCreate() {
 	  /* Update line price display and recalc cart totals */
 	  productRow.children('.product-line-price').each(function () {
 	    $(this).fadeOut(fadeTime, function() {
-	      $(this).text(numberWithCommas(linePrice));
+	      $(this).text(linePrice);
 	      recalculateCart();
+	      $(this).text(numberWithCommas(linePrice));
 	      $(this).fadeIn(fadeTime);
 	    });
 	  });  
