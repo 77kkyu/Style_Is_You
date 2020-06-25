@@ -98,6 +98,9 @@ function order_list() {
 		</table>
         </c:forEach>
 	</div>
+	<div style="text-align:right">
+        <input type="button" name="select_like" value="배송정보변경" onclick="">
+    </div>
 	<hr />
 	<div class="table-responsive">
 		<table class="table table-striped">
@@ -122,7 +125,7 @@ function order_list() {
 			<c:choose>
 				<c:when test="${fn:length(my_detail_sub) > 0}">
 					<c:forEach items="${my_detail_sub }" var="detail_sub">		
-					${detail_sub }			
+					<%-- ${detail_sub } --%>			
 						<tr>
 							<td>${detail_sub.GOODS_NAME }</td>
 							<td>${detail_sub.ORDER_DETAIL_PRICE }</td>
