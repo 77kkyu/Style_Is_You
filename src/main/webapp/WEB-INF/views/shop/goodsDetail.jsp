@@ -374,10 +374,15 @@ h1 {
 				</table>
 
 			</form>
+			
+			<div class="totals-item totals-item-total">
+	      <label>총상품금액</label>
+	      <div class="totals-value" id="cart-total"></div>
+	    </div>
+	    
 			<br>
-			<!-- <div style="margin-left:405px;">
-		총상품금액&nbsp;<input type="text" name="dd" size="11" >
-		</div> -->
+			
+    
 			<br>
 			<table>
 				<tr>
@@ -403,23 +408,6 @@ h1 {
 		</div>
 	</div>
 	
-
-<div class="shopping-cart">
-
-  <div class="product">
-    <div class="product-price">${list.GOODS_SELL_PRICE}</div>
-    <div class="product-quantity">
-      <input type="number" value="1" min="1">
-    </div>
-    <div class="product-removal">
-      
-    </div>
-    <div class="product-line-price">${list.GOODS_SELL_PRICE}</div>
-  </div> 
-
-
-</div> 
-
 
 
 	<div style="clear: both;"></div>
@@ -679,6 +667,9 @@ h1 {
 
 <script type="text/javascript">
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 var doubleSubmitFlag = false;
 function doubleSubmitCheck(){
@@ -944,7 +935,8 @@ function fn_InsertBasket() { // 장바구니
 }
 
 
-function tableCreate(){
+function tableCreate() {
+	
 	var tc = new Array();
 	var html = "";
 	var cnt = $('#dynamicTable table').length;
@@ -960,31 +952,12 @@ function tableCreate(){
 
 	if(cnt < 6) {		
 
-
-		/* <div class="product">
-	    <div class="product-price">12.99</div>
-	    <div class="product-quantity">
-	      <input type="number" value="2" min="1">
-	    </div>
-	    <div class="product-removal">
-	      
-	    </div>
-	    <div class="product-line-price">25.98</div>
-	  </div> */
+		/* <div class="totals-item totals-item-total">
+	      <label>총상품금액</label>
+	      <div class="totals-value" id="cart-total"></div>
+	    </div> */
 
 
-	  /* <div id="container">
-	  <table>
-	   <tr class="p">
-	      <td class="image"><img src="http://cdn2.ubergizmo.com/wp-content/uploads/2012/09/ipod-touch-5g.jpg" /></td>
-	      <td class="name">iPod touch</td>
-	      <td class="price">$299.99</td>
-	      <td class="amount"><input type="number" value="1" min="0" /></td>
-	      <td class="pricesubtotal"></td>
-	      <td class="remove"><div>&times</div></td>
-	    </tr>
-	  </table>
-	  </div> */
 	html = "<table style='border:1px solid #bdbebd; width:600px; margin-top:2px;'>"
 		 + "<tr>"
 		 + "<td>상품명 : </td>"
@@ -995,16 +968,22 @@ function tableCreate(){
  		 + " <div id='field"+cnt+"'> " // 수정전 
          + " <div class='shopping-cart'> "
  		 + " <div class='product'> "
- 		 + " <div class='product-price'></div> "
  		 + " <div class='product-quantity'> "
  		 + " <input type='number' name='BASKET_GOODS_AMOUNT' value='1' min='1' max='5'> "
  		 + " </div> "
  		 + " <div class='product-removal'> </div> "
- 		 + " <div class='product-line-price'>"+${list.GOODS_SELL_PRICE}+"</div> </div>"  
-	//	 + " <button type='button' id='sub' class='sub'></button> "
-	//	 + " <input type='number' class='i1' id='"+cnt+"' name='BASKET_GOODS_AMOUNT' value='1' min='1' max='5' /> "
-	//	 + " <button type='button' id='add' class='add'></button> </div> "
-	//   + "<input type='text' id='sum' name='sum' size='11' value='0'>원" 
+ 		 + " <div class='product-line-price'>"+numberWithCommas(${list.GOODS_SELL_PRICE})+"</div>"  
+ 		 + " <div class='product-removal'>"
+ 	     + " <button class='remove-product'>"
+ 	     + " Remove "
+ 	     + " </button> "
+ 	     + " </div> "
+ 		 //
+		// + " <button type='button' id='sub' class='sub'></button> "
+		// + " <input type='number' class='i1' id='"+cnt+"' name='BASKET_GOODS_AMOUNT' value='1' min='1' max='5' /> "
+		// + " <button type='button' id='add' class='add'></button> </div> "
+	    // + " <input type='text' id='sum' name='sum' size='11' value='0'>원 " 
+		 //
 	     + "</td>"
 	     + "</tr>"
 	     + "<tr>"
@@ -1026,15 +1005,87 @@ function tableCreate(){
 				
 	$("#ColorList").val('');
 	$("#SizeList").val('');
-
 	
 	}else {
 		alert("최대 5개까지만 가능합니다.");
 		return false;
 	}
 	
+}
+
+	/* Set rates + misc */
+	//var taxRate = 0.05;
+	var shippingRate = 15; 
+	var fadeTime = 300;
+
+
+	/* Assign actions */
+	$('.product-quantity input').change( function() {
+	  updateQuantity(this);
+	});
+
+
+	/* Recalculate cart */
+	function recalculateCart()
+	{
+	  var subtotal = 0;
+	  
+	  /* Sum up row totals */
+	  $('.product').each(function () {
+	    subtotal += parseInt($(this).children('.product-line-price').text());
+	  });
+	  
+	  /* Calculate totals */
+	  //var tax = subtotal * taxRate;
+	  var shipping = (subtotal > 0 ? shippingRate : 0);
+	  var total = subtotal + shipping;
+	  
+	  /* Update totals display */
+	  $('.totals-value').fadeOut(fadeTime, function() {
+	    //$('#cart-subtotal').html(subtotal);
+	    //$('#cart-tax').html(tax.toFixed(2));
+	    $('#cart-shipping').html(shipping);
+	    $('#cart-total').html(total);
+	    if(total == 0){
+	      $('.checkout').fadeOut(fadeTime);
+	    }else{
+	      $('.checkout').fadeIn(fadeTime);
+	    }
+	    $('.totals-value').fadeIn(fadeTime);
+	  });
 	}
-	
+
+
+	/* Update quantity */
+	function updateQuantity(quantityInput)
+	{
+			
+	  /* Calculate line price */
+	  var productRow = $(quantityInput).parent().parent();
+	  var price = parseInt(${list.GOODS_SELL_PRICE});
+	  var quantity = $(quantityInput).val();
+	  var linePrice = price * quantity;
+	  
+	  /* Update line price display and recalc cart totals */
+	  productRow.children('.product-line-price').each(function () {
+	    $(this).fadeOut(fadeTime, function() {
+	      $(this).text(numberWithCommas(linePrice));
+	      recalculateCart();
+	      $(this).fadeIn(fadeTime);
+	    });
+	  });  
+	}
+
+	function removeItem(removeButton)
+	{
+	  /* Remove row from DOM and recalc cart total */
+	  var productRow = $(removeButton).parent().parent();
+	  productRow.slideUp(fadeTime, function() {
+	    productRow.remove();
+	    recalculateCart();
+	  });
+	}
+
 }
 
 function tableDelete(){
@@ -1290,72 +1341,6 @@ $(document).ready( function() { // 상품문의 토글
             });
             
   }); 
-
-
-
-
-/* Set rates + misc */
-var taxRate = 0.05;
-var shippingRate = 15.00; 
-var fadeTime = 300;
-
-
-/* Assign actions */
-$('.product-quantity input').change( function() {
-  updateQuantity(this);
-});
-
-
-/* Recalculate cart */
-function recalculateCart()
-{
-  var subtotal = 0;
-  
-  /* Sum up row totals */
-  $('.product').each(function () {
-    subtotal += parseFloat($(this).children('.product-line-price').text());
-  });
-  
-  /* Calculate totals */
-  var tax = subtotal * taxRate;
-  var shipping = (subtotal > 0 ? shippingRate : 0);
-  var total = subtotal + tax + shipping;
-  
-  /* Update totals display */
-  $('.totals-value').fadeOut(fadeTime, function() {
-    $('#cart-subtotal').html(subtotal.toFixed(2));
-    $('#cart-tax').html(tax.toFixed(2));
-    $('#cart-shipping').html(shipping.toFixed(2));
-    $('#cart-total').html(total.toFixed(2));
-    if(total == 0){
-      $('.checkout').fadeOut(fadeTime);
-    }else{
-      $('.checkout').fadeIn(fadeTime);
-    }
-    $('.totals-value').fadeIn(fadeTime);
-  });
-}
-
-
-/* Update quantity */
-function updateQuantity(quantityInput)
-{
-  /* Calculate line price */
-  var productRow = $(quantityInput).parent().parent();
-  var price = parseFloat(productRow.children('.product-price').text());
-  var quantity = $(quantityInput).val();
-  var linePrice = price * quantity;
-  
-  /* Update line price display and recalc cart totals */
-  productRow.children('.product-line-price').each(function () {
-    $(this).fadeOut(fadeTime, function() {
-      $(this).text(linePrice.toFixed(2));
-      recalculateCart();
-      $(this).fadeIn(fadeTime);
-    });
-  });  
-}
-
 
 
 

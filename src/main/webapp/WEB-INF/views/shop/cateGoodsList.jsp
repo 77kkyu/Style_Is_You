@@ -325,6 +325,10 @@ h1 {
 
 <script type="text/javascript">
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 $(document).ready(function() {
 	
 	fn_selectGoodsList(1);
@@ -408,10 +412,7 @@ function fn_selectGoodsListCallback(data) {
 										pick4 = Pick[3];
 									}
 								}
-							
-							
-									
-							
+											
 							str += "<div class='card'>"
 								+		"<a href='#this' name='title'>"
 								+ 			imgpath + "<br>"
@@ -432,46 +433,11 @@ function fn_selectGoodsListCallback(data) {
 								+       pick4 + "</font></span>"
 								+	  " </c:if> <br>"
 								+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
-								+     " <font class='font2'>"+value.GOODS_SELL_PRICE+"원</font> "   
+								+     " <font class='font2'>"+numberWithCommas(value.GOODS_SELL_PRICE)+"원</font> "   
 								+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
 								+	  " </a>"
 								+	  " </div>";
-							
-							/* str += "<div class='card'>"
-								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
-								+     " <c:if test='${!empty "+pick1+"}'> "
-								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick1 +"</font></span>"	
-								+	  " </c:if>"
-								+     " <c:if test='${!empty "+pick2+"}'> "
-								+     " <span style='background-color:#d456dc; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick2 + "</font></span>"
-								+	  " </c:if>"
-								+     " <c:if test='${!empty "+pick3+"}'> "
-								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
-								+       pick3 + "</font></span>"
-								+	  " </c:if>"
-								+		
-								+		value.GOODS_NAME +	"<br>"
-								+		value.GOODS_SELL_PRICE 
-								+  	"<input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
-								+	   "</a>"
-								+	   "</div>"; */
-
-
-					
-							/* str += "<div class='card'>"
-								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
-								+ 					Pick +	"<br>"
-								+		value.GOODS_NAME +	"<br>"
-								+		value.GOODS_SELL_PRICE 
-								+  	"<input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
-								+	   "</a>"
-								+	   "</div>"; */
-
-							
+				
 						});
 		body.append(str);
 		$("a[name='title']").on("click", function(e){ //제목 

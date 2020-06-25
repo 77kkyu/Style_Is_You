@@ -300,6 +300,10 @@ h1 {
 
 <script type="text/javascript">
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 $(document).ready(function() {
 	
 	fn_selectGoodsList(1);
@@ -407,7 +411,7 @@ function fn_selectGoodsListCallback(data) {
 														+       pick4 + "</font></span>"
 														+	  " </c:if> <br>"
 														+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
-														+     " <font class='font2'>"+value.GOODS_SELL_PRICE+"원</font> "   
+														+     " <font class='font2'>"+numberWithCommas(value.GOODS_SELL_PRICE)+"원</font> "   
 														+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
 														+	  " </a>"
 														+	  " </div>";

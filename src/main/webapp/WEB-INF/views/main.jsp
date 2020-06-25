@@ -328,8 +328,13 @@ h1 {
 
 <script type="text/javascript">
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 fn_selectNewItemList(1);
 fn_selectBestItemList(1);
+
 
 $(document).ready(function () {
     $('.bxslider').bxSlider({
@@ -449,7 +454,7 @@ function fn_selectNewItemListCallback(data) {
 								+       pick4 + "</font></span>"
 								+	  " </c:if> <br>"
 								+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
-								+     " <font class='font2'>"+value.GOODS_SELL_PRICE+"원</font> "   
+								+     " <font class='font2'>"+numberWithCommas(value.GOODS_SELL_PRICE)+"원</font> "   
 								+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
 								+	  " </a>"
 								+	  " </div>";
@@ -550,7 +555,7 @@ function fn_selectBestItemListCallback(data) {
 								+       pick4 + "</font></span>"
 								+	  " </c:if> <br>"
 								+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
-								+     " <font class='font2'>"+value.GOODS_SELL_PRICE+"원</font> "   
+								+     " <font class='font2'>"+numberWithCommas(value.GOODS_SELL_PRICE)+"원</font> "   
 								+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
 								+	  " </a>"
 								+	  " </div>";
