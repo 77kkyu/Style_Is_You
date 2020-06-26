@@ -224,6 +224,7 @@ h1 {
 	font-size: 2em;
 	letter-spacing: 10px;
 }
+
 </style>
 
 <body>
@@ -377,7 +378,7 @@ h1 {
 			
 			<div class="totals-item totals-item-total">
 	      <label>총상품금액</label>
-	      <div class="totals-value" id="cart-total"></div>원
+	      <div class="totals-value" id="cart-total">0</div>원
 	    </div>
 	    
 			<br>
@@ -684,7 +685,7 @@ function doubleSubmitCheck(){
 $(document).ready(function() {
 
 	fn_selectGoodsList(1); // 상품문의 페이징x
-	fn_selectReviewList(1); // 리뷰리스트 페이징처리
+	fn_selectReviewList(1); // 리뷰리스트 페이징처리	
 
 	$("#insertLike").on("click", function(e){// 좋아요 버튼
 		//html 에서 a 태그나 submit 태그는 고유의 동작이 있다. 
@@ -958,6 +959,27 @@ function tableCreate() {
 	    </div> */
 
 
+	 /*    <div class="product">
+	    <div class="product-image">
+	      <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
+	    </div>
+	    <div class="product-details">
+	      <div class="product-title">Dingo Dog Bones</div>
+	      <p class="product-description">n.</p>
+	    </div>
+	    <div class="product-price">12.99</div>
+	    <div class="product-quantity">
+	      <input type="number" value="2" min="1">
+	    </div>
+	    <div class="product-removal">
+	      <button class="remove-product">
+	        Remove
+	      </button>
+	    </div>
+	    <div class="product-line-price">25.98</div>
+	  </div> */
+
+
 	html = "<table style='border:1px solid #bdbebd; width:600px; margin-top:2px;'>"
 		 + "<tr>"
 		 + "<td>상품명 : </td>"
@@ -965,19 +987,34 @@ function tableCreate() {
 		 + $("#goodsName").text()
 	     + "</td>"
 	     + "<td>"   
- 		 + " <div id='field"+cnt+"'> " // 수정전 
-         + " <div class='shopping-cart'> "
+ 		 + " <div id='field"+cnt+"'> " 
+ 		 // 수정전 
+ 		 + " <div class='shopping-cart'> "
+ 		 + " <div class='product'> "
+	     + " <div class='product-price'>"+${list.GOODS_SELL_PRICE}+"</div> "
+	     + " <div class='product-quantity'> "
+	     + " <input type='number' value='1' min='1'> </div> "
+	     + " <div class='product-removal'> "
+	     + " <button class='remove-product'> "
+	     + " Remove "
+	     + " </button> "
+	     + " </div> "
+	     + " <div class='product-line-price' id='price_sell' price_sell='"+${list.GOODS_SELL_PRICE}+"' >"+numberWithCommas(${list.GOODS_SELL_PRICE})+"</div> "
+	     + " </div> "
+	     + " </div> "
+ 		 //
+         /* + " <div class='shopping-cart'> "
  		 + " <div class='product'> "
  		 + " <div class='product-quantity'> "
  		 + " <input type='number' name='BASKET_GOODS_AMOUNT' value='1' min='1' max='5'> "
  		 + " </div> "
  		 + " <div class='product-removal'> </div> "
- 	 	 + " <div class='product-line-price'>"+${list.GOODS_SELL_PRICE}+"</div>원"	 
+ 	 	 + " <div class='product-line-price' id='price_sell' price_sell='"+${list.GOODS_SELL_PRICE}+"' >"+numberWithCommas(${list.GOODS_SELL_PRICE})+"</div>원"	 
  		 + " <div class='product-removal'>"
  	     + " <button class='remove-product'>"
  	     + " Remove "
  	     + " </button> "
- 	     + " </div> "
+ 	     + " </div> " */
  	     // 수정전 
 	     + "</td>"
 	     + "</tr>"
@@ -1009,13 +1046,15 @@ function tableCreate() {
 }
 
 	/* Set rates + misc */
-
 	var fadeTime = 300;
-
 
 	/* Assign actions */
 	$('.product-quantity input').change( function() {
 	  updateQuantity(this);
+	});
+
+	$('.product-removal button').click( function() {
+	  removeItem(this);
 	});
 
 
@@ -1023,19 +1062,19 @@ function tableCreate() {
 	function recalculateCart()
 	{
 	  var subtotal = 0;
-	  
+	  //var price0 = $('.product-line-price').text();
+	  // parseInt(price0.replace(',',''));
 	  /* Sum up row totals */
 	  $('.product').each(function () {
-	    subtotal += parseInt($(this).children('.product-line-price').text());
-	    
+	    subtotal += parseInt($(this).children('.product-line-price').text().replace(',',''));
 	  });
 	  
 	  /* Calculate totals */
-	 
 	  var total = subtotal 
-	     
+	  
 	  /* Update totals display */
 	  $('.totals-value').fadeOut(fadeTime, function() {
+
 	    $('#cart-total').html(numberWithCommas(total));
 	    if(total == 0){
 	      $('.checkout').fadeOut(fadeTime);
@@ -1048,26 +1087,26 @@ function tableCreate() {
 
 
 	/* Update quantity */
-	function updateQuantity(quantityInput)
-	{
-			
+	function updateQuantity(quantityInput) {
+		
 	  /* Calculate line price */
 	  var productRow = $(quantityInput).parent().parent();
-	  var price = parseInt(${list.GOODS_SELL_PRICE});
+	  var price = parseInt(productRow.children('.product-price').text());
 	  var quantity = $(quantityInput).val();
 	  var linePrice = price * quantity;
 	  
 	  /* Update line price display and recalc cart totals */
 	  productRow.children('.product-line-price').each(function () {
 	    $(this).fadeOut(fadeTime, function() {
-	      $(this).text(linePrice);
-	      recalculateCart();
 	      $(this).text(numberWithCommas(linePrice));
+	      recalculateCart();
 	      $(this).fadeIn(fadeTime);
 	    });
 	  });  
 	}
 
+
+	/* Remove item from cart */
 	function removeItem(removeButton)
 	{
 	  /* Remove row from DOM and recalc cart total */
