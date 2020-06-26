@@ -1088,7 +1088,7 @@ function tableCreate() {
 
 	/* Update quantity */
 	function updateQuantity(quantityInput) {
-		
+	  
 	  /* Calculate line price */
 	  var productRow = $(quantityInput).parent().parent();
 	  var price = parseInt(productRow.children('.product-price').text());
@@ -1102,7 +1102,7 @@ function tableCreate() {
 	      recalculateCart();
 	      $(this).fadeIn(fadeTime);
 	    });
-	  });  
+	  });
 	}
 
 
