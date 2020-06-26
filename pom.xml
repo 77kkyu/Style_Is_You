@@ -144,6 +144,13 @@
 	   	 	<artifactId>tiles-jsp</artifactId>
 	    	<version>3.0.8</version>
 		</dependency>
+
+		<!-- emailAuth -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
 		
 		<!-- naver -->
 		<dependency>

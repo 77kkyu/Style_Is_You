@@ -2,6 +2,7 @@ package stu.member.join;
 
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -85,20 +87,61 @@ public class JoinController {
 		
 		return mv;
 	}
-	
-	// 아이디 중복 체크
-	@RequestMapping(value="/selectIdCheck.do")
+
+	//아이디 중복 체크 - KMK 수정
+	@RequestMapping(value="/selectIdCheck.do", method=RequestMethod.GET)
 	@ResponseBody
-	public void selectIdCheck(HttpServletRequest request, HttpServletResponse response, CommandMap commandMap) throws Exception{
-		PrintWriter out = response.getWriter();
-		String paramId= (request.getParameter("MEMBER_ID") == null)?"":String.valueOf(request.getParameter("MEMBER_ID"));
-		int checkId = joinService.selectIdCheck(paramId);
+	public int selectIdCheck(@RequestParam("mem_userid") String mem_userid) throws Exception{
 		
-		out.print(checkId);
-		out.flush();
-		out.close();
+		int cnt = joinService.selectIdCheck(mem_userid);
+		
+		return cnt;
 	}
 	
+	//이메일 중복 체크 - KMK 추가
+	@RequestMapping(value="/selectEmailCheck.do", method=RequestMethod.GET)
+	@ResponseBody
+	public int selectEmailCheck(@RequestParam("user_email") String user_email) throws Exception{
+		
+		int cnt = joinService.selectEmailCheck(user_email);
+		
+		return cnt;
+	}
+	
+	//이메일 인증-회원가입 - KMK 추가
+    @RequestMapping(value = "/emailAuth.do", produces = "application/json")
+    @ResponseBody
+    public boolean sendMailAuth(HttpSession session, @RequestParam String user_email) {
+        int ran = new Random().nextInt(100000) + 10000; // 10000 ~ 99999
+        String joinCode = String.valueOf(ran);
+        session.setAttribute("joinCode", joinCode);
+ 
+        String subject = "<STYLE IS YOU> 회원가입 인증 코드입니다.";
+        StringBuilder sb = new StringBuilder();
+        sb.append("귀하의 인증 코드는 " + joinCode + " 입니다.");
+        return joinService.send(subject, sb.toString(), "1teampjt@gmail.com", user_email, null);
+    }
+    
+    //이메일 인증확인 - KMK 추가
+    @RequestMapping(value = "/emailAuthCheck.do", produces = "application/json")
+    @ResponseBody
+    public ModelAndView emailAuth(HttpSession session, @RequestParam String joinCode) {
+    	ModelAndView mv = new ModelAndView("jsonView");
+    	String originalJoinCode = (String)session.getAttribute("joinCode");
+    	log.debug("originalJoinCode >>>>"+originalJoinCode +" & "+joinCode);
+    	if(originalJoinCode.equals(joinCode)) mv.addObject("result","complete");
+    	else mv.addObject("result","fail");
+    	
+    	return mv;
+    }
+    
+    //주소 팝업 창
+    @RequestMapping(value = "jusoPopup.do")
+    public ModelAndView jusoPopup(CommandMap commandMap) throws Exception {
+    	return new ModelAndView("popUps/jusoPopup");
+    }
+	
+/*  KMK - 필요 없을 듯
 	// 첫번째 약관 내용보기
 	@RequestMapping(value="/pop1.do")
 	public ModelAndView pop1() throws Exception {
@@ -114,7 +157,7 @@ public class JoinController {
 		
 		return mv;
 	}
-	
+*/
 
 
 }
