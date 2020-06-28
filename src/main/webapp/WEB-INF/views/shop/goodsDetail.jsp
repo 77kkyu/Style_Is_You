@@ -935,12 +935,12 @@ function fn_InsertBasket() { // 장바구니
 	
 }
 
+var cnt = $('#dynamicTable table').length+1;
 
 function tableCreate() {
 	
 	var tc = new Array();
 	var html = "";
-	var cnt = $('#dynamicTable table').length;
 	//var name = $(list.GOODS_NAME);			
 	var color = $("#ColorList option:selected").val();
 	var size = $("#SizeList option:selected").val();
@@ -953,97 +953,72 @@ function tableCreate() {
 
 	if(cnt < 6) {		
 
-		/* <div class="totals-item totals-item-total">
-	      <label>총상품금액</label>
-	      <div class="totals-value" id="cart-total"></div>
-	    </div> */
-
-
-	 /*    <div class="product">
-	    <div class="product-image">
-	      <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
-	    </div>
-	    <div class="product-details">
-	      <div class="product-title">Dingo Dog Bones</div>
-	      <p class="product-description">n.</p>
-	    </div>
-	    <div class="product-price">12.99</div>
-	    <div class="product-quantity">
-	      <input type="number" value="2" min="1">
-	    </div>
-	    <div class="product-removal">
-	      <button class="remove-product">
-	        Remove
-	      </button>
-	    </div>
-	    <div class="product-line-price">25.98</div>
-	  </div> */
-
-
-	html = "<table style='border:1px solid #bdbebd; width:600px; margin-top:2px;'>"
-		 + "<tr>"
-		 + "<td>상품명 : </td>"
-		 + "<td>"
+	html = " <table style='border:1px solid #bdbebd; width:600px; margin-top:2px;' class='fieldx"+cnt+"'> "
+		 + " <tr> "
+		 + " <td>상품명 : </td> "
+		 + " <td> "
 		 + $("#goodsName").text()
-	     + "</td>"
-	     + "<td>"   
- 		 + " <div id='field"+cnt+"'> " 
- 		 // 수정전 
+	     + " </td> "
+	     + " <td> "   
+ 		 + " <div id='field"+cnt+"' class='field"+cnt+"'> " 
  		 + " <div class='shopping-cart'> "
  		 + " <div class='product'> "
-	     + " <div class='product-price'>"+${list.GOODS_SELL_PRICE}+"</div> "
 	     + " <div class='product-quantity'> "
 	     + " <input type='number' value='1' min='1'> </div> "
-	     + " <div class='product-removal'> "
+	     + " <div class='product-removal"+cnt+"'> "
 	     + " <button class='remove-product'> "
 	     + " Remove "
 	     + " </button> "
 	     + " </div> "
 	     + " <div class='product-line-price' id='price_sell' price_sell='"+${list.GOODS_SELL_PRICE}+"' >"+numberWithCommas(${list.GOODS_SELL_PRICE})+"</div> "
 	     + " </div> "
-	     + " </div> "
- 		 //
-         /* + " <div class='shopping-cart'> "
- 		 + " <div class='product'> "
- 		 + " <div class='product-quantity'> "
- 		 + " <input type='number' name='BASKET_GOODS_AMOUNT' value='1' min='1' max='5'> "
- 		 + " </div> "
- 		 + " <div class='product-removal'> </div> "
- 	 	 + " <div class='product-line-price' id='price_sell' price_sell='"+${list.GOODS_SELL_PRICE}+"' >"+numberWithCommas(${list.GOODS_SELL_PRICE})+"</div>원"	 
- 		 + " <div class='product-removal'>"
- 	     + " <button class='remove-product'>"
- 	     + " Remove "
- 	     + " </button> "
- 	     + " </div> " */
- 	     // 수정전 
-	     + "</td>"
-	     + "</tr>"
-	     + "<tr>"
-	     + "<td>색상 :</td>"
-	     + "<td>"+color+"</td>"
-	     + "<td></td>"
-	     + "</tr>"
-	     + "<tr>"
-	     + "<td>사이즈 : </td>"
-	     + "<td>"+size+"</td>"
-	     + "<td></td>"
-	     + "</tr>"
-		 + "<input type='hidden' name='ORDER_COLOR' id='ORDER_COLOR' value='"+color+"'>"
-		 + "<input type='hidden' name='ORDER_SIZE' id='ORDER_SIZE' value='"+size+"'> "
-		 + "<input type='hidden' name='IDX' id='IDX' value='"+${list.GOODS_NO}+"'> "
-		 + "</table>";
+	     + " </div> " 
+	     + " </td> "
+	     + " </tr> "
+	     + " <tr> "
+	     + " <td>색상 :</td> "
+	     + " <td>"+color+"</td> "
+	     + " <td></td> "
+	     + " </tr> "
+	     + " <tr> "
+	     + " <td>사이즈 : </td> "
+	     + " <td>"+size+"</td> "
+	     + " <td></td> "
+	     + " </tr> "
+		 + " <input type='hidden' name='ORDER_COLOR' id='ORDER_COLOR' value='"+color+"'> "
+		 + " <input type='hidden' name='ORDER_SIZE' id='ORDER_SIZE' value='"+size+"'> "
+		 + " <input type='hidden' name='IDX' id='IDX' value='"+${list.GOODS_NO}+"'> "
+		 + " </table> ";
 		
 	$("#dynamicTable").append(html);
-				
+
+	
+	if($('#field'+cnt+'')) {
+		recalculateCart();
+		var hap = ${list.GOODS_SELL_PRICE}*cnt;
+		var num = numberWithCommas(hap);
+		$('.totals-value').text(num);
+	}
+
+	
 	$("#ColorList").val('');
 	$("#SizeList").val('');
+
+	$('.product-removal'+cnt+' button').click( function() {
+		  //removeItem(this);
+		  $(this).parent().parent().parent().parent().parent().parent().parent().parent().remove();
+		  recalculateCart();
+	});
+	
+	cnt++;
 	
 	}else {
 		alert("최대 5개까지만 가능합니다.");
 		return false;
 	}
 	
-}
+ } 
+
 
 	/* Set rates + misc */
 	var fadeTime = 300;
@@ -1053,11 +1028,7 @@ function tableCreate() {
 	  updateQuantity(this);
 	});
 
-	$('.product-removal button').click( function() {
-	  removeItem(this);
-	});
-
-
+	
 	/* Recalculate cart */
 	function recalculateCart()
 	{
@@ -1070,7 +1041,7 @@ function tableCreate() {
 	  });
 	  
 	  /* Calculate totals */
-	  var total = subtotal 
+	  var total = subtotal;
 	  
 	  /* Update totals display */
 	  $('.totals-value').fadeOut(fadeTime, function() {
@@ -1088,10 +1059,11 @@ function tableCreate() {
 
 	/* Update quantity */
 	function updateQuantity(quantityInput) {
-	  
+		
 	  /* Calculate line price */
 	  var productRow = $(quantityInput).parent().parent();
-	  var price = parseInt(productRow.children('.product-price').text());
+	  //var price = parseInt(productRow.children('.product-price').text());
+	  var price = ${list.GOODS_SELL_PRICE};
 	  var quantity = $(quantityInput).val();
 	  var linePrice = price * quantity;
 	  
@@ -1103,24 +1075,28 @@ function tableCreate() {
 	      $(this).fadeIn(fadeTime);
 	    });
 	  });
+
 	}
 
-
+	
 	/* Remove item from cart */
-	function removeItem(removeButton)
-	{
+	/* function removeItem(removeButton)
+	{ */
 	  /* Remove row from DOM and recalc cart total */
-	  var productRow = $(removeButton).parent().parent();
+	 /* var productRow = $(removeButton).parent().parent();
+	  alert(productRow[0]);
 	  productRow.slideUp(fadeTime, function() {
 	    productRow.remove();
 	    recalculateCart();
 	  });
-	}
-
+	} */
+  
 }
+
 
 function tableDelete(){
 	$('#dynamicTable tbody:last').remove();
+	
 }
 
 
