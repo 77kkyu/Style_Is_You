@@ -58,66 +58,99 @@ function order_list() {
 <body>
 <div class="container">
 	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
-	<div class="row">
-        
-        <c:forEach items="${my_detail }" var="detail">
-        <div style="border: 1px solid gray; bottom: 20px; width: 80%;">
-          <h2>받으시는분</h2>
-          <p>받는분 이름 : ${detail.ORDER_NAME } / 받는분 연락처 : ${detail.ORDER_PHONE }</p>
-          <p>받는분 주소 : ${detail.ZIPDOCE } / ${detail.ORDER_ADDR1 } ${detail.ORDER_ADDR2 } </p>
+	<div class="row" align="center">
+		<br>
+        <div>
+          <h2>주문 정보</h2>
         </div>
-
+        <br>
+        <c:forEach items="${my_detail }" var="detail">
         <table class="table table-striped">
-			<tbody>
+        	<colgroup>
+				<col width="20%" />
+				<col width="80%" />
+			</colgroup>
+        	<tbody>
+              	<tr>
+              		<td style="text-align:center">주문번호</td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_NO }
+                  	</td>
+				</tr>
 				<tr>
-					<td>주문번호</td><td>${detail.ORDER_NO }</td>
+              		<td style="text-align:center">결제방법</td>
+              		<td style="text-align:left">
+              			${detail.ORDER_PAY_OPTION }
+              		</td>
 				</tr>
-				<tr>									
-					<td>주문자</td><td>${detail.MEMBER_NAME }</td>
-				</tr>
-				<br />
-				<br />
 				<tr>
-					<td>결제수단</td><td>${detail.ORDER_PAY_OPTION }</td>
+              		<td style="text-align:center">주문일자</td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_DATE }
+                  	</td>
 				</tr>
-				<tr>	
-					<td>제품가격</td><td>${detail.ORDER_TOTAL_ORDER_PRICE }</td>
+				<tr>
+              		<td style="text-align:center">결제방법</td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_PAY_OPTION }
+                  	</td>
 				</tr>
-				<tr>	
-					<td>배송비</td><td>${detail.ORDER_FEE }</td>
+				<tr>
+              		<td style="text-align:center">결제은행</td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_PAY_BANK }
+                  	</td>
 				</tr>
-				<tr>	
-					<td>사용포인트</td><td>${detail.ORDER_USE_POINT }</td>
+				<tr>
+              		<td style="text-align:center">결제자명 </td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_PAY_NAME }
+                  	</td>
 				</tr>
-				<tr>	
-					<td>최종결제금액</td><td>${detail.ORDER_TOTAL_PAY_PRICE }</td>
-				</tr>								
-
-
-			</tbody>
+				<tr>
+              		<td style="text-align:center">최종결제금액</td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_TOTAL_PAY_PRICE }
+                  	</td>
+				</tr>
+				<tr>
+              		<td style="text-align:center">배송비</td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_FEE }
+                  	</td>
+				</tr>
+				<tr>
+              		<td style="text-align:center">사용포인트</td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_USE_POINT }
+                  	</td>
+				</tr>
+              </tbody>
 		</table>
-        </c:forEach>
-	</div>
-	<div style="text-align:right">
-        <input type="button" name="select_like" value="배송정보변경" onclick="">
-    </div>
-	<hr />
+        
+	<br>
+	<br>
+        <div>
+          <h2>상품 정보</h2>
+        </div>
+    <br>
 	<div class="table-responsive">
 		<table class="table table-striped">
 			<colgroup>
 			<col width="*" />
-			<col width="15%" />
+			<col width="*" />
+			<col width="20%" />
 			<col width="10%" />
 			<col width="15%" />
-			<col width="15%" />
+			<col width="20%" />
 			</colgroup>
 			<thead>
 				<tr>
-					<th scope="col">제품명</th>
-					<th scope="col">판매가격</th>
-					<th scope="col">수량</th>
-					<th scope="col">할인</th>
-					<th scope="col">주문금액</th>
+					<th colspan="2" style="text-align:center" scope="col">제품명</th>
+					<th style="text-align:center" scope="col">판매가격</th>
+					<th style="text-align:center" scope="col">수량</th>
+					<th style="text-align:center" scope="col">할인</th>
+					<th style="text-align:center" scope="col">주문금액</th>
 				</tr>
 			</thead>
 			
@@ -127,6 +160,9 @@ function order_list() {
 					<c:forEach items="${my_detail_sub }" var="detail_sub">		
 					<%-- ${detail_sub } --%>			
 						<tr>
+							<td>
+                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }' width="70px" height="70px">
+                  			</td>
 							<td>${detail_sub.GOODS_NAME }</td>
 							<td>${detail_sub.ORDER_DETAIL_PRICE }</td>
 							<td>${detail_sub.ORDER_DETAIL_AMOUNT }</a>
@@ -145,7 +181,57 @@ function order_list() {
 		
 		</table>
 	</div>
+	<br>
+	<br>
+        <div>
+          <h2>배송 정보</h2>
+        </div>
+    <br>
+    <div class="table-responsive">
+    <table class="table table-striped">
+            <colgroup>
+				<col width="15%" />
+				<col width="*" />
+			</colgroup>
+              <tbody>
+              	<tr>
+              		<td>받는분 이름</td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_NAME }
+                  	</td>
+				</tr>
+				<tr>
+              		<td>받는분 연락처</td>
+              		<td style="text-align:left">
+                  		${detail.ORDER_PHONE }
+                  	</td>
+				</tr>
+				<tr>
+              		<td rowspan="3">받는분 주소</td>
+              		<td style="text-align:left">
+                  		<input type="text" name="ORDER_ZIPCODE" id="ORDER_ZIPCODE" value="${detail.ORDER_ZIPDOCE }" style="width:80px;" >
+                  	</td>
+				</tr>
+				<tr>
+              		<td style="text-align:left">
+                  		<input type="text" name="ORDER_ADDR1" id="ORDER_ADDR1" value="${detail.ORDER_ADDR1 }" style="width:250px;" >
+                  	</td>
+				</tr>
+				<tr>
+              		<td style="text-align:left">
+                  		<input type="text" name="ORDER_ADDR2" id="ORDER_ADDR2" value="${detail.ORDER_ADDR2 }" style="width:250px;" >
+                  	</td>
+				</tr>
+              </tbody>
+            </table>
+            </div>
+            
+        <div style="text-align:right">
+        	<input type="button" name="select_like" value="배송정보변경" onclick="">
+    	</div>
+	</c:forEach>
 
+	</div>
 </div>
 
 
