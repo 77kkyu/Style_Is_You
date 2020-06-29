@@ -49,6 +49,7 @@ function fn_allPrice(){
 	var array1 = document.getElementsByName("goods_sell_price");
 	var array2 = document.getElementsByName("basket_goods_amount");
 	var array3 = document.getElementsByName("ORDER_DETAIL_PRICE");
+	var array4 = document.getElementsByName("ORDER_DISCOUNT_APPLY");
 	
 	var len = array2.length;
 	var hap = 0;
@@ -58,6 +59,7 @@ function fn_allPrice(){
 		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
 		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
 		array3[i].value = pri;	
+		array4[i].value = pri;	
 	}
 	var fee = document.getElementById("ORDER_FEE").value;
 	pay = Number(hap)+Number(fee);
@@ -69,9 +71,9 @@ function fn_allPrice(){
 	var array7 = document.getElementsByName("member_grade");
 	var grade = array7[0].value;
 	var val = 0;
-	if("nomal" == grade){
+	if("NOMAL" == grade){
 		val=0.03;
-	}else if("gold" == grade){
+	}else if("GOLD" == grade){
 		val=0.05;
 	}else{
 		val=0.1;
@@ -240,7 +242,7 @@ function fn_order_pay(){
                   				<img src='/stu/file/${row.GOODS_THUMBNAIL }' width="70px" height="70px">
                   			</td>
 							<td>
-				  				<a href="#">${row.GOODS_NAME }</a> <br>
+				  				<a href="/stu/shop/goodsDetail.do?IDX=${row.GOODS_NO }">${row.GOODS_NAME }</a> <br>
 				  				색상: ${row.GOODS_ATT_COLOR } <br> 
 				  				사이즈:${row.GOODS_ATT_SIZE } <br>
 				  			</td>

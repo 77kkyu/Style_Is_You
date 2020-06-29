@@ -137,12 +137,12 @@ function order_list() {
 	<div class="table-responsive">
 		<table class="table table-striped">
 			<colgroup>
-			<col width="*" />
-			<col width="*" />
-			<col width="20%" />
-			<col width="10%" />
 			<col width="15%" />
-			<col width="20%" />
+			<col width="*" />
+			<col width="18%" />
+			<col width="9%" />
+			<col width="15%" />
+			<col width="18%" />
 			</colgroup>
 			<thead>
 				<tr>
@@ -160,14 +160,18 @@ function order_list() {
 					<c:forEach items="${my_detail_sub }" var="detail_sub">		
 					<%-- ${detail_sub } --%>			
 						<tr>
-							<td>
-                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }' width="70px" height="70px">
+							<td style="text-align:center">
+                  				<img src='/stu/file/${detail_sub.GOODS_THUMBNAIL }' width="70px" height="70px">
                   			</td>
-							<td>${detail_sub.GOODS_NAME }</td>
-							<td>${detail_sub.ORDER_DETAIL_PRICE }</td>
-							<td>${detail_sub.ORDER_DETAIL_AMOUNT }</a>
-							<td>${detail_sub.COUPON_DISCOUNT }원</td>
-							<td>${detail_sub.ORDER_DISCOUNT_APPLY }원</td>
+							<td>
+								<a href="/stu/shop/goodsDetail.do?IDX=${detail_sub.GOODS_NO }">${detail_sub.GOODS_NAME }</a> <br> 
+								색상: ${detail_sub.ORDER_DETAIL_COLOR } <br> 
+				  				사이즈:${detail_sub.ORDER_DETAIL_SIZE } <br>
+							</td>
+							<td style="text-align:center">${detail_sub.ORDER_DETAIL_PRICE }원</td>
+							<td style="text-align:center">${detail_sub.ORDER_DETAIL_AMOUNT }</a>
+							<td style="text-align:center">${detail_sub.COUPON_DISCOUNT }원</td>
+							<td style="text-align:center">${detail_sub.ORDER_DISCOUNT_APPLY }원</td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -190,45 +194,49 @@ function order_list() {
     <div class="table-responsive">
     <table class="table table-striped">
             <colgroup>
-				<col width="15%" />
-				<col width="*" />
+				<col width="20%" />
+				<col width="80%" />
 			</colgroup>
               <tbody>
               	<tr>
-              		<td>받는분 이름</td>
+              		<td style="text-align:center">받는분 이름</td>
               		<td style="text-align:left">
-                  		${detail.ORDER_NAME }
+                  		<input type="text" name="ORDER_NAME" id="ORDER_NAME" value="${detail.ORDER_NAME }" style="width:100px;border:none;" >
                   	</td>
 				</tr>
 				<tr>
-              		<td>받는분 연락처</td>
+              		<td style="text-align:center">받는분 연락처</td>
               		<td style="text-align:left">
-                  		${detail.ORDER_PHONE }
+                  		<input type="text" name="ORDER_PHONE" id="ORDER_PHONE" value="${detail.ORDER_PHONE }" style="width:120px;border:none;" >
                   	</td>
 				</tr>
 				<tr>
-              		<td rowspan="3">받는분 주소</td>
+              		<td style="text-align:center" rowspan="3">받는분 주소</td>
               		<td style="text-align:left">
-                  		<input type="text" name="ORDER_ZIPCODE" id="ORDER_ZIPCODE" value="${detail.ORDER_ZIPDOCE }" style="width:80px;" >
-                  	</td>
-				</tr>
-				<tr>
-              		<td style="text-align:left">
-                  		<input type="text" name="ORDER_ADDR1" id="ORDER_ADDR1" value="${detail.ORDER_ADDR1 }" style="width:250px;" >
+                  		<input type="text" name="ORDER_ZIPCODE" id="ORDER_ZIPCODE" value="${detail.ORDER_ZIPCODE }" style="width:80px;border:none;" >
                   	</td>
 				</tr>
 				<tr>
               		<td style="text-align:left">
-                  		<input type="text" name="ORDER_ADDR2" id="ORDER_ADDR2" value="${detail.ORDER_ADDR2 }" style="width:250px;" >
+                  		<input type="text" name="ORDER_ADDR1" id="ORDER_ADDR1" value="${detail.ORDER_ADDR1 }" style="width:250px;border:none;" >
+                  	</td>
+				</tr>
+				<tr>
+              		<td style="text-align:left">
+                  		<input type="text" name="ORDER_ADDR2" id="ORDER_ADDR2" value="${detail.ORDER_ADDR2 }" style="width:250px;border:none;" >
                   	</td>
 				</tr>
               </tbody>
             </table>
             </div>
             
-        <div style="text-align:right">
-        	<input type="button" name="select_like" value="배송정보변경" onclick="">
-    	</div>
+        	<c:set var="state" value="${detail.ORDER_STATE }" />
+    		<c:if test="${state == 0 or state == 1}">
+        		<div style="text-align:right"> 
+        			<input type="button" name="select_like" value="배송정보변경" onclick="">
+    			</div>
+   			</c:if>
+        
 	</c:forEach>
 
 	</div>

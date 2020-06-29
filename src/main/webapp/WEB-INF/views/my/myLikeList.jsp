@@ -98,7 +98,7 @@ function fn_likeDelete(index){
                   				<img src='/stu/file/${row.GOODS_THUMBNAIL }' width="70px" height="70px">
                   			</td>
 							<td style="text-align:left">
-				  				<a href="#">${row.GOODS_NAME }</a>
+				  				<a href="/stu/shop/goodsDetail.do?IDX=${row.GOODS_NO }">${row.GOODS_NAME }</a>
 				  			</td>
 				  			<td style="text-align:center">
                   				${row.GOODS_SELL_PRICE } 원
