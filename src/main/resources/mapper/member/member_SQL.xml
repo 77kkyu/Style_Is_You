@@ -3,6 +3,7 @@
 
 <mapper namespace="join">
 	
+	<!-- 회원추가 -->
 	<insert id="insertMember" parameterType="hashmap">
 		<![CDATA[
 			INSERT INTO MEMBER
@@ -40,6 +41,7 @@
 		]]>
 	</insert>
 	
+	<!-- 회원가입시 포인트 테이블에 '0' 추가 -->
 	<insert id="insertDefaultPoint" parameterType="hashmap">
 		<selectKey keyProperty="MEMBER_NO" resultType="int" order="BEFORE">
 			SELECT 

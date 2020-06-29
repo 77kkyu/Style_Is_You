@@ -3,6 +3,7 @@
 
 <mapper namespace="point">
 
+	<!-- 포인트 사용 -->
 	<insert id="usePoint" parameterType="hashmap">
 		<selectKey keyProperty="TOTAL" resultType="int" order="BEFORE">
 			SELECT DISTINCT
@@ -33,6 +34,7 @@
 		]]>
 	</insert>
 	
+	<!-- 포인트 적립 -->
 	<insert id="savePoint" parameterType="hashmap">
 		<selectKey keyProperty="TOTAL" resultType="int" order="BEFORE">
 			SELECT DISTINCT

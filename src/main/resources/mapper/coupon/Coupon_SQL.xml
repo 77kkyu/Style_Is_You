@@ -3,6 +3,7 @@
 
 <mapper namespace="coupon">
 	
+	<!-- 사용후 쿠폰상태 1로 변경 -->
 	<update id="useCoupon" parameterType="hashmap">
 		<![CDATA[
 			UPDATE COUPON_STATUS 

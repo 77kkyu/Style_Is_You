@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="basket">
-
+	
+	<!-- 장바구니 리스트 검색 -->
 	<select id="basketList" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			 SELECT DISTINCT
@@ -21,6 +22,7 @@
 		]]>
 	</select>
 	
+	<!-- 장바구니 제품 수량수정 -->
 	<update id="basketModify" parameterType="hashmap">
 		<![CDATA[
 			UPDATE BASKET 
@@ -31,6 +33,7 @@
 		]]>
 	</update>
 	
+	<!-- 해당 제품 장바구니 삭제 -->
 	<delete id="basketDelete" parameterType="hashmap">
 		<![CDATA[
 			DELETE FROM BASKET
@@ -38,6 +41,7 @@
 		]]>
 	</delete>
 	
+	<!-- 해당 회원의 장바구니 제품 전체삭제 -->
 	<delete id="basketAllDelete" parameterType="hashmap">
 		<![CDATA[
 			DELETE FROM BASKET
@@ -45,6 +49,7 @@
 		]]>
 	</delete>
 	
+	<!-- 좋아요테이블에 존재하는지 확인 -->
 	<select id="selectGoodsLike" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT COUNT(LIKE_NO) LIKE_CNT
@@ -56,6 +61,7 @@
 		]]>
 	</select>
 	
+	<!-- 좋아요테이블에 제품 추가 -->
 	<insert id="insertGoodsLike" parameterType="hashmap">
 		<![CDATA[
 			INSERT INTO GOODS_LIKE
@@ -75,6 +81,7 @@
 		]]>
 	</insert>
 	
+	<!-- 주문으로 넘어갈 선택제품 리스트 -->
 	<select id="basketSelectList" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT DISTINCT
@@ -94,6 +101,7 @@
 		]]>
 	</select>
 	
+	<!-- 주문 후 장바구니 삭제 -->
 	<delete id="basketOrderDelete" parameterType="hashmap">
 		<![CDATA[
 			DELETE FROM BASKET

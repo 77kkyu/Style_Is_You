@@ -226,7 +226,7 @@ function fn_select_order(){
 </script>
 
 </head>
-<body onload="fn_allPrice()">
+<body onload="fn_allPrice()"><!-- 주문페이지 로딩시 주문금액,포인트 등 계산 -->
     <div class="container">
       
       <div style="width:1000px; height:50px; margin:10px; padding:12px; border:1px solid #dcdcdc">
