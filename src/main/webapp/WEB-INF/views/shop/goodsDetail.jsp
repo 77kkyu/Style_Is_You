@@ -92,6 +92,7 @@
 	margin-left: 100px;
 }
 
+
 .align_left {
 	text-align: left !important;
 }
@@ -233,6 +234,13 @@ h1 {
     box-sizing: border-box;
 }
 
+.total_cartAdd {
+    color: #666;
+    font-size: 14px;
+
+    box-sizing: border-box;
+}
+
 .totals-value {
     font-size: 30px;
     color: #333;
@@ -240,6 +248,28 @@ h1 {
     font-weight: bold;
     padding-left: 12px;
     text-align: right;
+}
+
+
+.selected_option {
+    position: relative;
+    margin-top: -1px;
+    padding: 20px 22px;
+    border: 1px solid #e9e9e9;
+    color: #333;
+    font-size: 14px;
+    line-height: 20px;
+    overflow: hidden;
+}
+
+.product .remove-product {
+    border: 0;
+    padding: 4px 8px;
+    background-color: #c66;
+    color: #fff;
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+    font-size: 12px;
+    border-radius: 3px;
 }
 
 </style>
@@ -339,7 +369,7 @@ h1 {
 			<div id="item_option">
 				<table>
 					<tr>
-						<td><select name="ColorList" id="ColorList"
+						<td><select name="ColorList" id="ColorList" class='total_cartAdd'
 							style="width: 600px; height: 30px;">
 								<option value="">==(필수)옵션: 색상 선택 ==</option>
 								<c:forEach var="ColorList" items="${Color}" varStatus="index">
@@ -351,7 +381,7 @@ h1 {
 					</tr>
 
 					<tr>
-						<td><select name="SizeList" id="SizeList"
+						<td><select name="SizeList" id="SizeList" class='total_cartAdd'
 							style="width: 600px; height: 30px;">
 								<option value="">==(필수)옵션: 사이즈 선택 ==</option>
 								<c:forEach var="SizeList" items="${Size}" varStatus="index">
@@ -367,23 +397,22 @@ h1 {
 
 				<%--<input type="hidden" id="GOODS_ATT_NO" name="GOODS_ATT_NO" value="${list.GOODS_ATT_NO}"> --%>
 				<!-- 맴버아이디 보내야함 -->
+
 				<div>
-					<table style="border: 1px;" id="dynamicTable">
+					<table style="border:1px;" id="dynamicTable">
 						<thead>
 						</thead>
 
 						<tbody id="dynamicTbody">
 
 						</tbody>
+						
+					
 
 					</table>
 				</div>
 
-				<table>
-					<tr>
-						<td></td>
-					</tr>
-				</table>
+				
 
 			</form>
 			
@@ -990,9 +1019,9 @@ $('#SizeList').change(function() {
 	    	}
 		}	
 
-		html = " <table style='border:1px solid #bdbebd; width:600px; margin-top:2px;' class='fieldx"+cnt+"'> "
-			 + " <tr> "
-			 + " <td>상품명 : </td> "
+		html = " <table class='total_cartAdd' style='border:1px solid #bdbebd; width:600px; height:100px; margin-top:0px;' class='fieldx"+cnt+"'> "
+			 + " <tr>"
+			 + " <td width='70px'>상품명 : </td>"
 			 + " <td> "
 			 + $("#goodsName").text()
 		     + " </td> "
@@ -1001,13 +1030,14 @@ $('#SizeList').change(function() {
 	 		 + " <div class='shopping-cart'> "
 	 		 + " <div class='product'> "
 		     + " <div class='product-quantity'> "
-		     + " <input type='number' value='1' min='1'> </div> "
+		     + " <input name='BASKET_GOODS_AMOUNT' type='number' value='1' min='1' style='width:50px; text-align:center; margin-left:250px; float:left;'> </div> "
 		     + " <div class='product-removal"+cnt+"'> "
-		     + " <button class='remove-product'> "
-		     + " Remove "
-		     + " </button> "
 		     + " </div> "
-		     + " <div class='product-line-price' id='price_sell' price_sell='"+${list.GOODS_SELL_PRICE}+"' >"+numberWithCommas(${list.GOODS_SELL_PRICE})+"</div> "
+		     + " <div class='product-line-price' style='float:left; margin-left:10px;' id='price_sell' price_sell='"+${list.GOODS_SELL_PRICE}+"' >"+numberWithCommas(${list.GOODS_SELL_PRICE})+"</div> "
+		     + " <div class='product-removal"+cnt+"'> "
+		     + " <button class='remove-product' style='float:left; margin-left:10px;'> "
+		     + " X "
+		     + " </button>"
 		     + " </div> "
 		     + " </div> " 
 		     + " </td> "
