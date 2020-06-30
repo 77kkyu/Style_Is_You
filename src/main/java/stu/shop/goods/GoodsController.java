@@ -241,10 +241,12 @@ public class GoodsController {
 		System.out.println("arrColor=" + arrColor);
 		System.out.println("arrSize=" + arrSize);
 		int ColorSize = arrColor.size();
+		int Sizecnt = arrSize.size();
 
 		mv.addObject("Color", arrColor); // 컬러 총 갯수
 		mv.addObject("ColorSize", ColorSize); // 컬러 종류
 		mv.addObject("Size", arrSize); // 사이즈 종류
+		mv.addObject("Sizecnt", Sizecnt);
 		return mv;
 
 	}
