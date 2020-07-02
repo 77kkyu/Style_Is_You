@@ -109,8 +109,24 @@ public class OrderDao extends AbstractDao{
 
 	public void updateMember(CommandMap commandMap) {
 		update("join.updateMemberTotal", commandMap.getMap());
+		
 		Map<String,Object> map = (Map<String, Object>) selectOne("join.selectMemberTotal", commandMap.getMap());
-		update("join.updateMemberGrade", commandMap.getMap());
+		System.out.println(map.get("MEMBER_TOTAL"));//272000
+		
+		int MEMBER_TOTAL = (int) map.get("MEMBER_TOTAL");//타입이 문제!!!!!
+		//System.out.println(MEMBER_TOTAL);
+		String MEMBER_GRADE = "";
+		if(MEMBER_TOTAL<200000) {
+			MEMBER_GRADE = "NORMAL";
+		}else if(MEMBER_TOTAL>=200000 && MEMBER_TOTAL<500000) {
+			MEMBER_GRADE = "GOLD";
+		}else {
+			MEMBER_GRADE = "VIP";
+		}
+		Map<String,Object> mg = new HashMap<String, Object>(); 
+		mg.put("MEMBER_GRADE", MEMBER_GRADE);
+		mg.put("MEMBER_NO", commandMap.get("MEMBER_NO"));
+		update("join.updateMemberGrade", mg);
 		
 	}
 	  
