@@ -102,6 +102,17 @@ public class OrderDao extends AbstractDao{
 	 public Map<String, Object> selectOrder(CommandMap commandMap) { 
 		 return (Map<String, Object>) selectOne("order.selectOrder", commandMap.getMap()); 
 	 }
+
+	public void orderModify(CommandMap commandMap) {
+		update("order.orderModify", commandMap.getMap());
+	}
+
+	public void updateMember(CommandMap commandMap) {
+		update("join.updateMemberTotal", commandMap.getMap());
+		Map<String,Object> map = (Map<String, Object>) selectOne("join.selectMemberTotal", commandMap.getMap());
+		update("join.updateMemberGrade", commandMap.getMap());
+		
+	}
 	  
 	 
 	

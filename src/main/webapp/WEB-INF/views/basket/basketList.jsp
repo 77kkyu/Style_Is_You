@@ -295,10 +295,10 @@ function fn_select_order(){
 							<td style="text-align:center">
 								<%-- <c:set var="price" value="${row.GOODS_SALE_PRICE }" />
 								<c:choose>
-    								<c:when test="${price eq null}">
+    								<c:when test="${price eq 0}">
         								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }"style="width:60px; text-align:right; border:none;">원
    					 				</c:when>
-   					 				<c:when test="${price ne null}">
+   					 				<c:when test="${price ne 0}">
         								<input type="text" name="goods_sell_price" value="${row.GOODS_SALE_PRICE }"style="width:60px; text-align:right; border:none;">원
    					 				</c:when>
 								</c:choose> --%>

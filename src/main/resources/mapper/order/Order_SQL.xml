@@ -142,6 +142,20 @@
 		]]>
 	</select>
 	
+	<!-- 주문 배송정보 수정 -->
+	<update id="orderModify" parameterType="hashmap">
+		<![CDATA[
+			UPDATE ORDER_LIST 
+			SET
+				ORDER_NAME = #{ORDER_NAME},
+				ORDER_PHONE = #{ORDER_PHONE},
+				ORDER_ZIPCODE = #{ORDER_ZIPCODE},
+				ORDER_ADDR1 = #{ORDER_ADDR1},
+				ORDER_ADDR2 = #{ORDER_ADDR2}
+			WHERE
+				ORDER_NO = #{ORDER_NO}
+		]]>
+	</update>
 	
 
 </mapper>
