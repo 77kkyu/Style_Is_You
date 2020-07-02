@@ -40,6 +40,22 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	@Override public Map<String, Object> selectOrder(CommandMap commandMap, HttpServletRequest request) throws Exception { 
 		return (Map<String, Object>) orderDao.selectOrder(commandMap); 
 	}
+
+	@Override
+	public void orderModify(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		orderDao.orderModify(commandMap);
+		
+	}
+
+	@Override
+	public void updateMember(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		orderDao.updateMember(commandMap);
+		
+	}
+	
+	
+	
+	
 	  
 	 
 	

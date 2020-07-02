@@ -73,5 +73,42 @@
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
 	]]>
 	</select>
-		
+	
+	<!-- 주문 후 회원정보 수정 -->
+	<update id="updateMemberTotal" parameterType="hashmap">
+	<selectKey keyProperty="PRICE" resultType="int" order="BEFORE">
+			SELECT 
+				MEMBER_TOTAL+ ${ORDER_TOTAL_ORDER_PRICE}
+			FROM 
+				MEMBER
+			WHERE 
+				MEMBER_NO = #{MEMBER_NO}
+		</selectKey>
+		<![CDATA[
+			UPDATE MEMBER 
+				SET
+    				MEMBER_TOTAL = ${PRICE}
+			WHERE
+				MEMBER_NO = ${MEMBER_NO}
+		]]>
+	</update>
+	<!-- 
+	<update id="updateMemberGrade" parameterType="hashmap">
+			UPDATE MEMBER 
+				SET
+    		<choose>
+                <when test="MEMBER_TOTAL lt 200000">
+                    MEMBER_GRADE = 'NORMAL'
+                </when>
+                <when test="MEMBER_TOTAL lt 500000 and MEMBER_TOTAL gte 200000">
+                    MEMBER_GRADE = 'GOLD'
+                </when>
+                <otherwise>
+                    MEMBER_GRADE = 'VIP'
+                </otherwise>
+            </choose>
+			WHERE
+				MEMBER_NO = ${MEMBER_NO}
+	</update>
+		 -->
 </mapper>

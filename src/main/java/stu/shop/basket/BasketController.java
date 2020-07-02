@@ -49,7 +49,7 @@ Logger log = Logger.getLogger(this.getClass()); //로그
 		
 	}
 	
-	//정바구니 수량 수정
+	//장바구니 수량 수정
 	@RequestMapping(value="/basket/basketModify.do")
 	public ModelAndView basketModify(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		

@@ -30,6 +30,7 @@ public class OrderController {
 	@Resource(name="orderService")
 	private OrderService orderService;
 	
+	
 	//장바구니 모두구매
 	@RequestMapping(value="/order/basketAllOrderWrite.do")
 	public ModelAndView basketAllOrderSelect(CommandMap commandMap, HttpServletRequest request) throws Exception {
@@ -110,11 +111,25 @@ public class OrderController {
 		// 세션 값으로 적용
 			
 		orderService.insertOrder(commandMap, request);
+		
+		orderService.updateMember(commandMap, request);
 			
 		Map<String,Object> map = orderService.selectOrder(commandMap, request);
 		mv.addObject("map", map);
 			 
 		return mv;
+		}
+	
+	//주문자 정보변경
+		@RequestMapping(value="/order/orderModify.do")
+		public ModelAndView orderModify(CommandMap commandMap, HttpServletRequest request) throws Exception {
+			System.out.println(commandMap.get("ORDER_NO"));
+			
+			ModelAndView mv = new ModelAndView("redirect:/my_detail.do");
+			mv.addObject("order_no", commandMap.get("ORDER_NO"));
+			//수량수정
+			orderService.orderModify(commandMap, request);
+			return mv;
 		}
 	
 

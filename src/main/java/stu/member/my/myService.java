@@ -36,5 +36,8 @@ public interface myService {
 	void goodsLikeDelete(CommandMap commandMap, HttpServletRequest request) throws Exception;
 
 	List<Map<String, Object>> myDash(CommandMap commandMap) throws Exception; // 마이페이지사이드바
+	
+	
+	
 
 }
