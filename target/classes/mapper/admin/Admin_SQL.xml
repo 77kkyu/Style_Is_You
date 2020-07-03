@@ -67,7 +67,7 @@
 		<![CDATA[
 			select m.member_name, m.member_phone, m.member_email,
 	        l.order_name, l.order_zipcode, l.order_addr1, l.order_addr2, l.order_phone,
-	        l.order_no, l.order_state, l.order_pay_option,
+	        l.order_no, l.order_state, l.order_pay_option, l.ORDER_PAY_NAME, l.ORDER_DATE, l.ORDER_PAY_BANK,
 	        l.order_total_order_price, l.order_use_point, l.order_fee, l.order_total_pay_price
 			
 			from member m, order_list l
@@ -79,7 +79,7 @@
 	
 	<select id="order_detail_sub" parameterType="hashmap" resultType="hashmap"> <!-- 주문detail 상세보기 -->
 		<![CDATA[
-			select g.goods_name, d.order_detail_color, d.order_detail_size, d.order_detail_amount,
+			select g.goods_no, g.goods_name, g.GOODS_THUMBNAIL, d.order_detail_color, d.order_detail_size, d.order_detail_amount,
 	        d.order_detail_price, d.coupon_discount, d.order_discount_apply
 			
 			from order_detail d, goods g
