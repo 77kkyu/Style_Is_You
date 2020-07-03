@@ -112,7 +112,7 @@ public class OrderDao extends AbstractDao{
 		
 		Map<String,Object> map = (Map<String, Object>) selectOne("join.selectMemberTotal", commandMap.getMap());
 		
-		int MEMBER_TOTAL = Integer.parseInt(map.get("MEMBER_TOTAL").toString());//타입이 문제!!!!!
+		int MEMBER_TOTAL = Integer.parseInt(map.get("MEMBER_TOTAL").toString());
 		String MEMBER_GRADE = "";
 		
 		if(MEMBER_TOTAL<200000) {
