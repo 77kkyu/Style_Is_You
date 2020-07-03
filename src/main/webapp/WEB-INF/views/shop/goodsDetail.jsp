@@ -1013,6 +1013,7 @@ function fn_selectGoodsListCallback(data) {
 							////+  " <td>"+value.GOODS_QNA_LEVEL+"</td>"
 						});
 		body.append(str);
+
 	}
 }
 
@@ -1056,7 +1057,7 @@ $(document).ready( function() { // 상품문의 토글
     $( 'tr#show9' ).click( function() {
         $( 'td#hide9' ).toggle( 'slow' );
       });
-  });
+  }); 
 
 
 function fn_selectReviewList(pageNo) {

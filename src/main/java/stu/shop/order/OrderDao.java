@@ -111,11 +111,10 @@ public class OrderDao extends AbstractDao{
 		update("join.updateMemberTotal", commandMap.getMap());
 		
 		Map<String,Object> map = (Map<String, Object>) selectOne("join.selectMemberTotal", commandMap.getMap());
-		System.out.println(map.get("MEMBER_TOTAL"));//272000
 		
-		int MEMBER_TOTAL = (int) map.get("MEMBER_TOTAL");//타입이 문제!!!!!
-		//System.out.println(MEMBER_TOTAL);
+		int MEMBER_TOTAL = Integer.parseInt(map.get("MEMBER_TOTAL").toString());//타입이 문제!!!!!
 		String MEMBER_GRADE = "";
+		
 		if(MEMBER_TOTAL<200000) {
 			MEMBER_GRADE = "NORMAL";
 		}else if(MEMBER_TOTAL>=200000 && MEMBER_TOTAL<500000) {
@@ -127,7 +126,6 @@ public class OrderDao extends AbstractDao{
 		mg.put("MEMBER_GRADE", MEMBER_GRADE);
 		mg.put("MEMBER_NO", commandMap.get("MEMBER_NO"));
 		update("join.updateMemberGrade", mg);
-		
 	}
 	  
 	 
