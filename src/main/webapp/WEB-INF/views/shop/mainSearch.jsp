@@ -265,6 +265,11 @@ h1 {
 	margin-left: 15px;
    float: ;
 }
+.imgswap img:last-child{display:none} 
+.imgswap:hover img:first-child{display:none} 
+.imgswap:hover img:last-child{display:inline-block}
+
+
 </style>
 
 </head>
@@ -358,6 +363,11 @@ function fn_selectGoodsListCallback(data) {
 		var str = "";
 		$.each(data.list, function(key, value) {
 													var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
+
+													var imgpath1 = value.GOODS_IMAGE_STD.split(',');
+													var img0 = imgpath1[0];
+													var img1 = imgpath1[1];
+													
 													var Pick = value.GOODS_PICK.split(',');
 													var pick1 = "";
 													var pick2 = "";
@@ -393,7 +403,10 @@ function fn_selectGoodsListCallback(data) {
 													
 													str += "<div class='card'>"
 														+		"<a href='#this' name='title'>"
-														+ 			imgpath + "<br>"
+														+		"<div class='imgswap'>"
+														+ 		"<img src='/stu/file/"+img0+"' width='400' height='400'>" 
+														+ 		"<img src='/stu/file/"+img1+"' width='400' height='400'>"
+														+     " </div> "
 														+     " <c:if test='${"+num+" ne "+pick1+"}'> "
 														+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
 														+		pick1 +"</font></span>"	

@@ -83,10 +83,11 @@ public class GoodsServiceImpl implements GoodsService {
 				String img_templist=""; // 이미지 링크를 ','를 기준으로 냐열해둠, 아직 사용 안함
 				String img_list[] = {}; // ','로 구분된 문자열을 나눠서 배열에 담음
 				String img_thumb=""; // img_list의 첫번째 경로를 저장함
+				String img_thumb1=""; // img_list의 첫번째 경로를 저장함
 				String comp_text=" src=\"/stu/file/"; // 반복문 안에 temp와 비교될 텍스느. equals(" src=\"")는 안되길래 따로 빼둠
 				System.out.println("comp_text="+comp_text);
 				String content = (String)map.get("GOODS_CONTENT"); // 저장된 본문을 불러옴
-				int imgCount = 0;  // src="D:\sts4File\      " src=\"/nnS/file/";
+				int imgCount = 0;  // src="D:\sts4File\     
 				for(int i = 0; i+16 < content.length(); i++) { // 텍스트 비교
 					String temp=""; // 잘라진 텍스트가 임시로 들어갈 공간
 					
@@ -98,6 +99,8 @@ public class GoodsServiceImpl implements GoodsService {
 					}
 					System.out.println("temp =" + temp);
 				}
+				
+					
 				if(img_templist!="") { // img_list가 비어있지 않을 경우			
 					img_templist = img_templist.substring(0, img_templist.length()-1); // 경로 뒤에 남는 쉼표 제거
 					img_thumb = img_templist.substring(0, 36); // 이미지가 있을 경우 첫번째 경로를 썸네일로 저장해줌
@@ -114,12 +117,19 @@ public class GoodsServiceImpl implements GoodsService {
 				// 상품 등록 시 IDX 값을 받아 이미지 테이블에 값들을 담아줌
 				if(img_templist!="") { // img_list가 비어있지 않을 경우			
 					img_list = img_templist.split(",");
+					String img_result = "";
 					for(int i = 0 ; i<imgCount; i++) {
-						map.put("UPLOAD_SAVE_NAME", img_list[i]);
+						//map.put("UPLOAD_SAVE_NAME", img_list[i]);
+						img_result += img_list[i] + ",";
+						System.out.println("이미지 리졸트="+img_result);
 						System.out.println((i+1)+"번째업로드 ==========================================");
-						goodsDao.insertFile(map); 
+						//goodsDao.insertFile(map); 
 						System.out.println((i+1)+"번째업로드끝=========================================");
 					}
+					System.out.println("img_result!!!!!!!= "+img_result);
+					
+					map.put("UPLOAD_SAVE_NAME", img_result.substring(0, img_result.length()-1));
+					goodsDao.insertFile(map);
 				}
 				
 				map.get("GOODS_ATT_SIZE");
@@ -190,12 +200,19 @@ public class GoodsServiceImpl implements GoodsService {
 		// 상품 등록 시 IDX 값을 받아 이미지 테이블에 값들을 담아줌
 		if(img_templist!="") { // img_list가 비어있지 않을 경우			
 			img_list = img_templist.split(",");
+			String img_result = "";
 			for(int i = 0 ; i<imgCount; i++) {
-				map.put("UPLOAD_SAVE_NAME", img_list[i]);
+				//map.put("UPLOAD_SAVE_NAME", img_list[i]);
+				img_result += img_list[i] + ",";
+				System.out.println("이미지 리졸트="+img_result);
 				System.out.println((i+1)+"번째업로드 ==========================================");
-				goodsDao.insertFile(map); 
+				//goodsDao.insertFile(map); 
 				System.out.println((i+1)+"번째업로드끝=========================================");
 			}
+			System.out.println("img_result!!!!!!!= "+img_result);
+			
+			map.put("UPLOAD_SAVE_NAME", img_result.substring(0, img_result.length()-1));
+			goodsDao.insertFile(map);
 		}
 		
 		map.get("GOODS_ATT_SIZE");
@@ -220,6 +237,13 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 		
 	}
+	
+	
+	@Override
+	public void deleteGoods(Map<String, Object> map, HttpServletRequest request) throws Exception { // 상품 삭제(숨김)
+		goodsDao.deleteGoods(map);
+	}
+	
 	
 	@Override
 	public void insertGoodsLike(Map<String, Object> map) throws Exception{ // 상품디테일에서 좋아요
@@ -373,6 +397,12 @@ public class GoodsServiceImpl implements GoodsService {
 				System.out.println((i+1)+"번째업로드끝=========================================");
 			}
 		}
+		
+	}
+
+	@Override
+	public void updateReview(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		goodsDao.updateReview(map);
 		
 	}
 

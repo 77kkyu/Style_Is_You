@@ -11,20 +11,24 @@ SELECT
 			FROM( select count(*) over() as total_count, AA.*
 			FROM(
 				select ROW_NUMBER() OVER (ORDER BY GOODS_DATE desc) RNUM,
-				GOODS_NO,
-				GOODS_CATEGORY,
-				GOODS_NAME,
-				GOODS_CONTENT,
-				GOODS_ORIGIN_PRICE,
-				GOODS_SELL_PRICE,
-				GOODS_SALE_PRICE,
-				GOODS_DATE,
-				GOODS_KEYWORD,
-				GOODS_READCNT,
-                GOODS_PICK,
-                GOODS_THUMBNAIL
+				GS.GOODS_NO,
+				GS.GOODS_CATEGORY,
+				GS.GOODS_NAME,
+				GS.GOODS_CONTENT,
+				GS.GOODS_ORIGIN_PRICE,
+				GS.GOODS_SELL_PRICE,
+				GS.GOODS_SALE_PRICE,
+				GS.GOODS_DATE,
+				GS.GOODS_KEYWORD,
+				GS.GOODS_READCNT,
+                GS.GOODS_PICK,
+                GS.GOODS_THUMBNAIL,
+                GI.goods_image_std
 			FROM
-				GOODS
+				GOODS GS, GOODS_IMAGE GI
+			WHERE 
+				GS.GOODS_NO = GI.GOODS_NO
+			AND GUBUN = '0'
 				) AA
 		      ) AAA
 		      WHERE AAA.RNUM BETWEEN 0 AND 12 
@@ -38,20 +42,24 @@ SELECT
 			FROM( select count(*) over() as total_count, AA.*
 			FROM(
 				select ROW_NUMBER() OVER (ORDER BY GOODS_READCNT desc) RNUM,
-				GOODS_NO,
-				GOODS_CATEGORY,
-				GOODS_NAME,
-				GOODS_CONTENT,
-				GOODS_ORIGIN_PRICE,
-				GOODS_SELL_PRICE,
-				GOODS_SALE_PRICE,
-				GOODS_DATE,
-				GOODS_KEYWORD,
-				GOODS_READCNT,
-				GOODS_PICK,
-				GOODS_THUMBNAIL
+				GS.GOODS_NO,
+				GS.GOODS_CATEGORY,
+				GS.GOODS_NAME,
+				GS.GOODS_CONTENT,
+				GS.GOODS_ORIGIN_PRICE,
+				GS.GOODS_SELL_PRICE,
+				GS.GOODS_SALE_PRICE,
+				GS.GOODS_DATE,
+				GS.GOODS_KEYWORD,
+				GS.GOODS_READCNT,
+                GS.GOODS_PICK,
+                GS.GOODS_THUMBNAIL,
+                GI.goods_image_std
 			FROM
-				GOODS 
+				GOODS GS, GOODS_IMAGE GI 
+			WHERE 
+				GS.GOODS_NO = GI.GOODS_NO
+			AND GUBUN = '0'	
 			) AA
 		      ) AAA
 		      WHERE AAA.RNUM BETWEEN 0 AND 28
@@ -62,50 +70,59 @@ SELECT
 	
 	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 상품 카테고리별 리스트  -->
 		<include refid="common.pagingPre2"/>
-			SELECT GOODS_NO,
-			       GOODS_CATEGORY,
-			       GOODS_NAME,
-			       GOODS_CONTENT,
-			       GOODS_ORIGIN_PRICE,
-			       GOODS_SELL_PRICE,
-			       GOODS_SALE_PRICE, 
-			       GOODS_DATE,
-			       GOODS_KEYWORD,
-			       GOODS_READCNT, 
-			       GOODS_PICK,
-			       GOODS_THUMBNAIL
-		      FROM GOODS GS 
-			 WHERE GOODS_CATEGORY = #{cate}
+			SELECT GS.GOODS_NO,
+			       GS.GOODS_CATEGORY,
+			       GS.GOODS_NAME,
+			       GS.GOODS_CONTENT,
+			       GS.GOODS_ORIGIN_PRICE,
+			       GS.GOODS_SELL_PRICE,
+			       GS.GOODS_SALE_PRICE, 
+			       GS.GOODS_DATE,
+			       GS.GOODS_KEYWORD,
+			       GS.GOODS_READCNT, 
+			       GS.GOODS_PICK,
+			       GS.GOODS_THUMBNAIL,
+			       GS.GUBUN,
+			       GI.GOODS_IMAGE_STD
+		      FROM GOODS GS, GOODS_IMAGE GI
+		      WHERE GS.GOODS_NO = GI.GOODS_NO
+			  AND GOODS_CATEGORY = #{cate}
+			 <if test="keyword != null">
+		   	 AND (GOODS_NAME LIKE '%' || #{keyword} || '%' OR GOODS_KEYWORD LIKE '%' || #{keyword} || '%')
+		   </if>
+		   AND GUBUN = '0'
            <if test="orderBy != '' and orderBy != 'null'">
 		     ORDER BY ${orderBy} ${orderSort} 
 		   </if> 	 
 		<include refid="common.pagingPost2"/>
-		   <if test="keyword != null">
-		   	 AND GOODS_NAME LIKE '%' || #{keyword} || '%'
-		   </if>
+		   
 	</select>
 	
 	
 	<select id="mainSearch" parameterType="hashmap" resultType="hashmap"> <!-- 메인검색 리스트 -->
 		<include refid="common.pagingPre2"/>
-			SELECT GOODS_NO,
-			       GOODS_CATEGORY,
-			       GOODS_NAME,
-			       GOODS_CONTENT,
-			       GOODS_ORIGIN_PRICE,
-			       GOODS_SELL_PRICE,
-			       GOODS_SALE_PRICE, 
-			       GOODS_DATE,
-			       GOODS_KEYWORD,
-			       GOODS_READCNT, 
-			       GOODS_PICK,
-			       GOODS_THUMBNAIL
-		      FROM GOODS GS 
+			SELECT GS.GOODS_NO,
+			       GS.GOODS_CATEGORY,
+			       GS.GOODS_NAME,
+			       GS.GOODS_CONTENT,
+			       GS.GOODS_ORIGIN_PRICE,
+			       GS.GOODS_SELL_PRICE,
+			       GS.GOODS_SALE_PRICE, 
+			       GS.GOODS_DATE,
+			       GS.GOODS_KEYWORD,
+			       GS.GOODS_READCNT, 
+			       GS.GOODS_PICK,
+			       GS.GOODS_THUMBNAIL,
+			       GI.GOODS_IMAGE_STD
+		      FROM GOODS GS, GOODS_IMAGE GI
+		      WHERE GS.GOODS_NO = GI.GOODS_NO
+		      <if test="keyword != null">
+		   	 AND (GOODS_NAME LIKE '%' || #{keyword} || '%' OR GOODS_KEYWORD LIKE '%' || #{keyword} || '%')
+		     </if> 
+		     AND GUBUN = '0'
 		     ORDER BY GOODS_NO DESC 
 		<include refid="common.pagingPost2"/>
-		   <if test="keyword != null">
-		   	 AND GOODS_NAME LIKE '%' || #{keyword} || '%'
-		   </if>
+		   
 	</select>
 
 	
@@ -224,8 +241,15 @@ SELECT
 		]]>
 	</update>
 	
+	<update id="deleteGoods" parameterType="hashmap"> <!-- 상품 삭제(숨김) -->
+		<![CDATA[
+			UPDATE  GOODS
+			SET     GUBUN = #{GUBUN}
+			WHERE   GOODS_NO = #{IDX}
+		]]>
+	</update>
 	
-
+	
 	<insert id="attributeInsert" parameterType="hashmap"> <!-- 상품 옵션 등록 -->
 		<![CDATA[
 			INSERT INTO GOODS_ATTRIBUTE(
@@ -438,7 +462,7 @@ SELECT
 		]]>
 	</select>
 	
-	<insert id="insertGoodsQna" parameterType="hashmap"> <!-- 상품 QNA 등록 -->
+	<insert id="insertGoodsQna" parameterType="hashmap"> <!-- 상품 QNA 등록 상품문의는 등록만되고 삭제 수정안됨 관리자만 삭제가능 -->
 		<![CDATA[
 			INSERT INTO GOODS_QNA(
 								GOODS_QNA_NO,
@@ -521,5 +545,32 @@ SELECT
 							   )
 		]]>
 	</insert>
+	
+	
+	<update id="updateReview" parameterType="hashmap"> <!-- 상품 Review 수정 -->
+		<![CDATA[
+			UPDATE  REVIEW
+			  SET   REVIEW_TITLE = #{REVIEW_TITLE},
+			        REVIEW_CONTENT = #{REVIEW_CONTENT},
+			        REVIEW_DATE = #{REVIEW_DATE}
+			WHERE   GOODS_NO = #{IDX}
+			  AND   REVIEW_NO = #{REVIEW_NO}
+			  AND   MEMBER_NO = #{MEMBER_NO}
+		]]>
+	</update>
+	
+	<update id="deleteReview" parameterType="hashmap"> <!-- 상품 Review 삭제(숨김) 만들어놨지만 사용X -->
+		<![CDATA[
+			UPDATE  REVIEW
+			  SET   REVIEW_TITLE = #{REVIEW_TITLE},
+			        REVIEW_CONTENT = #{REVIEW_CONTENT},
+			        REVIEW_DATE = #{REVIEW_DATE}
+			WHERE   GOODS_NO = #{IDX}
+			  AND   REVIEW_NO = #{REVIEW_NO}
+			  AND   MEMBER_NO = #{MEMBER_NO}
+		]]>
+	</update>
+	
+	
 
 </mapper>

@@ -62,6 +62,10 @@ public class GoodsDao extends AbstractDao {
 		System.out.println("selectReviewList=" + map);
 		return (List<Map<String, Object>>) selectPagingList("goods.selectReviewList", map);
 	}
+	
+	public void updateReview(Map<String, Object> map) throws Exception { // 상품 Review 수정
+		update("goods.updateReview", map);
+	}
 
 	public void goodsHitCnt(Map<String, Object> map) throws Exception { // 조회수 증가
 		System.out.println("goodsHitCntDao=" + map);
@@ -74,6 +78,10 @@ public class GoodsDao extends AbstractDao {
 
 	public void updateGoods(Map<String, Object> map) throws Exception { // 상품 수정
 		update("goods.updateGoods", map);
+	}
+	
+	public void deleteGoods(Map<String, Object> map) throws Exception { // 상품 삭제(숨김)
+		update("goods.deleteGoods", map);
 	}
 
 	public void updateGoodsThumbnail(Map<String, Object> map) throws Exception { // 상품 썸네일 이미지 수정

@@ -27,9 +27,11 @@ public interface GoodsService {
 	
 	Map<String, Object> selectGoodsAtt(Map<String,Object> map) throws Exception; // 상품속성 디테일
 	
-	void insertGoods(Map<String, Object> map, HttpServletRequest request) throws Exception; // 글쓰기
+	void insertGoods(Map<String, Object> map, HttpServletRequest request) throws Exception; // 상품 등록
 	
-	void updateGoods(Map<String, Object> map, HttpServletRequest request) throws Exception; //업데이트 
+	void updateGoods(Map<String, Object> map, HttpServletRequest request) throws Exception; // 상품 수정
+	
+	void deleteGoods(Map<String, Object> map, HttpServletRequest request) throws Exception; // 상품 삭제(숨김)
 	
 	void insertGoodsLike(Map<String, Object> map) throws Exception; // 디테일에서 상품 좋아요 
 	
@@ -42,5 +44,7 @@ public interface GoodsService {
 	void insertGoodsQna(Map<String, Object> map, HttpServletRequest request) throws Exception; // 상품문의 등록
 	
 	void insertGoodsReview(Map<String, Object> map, HttpServletRequest request) throws Exception; // 리뷰 등록
+	
+	void updateReview(Map<String, Object> map, HttpServletRequest request) throws Exception; // 리뷰 수정
 
 }

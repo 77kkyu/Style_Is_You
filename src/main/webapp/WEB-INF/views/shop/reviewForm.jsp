@@ -47,7 +47,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 
 <br><br>
 <div align="center">
-<h2>상품문의</h2>
+<h2>${title}</h2>
 </div>
 
 <br><br>
@@ -59,7 +59,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 					<th>제목</th>
 					<td>
 						<input type="text" id="REVIEW_TITLE" name="REVIEW_TITLE" placeholder="제목입력" size="40" 
-						style="padding:10px;" >
+						style="padding:10px;" value=<c:if test="${type eq 'modify'}">"${map.REVIEW_TITLE}"</c:if>>
 					</td>
 				</tr>
 				
@@ -76,6 +76,9 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 					<th>상품내용 </th>
 					<td>
 						<textarea rows="50" cols="250" id="REVIEW_CONTENT" name="REVIEW_CONTENT">
+						<c:choose>
+						<c:when test="${type eq 'modify'}">${map.REVIEW_CONTENT}</c:when>
+						<c:otherwise>
 						<pre>
 ※리뷰작성 시 최대 적립금 2,000원 지급!(50자 이상 리뷰 작성시)
 (일반리뷰 500원 / 상품포토리뷰 1000 / 상품착용포토리뷰(키,몸무게,구매사이즈(컬러) '작성필수') 2,000원)
@@ -85,6 +88,8 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 구매사이즈(컬러):
 상품리뷰:
 						</pre>
+						</c:otherwise>
+						</c:choose>
 						</textarea>
 					</td>
 				</tr>
@@ -93,7 +98,6 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 					<th>개인정보 수집 및 이용 동의</th>
 					<td>
 						<textarea rows="15" cols="40" readonly>
-						
 						■ 
 						개인정보의 수집·이용 목적
 						서비스 제공 및 계약의 이행, 구매 및 대금결제, 
@@ -109,7 +113,6 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 						STYLE IS YOU의 개인정보처리 수탁자와 그 업무의 내용은 다음과 같습니다. 
 						- 수탁자 : (주)STYLE IS YOU- 위탁 업무 내용 : 카카오 알림톡 발송 업무 직송 등 일부 배송형태에 따라, 
 						전자상거래소비자보호법 제 21조에 의거 협력사에 배송정보가 제공 됩니다.
-						
 						</textarea>
 					</td>
 				</tr>
@@ -138,7 +141,7 @@ $(function(){
         width:'120%',
         height:'400px',
 		filebrowserUploadUrl: '${pageContext.request.contextPath }/ckeditor/fileReviewUpload.do'
-			
+
 	});
 });
 

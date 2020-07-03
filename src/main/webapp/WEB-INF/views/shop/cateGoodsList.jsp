@@ -19,6 +19,13 @@
 <script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/ui.css'/>" />
 
+<!-- bx -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+
+
 <style>
 
 #main-container
@@ -258,6 +265,30 @@ h1 {
 	margin-left: 15px;
    float: ;
 }
+/* 
+.bx-wrapper {
+    -moz-box-shadow: 0 0 5px #ccc;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 #ccc;
+    border: #fff;
+    background: #fff;
+}
+
+.bx-wrapper {
+    position: relative;
+    margin-bottom: 5px;
+    padding: 0;
+    *: ;
+    zoom: 1;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+}
+ */
+.imgswap img:last-child{display:none} 
+.imgswap:hover img:first-child{display:none} 
+.imgswap:hover img:last-child{display:inline-block}
+
+
 </style>
 
 </head>
@@ -383,6 +414,12 @@ function fn_selectGoodsListCallback(data) {
 		var str = "";
 		$.each(data.list, function(key, value) {
 							var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
+							//alert(value.GOODS_IMAGE_STD);
+							var imgpath1 = value.GOODS_IMAGE_STD.split(',');
+							var img0 = imgpath1[0];
+							var img1 = imgpath1[1];
+							
+							
 							var Pick = value.GOODS_PICK.split(',');
 							var pick1 = "";
 							var pick2 = "";
@@ -412,10 +449,15 @@ function fn_selectGoodsListCallback(data) {
 										pick4 = Pick[3];
 									}
 								}
+
+							
 											
 							str += "<div class='card'>"
 								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
+								+		"<div class='imgswap'>"
+								+ 		"<img src='/stu/file/"+img0+"' width='400' height='400'>" 
+								+ 		"<img src='/stu/file/"+img1+"' width='400' height='400'>"
+								+     " </div> "
 								+     " <c:if test='${"+num+" ne "+pick1+"}'> "
 								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
 								+		pick1 +"</font></span>"	
@@ -439,12 +481,16 @@ function fn_selectGoodsListCallback(data) {
 								+	  " </div>";
 				
 						});
+		
+
 		body.append(str);
 		$("a[name='title']").on("click", function(e){ //제목 
 			e.preventDefault();
 			fn_openBoardDetail($(this));
 		});
+		
 	}
+
 }
 
 </script>

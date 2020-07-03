@@ -260,12 +260,10 @@ public class GoodsController {
 		list = goodsService.selectGoodsQna(commandMap.getMap()); // QNA 리스트
 
 		System.out.println("디테일리스트=" + list);
-		list.get(0);
-		if (list.size() != 0) {
-			list.get(0).get("");
-		}
+		
 
 		mv.addObject("list", list);
+		
 		if (list.size() > 0) {
 			mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
 		} else {
@@ -274,9 +272,7 @@ public class GoodsController {
 
 		List<Map<String, Object>> reviewList = goodsService.selectReviewList(commandMap.getMap()); // Review 리스트
 		System.out.println("리뷰리스트=" + reviewList);
-		if (reviewList.size() != 0) {
-			reviewList.get(0).get("");
-		}
+		
 		mv.addObject("reviewList", reviewList);
 		if (reviewList.size() > 0) {
 			mv.addObject("TOTAL1", reviewList.get(0).get("TOTAL_COUNT1"));
@@ -288,7 +284,7 @@ public class GoodsController {
 	}
 
 	@RequestMapping(value = "/shop/openGoodsWrite.do") // url
-	public ModelAndView goodsWriteForm(CommandMap commandMap) throws Exception { // 글쓰기 폼
+	public ModelAndView goodsWriteForm(CommandMap commandMap) throws Exception { // 상품등록 폼
 
 		ModelAndView mv = new ModelAndView("shop/goodsWrite");
 		mv.addObject("type", "write");
@@ -298,7 +294,7 @@ public class GoodsController {
 	}
 
 	@RequestMapping(value = "/shop/goodsWrite.do", method = RequestMethod.POST) 
-	public ModelAndView goodsWrite(CommandMap commandMap, HttpServletRequest request) throws Exception { // 글쓰기 작성
+	public ModelAndView goodsWrite(CommandMap commandMap, HttpServletRequest request) throws Exception { // 상품등록 
 
 		ModelAndView mv = new ModelAndView("redirect:http:/stu/main.do"); 
 
@@ -307,6 +303,19 @@ public class GoodsController {
 		return mv;
 
 	}
+	
+	
+	@RequestMapping(value = "/shop/goodsDelete.do", method = RequestMethod.POST) 
+	public ModelAndView deleteGoods(CommandMap commandMap, HttpServletRequest request) throws Exception { // 상품삭제(숨김) 
+
+		ModelAndView mv = new ModelAndView("redirect:http:/stu/main.do"); 
+
+		goodsService.deleteGoods(commandMap.getMap(), request);
+		System.out.println("상품삭제(숨김) = " + commandMap.getMap());
+		return mv;
+
+	}
+	
 
 	@RequestMapping(value = "/shop/goodsLike.do", method = RequestMethod.POST)
 	public ModelAndView goodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception { // 상품디테일에서 좋아요 추가
@@ -518,6 +527,9 @@ public class GoodsController {
 		ModelAndView mv = new ModelAndView("shop/reviewForm");
 		System.out.println("111111111리뷰폼11111111=" + commandMap.getMap());
 		mv.addObject("IDX", commandMap.get("IDX"));
+		
+		mv.addObject("title", "REVIEW 등록");
+		
 		return mv;
 
 	}
@@ -530,6 +542,33 @@ public class GoodsController {
 		goodsService.insertGoodsReview(commandMap.getMap(), request);
 
 		mv.addObject("IDX", commandMap.get("IDX"));
+		
+		return mv;
+
+	}
+	
+	@RequestMapping(value = "/shop/openReviewUpdateForm.do")
+	public ModelAndView reviewUpdateForm(CommandMap commandMap) throws Exception { // Review 수정
+
+		ModelAndView mv = new ModelAndView("shop/reviewForm");
+		System.out.println("111111111리뷰폼11111111=" + commandMap.getMap());
+		mv.addObject("IDX", commandMap.get("IDX"));
+		
+		mv.addObject("title", "REVIEW 수정");
+		mv.addObject("type", "modify");
+		return mv;
+
+	}
+	
+	@RequestMapping(value = "/shop/updateReview.do", method = RequestMethod.POST)
+	public ModelAndView updateReview(CommandMap commandMap, HttpServletRequest request) throws Exception { // Review 수정완료
+
+		ModelAndView mv = new ModelAndView("redirect:/shop/goodsDetail.do"); // 보낼 url
+		System.out.println("리뷰등록=" + commandMap.getMap());
+		goodsService.updateReview(commandMap.getMap(), request);
+
+		mv.addObject("IDX", commandMap.get("IDX"));
+		
 		return mv;
 
 	}

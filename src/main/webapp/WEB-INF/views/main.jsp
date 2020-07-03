@@ -260,6 +260,10 @@ h1 {
     line-height: 0px;
     align:center;
 }
+
+.imgswap img:last-child{display:none} 
+.imgswap:hover img:first-child{display:none} 
+.imgswap:hover img:last-child{display:inline-block}
 </style>
 
 </head>
@@ -348,7 +352,8 @@ $(document).ready(function () {
         slideWidth: 1260, // 크기
         slideMargin: 0,
         autoDelay: 0,
-        responsive: true,      
+        responsive: true,
+        controls : true,      
     });
 
     $("a[name='title']").on("click", function(e){ //제목 //name 이 title인거
@@ -401,6 +406,11 @@ function fn_selectNewItemListCallback(data) {
 		var str = "";
 		$.each(data.NewList, function(key, value) {
 							var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
+
+							var imgpath1 = value.GOODS_IMAGE_STD.split(',');
+							var img0 = imgpath1[0];
+							var img1 = imgpath1[1];
+							
 							var Pick = value.GOODS_PICK.split(',');
 							var pick1 = "";
 							var pick2 = "";
@@ -436,7 +446,10 @@ function fn_selectNewItemListCallback(data) {
 							
 							str += "<div class='card'>"
 								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
+								+		"<div class='imgswap'>"
+								+ 		"<img src='/stu/file/"+img0+"' width='400' height='400'>" 
+								+ 		"<img src='/stu/file/"+img1+"' width='400' height='400'>"
+								+     " </div> "
 								+     " <c:if test='${"+num+" ne "+pick1+"}'> "
 								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
 								+		pick1 +"</font></span>"	
@@ -465,6 +478,22 @@ function fn_selectNewItemListCallback(data) {
 			e.preventDefault();
 			fn_openBoardDetail($(this));
 		});
+
+		$('.bxslider1').bxSlider({
+		     auto: true, // 자동으로 애니메이션 시작
+		     speed: 500,  // 애니메이션 속도
+		     pause: 3000,  // 애니메이션 유지 시간 (1000은 1초)
+		     mode: 'horizontal', // 슬라이드 모드 ('fade', 'horizontal', 'vertical' 이 있음)
+		     autoControls: false, // 시작 및 중지버튼 보여짐
+		     pager: false, // 페이지 표시 보여짐
+		     captions: false, // 이미지 위에 텍스트를 넣을 수 있음
+		     slideWidth: 400, // 크기
+		     slideMargin: 0,
+		     autoDelay: 0,
+		     responsive: true,
+		     controls : false,  
+		       
+		 });
 	}
 }
 
@@ -501,7 +530,12 @@ function fn_selectBestItemListCallback(data) {
 
 		var str = "";
 		$.each(data.BestList, function(key, value) {
-							var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
+							var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>";
+
+							var imgpath1 = value.GOODS_IMAGE_STD.split(',');
+							var img0 = imgpath1[0];
+							var img1 = imgpath1[1];
+							
 							var Pick = value.GOODS_PICK.split(',');
 							var pick1 = "";
 							var pick2 = "";
@@ -537,7 +571,10 @@ function fn_selectBestItemListCallback(data) {
 							
 							str += "<div class='card'>"
 								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
+								+		"<div class='imgswap'>"
+								+ 		"<img src='/stu/file/"+img0+"' width='400' height='400'>" 
+								+ 		"<img src='/stu/file/"+img1+"' width='400' height='400'>"
+								+     " </div> "
 								+     " <c:if test='${"+num+" ne "+pick1+"}'> "
 								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
 								+		pick1 +"</font></span>"	

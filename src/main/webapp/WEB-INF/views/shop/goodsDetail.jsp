@@ -10,9 +10,8 @@
 <head>
 <meta charset="utf-8">
 <title>상품 상세보기</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -280,10 +279,10 @@ h1 {
 
 	<br>
 
-	<div>
-
-		<div style="float: left; margin-left: 350px">
-			<table border="0">
+	<div style="width:100%; align:center; height:600px;">
+		
+		<div style="float:left; margin-left:350px; width:26%;">
+			<table border="0" width="500">
 				<tr>
 					<td><img src="/stu/file/${list.GOODS_THUMBNAIL }" width="500"
 						height="500" /></td>
@@ -291,7 +290,7 @@ h1 {
 			</table>
 		</div>
 
-		<div style="float: left; margin-left: 40px">
+		<div style="float:left; margin-left:30px; width:36%;">
 			<table border="0">
 
 				<tr>
@@ -314,10 +313,6 @@ h1 {
 							</c:if>
 						</c:forEach></td>
 				</tr>
-
-				<!-- 		<tr>
-			<td>&nbsp;&nbsp;</td>
-		</tr> -->
 
 				<tr>
 					<td id="goodsName"><font size="5"
@@ -395,9 +390,6 @@ h1 {
 
 			<form id="frm" name="frm" method="post">
 
-				<%--<input type="hidden" id="GOODS_ATT_NO" name="GOODS_ATT_NO" value="${list.GOODS_ATT_NO}"> --%>
-				<!-- 맴버아이디 보내야함 -->
-
 				<div>
 					<table style="border:1px;" id="dynamicTable">
 						<thead>
@@ -407,24 +399,18 @@ h1 {
 
 						</tbody>
 						
-					
-
 					</table>
 				</div>
-
-				
 
 			</form>
 			
 			<div class="totals-item totals-item-total" style="float:left; margin-left:400px;">
-	      <label class="total_price">총상품금액</label>&nbsp;&nbsp;
-	      <div class="total_price" style="float:right;">원</div>
-	      <div class="totals-value" id="cart-total" style="float:right;">0</div>
-	    </div>
-			<br>
+	      		<label class="total_price">총상품금액</label>&nbsp;&nbsp;
+	     		 <div class="total_price" style="float:right;">원</div>
+	      		<div class="totals-value" id="cart-total" style="float:right;">0</div>
+	   	    </div>
+			<br><br>
 			
-    
-			<br>
 			<table>
 				<tr>
 					<td><hr style="border-top: 1px solid #bbb;" width=670px>
@@ -453,11 +439,7 @@ h1 {
 
 	<div style="clear: both;"></div>
 
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	<br><br><br><br><br>
 	<div align="center">
 		<ul class="nav nav-tabs" id="myTab" role="tablist" style="width: 60%">
 			<li class="nav-item" role="presentation" style="width: 25%"><a
@@ -829,21 +811,11 @@ function fn_GoodsOrder() { // 구매하기
 		location.href = "/stu/loginForm.do";
 	}
    
-	
 }
 
 function fn_InsertBasket() { // 장바구니
 	
 	if(doubleSubmitCheck()) return; // 중복클릭 방지
-	//BASKET_GOODS_AMOUNT
-	
-	//var amount = $('input[name=BASKET_GOODS_AMOUNT]').val();
-	/* var amount = $('.field1').val();
-	console.log(amount);
-	if(amount == null){
-		alert("상품이 없습니다.");
-		return false;
-	} */
 
 	if(${SESSION_NO ne null}){
 		var arraycode = document.getElementsByName("BASKET_GOODS_AMOUNT");
@@ -865,114 +837,6 @@ function fn_InsertBasket() { // 장바구니
 		location.href = "/stu/loginForm.do";
 	}
 	
-	
-	
-	/* var resultList = new Array();
-	for(var i=0; i<$("input[name=ORDER_COLOR]").length; i++){
-		var keyArray = {
-							'ORDER_COLOR'		   : $("input[name=ORDER_COLOR]").eq(i).val(),
-							'ORDER_SIZE'		   : $("input[name=ORDER_SIZE]").eq(i).val(),
-							'BASKET_GOODS_AMOUNT'  : $("input[name=BASKET_GOODS_AMOUNT]").eq(i).val(),
-							'MEMBER_NO'  		   : $("input[name=MEMBER_NO]").eq(i).val(),
-							'IDX' 				   : $("input[name=IDX]").eq(i).val()
-						};
-		resultList.push(keyArray);
-		}
-	console.log(resultList);
-	comSubmit.addParam("resultList", resultList); */
-	
-
-	//map = [{},{}]
-	/* map.put=({
-		'IDX'				 : '186',
-		'MEMBER_NO'			 : '1',
-		'ORDER_COLOR'		 : $("input[name=ORDER_COLOR]").eq(0).val(),
-		'ORDER_SIZE'         : $("input[name=ORDER_COLOR]").eq(0).val(),
-		'BASKET_GOODS_AMOUNT': $("input[name=ORDER_COLOR]").eq(0).val()
-	}); */
-
-	/* var result = {'ORDER_COLOR':  $("input[name=ORDER_COLOR]").eq(0).val()},
-	keys = $.map( result, function(value, index) {
-		return index;
-	}); */
-
-	/* var reList = new Array();
-	var reList1 = new Array();
-	// reList{000}
-	var map = new Map();
-	for(var i=0; i<$("input[name=ORDER_COLOR]").length; i++){
-		reList.push($("input[name=ORDER_COLOR]").eq(i).val());
-		reList.push($("input[name=ORDER_SIZE]").eq(i).val());
-		reList.push($("input[name=BASKET_GOODS_AMOUNT]").eq(i).val());
-		
-	} */
-	//console.log(map);
-	//console.log(reList.length);
-	
-	
-    // lsit[0] {key:value, key:value}
-    // lsit[1] {key:value, key:value}
-    
-	
-	/* for(var i=0; i<$("input[name=ORDER_COLOR]").length; i++){
-	var keyArray = [{key:'ORDER_COLOR', value:$("input[name=ORDER_COLOR]").eq(i).val()},
-					{key:'ORDER_SIZE', value:$("input[name=ORDER_SIZE]").eq(i).val()},
-					{key:'BASKET_GOODS_AMOUNT', value:$("input[name=BASKET_GOODS_AMOUNT]").eq(i).val()
-					}]; 
-
-	var resultArray = keyArray.map(function(obj){
-		var rObj = {};
-		rObj[obj.key] = obj.value;
-			return rObj
-		});
-	//console.log("rObj");
-    //console.log(resultArray);
-    
-	} */
-	//comSubmit.addParam('resultArray', resultArray);
-	//comSubmit.submit();
-	
-
-
-
-	//comSubmit.addParam(map);
-	
-// 	alert($("input[name=ORDER_COLOR]").eq(0).val());
-// 	alert($("input[name=ORDER_SIZE]").eq(0).val());
-// 	alert($("input[name=BASKET_GOODS_AMOUNT]").eq(0).val());
-
-	
-// 	for(var i=0 ; i<$("input[name=ORDER_COLOR]").length ; i++){
-		
-// 	}
-
-// 	return;
-	
-// 	$("input[name=ORDER_COLOR]").each(function(index, item) {
-// 		basket_color.push($(item).val());
-// 	});
-
-// 	$("input[name=ORDER_SIZE]").each(function(index, item) {
-// 		basket_size.push($(item).val());
-// 	});
-
-// 	$("input[name=BASKET_GOODS_AMOUNT]").each(function(index, item) {
-// 		basket_amouont.push($(item).val());
-// 	});
-
-/* 	$("input[name=MEMBER_NO]").each(function(index, item) {
-		basketList.push($(item).val());
-	}); */
-
-	
-
-// 	comSubmit.addParam("basket_color",basket_color);
-// 	comSubmit.addParam("basket_size",basket_size);
-// 	comSubmit.addParam("basket_amouont",basket_amouont);
-	
-	 //comSubmit.submit();
-	
-	
 }
 
 
@@ -983,7 +847,6 @@ $('#ColorList').change(function(){
 
 	});
 });
-
 
 $('#SizeList').change(function() {
 	
@@ -1194,7 +1057,8 @@ function fn_selectGoodsListCallback(data) {
 	body.empty();
 	
 	if (total == 0) {
-		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>"
+		var str = "<tr>" 
+			    + "<td colspan='5' align='center'>조회된 결과가 없습니다.</td>"
 				+ "</tr>";
 		body.append(str);
 	} else {
@@ -1254,47 +1118,46 @@ function fn_selectGoodsListCallback(data) {
 
 						});
 		body.append(str);
+		$(document).ready( function() { // 상품문의 토글
+		    $( 'tr#show1' ).click( function() {
+		      $( 'tr#hide1' ).toggle( 'slow' );
+		    });
+
+		    $( 'tr#show2' ).click( function() {
+		        $( 'tr#hide2' ).toggle( 'slow' );
+		      });
+
+		    $( 'tr#show3' ).click( function() {
+		        $( 'tr#hide3' ).toggle( 'slow' );
+		      });
+
+		    $( 'tr#show4' ).click( function() {
+		        $( 'tr#hide4' ).toggle( 'slow' );
+		      });
+
+		    $( 'tr#show5' ).click( function() {
+		        $( 'tr#hide5' ).toggle( 'slow' );
+		      });
+
+		    $( 'tr#show6' ).click( function() {
+		        $( 'tr#hide6' ).toggle( 'slow' );
+		      });
+
+		    $( 'tr#show7' ).click( function() {
+		        $( 'tr#hide7' ).toggle( 'slow' );
+		      });
+
+		    $( 'tr#show8' ).click( function() {
+		        $( 'tr#hide8' ).toggle( 'slow' );
+		      });
+
+		    $( 'tr#show9' ).click( function() {
+		        $( 'tr#hide9' ).toggle( 'slow' );
+		      }); 
+
+		  });  
 	}
 }
-
-  $(document).ready( function() { // 상품문의 토글
-    $( 'tr#show1' ).click( function() {
-      $( 'tr#hide1' ).toggle( 'slow' );
-    });
-
-    $( 'tr#show2' ).click( function() {
-        $( 'tr#hide2' ).toggle( 'slow' );
-      });
-
-    $( 'tr#show3' ).click( function() {
-        $( 'tr#hide3' ).toggle( 'slow' );
-      });
-
-    $( 'tr#show4' ).click( function() {
-        $( 'tr#hide4' ).toggle( 'slow' );
-      });
-
-    $( 'tr#show5' ).click( function() {
-        $( 'tr#hide5' ).toggle( 'slow' );
-      });
-
-    $( 'tr#show6' ).click( function() {
-        $( 'tr#hide6' ).toggle( 'slow' );
-      });
-
-    $( 'tr#show7' ).click( function() {
-        $( 'tr#hide7' ).toggle( 'slow' );
-      });
-
-    $( 'tr#show8' ).click( function() {
-        $( 'tr#hide8' ).toggle( 'slow' );
-      });
-
-    $( 'tr#show9' ).click( function() {
-        $( 'tr#hide9' ).toggle( 'slow' );
-      });
-
-  });  
 
 
 function fn_selectReviewList(pageNo) {
@@ -1315,7 +1178,7 @@ function fn_selectReviewListCallback(data) {
 	body.empty();
 	
 	if (total == 0) {
-		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>"
+		var str = "<tr>" + "<td colspan='5' align='center'>조회된 결과가 없습니다.</td>"
 				+ "</tr>";
 		body.append(str);
 	} else {
@@ -1368,51 +1231,47 @@ function fn_selectReviewListCallback(data) {
 							
 						});
 		body.append(str);
+		$(document).ready( function() { // 상품문의 토글
+			
+		    $( 'tr#show11' ).click( function() {
+		      $( 'tr#hide11' ).toggle( 'slow' );
+		    });
+		    $( 'tr#show12').click( function() {
+		        $( 'tr#hide12').toggle( 'slow' );
+		      });
+
+
+		    $( 'tr#show13' ).click( function() {
+		        $( 'tr#hide13' ).toggle( 'slow' );
+		      });
+		      $( 'tr#show14').click( function() {
+		          $( 'tr#hide14').toggle( 'slow' );
+		        });
+
+
+		      $( 'tr#show15' ).click( function() {
+		          $( 'tr#hide15' ).toggle( 'slow' );
+		        });
+		        $( 'tr#show16').click( function() {
+		            $( 'tr#hide16').toggle( 'slow' );
+		          });
+
+
+		        $( 'tr#show17' ).click( function() {
+		            $( 'tr#hide17' ).toggle( 'slow' );
+		          });
+		          $( 'tr#show18').click( function() {
+		              $( 'tr#hide18').toggle( 'slow' );
+		            });
+
+
+		          $( 'tr#show19' ).click( function() {
+		              $( 'tr#hide19' ).toggle( 'slow' );
+		            });
+		            
+		  }); 
 	}
 }
-
-$(document).ready( function() { // 상품문의 토글
-	
-    $( 'tr#show11' ).click( function() {
-      $( 'tr#hide11' ).toggle( 'slow' );
-    });
-    $( 'tr#show12').click( function() {
-        $( 'tr#hide12').toggle( 'slow' );
-      });
-
-
-    $( 'tr#show13' ).click( function() {
-        $( 'tr#hide13' ).toggle( 'slow' );
-      });
-      $( 'tr#show14').click( function() {
-          $( 'tr#hide14').toggle( 'slow' );
-        });
-
-
-      $( 'tr#show15' ).click( function() {
-          $( 'tr#hide15' ).toggle( 'slow' );
-        });
-        $( 'tr#show16').click( function() {
-            $( 'tr#hide16').toggle( 'slow' );
-          });
-
-
-        $( 'tr#show17' ).click( function() {
-            $( 'tr#hide17' ).toggle( 'slow' );
-          });
-          $( 'tr#show18').click( function() {
-              $( 'tr#hide18').toggle( 'slow' );
-            });
-
-
-          $( 'tr#show19' ).click( function() {
-              $( 'tr#hide19' ).toggle( 'slow' );
-            });
-            
-  }); 
-
-
-
 
 
 </script>
