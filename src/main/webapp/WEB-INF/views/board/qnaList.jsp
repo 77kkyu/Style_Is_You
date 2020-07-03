@@ -106,8 +106,42 @@ li {
 			});
 
 			$(".myButton").on("click", function(e){ //제목 
-				e.preventDefault();
-				fn_openQnaDetail($(this));
+// 				var qnaPass = ${param.QNA_PASSWD};
+				var qnaPass = $('#qnaPasswd').val(); 
+				var data = {
+					QNA_PASSWD : qnaPass,
+					QNA_NO : 2
+				};
+
+				if (qnaPass.length > 0){
+					$.ajax({
+						url: "./chkPassword.do",
+			            type: 'POST',
+			            data: data,
+			            success : function(res) {
+			            	if(res == 1){
+			            		e.preventDefault();
+			 					fn_openQnaDetail($(this));
+				            }else{
+					        	alert("password error");
+				            }		
+			            }
+			        });
+					
+				}
+
+				
+				
+// 				if (qnaPass.length() > 0 || qnaPass == password) {
+// 					e.preventDefault();
+// 					fn_openQnaDetail($(this));
+// 				} else {
+// 					alert("비밀번호 틀렸습니다!!");
+// 					return false;
+// 				}
+				
+// 				e.preventDefault();
+// 				fn_openQnaDetail($(this));
 			});
 		});
 		
@@ -136,7 +170,7 @@ li {
 			comAjax.setUrl("<c:url value='/qna/selectQnaList.do' />");
 			comAjax.setCallback("fn_selectQnaListCallback");
 			comAjax.addParam("PAGE_INDEX", $("#PAGE_INDEX").val());
-			comAjax.addParam("PAGE_ROW", 15);
+			comAjax.addParam("PAGE_ROW", 10);
 			comAjax.addParam("QNA_NO_FE", $("#QNA_NO_FE").val());
 			comAjax.ajax();
 		}
@@ -156,6 +190,7 @@ li {
 					divId : "PAGE_NAVI",
 					pageIndex : "PAGE_INDEX",
 					totalCount : total,
+					recordCount: 10,
 					eventName : "fn_selectQnaList"
 				};
 				gfn_renderPaging(params);
@@ -172,11 +207,15 @@ li {
 								"<td>" + value.QNA_NAME + "</td>" + 
 								"<td>" + value.QNA_DATE + "</td>";
 					str += '<td id="pwdChk" style="display:none;" colspan="4">Password : ';
-					str += '<input type="password" id="qnaPasswd" value="qna_passwd">';
+					str += '<input type="password" id="qnaPasswd" value="">';
 					str += '<a href="#" class="myButton">확인</a>'
 					str += '</td></tr>';
 				});
 				body.append(str);
+				$("a[name='title']").on("click", function(e){ //제목 
+					console.log("asdasd", $(this).parent().parent());
+					$(this).parent().parent().find('#pwdChk').show();
+				});
 				
 			}
 		}

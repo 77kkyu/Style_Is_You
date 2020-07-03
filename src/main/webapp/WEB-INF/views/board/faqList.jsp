@@ -127,14 +127,12 @@ li {
 			<%
 			if(sessionName.trim().equals("admin")) { 
  			%> 
- 				alert("작동1");
 				$("#wrapBtn").show();
 				$(".deleteBtn").show();
 			<%
 			}
 			else if(sessionName.trim().equals("nomal")){
 			%>
-				alert("작동2");
 				/* $("#wrapBtn").show(); */
 			<%
 			}
@@ -159,7 +157,7 @@ li {
 			comAjax.setUrl("<c:url value='/faq/selectFaqList.do' />");
 			comAjax.setCallback("fn_selectFaqListCallback");
 			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
-			comAjax.addParam("PAGE_ROW", 15);
+			comAjax.addParam("PAGE_ROW", 10);
 			comAjax.addParam("NOTICE_NO_FE", $("#NOTICE_NO_FE").val());
 			comAjax.ajax();
 		}
@@ -179,6 +177,7 @@ li {
 					divId : "PAGE_NAVI",
 					pageIndex : "PAGE_INDEX",
 					totalCount : total,
+					recordCount: 10,
 					eventName : "fn_selectFaqList"
 				};
 				gfn_renderPaging(params);
@@ -202,7 +201,18 @@ li {
 							"</tr>" ;
 				});
 				body.append(str);
-
+				$("a[name='title']").on("click", function(e){ //제목 
+					e.preventDefault();
+					//fn_openFaqDetail($(this));
+					var chkShow = $(this).attr('class');
+					if($("."+chkShow).parent().parent().attr('id') == 'on'){
+						$("#"+chkShow).hide();
+						$("."+chkShow).parent().parent().attr('id', 'off');
+					}else{
+						$("#"+chkShow).show();
+						$("."+chkShow).parent().parent().attr('id', 'on');
+					}
+			});
 			}
 		}
 	</script>	

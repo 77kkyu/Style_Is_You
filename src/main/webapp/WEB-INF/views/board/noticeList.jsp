@@ -143,7 +143,7 @@ li {
 			comAjax.setUrl("<c:url value='/notice/selectNoticeList.do' />");
 			comAjax.setCallback("fn_selectNoticeListCallback");
 			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
-			comAjax.addParam("PAGE_ROW", 15);
+			comAjax.addParam("PAGE_ROW", 10);
 			comAjax.addParam("NOTICE_NO_FE", $("#NOTICE_NO_FE").val());
 			comAjax.ajax();
 		}
@@ -163,6 +163,7 @@ li {
 					divId : "PAGE_NAVI",
 					pageIndex : "PAGE_INDEX",
 					totalCount : total,
+					recordCount: 10,
 					eventName : "fn_selectNoticeList"
 				};
 				gfn_renderPaging(params);
