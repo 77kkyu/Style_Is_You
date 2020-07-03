@@ -1118,15 +1118,10 @@ function fn_selectGoodsListCallback(data) {
 
 						});
 		body.append(str);
-
-
-	}
-}
-
-$(document).ready( function() { // 상품문의 토글
-    $( 'tr#show1' ).click( function() {
-      $( 'td#hide1' ).toggle( 'slow' );
-    });
+		$(document).ready( function() { // 상품문의 토글
+		    $( 'tr#show1' ).click( function() {
+		      $( 'tr#hide1' ).toggle( 'slow' );
+		    });
 
 		    $( 'tr#show2' ).click( function() {
 		        $( 'tr#hide2' ).toggle( 'slow' );
@@ -1160,13 +1155,9 @@ $(document).ready( function() { // 상품문의 토글
 		        $( 'tr#hide9' ).toggle( 'slow' );
 		      }); 
 
-
 		  });  
 	}
 }
-
-    
-
 
 
 function fn_selectReviewList(pageNo) {
