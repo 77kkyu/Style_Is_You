@@ -76,39 +76,32 @@
 	
 	<!-- 주문 후 회원정보 수정 -->
 	<update id="updateMemberTotal" parameterType="hashmap">
-	<selectKey keyProperty="PRICE" resultType="int" order="BEFORE">
-			SELECT 
-				MEMBER_TOTAL+ ${ORDER_TOTAL_ORDER_PRICE}
-			FROM 
-				MEMBER
-			WHERE 
-				MEMBER_NO = #{MEMBER_NO}
-		</selectKey>
 		<![CDATA[
 			UPDATE MEMBER 
 				SET
-    				MEMBER_TOTAL = ${PRICE}
+    				MEMBER_TOTAL = MEMBER_TOTAL+ ${ORDER_TOTAL_ORDER_PRICE}
 			WHERE
 				MEMBER_NO = ${MEMBER_NO}
 		]]>
 	</update>
-	<!-- 
+	
+	<!-- 총주문금액 -->
+	<select id="selectMemberTotal" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT MEMBER_TOTAL
+			FROM 
+				MEMBER
+			WHERE 
+				MEMBER_NO= #{MEMBER_NO}
+		]]>
+	</select>
+	
 	<update id="updateMemberGrade" parameterType="hashmap">
 			UPDATE MEMBER 
 				SET
-    		<choose>
-                <when test="MEMBER_TOTAL lt 200000">
-                    MEMBER_GRADE = 'NORMAL'
-                </when>
-                <when test="MEMBER_TOTAL lt 500000 and MEMBER_TOTAL gte 200000">
-                    MEMBER_GRADE = 'GOLD'
-                </when>
-                <otherwise>
-                    MEMBER_GRADE = 'VIP'
-                </otherwise>
-            </choose>
+                    MEMBER_GRADE = #{MEMBER_GRADE}
 			WHERE
 				MEMBER_NO = ${MEMBER_NO}
 	</update>
-		 -->
+	
 </mapper>
