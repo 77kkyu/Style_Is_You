@@ -281,7 +281,7 @@ h1 {
 </div>
 
 <div id="main-container">
-<table class="board_list" style="width:'100%'">
+<table class="board_list" style="width:100%">
 		<colgroup>
 			<col width="100%" />
 		</colgroup>

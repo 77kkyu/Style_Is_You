@@ -57,12 +57,10 @@ public class GoodsController {
 	@RequestMapping(value = "/shop/bestGoodsList.do") // url
 	public ModelAndView bestGoodsList(CommandMap commandMap) throws Exception { // BEST 리스트 출력
 
-		ModelAndView mv = new ModelAndView("shop/goodsList"); // 보낼 url
+		ModelAndView mv = new ModelAndView("shop/goodsList");
 
 		List<Map<String, Object>> list = goodsService.bestGoodsList(commandMap.getMap());
-		list.get(0);
-		System.out.println("index" + list.get(0));
-		System.out.println("get!!!!!!!!!!!!!" + commandMap.get("GOODS_NAME"));
+		
 		mv.addObject("list", list);
 		mv.addObject("titleMain", "베스트");
 
@@ -133,16 +131,7 @@ public class GoodsController {
 
 		list = goodsService.cateGoodsList(commandMap.getMap(), keyword);
 
-		/*
-		 * System.out.println("dd"+list.get(0).get("TOTAL_COUNT"));
-		 * list.get(0).get("TOTAL_COUNT");
-		 */
-		System.out.println("토탈카운트" + list.get(0).get("TOTAL_COUNT"));
-
-		list.get(0);
-		if (list.size() != 0) {
-			list.get(0).get("");
-		}
+		//System.out.println("토탈카운트" + list.get(0).get("TOTAL_COUNT"));
 
 		mv.addObject("list", list);
 		if (list.size() > 0) {
@@ -206,7 +195,7 @@ public class GoodsController {
 	@RequestMapping(value = "/shop/goodsDetail.do") 
 	public ModelAndView goodsDetail(CommandMap commandMap, HttpServletRequest request) throws Exception { // 상품디테일
 																											
-		ModelAndView mv = new ModelAndView("shop/goodsDetail"); 
+		ModelAndView mv = new ModelAndView("shop/goodsDetail2"); 
 		Map<String, Object> map = goodsService.selectGoodsDetail(commandMap.getMap(), request);
 		System.out.println("IDX = " + commandMap.getMap());
 		Map<String, Object> IDX = commandMap.getMap();

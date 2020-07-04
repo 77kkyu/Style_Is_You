@@ -193,6 +193,10 @@ h1 {
 	margin-left: 15px;
    float: ;
 }
+
+.imgswap img:last-child{display:none} 
+.imgswap:hover img:first-child{display:none} 
+.imgswap:hover img:last-child{display:inline-block}
 </style>
 <body>
 
@@ -216,7 +220,11 @@ h1 {
 		<c:forEach items="${list}" var="list">
 			<div class="card">
 			<a href="#this" name="title">
-			<img src="/stu/file/${list.GOODS_THUMBNAIL}" width="400" height="400">
+			<c:set var="IMG" value="${fn:split(list.GOODS_IMAGE_STD,',')}"/>
+			<div class="imgswap"> 
+			<img src="/stu/file/${IMG[0]}" width="400" height="400"> 
+			<img src="/stu/file/${IMG[1]}" width="400" height="400">
+		    </div>
 			<c:set var="PICK" value="${fn:split(list.GOODS_PICK,',')}"/>
 			<c:forEach var="PICK1" items="${PICK}" varStatus="g">
 				<c:if test="${g.count == 1 }">

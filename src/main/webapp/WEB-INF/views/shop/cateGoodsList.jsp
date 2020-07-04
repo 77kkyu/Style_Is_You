@@ -284,6 +284,7 @@ h1 {
     touch-action: pan-y;
 }
  */
+ 
 .imgswap img:last-child{display:none} 
 .imgswap:hover img:first-child{display:none} 
 .imgswap:hover img:last-child{display:inline-block}
@@ -297,8 +298,6 @@ h1 {
 
 <div style="margin-top:0px;">
 <form method="post">		
-				<%-- <input type="text" class="txt" placeholder="Search" name="keyword" id="keyword" value="${keyword}"/>&nbsp;
-				<input type="submit" value="상품검색" class="search_btn" onClick="onSearch()"/> --%>
 				<input type="hidden" id="path" value="${path}" />	
 				<div class="wrap">
 				   <div class="search">
@@ -330,7 +329,7 @@ h1 {
 </div>
 
 <div id="main-container">
-<table class="board_list" style="width:'100%'">
+<table class="board_list" style="width:100%">
 		<colgroup>
 			<col width="100%" />
 		</colgroup>
@@ -398,7 +397,7 @@ function fn_selectGoodsListCallback(data) {
 	body.empty();
 	
 	if (total == 0) {
-		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>"
+		var str = "<tr>" + "<td colspan='4' align='center'>조회된 결과가 없습니다.</td>"
 				+ "</tr>";
 		body.append(str);
 	} else {

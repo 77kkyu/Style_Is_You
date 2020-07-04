@@ -22,30 +22,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <head>
-<script type="text/javascript">
-/*  var img=new Array();
-img[0]=new Image(); img[0].src="/stu/img/옷1.JPG";
-img[1]=new Image(); img[1].src="/stu/img/옷2.JPG";
-img[2]=new Image(); img[2].src="/stu/img/옷3.JPG"; 
-var interval=1500;
-var n=0;
-
-var imgs = new Array("/stu/img/옷1.JPG","/stu/img/옷2.JPG","/stu/img/옷3.JPG","/stu/img/옷4.JPG");
-
-function rotate() {
-	
-if(navigator.appName=="Netscape" && document.getElementById) {
-	
-document.getElementById("slide").src=imgs[n];
-
-}else document.images.slide.src=imgs[n];
-(n==(imgs.length-1))?n=0:n++;
-setTimeout("rotate()",interval);
-
-} */
-</script>
 
 <style>
+
+#main-container
+{
+   min-height: 400px;
+   margin: 0 0 0 125px;
+   padding: 20px;
+   border-top: 1px solid #fff;  
+   border-right: 1px solid #fff;     
+   border-left: 1px solid #fff; 
+   border-bottom: 1px solid #fff;    
+}
 
 /* 폰트 */
 .mTitle {
@@ -284,7 +273,7 @@ h1 {
 </div>
 
 <div id="main-container">
-<table class="New_list" style="width:'100%'">
+<table class="New_list" style="width:100%">
 		<colgroup>
 			<col width="100%" />
 		</colgroup>
@@ -306,7 +295,7 @@ h1 {
 </div>
 
 <div id="main-container">
-<table class="Best_list" style="width:'100%'">
+<table class="Best_list" style="width:100%">
 		<colgroup>
 			<col width="100%" />
 		</colgroup>
@@ -412,12 +401,13 @@ function fn_selectNewItemListCallback(data) {
 							var img1 = imgpath1[1];
 							
 							var Pick = value.GOODS_PICK.split(',');
+
 							var pick1 = "";
 							var pick2 = "";
 							var pick3 = "";
 							var pick4 = "";
 							var num = "";
-							for (var i=0; i<Pick.length; i++) {
+						    for (var i=0; i<Pick.length; i++) {
 									Pick[i];
 									if(Pick[0] == null){
 										pick1 = "";
@@ -439,31 +429,29 @@ function fn_selectNewItemListCallback(data) {
 									}else{
 										pick4 = Pick[3];
 									}
-								}
+								} 
 							
 							
-									
-							
-							str += "<div class='card'>"
-								+		"<a href='#this' name='title'>"
-								+		"<div class='imgswap'>"
-								+ 		"<img src='/stu/file/"+img0+"' width='400' height='400'>" 
-								+ 		"<img src='/stu/file/"+img1+"' width='400' height='400'>"
+							str +=    "<div class='card'>"
+								+	  "<a href='#this' name='title'>"
+								+	  "<div class='imgswap'>"
+								+ 	  "<img src='/stu/file/"+img0+"' width='400' height='400'>" 
+								+ 	  "<img src='/stu/file/"+img1+"' width='400' height='400'>"
 								+     " </div> "
 								+     " <c:if test='${"+num+" ne "+pick1+"}'> "
 								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick1 +"</font></span>"	
+								+		pick1 +"</font></span>"
 								+	  " </c:if>"
 								+     " <c:if test='${"+num+" ne "+pick2+"}'> "
 								+     " <span style='background-color:#d456dc; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick2 + "</font></span>"
+								+	  	pick2 + "</font></span>"
 								+	  " </c:if>"
 								+     " <c:if test='${"+num+" ne "+pick3+" }'> "
 								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
 								+       pick3 + "</font></span>"
 								+	  " </c:if>"
 								+     " <c:if test='${"+num+" ne "+pick4+" }'> "
-								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
+								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2' "  
 								+       pick4 + "</font></span>"
 								+	  " </c:if> <br>"
 								+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"

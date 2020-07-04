@@ -60,6 +60,8 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 					<td>
 						<input type="text" id="GOODS_QNA_TITLE" name="GOODS_QNA_TITLE" placeholder="제목입력" size="60" 
 						style="padding:10px;" value=<c:if test="${type eq 'modify'}">"${map.GOODS_QNA_TITLE}"</c:if>>
+						<input type="radio" name="GOODS_QNA_SECRET" id="GOODS_QNA_SECRET" value="0" style="padding:10px;"> 공개
+					    <input type="radio" name="GOODS_QNA_SECRET" id="GOODS_QNA_SECRET" value="1" style="padding:10px;" checked="checked"> 비공개
 					</td>
 				</tr>
 				
@@ -82,7 +84,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 
 <div align="center">
 <a href="#this" class="btn" id="write" onClick="fn_chk()">작성하기</a>
-<a href="#this" class="btn" id="update" onClick="fn_chk()">수정하기</a>
+<!-- <a href="#this" class="btn" id="update" onClick="fn_chk()"></a> -->
 <a href="#this" class="btn" id="list">목록으로</a>
 </div>
 
@@ -93,7 +95,7 @@ a:link, a:visited {text-decoration: none; color: #656565;}
 
 $(function(){
 	CKEDITOR.replace('GOODS_QNA_CONTENT',{
-        width:'150%',
+        width:'110%',
         height:'400px',
 		//filebrowserUploadUrl: '${pageContext.request.contextPath }/ckeditor/fileupload.do'
         allowedContent:true,
@@ -134,9 +136,7 @@ $(document).ready(function() {
 
 function fn_openGoodsDetail() {
 
-	var comSubmit = new ComSubmit();
-	comSubmit.setUrl("<c:url value='/shop/goodsDetail.do' />");//이동할 url
-	comSubmit.submit(); //전송
+	window.history.back();
 	
 }
 

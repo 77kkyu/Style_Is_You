@@ -458,7 +458,7 @@ SELECT
 				) AA
 		          ) AAA
                WHERE GOODS_NO = #{IDX}
-              	AND AAA.RNUM BETWEEN 0 AND 5 
+              	AND AAA.RNUM BETWEEN 0 AND 9 
 		]]>
 	</select>
 	
@@ -472,7 +472,8 @@ SELECT
 								GOODS_QNA_TITLE,
 								GOODS_QNA_CONTENT,
 								GOODS_QNA_DATE,
-								MEMBER_NAME
+								MEMBER_NAME,
+								GOODS_QNA_SECRET
 								)
 						values(
 								GOODS_QNA_NO_SEQ.NEXTVAL,
@@ -482,7 +483,8 @@ SELECT
 								#{GOODS_QNA_TITLE},
 								#{GOODS_QNA_CONTENT},
 								sysdate,
-								#{MEMBER_NAME}
+								#{MEMBER_NAME},
+								#{GOODS_QNA_SECRET}
 							   )
 		]]>
 	</insert>
