@@ -285,7 +285,7 @@ function fn_select_order(){
                   				<img src='/stu/file/${row.GOODS_THUMBNAIL}' width="70px" height="70px">
                   			</td>
 							<td>
-				  				<a href="#">${row.GOODS_NAME }</a> <br>
+				  				<a href="/stu/shop/goodsDetail.do?IDX=${row.GOODS_NO }">${row.GOODS_NAME }</a> <br>
 				  				색상: ${row.GOODS_ATT_COLOR } <br> 
 				  				사이즈:${row.GOODS_ATT_SIZE } <br>
 				  			</td>

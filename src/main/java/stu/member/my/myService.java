@@ -37,6 +37,9 @@ public interface myService {
 
 	List<Map<String, Object>> myDash(CommandMap commandMap) throws Exception; // 마이페이지사이드바
 	
+	//나의 상품QNA글
+	List<Map<String, Object>> myGoodsQnaList(CommandMap commandMap) throws Exception; 
+	
 	
 	
 

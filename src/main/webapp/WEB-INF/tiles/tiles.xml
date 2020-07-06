@@ -103,6 +103,12 @@
   	
   </definition>
   
+  <definition name="/my/myGoodsQnaList" extends="base">
+  
+	<put-attribute name="content" value="/WEB-INF/views/my/myGoodsQnaList.jsp"/>
+  	
+  </definition>
+  
 
   <!-- 수민 -->
        <!--FAQ -->

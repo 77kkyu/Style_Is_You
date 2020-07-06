@@ -49,11 +49,14 @@ public class myDAO extends AbstractDao {
 	public void goodsLikeDelete(CommandMap commandMap) {
 		delete("goods.deleteGoodsLike", commandMap.getMap());
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> myDash(CommandMap map) throws Exception { //adminMain대쉬보드 
 		return (List<Map<String,Object>>) myDash("my.my_side",map);
+	}
+	
+	public List<Map<String, Object>> myQnaList(CommandMap commandMap) {
+		return (List<Map<String,Object>>) selectList("my.myGoodsQnaList",commandMap.getMap());
 	}
 
 

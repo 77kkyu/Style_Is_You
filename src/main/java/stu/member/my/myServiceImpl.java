@@ -72,6 +72,13 @@ public class myServiceImpl implements myService {
 		// TODO Auto-generated method stub
 		return myDAO.myDash(map);		
 	}
+
+	@Override
+	public List<Map<String, Object>> myGoodsQnaList(CommandMap commandMap) throws Exception {
+		return myDAO.myQnaList(commandMap);
+	}
+	
+	
 	
 	
 }

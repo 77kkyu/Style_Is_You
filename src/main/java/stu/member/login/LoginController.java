@@ -30,6 +30,7 @@ public class LoginController {
 	// 로그인 폼
 		@RequestMapping(value="/loginForm.do")
 		public ModelAndView loginForm(CommandMap commandMap) throws Exception {
+			
 			ModelAndView mv = new ModelAndView("login/loginForm");
 			
 			return mv;
