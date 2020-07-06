@@ -49,9 +49,9 @@ public class GoodsController {
 
 		mv.addObject("list", list);
 		mv.addObject("titleMain", "새상품");
-
+		
 		return mv;
-
+		
 	}
 
 	@RequestMapping(value = "/shop/bestGoodsList.do") // url
@@ -195,12 +195,13 @@ public class GoodsController {
 	@RequestMapping(value = "/shop/goodsDetail.do") 
 	public ModelAndView goodsDetail(CommandMap commandMap, HttpServletRequest request) throws Exception { // 상품디테일
 																											
-		ModelAndView mv = new ModelAndView("shop/goodsDetail2"); 
+		ModelAndView mv = new ModelAndView("shop/goodsDetail2");
+
 		Map<String, Object> map = goodsService.selectGoodsDetail(commandMap.getMap(), request);
 		System.out.println("IDX = " + commandMap.getMap());
 		Map<String, Object> IDX = commandMap.getMap();
 		System.out.println("map = " + map);
-
+		
 		mv.addObject("map", map.get("map")); // 상품의 PK값
 		mv.addObject("list", map); // 상품 상세 정보
 
@@ -396,6 +397,7 @@ public class GoodsController {
 	public ModelAndView goodsOrder(CommandMap commandMap, HttpServletRequest request) throws Exception { // 상품디테일에서 구매 
 		ModelAndView mv = new ModelAndView("order/orderWrite");
 
+		goodsService.gumeListDelete(commandMap.getMap());
 		Object MEMBER_NO = "";
 		// 세션값 가져오기
 		HttpSession session = request.getSession();
@@ -404,6 +406,8 @@ public class GoodsController {
 		commandMap.remove("MEMBER_NO");
 		// 세션 값으로 적용
 		commandMap.put("MEMBER_NO", MEMBER_NO);
+		
+		
 
 		System.out.println("CommandMap=" + commandMap.getMap());
 		commandMap.remove("resultList");
@@ -509,6 +513,19 @@ public class GoodsController {
 		return mv;
 
 	}
+	
+	@RequestMapping(value = "/shop/updateGoodsQna.do", method = RequestMethod.POST)
+	public ModelAndView updateGoodsQna(CommandMap commandMap, HttpServletRequest request) throws Exception { // QNA 답변 수정 및 등록
+
+		ModelAndView mv = new ModelAndView("redirect:/shop/goodsDetail.do"); // 보낼 url
+		System.out.println("상품 QNA 답변등록=" + commandMap.getMap());
+		goodsService.updateGoodsQna(commandMap.getMap(), request);
+
+		mv.addObject("GOODS_QNA_NO", commandMap.get("GOODS_QNA_NO"));
+		
+		return mv;
+
+	}
 
 	@RequestMapping(value = "/shop/openReviewForm.do")
 	public ModelAndView reviewForm(CommandMap commandMap) throws Exception { // Review 등록 폼
@@ -535,6 +552,7 @@ public class GoodsController {
 		return mv;
 
 	}
+	
 	
 	@RequestMapping(value = "/shop/openReviewUpdateForm.do")
 	public ModelAndView reviewUpdateForm(CommandMap commandMap) throws Exception { // Review 수정

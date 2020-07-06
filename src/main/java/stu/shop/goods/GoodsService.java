@@ -43,8 +43,12 @@ public interface GoodsService {
 	
 	void insertGoodsQna(Map<String, Object> map, HttpServletRequest request) throws Exception; // 상품문의 등록
 	
+	void updateGoodsQna(Map<String, Object> map, HttpServletRequest request) throws Exception; // 상품 답변
+	
 	void insertGoodsReview(Map<String, Object> map, HttpServletRequest request) throws Exception; // 리뷰 등록
 	
 	void updateReview(Map<String, Object> map, HttpServletRequest request) throws Exception; // 리뷰 수정
+	
+	void gumeListDelete(Map<String, Object> map) throws Exception; // 구매리스트 초기화
 
 }

@@ -52,6 +52,8 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public Map<String, Object> selectGoodsDetail(Map<String, Object> map, HttpServletRequest request) throws Exception { // 상품 디테일
 		System.out.println("map1111111="+map.get("IDX"));
+		
+		
 		if(map.get("IDX").getClass().getName().equals("java.lang.String")){  // PK값이 일반 스트링으로 왔을 때
 			Map<String,Object> map1 = new HashMap<String,Object>();
 			map1.put("IDX", map.get("IDX"));
@@ -401,11 +403,23 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void updateReview(Map<String, Object> map, HttpServletRequest request) throws Exception {
+	public void updateReview(Map<String, Object> map, HttpServletRequest request) throws Exception { //리뷰 업데이트 
 		goodsDao.updateReview(map);
 		
 	}
 
+	@Override
+	public void updateGoodsQna(Map<String, Object> map, HttpServletRequest request) throws Exception {// 상품문의 답변
+		goodsDao.updateGoodsQna(map);
+		
+	}
 
+	@Override
+	public void gumeListDelete(Map<String, Object> map) throws Exception {
+		goodsDao.gumeListDelete(map);
+		
+	}
 
+	
+	
 }

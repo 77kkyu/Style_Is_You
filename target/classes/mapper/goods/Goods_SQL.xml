@@ -452,7 +452,8 @@ SELECT
 				GOODS_QNA_CONTENT,
 				GOODS_QNA_DATE,
 				GOODS_QNA_SECRET,
-				MEMBER_NAME
+				MEMBER_NAME,
+				GOODS_QNA_AN
 			FROM
 				GOODS_QNA
 				) AA
@@ -488,6 +489,16 @@ SELECT
 							   )
 		]]>
 	</insert>
+	
+	<!-- 답변수정 -->
+ 	<update id="updateGoodsQna" parameterType="hashmap">
+			UPDATE GOODS_QNA
+			SET
+				GOODS_QNA_AN = #{GOODS_QNA_AN}, 
+				GOODS_QNA_LEVEL = 1
+			WHERE
+				GOODS_QNA_NO = #{GOODS_QNA_NO}
+ 	</update>
 	
 	
 	
@@ -572,6 +583,16 @@ SELECT
 			  AND   MEMBER_NO = #{MEMBER_NO}
 		]]>
 	</update>
+	
+	<delete id="gumeListDelete" parameterType="hashmap"> <!-- 구매목록 초기화 -->
+		<![CDATA[
+			DELETE  
+			  FROM  BASKET
+			WHERE   GUBUN = '1'
+		]]>
+	</delete>
+	
+	
 	
 	
 

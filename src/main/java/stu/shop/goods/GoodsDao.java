@@ -144,9 +144,18 @@ public class GoodsDao extends AbstractDao {
 	public void insertGoodsQna(Map<String, Object> map) throws Exception { // 상품 QNA 등록
 		insert("goods.insertGoodsQna", map);
 	}
+	
+	public void updateGoodsQna(Map<String, Object> map) throws Exception { // 상품 QNA 답변수정
+		update("goods.updateGoodsQna", map);
+	}
 
 	public void insertGoodsReview(Map<String, Object> map) throws Exception { // 상품 Review 등록
 		insert("goods.insertGoodsReview", map);
+	}
+	
+	public void gumeListDelete(Map<String, Object> map) throws Exception { // 구매 리스트 초기화
+		System.out.println("구매리스트 삭제:"+map);
+		delete("goods.gumeListDelete", map);
 	}
 
 }

@@ -271,6 +271,10 @@ h1 {
     border-radius: 3px;
 }
 
+p {
+	padding-top:5px;
+}
+
 </style>
 
 <body>
@@ -1004,7 +1008,7 @@ function fn_selectGoodsListCallback(data) {
 								var A= "<img src='/stu/img/ico_qna_a.png'>";
 								if(Level == 1){//답변
 									if(sc == 0){//공개
-							str += " <div> "
+							str += "  "
 								+  " <tr id='show"+cnt1+"'> "
 								+  " <td align='center' > "+value.RNUM+"</td>"
 								+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>"
@@ -1012,15 +1016,16 @@ function fn_selectGoodsListCallback(data) {
 								+  " <td align='center' > "+date+"</td>"
 								+  " <td align='center'> <span class='btn btn-danger'>답변완료</span></td>"
 								+  " </tr> "
-								+  " </div> "
+								//+  " </div> "
 								+  " <div> "
 								+  " <tr id='hide"+cnt1+"' width='100%' align='center' bgcolor='#f1f3f5' style='display:none;'> "
-								+  " <td colspan='5' style='padding-left:70px;' height='50px;' align='left'>"+value.GOODS_QNA_CONTENT+"</td> "
+								+  " <td colspan='5' style='padding:50px;' align='left'>"+Q+value.GOODS_QNA_CONTENT 
+								+  "<br> "+A+"<p>"+value.GOODS_QNA_AN+"</p> </td> "
 								+  " </tr>"
 								+  " </div> ";
 								cnt1++;
 									} else{//비공개
-										str += " <div> "
+										str += "  "
 											+  " <tr id='show"+cnt1+"'> "
 											+  " <td align='center' > "+value.RNUM+"</td>"
 											+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+" "+img+ "</td>"
@@ -1028,7 +1033,7 @@ function fn_selectGoodsListCallback(data) {
 											+  " <td align='center' > "+date+"</td>"
 											+  " <td align='center'> <span class='btn btn-danger'>답변완료</span></td>"
 											+  " </tr> "
-											+  " </div> "
+											//+  " </div> "
 											+  " <div> "
 											+  " <tr id='hide"+cnt1+"' width='100%' align='center' bgcolor='#f1f3f5' style='display:none;'> "
 											//+  " <td colspan='5' style='padding-left:70px;' height='50px;' align='left'>"+value.GOODS_QNA_CONTENT+"</td> "
@@ -1042,7 +1047,7 @@ function fn_selectGoodsListCallback(data) {
 										}
 								}else{//답변x 
 									if(sc == 0){//공개
-								str += " <tr align='center' id='show"+cnt1+"' > "
+								str += " <tr align='center' id='show"+cnt1+"'> "
 									+  " <td > "+value.RNUM+"</td>"
 									+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>"
 									+  " <td align='left'> "+value.MEMBER_NAME+"</td>"
@@ -1051,7 +1056,7 @@ function fn_selectGoodsListCallback(data) {
 									+  " </tr> "
 									+  " <div> "
 									+  " <tr id='hide"+cnt1+"' width='100%' align='center' bgcolor='#f1f3f5' style='display:none;'> "
-									+  " <td colspan='5' style='padding-left:70px;' height='50px;' align='left'>"+value.GOODS_QNA_CONTENT+"</td> "
+									+  " <td colspan='5' style='padding:50px;' align='left'>"+Q+value.GOODS_QNA_CONTENT+"</td> "
 									+  " </tr>"
 									+  " </div> ";
 									cnt1++;	
@@ -1078,6 +1083,11 @@ function fn_selectGoodsListCallback(data) {
 		
 		body.append(str);
 
+		/* function SnH(seq){
+			$( 'tr#show2').click( function() {
+			      $( 'tr#hide2').toggle( 'slow' );
+			});
+		} */
 		
 	     $(document).ready( function() { // 상품문의 토글
 		    $( 'tr#show1' ).click( function() {
