@@ -207,38 +207,54 @@
 				MEMBER_PASSWD,
 				TO_CHAR(MEMBER_BIRTH,'YYYY/MM/DD') MEMBER_BIRTH,
 				MEMBER_EMAIL,
-				MEMBER_PHONE,				MEMBER_ZIPCODE,
+				MEMBER_PHONE,				
+				MEMBER_ZIPCODE,
 				MEMBER_ADDR1,
-				MEMBER_ADDR2 
+				MEMBER_ADDR2,
+				EMAIL_AGREE,
+				SMS_AGREE
 			FROM 
 				MEMBER 
 			WHERE 
-				MEMBER_NO = #{MEMBER_NO}
+				MEMBER_ID = #{MEMBER_ID}
 		]]>
 	</select>
-	
+
+	<!-- 회원정보 수정 전 비밀번호 확인 -->
+	<select id="pwdCheck" parameterType="hashMap" resultType="String">
+	<![CDATA[
+		SELECT 
+			MEMBER_ID
+		FROM 
+			MEMBER
+		WHERE 
+			MEMBER_PASSWD = #{MEMBER_PASSWD} AND MEMBER_ID = #{MEMBER_ID}
+	]]>
+	</select>
 	
 	<!-- 회원 정보 수정 처리 -->
 	<update id="memberModifyAction" parameterType="hashmap">
-	<![CDATA[
 		UPDATE MEMBER SET
-			MEMBER_PASSWD = #{MEMBER_PASSWD},
-			MEMBER_EMAIL = #{MEMBER_EMAIL},
+			MEMBER_NAME = #{MEMBER_NAME},
+			<if test="MEMBER_NEWPASSWD != null and MEMBER_NEWPASSWD != ''">
+			MEMBER_PASSWD = #{MEMBER_NEWPASSWD},
+			</if> 
 			MEMBER_PHONE = #{MEMBER_PHONE},
 			MEMBER_ZIPCODE = #{MEMBER_ZIPCODE},
 			MEMBER_ADDR1 = #{MEMBER_ADDR1},
 			MEMBER_ADDR2 = #{MEMBER_ADDR2},
-			MEMBER_BIRTH = #{MEMBER_BIRTH} 
+			MEMBER_BIRTH = #{MEMBER_BIRTH},
+			EMAIL_AGREE = #{EMAIL_AGREE},
+			SMS_AGREE = #{SMS_AGREE}
 		WHERE 
 			MEMBER_NO = #{MEMBER_NO}
-	]]>
 	</update>
 	
 	<update id="memberDelete">
 		UPDATE MEMBER SET 
 			MEMBER_DELETE = '1' 
 		WHERE 
-			MEMBER_NO = #{MEMBER_NO}
+			MEMBER_ID = #{MEMBER_ID}
 	</update>
 
 	<!-- 포인트 목록 -->

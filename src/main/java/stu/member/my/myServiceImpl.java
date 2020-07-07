@@ -32,9 +32,15 @@ public class myServiceImpl implements myService {
 	public List<Map<String, Object>> orderList2(Map<String, Object> map) throws Exception {
 		return myDAO.orderList2(map);
 	}
+	
 	@Override
-	public Map<String, Object> memberModify(Map<String, Object> map) throws Exception {
-		return myDAO.memberModify(map);
+	public String pwdCheck(Map<String, Object> map, String id) throws Exception {
+		return myDAO.pwdCheck(map, id);
+	}
+
+	@Override
+	public Map<String, Object> memberModify(String id) throws Exception {
+		return myDAO.memberModify(id);
 	}
 	@Override
 	public void memberModifyAction(Map<String, Object> map) throws Exception {

@@ -245,6 +245,64 @@
 			WHERE order_no = ${order_no}
 		]]>
 	</update>
-
-
+	
+	<select id="selectMemberList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+				AAA.*
+			FROM(
+				SELECT
+				COUNT(*) OVER() AS TOTAL_COUNT,
+				AA.*
+				FROM(
+					SELECT 
+						ROWNUM RNUM,
+						MEMBER_NO,
+						MEMBER_ID,
+						MEMBER_NAME,
+						TO_CHAR(MEMBER_BIRTH,'YYYY/MM/DD') MEMBER_BIRTH,
+						MEMBER_EMAIL,
+						MEMBER_PHONE,				
+						MEMBER_ZIPCODE,
+						MEMBER_ADDR1,
+						MEMBER_ADDR2,
+		                TO_CHAR(MEMBER_DATE, 'YYYY/MM/DD') MEMBER_DATE,
+		                MEMBER_GRADE,
+		                MEMBER_TOTAL,
+		                TO_CHAR(MEMBER_LOG, 'YYYY/MM/DD') MEMBER_LOG,
+		                DECODE(MEMBER_DELETE,'0','가입','탈퇴') MEMBER_DELETE,
+						EMAIL_AGREE,
+						SMS_AGREE
+					FROM 
+						MEMBER 
+		]]>
+			<choose>
+				<when test="searchOption == 'all'">
+					WHERE 
+						MEMBER_ID LIKE '%${keyword}%'
+					OR 
+						MEMBER_NAME LIKE '%${keyword}%'
+					OR 
+						MEMBER_GRADE LIKE '%${keyword}%'
+				</when>
+				<when test="searchOption == 'MEMBER_ID'">
+					WHERE 
+						MEMBER_ID LIKE '%${keyword}%'
+				</when>
+				<when test="searchOption == 'MEMBER_NAME'">
+					WHERE 
+						MEMBER_NAME LIKE '%${keyword}%'
+				</when>
+				<when test="searchOption == 'MEMBER_GRADE'">
+					WHERE 
+						MEMBER_GRADE LIKE '%${keyword}%'
+				</when>
+				<otherwise>
+				</otherwise>
+			</choose>
+					)AA
+				)AAA
+				WHERE
+					AAA.RNUM BETWEEN #{START} AND #{END}
+	</select>
 </mapper>

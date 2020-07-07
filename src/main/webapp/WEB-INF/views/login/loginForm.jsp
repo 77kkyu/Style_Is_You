@@ -1,75 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title>로그인 폼</title>
-
-<script type="text/javascript">
-	if('${message}' != "") {
-			alert('${message}');
-		}
-</script>
-
+	pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/stu/css/login.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style>
-	a {
-		text-decoration:none;
-	}
-	
-	.Action {
-		border:1px solid #bebebe;
-		font-size:20px;
-		width:410px;
-		height:50px;
-		background-color:salmon;
-		color:white;
-	}
+#loginform {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 50px;
+	text-align: center;
+	margin-bottom: 100px
+}
+
+.contents {
+	font-size : 40px;
+}
+
+.logintable>a {
+	float: right;
+	padding-left: 24px;
+}
+
+.logintable>input {
+	width: 100%;
+	height: 50px;
+	border: 1px solid #e0e0e0;
+	margin-bottom: 20px
+}
+
+button {
+	width: 100%;
+	height: 50px;
+	display: block;
+	border: none;
+	margin-top: 10px;
+	font-size: 20px;
+}
 </style>
 
+<form action="/stu/loginAction.do" method="POST" id="frm">
+	<div id="loginform">
+		<h3 class="contents">로그인</h3>
+		<div class="logintable">
+			<input type="text" class="form-control" name="MEMBER_ID"
+				id="MEMBER_ID" placeholder="아이디">
+			<input type="password" class="form-control" name="MEMBER_PASSWD"
+				id="MEMBER_PASSWD" placeholder="비밀번호">
+			<a href="/stu/findPw.do">비밀번호
+					재설정</a>
+			<a href="/stu/findId.do">아이디
+					찾기</a>
+			
+				<button type="submit" class="defaultBtn loginBtn" id="login">로그인</button>
+			
+		</div>
+		<p>
+			아직 회원이 아니신가요? <a href="/stu/joinForm.do">회원가입하기</a>
 
+		</p>
+	</div>
+</form>
 
-</head>
-<body>
-<br><br><br>
-	<h3 align="center" style="font-size:40px;">로그인</h3>
-	<form name="frm" method="POST" action="/stu/loginAction.do">
-	<table align="center" cellspacing="15" width="300" style="margin:auto;">
-			<input type="hidden" name="MEMBER_NO">
-			<input type="hidden" name="MEMBER_NAME">
-			<input type="hidden" name="MEMBER_PHONE">
-			<input type="hidden" name="MEMBER_EMAIL">
-			<input type="hidden" name="MEMBER_ZIPCODE">
-			<input type="hidden" name="MEMBER_ADDR1">
-			<input type="hidden" name="MEMBER_ADDR2">
-			<input type="hidden" name="MEMBER_BIRTH">
-		<tr>
-			<td>
-				<input type="text" name="MEMBER_ID" placeholder="아이디" size="50" style="padding:15px;" maxlength="20">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type="password" name="MEMBER_PASSWD" placeholder="비밀번호"size="50" style="padding:15px;" maxlength="15">
-			</td>
-		</tr>
-	</table>
-		<p align="center">
-			<input type="submit" class="Action" value="로그인">
-		</p>
-	</form>
+<script type="text/javascript">
+if('${message}' != "") {
+	alert('${message}');
+}
+//공란 확인
+$(document).ready(function() {
 	
-	<br>
-	<br>
-	<br>
-	
-		<p align="center" style="margin-left:7px;font-size:18px;">
-			<a href="/stu/joinForm.do">회원가입</a> |
-			<a href="/stu/findId.do">아이디 찾기</a> |
-			<a href="/stu/findPw.do">비밀번호 찾기</a>
-		</p>
-</body>
-</html>
+	$("#login").unbind("click").click(function(e) {
+		e.preventDefault();
+		fn_login();
+	});
+
+	function fn_login() {
+		if($("#MEMBER_ID").val()==""){
+			alert("아이디를 입력해주세요");
+			$("#MEMBER_ID").focus();
+		} else if($("#MEMBER_PASSWD").val()==""){
+			alert("비밀번호를 입력해주세요");
+			$("#MEMBER_PASSWD").focus();
+		} else {
+			$("#frm").submit();
+		}
+	}
+});
+</script>

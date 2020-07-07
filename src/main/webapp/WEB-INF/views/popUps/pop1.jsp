@@ -5,7 +5,7 @@
 <head>
 <style>
 .mgt0 {margin-top:0 !important;}
-.guide_wrap {margin:20px 0; padding:40px 7%; border:1px solid #e7e7e7; background:#fff; font-size:14px;}
+.guide_wrap {margin:20px 0; padding:40px 7%; border:1px solid #e7e7e7; background:#fff; font-size:14px; overflow:scroll; width:570px; height:500px;}
 .guide_wrap p {margin:20px 0 0 0; font-size:14px; line-height:18px;}
 .guide_wrap ol {margin-top:30px; font-size:18px; line-height:24px;}
 .guide_wrap ol li {margin-top:10px; font-weight:bold;}

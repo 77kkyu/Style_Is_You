@@ -453,12 +453,42 @@ public class AdminMainController {
 	
 		return mv;
 	}
-	  
+	 
+	//회원 목록
+	@RequestMapping(value="/member_admin.do")
+	public ModelAndView member_admin(CommandMap commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("admin/member_admin");
+		
+		List<Map<String, Object>> member_admin_list = adminMainService.selectMemberList(commandMap.getMap());
+		
+		mv.addObject("member_admin_list", member_admin_list);
+		
+		System.out.println("멤버리스트"+member_admin_list);
+		
+		return mv;
+	}
+	
+	//회원 목록 페이징
+	@RequestMapping(value="/member_admin_list.do")
+	public ModelAndView member_admin_list(CommandMap commandMap) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("jsonView");
+		
+		List<Map<String, Object>> member_admin_list = adminMainService.selectMemberList(commandMap.getMap());
+		
+		mv.addObject("member_admin_list", member_admin_list);
+		
+		if(member_admin_list.size()>0) {
+			mv.addObject("TOTAL", member_admin_list.get(0).get("TOTAL_COUNT"));
+		}else {
+			mv.addObject("TOTAL", 0);
+		}
+		
+		return mv;
+	}
 	  
 }
-
-
-
 
 
 

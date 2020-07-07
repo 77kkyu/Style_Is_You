@@ -156,6 +156,10 @@ public class AbstractDao {
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params); // 한줄데이터는 object로 가져올것
 	      }
+	      public List<Map<String,Object>> selectMemberList(String queryId, Object params) { // 회원목록/관리에서 회원리스트 가져옴
+	    	  printQueryId(queryId);
+	    	  return sqlSession.selectList(queryId,params);
+	      }
 	      public void change_detail_insert(String queryId, Object params) { // 
 	         printQueryId(queryId);
 	         sqlSession.insert(queryId,params);
