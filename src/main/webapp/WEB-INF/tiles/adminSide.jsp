@@ -53,8 +53,8 @@
 						<!-- <li><a href="">- 할인 적용</a></li> -->
 					</ul></li>
 
-				<!-- 
-				<li><a href="#"
+				
+				<li><a href="/stu/member_admin.do"
 					style="background: #e7e7e7; border-bottom: 1px solid #F8F8F8;">
 						<b class="fa fa-dashboard fa-fw">회원관리</b> 
 				</a></li>
@@ -63,7 +63,7 @@
 					style="background: #e7e7e7; border-bottom: 1px solid #F8F8F8;">
 						<b class="fa fa-dashboard fa-fw">매출확인</b> 
 				</a></li>
-				 -->
+				
 
 				<li class="active"><a href="#" style="background: #e7e7e7;">
 						<b class="fa fa-bar-chart-o fa-fw">게시판관리</b> <span class="fa arrow">▼</span>

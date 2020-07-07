@@ -134,6 +134,11 @@ public class AdminDao extends AbstractDao{
 		cashback_final_orderState("admin.cashback_final_orderState",commandMap.getMap());
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectMemberList(Map<String, Object> map) throws Exception {
+		System.out.println("맵,,.: "+map);
+		return (List<Map<String, Object>>) selectPagingList("admin.selectMemberList", map);
+	}
 	
 	
 }

@@ -23,9 +23,13 @@ public class myDAO extends AbstractDao {
 		return (List<Map<String,Object>>) orderList("my.selectOrderList2",map);
 	}
 	// 회원 정보 수정
+	public String pwdCheck(Map<String, Object> map, String id) throws Exception{
+		return (String) selectOne("my.pwdCheck", map);
+	}
+	
 	@SuppressWarnings("unchecked")
-	public Map<String,Object> memberModify(Map<String, Object> map) throws Exception {
-		return (Map<String,Object>) selectOne("my.memberModify",map);
+	public Map<String,Object> memberModify(String id) throws Exception {
+		return (Map<String,Object>) selectOne("my.memberModify",id);
 	}
 	
 	public void memberModifyAction(Map<String, Object> map) throws Exception {

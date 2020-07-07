@@ -51,6 +51,20 @@ public class JoinController {
 	public ModelAndView insertMember(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("login/joinAction");
 		
+		// 이메일, SMS 수신 여부
+		String email_agree = (String)commandMap.get("EMAIL_AGREE");
+		String sms_agree = (String)commandMap.get("SMS_AGREE");
+		
+		// 체크를 하지 않으면 '0' 으로 set 후 넘김
+		if(email_agree == null) {
+			email_agree = "0";
+			commandMap.put("EMAIL_AGREE", email_agree);
+		}
+		if(sms_agree == null) {
+			sms_agree = "0";
+			commandMap.put("SMS_AGREE", sms_agree);
+		}
+		
 		// 이메일
 		// 직접입력이 아닌 선택입력일 경우
 		String email = request.getParameter("MEMBER_EMAIL") + "@" + request.getParameter("MEMBER_EMAIL2");
@@ -134,30 +148,4 @@ public class JoinController {
     	
     	return mv;
     }
-    
-    //주소 팝업 창
-    @RequestMapping(value = "jusoPopup.do")
-    public ModelAndView jusoPopup(CommandMap commandMap) throws Exception {
-    	return new ModelAndView("popUps/jusoPopup");
-    }
-	
-/*  KMK - 필요 없을 듯
-	// 첫번째 약관 내용보기
-	@RequestMapping(value="/pop1.do")
-	public ModelAndView pop1() throws Exception {
-		ModelAndView mv = new ModelAndView("popUps/pop1");
-		
-		return mv;
-	}
-	
-	// 두번째 약관 내용보기
-	@RequestMapping(value="/pop2.do")
-	public ModelAndView pop2() throws Exception {
-		ModelAndView mv = new ModelAndView("popUps/pop2");
-		
-		return mv;
-	}
-*/
-
-
 }

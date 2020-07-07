@@ -19,7 +19,9 @@
 			    MEMBER_ADDR2,
 			    MEMBER_DATE,
 			    MEMBER_GRADE,
-			    MEMBER_LOG
+			    MEMBER_LOG,
+			    EMAIL_AGREE,
+			    SMS_AGREE
 			)
 			VALUES
 			(
@@ -35,7 +37,9 @@
 				#{MEMBER_ADDR2},
 				sysdate,
 				'NORMAL',
-				sysdate
+				sysdate,
+				#{EMAIL_AGREE},
+				#{SMS_AGREE}
 			)
 		]]>
 	</insert>
@@ -59,8 +63,8 @@
 			(
 				POINT_NO_SEQ.NEXTVAL,
 				#{MEMBER_NO},
-				0,
-				0
+				10000,
+				10000
 			)
 		]]>
 	</insert>

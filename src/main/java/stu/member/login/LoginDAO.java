@@ -19,11 +19,14 @@ public class LoginDAO extends AbstractDao {
 			return (Map<String, Object>)selectOne("login.selectFindId", map);
 		}
 		
-	// 핸드폰으로 비밀번호 찾기
-		public Map<String, Object> selectFindPw(Map<String, Object> map) throws Exception {
-			return (Map<String, Object>)selectOne("login.selectFindPw", map);
+	// 비밀번호 초기화 전 아이디 얻기
+		public String selectFindPw(Map<String, Object> map) throws Exception {
+			return (String)selectOne("login.selectFindPw", map);
 		}
-		
+	// 임시 비밀번호로 변경
+		public void updatePw(Map<String, Object> map) throws Exception {
+			update("login.updatePw", map);
+		}
 	// 이메일로 아이디 찾기
 		public Map<String, Object> selectFindId2(Map<String, Object> map) throws Exception {
 			return (Map<String, Object>)selectOne("login.selectFindId2", map);
