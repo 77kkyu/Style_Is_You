@@ -271,6 +271,10 @@ h1 {
     border-radius: 3px;
 }
 
+p {
+	padding-top:5px;
+}
+
 </style>
 
 <body>
@@ -443,71 +447,50 @@ h1 {
 	<br><br><br><br><br>
 	<div align="center">
 		<ul class="nav nav-tabs" id="myTab" role="tablist" style="width: 60%">
-			<li class="nav-item" role="presentation" style="width: 25%"><a
+			<li class="nav-item" role="presentation" style="width: 25%" id="f1"><a
 				class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
-				role="tab" aria-controls="home" aria-selected="true">상세정보</a></li>
+				role="tab" aria-controls="home" aria-selected="true" onClick="fnMove(1)">상세정보</a></li>
 			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="profile-tab" data-toggle="tab" href="#profile"
-				role="tab" aria-controls="profile" aria-selected="false">상품문의</a></li>
+				 id="profile-tab"  href="#profile"
+				role="tab" aria-controls="profile" aria-selected="false" onClick="fnMove(2)">상품문의</a></li>
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="contact-tab"  href="#contact"
+				role="tab" aria-controls="contact" aria-selected="false" onClick="fnMove(3)">쇼핑가이드</a></li>
 			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="contact-tab" data-toggle="tab" href="#contact"
-				role="tab" aria-controls="contact" aria-selected="false">쇼핑가이드</a></li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="contact-tab" data-toggle="tab" href="#re"
-				role="tab" aria-controls="re" aria-selected="false">상품평</a></li>
+				 id="contact-tab"  href="#re"
+				role="tab" aria-controls="re" aria-selected="false" onClick="fnMove(4)">상품평</a></li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="home" role="tabpanel"
 				aria-labelledby="home-tab">${list.GOODS_CONTENT}</div>
 			<!-- 상세정보 -->
 
-
-			<div class="tab-pane fade" id="profile" role="tabpanel"
-				aria-labelledby="profile-tab">
-				<!-- 상품문의 -->
-
-			</div>
-
-
-			<div class="tab-pane fade" id="contact" role="tabpanel"
-				aria-labelledby="contact-tab" align="left"
-				style="margin-left: 400px">
-				<!-- 쇼핑가이드 -->
-				<%@ include file="/WEB-INF/views/shop/guide.jsp"%>
-			</div>
-			<div class="tab-pane fade" id="re" role="tabpanel"
-				aria-labelledby="contact-tab">...</div>
-			<!-- 상품평 -->
-		</div>
 	</div>
-
+</div>
 	<br>
 	<br>
 
 	<div align="center">
 		<ul class="nav nav-tabs" id="myTab" role="tablist" style="width: 60%">
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="home-tab" data-toggle="tab" href="#home1"
-				role="tab" aria-controls="home1" aria-selected="false">상세정보</a></li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="home-tab"  href="#home1"
+				role="tab" aria-controls="home1" aria-selected="false" onClick="fnMove(1)">상세정보</a></li>
+			<li class="nav-item" role="presentation" style="width: 25%" id="f2"><a
 				class="nav-link active" id="profile-tab" data-toggle="tab"
 				href="#profile1" role="tab" aria-controls="profile1"
-				aria-selected="true">상품문의</a></li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="contact-tab" data-toggle="tab" href="#contact1"
-				role="tab" aria-controls="contact1" aria-selected="false">쇼핑가이드</a>
+				aria-selected="true" onClick="fnMove(2)">상품문의</a></li>
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="contact-tab"  href="#contact1"
+				role="tab" aria-controls="contact1" aria-selected="false" onClick="fnMove(3)">쇼핑가이드</a>
 			</li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="contact-tab" data-toggle="tab" href="#re1"
-				role="tab" aria-controls="re1" aria-selected="false">상품평</a></li>
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="contact-tab"  href="#re1"
+				role="tab" aria-controls="re1" aria-selected="false" onClick="fnMove(4)">상품평</a></li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade" id="home1" role="tabpanel"
-				aria-labelledby="home-tab">${list.GOODS_CONTENT}</div>
-			<!-- 상세정보 -->
 
 			<div class="tab-pane fade show active" id="profile1" role="tabpanel"
-				aria-labelledby="profile-tab">
+				aria-labelledby="profile-tab1">
 				<!-- 상품문의 -->
 
 				<table align="center" class="board_list">
@@ -550,17 +533,7 @@ h1 {
 
 
 			</div>
-
-			<div class="tab-pane fade" id="contact1" role="tabpanel"
-				aria-labelledby="contact-tab" align="left"
-				style="margin-left: 400px">
-				<!-- 쇼핑가이드 -->
-				<%@ include file="/WEB-INF/views/shop/guide.jsp"%>
-			</div>
-			<div class="tab-pane fade" id="re1" role="tabpanel"
-				aria-labelledby="contact-tab">...</div>
-			<!-- 상품평 -->
-		</div>
+</div>
 	</div>
 
 	<br>
@@ -568,72 +541,56 @@ h1 {
 
 	<div align="center">
 		<ul class="nav nav-tabs" id="myTab" role="tablist" style="width: 60%">
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="home-tab" data-toggle="tab" href="#home2"
-				role="tab" aria-controls="home2" aria-selected="false">상세정보</a></li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="profile-tab" data-toggle="tab" href="#profile2"
-				role="tab" aria-controls="profile2" aria-selected="false">상품문의</a></li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="home-tab"  href="#home2"
+				role="tab" aria-controls="home2" aria-selected="false" onClick="fnMove(1)">상세정보</a></li>
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="profile-tab"  href="#profile2"
+				role="tab" aria-controls="profile2" aria-selected="false" onClick="fnMove(2)">상품문의</a></li>
+			<li class="nav-item" role="presentation" style="width: 25%" id="f3"><a
 				class="nav-link active" id="contact-tab" data-toggle="tab"
 				href="#contact2" role="tab" aria-controls="contact2"
-				aria-selected="true">쇼핑가이드</a></li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="contact-tab" data-toggle="tab" href="#re2"
-				role="tab" aria-controls="re2" aria-selected="false">상품평</a></li>
+				aria-selected="true" onClick="fnMove(3)">쇼핑가이드</a></li>
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="contact-tab"  href="#re2"
+				role="tab" aria-controls="re2" aria-selected="false" onClick="fnMove(4)">상품평</a></li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade" id="home2" role="tabpanel"
-				aria-labelledby="home-tab">${list.GOODS_CONTENT}</div>
-			<!-- 상세정보 -->
-			<div class="tab-pane fade" id="profile2" role="tabpanel"
-				aria-labelledby="profile-tab">...</div>
-			<!-- 상품문의 -->
+			
+			
 			<div class="tab-pane fade show active" id="contact2" role="tabpanel"
 				aria-labelledby="contact-tab" align="left"
 				style="margin-left: 400px">
 				<!-- 쇼핑가이드 -->
 				<%@ include file="/WEB-INF/views/shop/guide.jsp"%>
 			</div>
-			<div class="tab-pane fade" id="re2" role="tabpanel"
-				aria-labelledby="contact-tab">...</div>
-			<!-- 상품평 -->
-		</div>
+			
 	</div>
+</div>
 
 	<br>
 	<br>
 
 	<div align="center">
 		<ul class="nav nav-tabs" id="myTab" role="tablist" style="width: 60%">
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="home-tab" data-toggle="tab" href="#home3"
-				role="tab" aria-controls="home3" aria-selected="false">상세정보</a></li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="profile-tab" data-toggle="tab" href="#profile3"
-				role="tab" aria-controls="profile3" aria-selected="false">상품문의</a></li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
-				class="nav-link" id="contact-tab" data-toggle="tab" href="#contact3"
-				role="tab" aria-controls="contact3" aria-selected="false">쇼핑가이드</a>
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="home-tab"  href="#home3"
+				role="tab" aria-controls="home3" aria-selected="false" onClick="fnMove(1)">상세정보</a></li>
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="profile-tab"  href="#profile3"
+				role="tab" aria-controls="profile3" aria-selected="false" onClick="fnMove(2)">상품문의</a></li>
+			<li class="nav-item" role="presentation" style="width: 25%" ><a
+				 id="contact-tab"  href="#contact3"
+				role="tab" aria-controls="contact3" aria-selected="false" onClick="fnMove(3)">쇼핑가이드</a>
 			</li>
-			<li class="nav-item" role="presentation" style="width: 25%"><a
+			<li class="nav-item" role="presentation" style="width: 25%" id="f4"><a
 				class="nav-link active" id="contact-tab" data-toggle="tab"
-				href="#re3" role="tab" aria-controls="re3" aria-selected="true">상품평</a>
+				href="#re3" role="tab" aria-controls="re3" aria-selected="true" onClick="fnMove(4)">상품평</a>
 			</li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade" id="home3" role="tabpanel"
-				aria-labelledby="home-tab">${list.GOODS_CONTENT}</div>
-			<!-- 상세정보 -->
-			<div class="tab-pane fade" id="profile3" role="tabpanel"
-				aria-labelledby="profile-tab">...</div>
-			<!-- 상품문의 -->
-			<div class="tab-pane fade" id="contact3" role="tabpanel"
-				aria-labelledby="contact-tab" align="left"
-				style="margin-left: 400px">
-				<!-- 쇼핑가이드 -->
-				<%@ include file="/WEB-INF/views/shop/guide.jsp"%>
-			</div>
+			
+			
 			<div class="tab-pane fade show active" id="re3" role="tabpanel"
 				aria-labelledby="contact-tab">
 				<!-- 상품평 -->
@@ -689,6 +646,11 @@ h1 {
 
 
 <script type="text/javascript">
+
+function fnMove(seq){
+    var offset = $('#f' + seq).offset();
+    $('html').animate({scrollTop : offset.top}, 400);
+}
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -1046,7 +1008,7 @@ function fn_selectGoodsListCallback(data) {
 								var A= "<img src='/stu/img/ico_qna_a.png'>";
 								if(Level == 1){//답변
 									if(sc == 0){//공개
-							str += " <div> "
+							str += "  "
 								+  " <tr id='show"+cnt1+"'> "
 								+  " <td align='center' > "+value.RNUM+"</td>"
 								+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>"
@@ -1054,15 +1016,16 @@ function fn_selectGoodsListCallback(data) {
 								+  " <td align='center' > "+date+"</td>"
 								+  " <td align='center'> <span class='btn btn-danger'>답변완료</span></td>"
 								+  " </tr> "
-								+  " </div> "
+								//+  " </div> "
 								+  " <div> "
 								+  " <tr id='hide"+cnt1+"' width='100%' align='center' bgcolor='#f1f3f5' style='display:none;'> "
-								+  " <td colspan='5' style='padding-left:70px;' height='50px;' align='left'>"+value.GOODS_QNA_CONTENT+"</td> "
+								+  " <td colspan='5' style='padding:50px;' align='left'>"+Q+value.GOODS_QNA_CONTENT 
+								+  "<br> "+A+"<p>"+value.GOODS_QNA_AN+"</p> </td> "
 								+  " </tr>"
 								+  " </div> ";
 								cnt1++;
 									} else{//비공개
-										str += " <div> "
+										str += "  "
 											+  " <tr id='show"+cnt1+"'> "
 											+  " <td align='center' > "+value.RNUM+"</td>"
 											+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+" "+img+ "</td>"
@@ -1070,7 +1033,7 @@ function fn_selectGoodsListCallback(data) {
 											+  " <td align='center' > "+date+"</td>"
 											+  " <td align='center'> <span class='btn btn-danger'>답변완료</span></td>"
 											+  " </tr> "
-											+  " </div> "
+											//+  " </div> "
 											+  " <div> "
 											+  " <tr id='hide"+cnt1+"' width='100%' align='center' bgcolor='#f1f3f5' style='display:none;'> "
 											//+  " <td colspan='5' style='padding-left:70px;' height='50px;' align='left'>"+value.GOODS_QNA_CONTENT+"</td> "
@@ -1084,7 +1047,7 @@ function fn_selectGoodsListCallback(data) {
 										}
 								}else{//답변x 
 									if(sc == 0){//공개
-								str += " <tr align='center' id='show"+cnt1+"' > "
+								str += " <tr align='center' id='show"+cnt1+"'> "
 									+  " <td > "+value.RNUM+"</td>"
 									+  " <td class='align_left'> "+value.GOODS_QNA_TITLE+"</td>"
 									+  " <td align='left'> "+value.MEMBER_NAME+"</td>"
@@ -1093,7 +1056,7 @@ function fn_selectGoodsListCallback(data) {
 									+  " </tr> "
 									+  " <div> "
 									+  " <tr id='hide"+cnt1+"' width='100%' align='center' bgcolor='#f1f3f5' style='display:none;'> "
-									+  " <td colspan='5' style='padding-left:70px;' height='50px;' align='left'>"+value.GOODS_QNA_CONTENT+"</td> "
+									+  " <td colspan='5' style='padding:50px;' align='left'>"+Q+value.GOODS_QNA_CONTENT+"</td> "
 									+  " </tr>"
 									+  " </div> ";
 									cnt1++;	
@@ -1119,15 +1082,21 @@ function fn_selectGoodsListCallback(data) {
 						});
 		
 		body.append(str);
+
+		/* function SnH(seq){
+			$( 'tr#show2').click( function() {
+			      $( 'tr#hide2').toggle( 'slow' );
+			});
+		} */
 		
 	     $(document).ready( function() { // 상품문의 토글
 		    $( 'tr#show1' ).click( function() {
 		      $( 'tr#hide1' ).toggle( 'slow' );
-		    });
+		    }); 
 
 		    $( 'tr#show2' ).click( function() {
 		        $( 'tr#hide2' ).toggle( 'slow' );
-		      });
+		      }); 
 
 		    $( 'tr#show3' ).click( function() {
 		        $( 'tr#hide3' ).toggle( 'slow' );

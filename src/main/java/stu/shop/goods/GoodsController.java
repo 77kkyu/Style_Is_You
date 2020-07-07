@@ -195,7 +195,7 @@ public class GoodsController {
 	@RequestMapping(value = "/shop/goodsDetail.do") 
 	public ModelAndView goodsDetail(CommandMap commandMap, HttpServletRequest request) throws Exception { // 상품디테일
 																											
-		ModelAndView mv = new ModelAndView("shop/goodsDetail2");
+		ModelAndView mv = new ModelAndView("shop/goodsDetail");
 
 		Map<String, Object> map = goodsService.selectGoodsDetail(commandMap.getMap(), request);
 		System.out.println("IDX = " + commandMap.getMap());
