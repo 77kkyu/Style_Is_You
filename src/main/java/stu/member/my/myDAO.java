@@ -58,6 +58,10 @@ public class myDAO extends AbstractDao {
 	public List<Map<String, Object>> myQnaList(CommandMap commandMap) {
 		return (List<Map<String,Object>>) selectList("my.myGoodsQnaList",commandMap.getMap());
 	}
+	
+	public List<Map<String, Object>> myReviewList(CommandMap commandMap) {
+		return (List<Map<String,Object>>) selectList("my.myReviewList",commandMap.getMap());
+	}
 
 
 }

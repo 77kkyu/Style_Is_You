@@ -306,6 +306,22 @@
 		]]>
 	</select>
 	
+	<!-- 나의 상품Review 목록 -->
+	<select id="myReviewList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				SELECT 
+  					R.REVIEW_NO, R.MEMBER_NO, R.ORDER_NO, R.ORDER_DETAIL_NO,
+					R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_RATING, R.REVIEW_DATE,
+					R.GOODS_NO, R.REVIEW_READCNT, R.REVIEW_IMG,
+					G.GOODS_NAME, G.GOODS_THUMBNAIL
+  				FROM 
+  					REVIEW R, GOODS G
+  				WHERE
+					MEMBER_NO = #{MEMBER_NO}
+				AND R.GOODS_NO = G.GOODS_NO
+		]]>
+	</select>
+	
 	
 	
 	

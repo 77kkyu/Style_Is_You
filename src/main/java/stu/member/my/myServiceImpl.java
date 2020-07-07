@@ -77,6 +77,12 @@ public class myServiceImpl implements myService {
 	public List<Map<String, Object>> myGoodsQnaList(CommandMap commandMap) throws Exception {
 		return myDAO.myQnaList(commandMap);
 	}
+
+	@Override
+	public List<Map<String, Object>> myReviewList(CommandMap commandMap) {
+		return myDAO.myReviewList(commandMap);
+	}
+	
 	
 	
 	

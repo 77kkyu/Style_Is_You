@@ -109,6 +109,12 @@
   	
   </definition>
   
+  <definition name="/my/myReviewList" extends="base">
+  
+	<put-attribute name="content" value="/WEB-INF/views/my/myReviewList.jsp"/>
+  	
+  </definition>
+  
 
   <!-- 수민 -->
        <!--FAQ -->

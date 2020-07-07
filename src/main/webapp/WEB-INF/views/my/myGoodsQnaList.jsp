@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/uiii.css'/>" />
 
 <!-- json날짜형식 변환 -->
 <script type="text/javascript"
@@ -25,7 +25,7 @@
 	font-size: 14px;
 	color: #666;
 	font-weight: 400;
-	text-align: center;
+	/* text-align: center; */
 }
 
 .board_list {
@@ -74,7 +74,7 @@
 
 .board_list td {
 	padding: 16px 0;
-	text-align: center;
+	text-align: left; 
 	border-bottom: 1px solid #e0e0e0;
 	font-size: 14px;
 	color: #444;
@@ -105,11 +105,21 @@ h1 {
     letter-spacing: 10px;
 }  
 
+img {
+	align:left;
+}
+p{
+	align:center;
+}
+
+
+
+
 </style>
 <body>
 <div align="center">
 <br/><br/><br/>
-	<h2 align="center">상품 Q&A</h2>
+	<h2 align="center">나의 상품 Q&A</h2>
 	<br/><br/>
 
 	<%-- <table class="table table-striped">
@@ -137,7 +147,7 @@ h1 {
 		<colgroup>
 			<col width="10%"/>
 			<col width="10%"/>
-			<col width="*"/>
+			<col width="50%"/>
 			<col width="15%"/>
 			<col width="15%"/>
 		</colgroup>
@@ -149,19 +159,11 @@ h1 {
 				<th style="text-align:center">답변</th>
 			</tr>
 		</thead>
-	</table>
-	<table class="board_list2">
 		<tbody id="board_list1" name="board_list1">
-			<colgroup>
-				<col width="10%"/>
-				<col width="10%"/>
-				<col width="*"/>
-				<col width="15%"/>
-				<col width="15%"/>
-			</colgroup>
-			
+		
 		</tbody>
 	</table>
+	
 </div>	
 	<br>
 	<div class="pageNumber" id="PAGE_NAVI"></div>
@@ -218,8 +220,8 @@ h1 {
 				$.each(data.list, function(key, value){
 					var date = moment(value.GOODS_QNA_DATE).format("YYYY-MM-DD");
 					var Level = value.GOODS_QNA_LEVEL;
-					var Q= "<img src='/stu/img/ico_qna_q.png'>";
-					var A= "<img src='/stu/img/ico_qna_a.png'>";
+					var Q= "<img src='/stu/img/ico_qna_q.png' align='left'>";
+					var A= "<img src='/stu/img/ico_qna_a.png' align='left'>";
 					/* var Level1 = "0";
 					$.each(Level,function(idx,row){
 						if(Level[idx].NAME == "0"){
@@ -244,12 +246,9 @@ h1 {
 							+  " <td align='center'> <span class='btn btn-danger'>답변완료</span></td>"
 							+  " </tr> "
 							+  " <div> "
-							+  " <tr id='hide' align='center' bgcolor='#f1f3f5' style='display:none;'> "
-							+  " <td align='center' colspan='5'>"+Q+value.GOODS_QNA_CONTENT+"</td> "
-							+  " </tr>"
-							+  " <tr id='hide' width='100%' align='center' bgcolor='#f1f3f5' style='display:none;'> "
-							+  " <td colspan='5' style='padding:50px;' align='left'>"+Q+value.GOODS_QNA_CONTENT 
-							+  " <br> "+A+"<p>"+value.GOODS_QNA_AN+"</p> </td> "
+							+  " <tr id='hide' width='100%' bgcolor='#f1f3f5' style='display:none;'> "
+							+  " <td colspan='5' style='padding:50px;' align='left'>"+Q+"&nbsp;"+value.GOODS_QNA_CONTENT 
+							+  " <br><br><br> "+A+" &nbsp; <p>"+value.GOODS_QNA_AN+"</p> </td> "
 							+  " </tr>"
 							+  " </div> ";
 								
@@ -263,7 +262,7 @@ h1 {
 								+  " <td align='center'> <span class='btn btn-danger'>답변 준비중</span></td>"
 								+  " </tr> "
 								+  " <div> "
-								+  " <tr id='hide' align='center' bgcolor='#f1f3f5' style='display:none;'> "
+								+  " <tr id='hide' bgcolor='#f1f3f5' style='display:none;'> "
 								+  " <td colspan='5' style='padding:50px;' align='left'>"+Q+value.GOODS_QNA_CONTENT +"</td> "
 								+  " </tr>"
 								+  " </div> ";
