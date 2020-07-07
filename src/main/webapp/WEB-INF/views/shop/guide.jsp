@@ -8,7 +8,7 @@
 <body>
 <br>
 <br>
-<div style='width:100%;'>
+<div style="width:100%;">
 <pre>
 <b>[배송안내]</b> 
 

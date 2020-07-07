@@ -283,7 +283,7 @@ p {
 
 	<br>
 	
-	<div style="width:100%; position:relative; left:calc(50% - 600px); height:600px; display:inline">
+	<div style="width:100%; position:relative; left:calc(50% - 600px); height:600px;">
 		
 		<div style="float:left; width:500;">
 			<table border="0">
