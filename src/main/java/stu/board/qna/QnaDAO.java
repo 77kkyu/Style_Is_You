@@ -35,7 +35,6 @@ public class QnaDAO extends AbstractDao{
 
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> selectQnaPassword(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return (Map<String, Object>) selectOne("qna.selectQnaPassword", map);
 	}
 

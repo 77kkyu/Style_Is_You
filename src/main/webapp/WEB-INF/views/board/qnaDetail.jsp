@@ -31,7 +31,7 @@
 		<tbody>
 			<tr>
 				<th scope="row">글 번호</th>
-				<td align="center">${map.QNA_NO }</td>
+				<td align="center">1</td>
 				<th scope="row">문의내용</th>
 				<td id="qna_gubunaa" align="center"></td>
 			</tr>
@@ -39,20 +39,20 @@
 				<th scope="row">작성자</th>
 				<td align="center"><%=sessionId%></td>
 				<th scope="row">작성시간</th>
-				<td align="center">${map.QNA_DATE }</td>
+				<td align="center">${map.QNA_DATE}</td>
 			</tr>
 			<tr>
 				<th scope="row">제목</th>
-				<td colspan="3" align="left">${map.QNA_TITLE }</td>
+				<td colspan="3" align="left">${map.QNA_TITLE}</td>
 			</tr>
 			<tr>
 				<th scope="row">내용</th>
-				<td colspan="4" align="left">${map.QNA_CONTENT }</td>
+				<td colspan="4" align="left">${map.QNA_CONTENT}</td>
 			</tr>
 		</tbody>
 		<tr rows="10" cols="140" title="답변">
 			<th scope="row">답변</th>
-			<td colspan="4" align="left" id="qna_an"><font color="blue" size="5px">${map.QNA_AN }</font></td>
+			<td colspan="4" align="left" id="qna_an"><font color="blue" size="5px">${map.QNA_AN}</font></td>
 		</tr>
 	</table>
 	<br/>

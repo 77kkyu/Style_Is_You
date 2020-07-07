@@ -100,17 +100,20 @@ li {
 				fn_openQnaWrite();
 			});	
 			
-			$("a[name='title']").on("click", function(e){ //제목 
-				console.log("asdasd", $(this).parent().parent());
-				$(this).parent().parent().find('#pwdChk').show();
-			});
+// 			$("a[name='title']").on("click", function(e){ //제목 
+// 				console.log("asdasd", $(this).parent().parent());
+// 				$(this).parent().parent().find('#pwdChk').show();
+// 			});
 
 			$(".myButton").on("click", function(e){ //제목 
 // 				var qnaPass = ${param.QNA_PASSWD};
-				var qnaPass = $('#qnaPasswd').val(); 
+				var qnaPassId = $(this).parent().children()[0].id;
+				var qnaPass = $('#'+qnaPassId).val(); 
+				var qnaNo = $(this).parent().parent()[0].getElementsByClassName('qnaNo')[0].value;
 				var data = {
 					QNA_PASSWD : qnaPass,
-					QNA_NO : 2
+					QNA_NO : qnaNo
+					RNUM : 1
 				};
 
 				if (qnaPass.length > 0){
@@ -121,7 +124,7 @@ li {
 			            success : function(res) {
 			            	if(res == 1){
 			            		e.preventDefault();
-			 					fn_openQnaDetail($(this));
+			 					fn_openQnaDetail(qnaNo);
 				            }else{
 					        	alert("password error");
 				            }		
@@ -152,15 +155,15 @@ li {
 			comSubmit.submit();
 		}
 		
-		function fn_openQnaDetail(obj){
+		function fn_openQnaDetail(qna_no){
 			
 			//$('#pwdChk').show();
-			console.log("asdq",obj);
+// 			console.log("asdq",obj);
 			//if($('#qnaPasswd').val())
 			
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/qna/openQnaDetail.do' />"); 
-			comSubmit.addParam("QNA_NO", obj.parent().parent().find("input[name='title']").val());
+			comSubmit.addParam("QNA_NO", qna_no);
 			comSubmit.submit();
 		
 		}
@@ -173,7 +176,7 @@ li {
 			comAjax.addParam("PAGE_ROW", 10);
 			comAjax.addParam("QNA_NO_FE", $("#QNA_NO_FE").val());
 			comAjax.ajax();
-		}
+		} 
 		
 		function fn_selectQnaListCallback(data){
 			var total = data.TOTAL;
@@ -198,23 +201,34 @@ li {
 				var str = "";
 				$.each(data.list, function(key, value){
 					str += "<tr>" + 
-								"<td>" + value.RNUM + "</td>" + 
+								"<td id='rnum" + value.RNUM + "' >" + value.RNUM + "</td>" + 
 								"<td class='title'>" +
-									"<a href='#this' name='title'>" + value.QNA_TITLE + "   " +
+									"<a href='#this' class='chk"+ value.RNUM +"' name='title'>" + value.QNA_TITLE + "   " +
 									+ value.QNA_LEVEL + "</a>" +
-									"<input type='hidden' name='title' value=" + value.QNA_NO + ">" + 
+									"<input type='hidden' name='title' class='qnaNo' value=" + value.QNA_NO + ">" + 
 								"</td>" +
 								"<td>" + value.QNA_NAME + "</td>" + 
 								"<td>" + value.QNA_DATE + "</td>";
-					str += '<td id="pwdChk" style="display:none;" colspan="4">Password : ';
-					str += '<input type="password" id="qnaPasswd" value="">';
+					str += '<td style="display:none;" id="chk' + value.RNUM + '" colspan="4">Password : ';
+					str += '<input type="password" id="qnaPasswd' + value.RNUM + '" value="">';
 					str += '<a href="#" class="myButton">확인</a>'
 					str += '</td></tr>';
 				});
 				body.append(str);
 				$("a[name='title']").on("click", function(e){ //제목 
-					console.log("asdasd", $(this).parent().parent());
-					$(this).parent().parent().find('#pwdChk').show();
+// 					console.log("asdasd", $(this).parent().parent());
+// 					$(this).parent().parent().find('#pwdChk').show();
+					e.preventDefault();
+					//fn_openFaqDetail($(this));
+					var chkShow = $(this).attr('class');
+					if($("."+chkShow).parent().parent().attr('id') == 'on'){
+						$("#"+chkShow).hide();
+						$("."+chkShow).parent().parent().attr('id', 'off');
+					}else{
+						$("#"+chkShow).show();
+						$("."+chkShow).parent().parent().attr('id', 'on');
+// 						$("#"+chkShow).css('display', 'unset');
+					}
 				});
 				
 			}

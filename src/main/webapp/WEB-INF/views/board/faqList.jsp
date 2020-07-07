@@ -112,18 +112,18 @@ li {
 				fn_deleteFaq($(this));
 			});
 			
-			$("a[name='title']").on("click", function(e){ //제목 
-				e.preventDefault();
-				//fn_openFaqDetail($(this));
-				var chkShow = $(this).attr('class');
-				if($("."+chkShow).parent().parent().attr('id') == 'on'){
-					$("#"+chkShow).hide();
-					$("."+chkShow).parent().parent().attr('id', 'off');
-				}else{
-					$("#"+chkShow).show();
-					$("."+chkShow).parent().parent().attr('id', 'on');
-				}
-		});
+// 			$("a[name='title']").on("click", function(e){ //제목 
+// 				e.preventDefault();
+// 				//fn_openFaqDetail($(this));
+// 				var chkShow = $(this).attr('class');
+// 				if($("."+chkShow).parent().parent().attr('id') == 'on'){
+// 					$("#"+chkShow).hide();
+// 					$("."+chkShow).parent().parent().attr('id', 'off');
+// 				}else{
+// 					$("#"+chkShow).show();
+// 					$("."+chkShow).parent().parent().attr('id', 'on');
+// 				}
+// 		});
 			<%
 			if(sessionName.trim().equals("admin")) { 
  			%> 
@@ -211,6 +211,7 @@ li {
 					}else{
 						$("#"+chkShow).show();
 						$("."+chkShow).parent().parent().attr('id', 'on');
+// 						$("#"+chkShow).css('display', 'unset');
 					}
 			});
 			}
