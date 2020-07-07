@@ -285,13 +285,13 @@ p {
 	
 	<div style="width:100%; align:center; height:600px;">
 		
-		<div style="float:left; margin-left:350px; width:26%;">
-			<table border="0" width="500">
-				<tr>
-					<td><img src="/stu/file/${list.GOODS_THUMBNAIL }" width="500"
-						height="500" /></td>
-				</tr>
-			</table>
+		
+		
+		<div style="float:left; margin-left:350px; width:26%; border: 1px solid red;">
+		
+					<img src="/stu/file/${list.GOODS_THUMBNAIL }" 
+						style="border: 1px solid red; height:auto; width:100%"/>
+			
 		</div>
 
 		<div style="float:left; margin-left:30px; width:36%;">
@@ -438,6 +438,7 @@ p {
 			<!-- <button id="update" onclick="fn_update()">수정하기</button> -->
 		
 		</div>
+		
 	</div>
 	
 
