@@ -283,18 +283,18 @@ p {
 
 	<br>
 	
-	<div style="width:100%; align:center; height:600px;">
+	<div style="width:100%; position:relative; left:calc(50% - 600px); height:600px; display:inline">
 		
-		<div style="float:left; margin-left:350px; width:26%;">
-			<table border="0" width="500">
+		<div style="float:left; width:500;">
+			<table border="0">
 				<tr>
-					<td><img src="/stu/file/${list.GOODS_THUMBNAIL }" width="500"
+					<td><img src="/stu/file/${list.GOODS_THUMBNAIL}" width="500"
 						height="500" /></td>
 				</tr>
 			</table>
 		</div>
 
-		<div style="float:left; margin-left:30px; width:36%;">
+		<div style="float:left; margin-left:30px; width:682;">
 			<table border="0">
 
 				<tr>
@@ -438,6 +438,8 @@ p {
 			<!-- <button id="update" onclick="fn_update()">수정하기</button> -->
 		
 		</div>
+	</div>
+	
 	</div>
 	
 
@@ -636,7 +638,7 @@ p {
 
 			</div>
 		</div>
-	</div>
+	
 
 
 	<form id="commonForm" name="commonForm"></form>
