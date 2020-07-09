@@ -59,6 +59,7 @@
 				TO_CHAR(QNA_DATE, 'YYYY.MM.DD') AS QNA_DATE, 
 				QNA_TITLE,  
 				QNA_CONTENT,
+				QNA_NAME,
 				QNA_AN
 			FROM 
 				QNA

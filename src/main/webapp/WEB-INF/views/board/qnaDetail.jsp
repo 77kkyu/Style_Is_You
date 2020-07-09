@@ -31,13 +31,13 @@
 		<tbody>
 			<tr>
 				<th scope="row">글 번호</th>
-				<td align="center">1</td>
+				<td align="center">${map.RNUM}</td>
 				<th scope="row">문의내용</th>
 				<td id="qna_gubunaa" align="center"></td>
 			</tr>
 			<tr>
 				<th scope="row">작성자</th>
-				<td align="center"><%=sessionId%></td>
+				<td align="center">${map.QNA_NAME}</td>
 				<th scope="row">작성시간</th>
 				<td align="center">${map.QNA_DATE}</td>
 			</tr>

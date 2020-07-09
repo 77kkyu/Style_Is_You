@@ -33,8 +33,9 @@ public class QnaController {
 	@RequestMapping(value="/qna/selectQnaList.do")
     public ModelAndView selectQnaList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
-    	
+    	System.out.println("ㅇㅇㅇ");
     	List<Map<String,Object>> list = qnaService.selectQnaList(commandMap.getMap());
+    	System.out.println(list);
     	mv.addObject("list", list);
     	if(list.size() > 0){
     		mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
