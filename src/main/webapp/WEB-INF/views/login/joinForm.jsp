@@ -252,7 +252,6 @@
 	        } else {
 					return true;
 		        }
-		  });
 	     /*  //이름의 유효성 검사
 	      if(!getCheck.test($("#MEMBER_ID").val())){
 	        alert("아이디를 형식에 맞게 입력해주세요");

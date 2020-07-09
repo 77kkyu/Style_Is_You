@@ -74,6 +74,31 @@
 						<li><a href="/stu/">- 구매후기</a></li>
 						<li><a href="/stu/">- 상품Q&A</a></li>
 					</ul></li>
+					
+				<!-- s 쿠폰 추가 2020.06.25 -->
+				<li class="active">
+					<a href="#" style="background: #e7e7e7;">
+						<b class="fa fa-bar-chart-o fa-fw">쿠폰관리</b> <span class="fa arrow">▼</span>
+					</a>
+					<ul class="nav nav-second-level">
+						<li><a href="/stu/adminCouponList.do">- 쿠폰목록/수정</a></li>
+						<li><a href="/stu/adminCouponWriteForm.do">- 쿠폰등록</a></li>
+					</ul>
+				</li>
+				<!-- e 쿠폰 추가 2020.06.25 -->
+				
+				<!-- s 이벤트 추가 2020.06.30 -->
+				<li class="active">
+					<a href="#" style="background: #e7e7e7;">
+						<b class="fa fa-bar-chart-o fa-fw">이벤트관리</b> <span class="fa arrow">▼</span>
+					</a>
+					<ul class="nav nav-second-level">
+						<li><a href="/stu/adminEventList.do">- 이벤트목록/수정</a></li>
+						<li><a href="/stu/adminEventWriteForm.do">- 이벤트등록</a></li>
+					</ul>
+				</li>
+				<!-- e 이벤트 추가 2020.06.30 -->
+				
 			</ul>
 		</div>
 		<!-- /.sidebar-collapse -->
@@ -87,8 +112,7 @@
 
 
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 	<script src="js/bootstrap.min.js"></script>
 </body>
