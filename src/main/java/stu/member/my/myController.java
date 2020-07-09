@@ -303,8 +303,9 @@ public class myController {
 			// 세션 값으로 적용
 					 
 			List<Map<String,Object>> list = myService.myReviewList(commandMap);
-			//
-			//
+			
+
+			System.out.println(list);
 					
 			mv.addObject("list", list);
 			if (list.size() > 0) {
@@ -312,7 +313,6 @@ public class myController {
 			} else {
 				mv.addObject("TOTAL", 0);
 			}
-			System.out.println(list);
 			return mv;
 		}
 	

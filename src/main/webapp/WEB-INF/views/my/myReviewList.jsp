@@ -125,8 +125,8 @@ p{
 	<table align="center" class="board_list">
 		<colgroup>
 			<col width="10%"/>
-			<col width="10%"/>
-			<col width="50%"/>
+			<col width="20%"/>
+			<col width="40%"/>
 			<col width="15%"/>
 			<col width="15%"/>
 		</colgroup>
@@ -134,7 +134,7 @@ p{
 			<tr>
 				<th colspan="2">후기상품</th>
 				<th style="text-align:center">제목</th>
-				<th style="text-align:center">평점</th>
+				<th style="text-align:center">작성자</th>
 				<th style="text-align:center">작성일</th>
 			</tr>
 		</thead>
@@ -195,7 +195,7 @@ p{
 				gfn_renderPaging(params);
 
 				var str = "";
-				$.each(data.reviewList, function(key, value) {
+				$.each(data.list, function(key, value) {
 									var date = moment(value.REVIEW_DATE).format("YYYY-MM-DD");
 									var img = "<img src='/stu/img/icon_201602021908415400.jpg' >"
 									var REVIEW_IMG = value.REVIEW_IMG;
@@ -208,20 +208,19 @@ p{
 										+  "<td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 										+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
 										+  " <td id='show' align='center'> "+value.REVIEW_TITLE+"</td> "
-										+  " <td class='td1'>"+value.REVIEW_RATING+"</td> "
+										+  " <td align='center' > "+value.MEMBER_NAME+"</td>"
 										+  " <td align='center' > "+date+"</td>"
 										+  " </tr> "
 										+  " <tr id='hide' style='display:none;'> "
 										+  " <td colspan='5'> "+value.REVIEW_CONTENT+" </td>"
 										+  " </tr> ";
-										cnt++;
 										
 									}else{
 										str += " <tr> "
 											+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 											+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
 											+  " <td id='show' align='center'> "+value.REVIEW_TITLE+" "+img+ "</td> "
-											+  " <td class='td1'>"+value.REVIEW_RATING+"</td> "
+											+  " <td align='center' > "+value.MEMBER_NAME+"</td>"
 											+  " <td align='center' > "+date+"</td>"
 											+  " </tr> "
 											+  " <tr id='hide' style='display:none;'> "
