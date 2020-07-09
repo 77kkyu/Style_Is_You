@@ -289,8 +289,7 @@
   					COUPON C, COUPON_STATUS S
   				WHERE
 					MEMBER_NO = #{MEMBER_NO}
-				AND C.COUPON_NO = C.COUPON_NO
-					
+				AND C.COUPON_NO = S.COUPON_NO
 		]]>
 	</select>
 	
@@ -305,9 +304,42 @@
   				WHERE
 					L.MEMBER_NO = #{MEMBER_NO}
 				AND L.GOODS_NO = G.GOODS_NO
-					
 		]]>
 	</select>
+	
+	<!-- 나의 상품QNA 목록 -->
+	<select id="myGoodsQnaList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				SELECT 
+  					Q.GOODS_QNA_NO, Q.GOODS_NO, Q.GOODS_QNA_CONTENT, 
+  					Q.GOODS_QNA_TITLE, Q.GOODS_QNA_LEVEL, Q.GOODS_QNA_DATE, 
+  					Q.GOODS_QNA_SECRET, Q.GOODS_QNA_AN, G.GOODS_NAME, G.GOODS_THUMBNAIL
+  				FROM 
+  					GOODS_QNA Q, GOODS G
+  				WHERE
+					MEMBER_NO = #{MEMBER_NO}
+				AND Q.GOODS_NO = G.GOODS_NO
+		]]>
+	</select>
+	
+	<!-- 나의 상품Review 목록 -->
+	<select id="myReviewList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				SELECT 
+  					R.REVIEW_NO, R.MEMBER_NO, R.ORDER_NO, R.ORDER_DETAIL_NO,
+					R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_RATING, R.REVIEW_DATE,
+					R.GOODS_NO, R.REVIEW_READCNT, R.REVIEW_IMG, R.MEMBER_NAME,
+					G.GOODS_NAME, G.GOODS_THUMBNAIL
+  				FROM 
+  					REVIEW R, GOODS G
+  				WHERE
+					MEMBER_NO = #{MEMBER_NO}
+				AND R.GOODS_NO = G.GOODS_NO
+		]]>
+	</select>
+	
+	
+	
 	
 		
 </mapper>

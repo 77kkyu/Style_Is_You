@@ -119,23 +119,44 @@ p{
 <body>
 <div align="center">
 <br/><br/><br/>
-	<h2 align="center">나의 상품 후기</h2>
+	<h2 align="center">나의 상품 Q&A</h2>
 	<br/><br/>
 
-	<table align="center" class="board_list">
+	<%-- <table class="table table-striped">
 		<colgroup>
 			<col width="10%"/>
-			<col width="20%"/>
-			<col width="40%"/>
+			<col width="10%"/>
+			<col width="*"/>
 			<col width="15%"/>
 			<col width="15%"/>
 		</colgroup>
 		<thead>
 			<tr>
-				<th colspan="2">후기상품</th>
+				<th colspan="2">문의상품</th>
 				<th style="text-align:center">제목</th>
-				<th style="text-align:center">작성자</th>
 				<th style="text-align:center">작성일</th>
+				<th style="text-align:center">답변</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table> --%>
+	
+	<table align="center" class="board_list">
+		<colgroup>
+			<col width="10%"/>
+			<col width="10%"/>
+			<col width="50%"/>
+			<col width="15%"/>
+			<col width="15%"/>
+		</colgroup>
+		<thead>
+			<tr>
+				<th colspan="2">문의상품</th>
+				<th style="text-align:center">제목</th>
+				<th style="text-align:center">작성일</th>
+				<th style="text-align:center">답변</th>
 			</tr>
 		</thead>
 		<tbody id="board_list1" name="board_list1">
@@ -154,7 +175,7 @@ p{
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			fn_selectReviewList(1);
+			fn_selectQnaList(1);
 			
 			
 			$("#show").on("click", function(e){ //제목 
@@ -167,71 +188,86 @@ p{
 		});
 		
 		
-		function fn_selectReviewList(pageNo){
+		function fn_selectQnaList(pageNo){
 			var comAjax = new ComAjax();
-			comAjax.setUrl("<c:url value='/my/myReviewList.do' />");
-			comAjax.setCallback("fn_selectReviewListCallback");
+			comAjax.setUrl("<c:url value='/my/myGoodsQnaList.do' />");
+			comAjax.setCallback("fn_selectQnaListCallback");
 			comAjax.addParam("PAGE_INDEX", $("#PAGE_INDEX").val());
 			comAjax.addParam("PAGE_ROW", 15);
 			comAjax.ajax();
 		}
 		
-		function fn_selectReviewListCallback(data){
+		function fn_selectQnaListCallback(data){
 			var total = data.TOTAL;
 			var body = $("#board_list1");
 			body.empty();
-			if (total == 0) {
-				var str = "<tr>" + "<td colspan='5' align='center'>조회된 결과가 없습니다.</td>"
-						+ "</tr>";
+			if(total == 0){
+				var str = "<tr>" + 
+								"<td colspan='5'>등록된 게시물이 없습니다.</td>" + 
+							"</tr>";
 				body.append(str);
-			} else {
+			}
+			else{
 				var params = {
 					divId : "PAGE_NAVI",
 					pageIndex : "PAGE_INDEX",
 					totalCount : total,
-					recordCount : 9,
-					eventName : "fn_selectReviewList"
+					eventName : "fn_selectQnaList"
 				};
 				gfn_renderPaging(params);
-
+				
 				var str = "";
-				$.each(data.list, function(key, value) {
-									var date = moment(value.REVIEW_DATE).format("YYYY-MM-DD");
-									var img = "<img src='/stu/img/icon_201602021908415400.jpg' >"
-									var REVIEW_IMG = value.REVIEW_IMG;
-									var gubun = value.REVIEW_NO;
-									var imgpath = "<img src='/stu/file/"+value.REVIEW_IMG+"' width='500' height='400'>";
-									
-									
-									if(REVIEW_IMG == null){
-									str += " <tr> "
-										+  "<td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
-										+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
-										+  " <td id='show' align='center'> "+value.REVIEW_TITLE+"</td> "
-										+  " <td align='center' > "+value.MEMBER_NAME+"</td>"
-										+  " <td align='center' > "+date+"</td>"
-										+  " </tr> "
-										+  " <tr id='hide' style='display:none;'> "
-										+  " <td colspan='5'> "+value.REVIEW_CONTENT+" </td>"
-										+  " </tr> ";
-										
-									}else{
-										str += " <tr> "
-											+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
-											+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
-											+  " <td id='show' align='center'> "+value.REVIEW_TITLE+" "+img+ "</td> "
-											+  " <td align='center' > "+value.MEMBER_NAME+"</td>"
-											+  " <td align='center' > "+date+"</td>"
-											+  " </tr> "
-											+  " <tr id='hide' style='display:none;'> "
-											+  " <td colspan='5'> "+imgpath
-											+  " <br><br><br> "+value.REVIEW_CONTENT+" </td>"
-											+  " </tr> ";
-									
+				$.each(data.list, function(key, value){
+					var date = moment(value.GOODS_QNA_DATE).format("YYYY-MM-DD");
+					var Level = value.GOODS_QNA_LEVEL;
+					var Q= "<img src='/stu/img/ico_qna_q.png' align='left'>";
+					var A= "<img src='/stu/img/ico_qna_a.png' align='left'>";
+					/* var Level1 = "0";
+					$.each(Level,function(idx,row){
+						if(Level[idx].NAME == "0"){
+							return Level[idx];	
+						}else if(Level[idx].NAME == "0") {
+							return Level[idx];
+						}
+						return ""
+					});
+					alert(Level);  */
 
-									}
-									
-								});
+					//var Level = 0;
+					//alert(value.GOODS_QNA_LEVEL == 1);
+					
+					
+					if(Level == 1){
+						str += " <tr > "
+							+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
+							+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
+							+  " <td id='show' align='center'> "+value.GOODS_QNA_TITLE+"</td>"
+							+  " <td align='center' > "+date+"</td>"
+							+  " <td align='center'> <span class='btn btn-danger'>답변완료</span></td>"
+							+  " </tr> "
+							+  " <div> "
+							+  " <tr id='hide' width='100%' bgcolor='#f1f3f5' style='display:none;'> "
+							+  " <td colspan='5' style='padding:50px;' align='left'>"+Q+"&nbsp;"+value.GOODS_QNA_CONTENT 
+							+  " <br><br><br> "+A+" &nbsp; <p>"+value.GOODS_QNA_AN+"</p> </td> "
+							+  " </tr>"
+							+  " </div> ";
+								
+							}else{
+
+							str += " <tr > "
+								+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
+								+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
+								+  " <td id='show' align='center'> "+value.GOODS_QNA_TITLE+"</td>"
+								+  " <td align='center' > "+date+"</td>"
+								+  " <td align='center'> <span class='btn btn-danger'>답변 준비중</span></td>"
+								+  " </tr> "
+								+  " <div> "
+								+  " <tr id='hide' bgcolor='#f1f3f5' style='display:none;'> "
+								+  " <td colspan='5' style='padding:50px;' align='left'>"+Q+value.GOODS_QNA_CONTENT +"</td> "
+								+  " </tr>"
+								+  " </div> ";
+							}
+			});
 				body.append(str);
 				
 			}
