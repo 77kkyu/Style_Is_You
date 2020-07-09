@@ -16,26 +16,6 @@
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<script>
-<%-- 
-function logout(){
-	
-	var con = confirm("접속을 종료하시겠습니까");
-	if(con){
-		<%
-		session.removeAttribute("SESSION_NO");
-		session.removeAttribute("SESSION_ID");
-		%>
-		//session값을 제거
-	 	location.href = "/stu/main.do";
-		// 페이지의 메인으로 이동
-		
-	}else{
-		return;
-	}
-}
- --%>
-</script>
 
 </head>
 <body>
@@ -49,9 +29,7 @@ function logout(){
 	</div>
 		<div style="width: 100%;height: 50px; text-align: center;">
 		<br />
-		
 			<p style="text-align: center;">${SESSION_NAME}님 반갑습니다 ^^/</p>
-<!-- 			<p style="text-align: center;"><a href="#" onclick="logout()">로그아웃</a>하시겠습니까</p> -->
 		</div>
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu">
@@ -73,7 +51,8 @@ function logout(){
 						<b class="fa fa-bar-chart-o fa-fw">나의 문의내역</b> <span class="fa arrow">▼</span>
 				</a>
 					<ul class="nav nav-second-level">
-						<li><a href="">- 나의 문의글</a></li>						
+						<li><a href="/stu/my/openMyReview.do">- 나의 상품평</a></li>
+						<li><a href="/stu/my/openMyGoodsQna.do">- 나의 Q&A글</a></li>						
 					</ul>
 				</li>
 

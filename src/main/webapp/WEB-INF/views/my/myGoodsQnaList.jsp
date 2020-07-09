@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/uiii.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/myUI.css'/>" />
 
 <!-- json날짜형식 변환 -->
 <script type="text/javascript"
@@ -15,6 +15,14 @@
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
+
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="/stu/css/bootstrap.min.css">
+<!-- Custom styles for this template -->
+<link href="css/dashboard.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="css/justified-nav.css" rel="stylesheet">
+
 </head>
 <style>
 /* 상품문의 */
@@ -29,7 +37,7 @@
 }
 
 .board_list {
-	width: 60%;
+	width: 70%;
 	margin-top: 0px;
 	background: #fff;
 	font-size: 15px;
@@ -112,12 +120,18 @@ p{
 	align:center;
 }
 
+#mgq {
+	/* width : 800px; */
+	position: relative;
+	top : -620px;
+	left: 150px;
 
-
-
+} 
 </style>
 <body>
-<div align="center">
+<div class="container">
+	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+<div id="mgq" align="center">
 <br/><br/><br/>
 	<h2 align="center">나의 상품 Q&A</h2>
 	<br/><br/>
@@ -170,7 +184,6 @@ p{
 	<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX"/>
 	
 	<br/>
-	
 	
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
@@ -273,5 +286,6 @@ p{
 			}
 		}
 	</script>	
+	</div>
 </body>
 </html>
