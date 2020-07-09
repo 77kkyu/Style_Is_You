@@ -194,6 +194,7 @@
   </div>
 </div>
 
+
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -212,6 +213,23 @@
   </div>
 </div>
 <script>
+
+	  	  //아이디 공백 확인
+	      if($("#MEMBER_ID").val() == ""){
+	          alert("아이디를 입력해주세요.");
+	          $("#MEMBER_ID").focus();
+	          return false;
+	        } else {
+					return true;
+		        }
+	     /*  //이름의 유효성 검사
+	      if(!getCheck.test($("#MEMBER_ID").val())){
+	        alert("아이디를 형식에 맞게 입력해주세요");
+	        $("#MEMBER_ID").val("");
+	        $("#MEMBER_ID").focus();
+	        return false;
+	      }
+
 
 
 $(function() {
