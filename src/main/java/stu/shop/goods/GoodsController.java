@@ -203,7 +203,7 @@ public class GoodsController {
 		System.out.println("map = " + map);
 		
 		mv.addObject("map", map.get("map")); // 상품의 PK값
-		mv.addObject("list", map); // 상품 상세 정보
+		mv.addObject("list", map); // 상품 상세 정보입니다
 
 		Map<String, Object> map1 = goodsService.selectGoodsAtt(commandMap.getMap());
 
