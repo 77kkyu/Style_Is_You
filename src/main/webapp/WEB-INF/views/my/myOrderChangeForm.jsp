@@ -16,7 +16,7 @@
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css/dashboard.css" rel="stylesheet">
+<!-- <link href="css/dashboard.css" rel="stylesheet"> -->
 <!-- Custom styles for this template -->
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
@@ -106,10 +106,20 @@ h1 {
     font-size: 2em;
     letter-spacing: 10px;
 }  
+
+#OrderChange {
+	width : 800px;
+	position: relative;
+	top : -580px;
+	left: 310px;
+}
+
 </style>
 </head>
 <body>
 <div class="container">
+<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+<div id="OrderChange">
 <table class="table table-bordered">
     <div class="row" align="center">
         <div>
@@ -210,6 +220,7 @@ h1 {
             </c:forEach>
     </tbody>
 </table>
+</div>
 </div>
 
 

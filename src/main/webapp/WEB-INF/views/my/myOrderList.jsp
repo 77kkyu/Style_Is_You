@@ -47,11 +47,6 @@ h1 {
 	left: 310px;
 }
 
-.container {
-	border: 1px solid red;
-}
-
-
 </style>
 
  <script>
