@@ -15,7 +15,7 @@
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css/dashboard.css" rel="stylesheet">
+<!-- <link href="css/dashboard.css" rel="stylesheet"> -->
 <!-- Custom styles for this template -->
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
@@ -39,6 +39,14 @@ h1 {
     font-size: 2em;
     letter-spacing: 10px;
 }  
+
+#MyDetail {
+	width : 800px;
+	position: relative;
+	top : -580px;
+	left: 310px;
+}
+
 </style>
  <script>
 $(document).ready(function(){
@@ -140,7 +148,9 @@ function fn_order_modify() { // 유효성체크
 </head>
 <body>
 <div class="container">
+	
 	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+	<div id="MyDetail">
 	<div class="row" align="center">
 		<br>
         <div>
@@ -159,12 +169,6 @@ function fn_order_modify() { // 유효성체크
               		<td style="text-align:left">
                   		${detail.ORDER_NO }
                   	</td>
-				</tr>
-				<tr>
-              		<td style="text-align:center">결제방법</td>
-              		<td style="text-align:left">
-              			${detail.ORDER_PAY_OPTION }
-              		</td>
 				</tr>
 				<tr>
               		<td style="text-align:center">주문일자</td>
@@ -240,7 +244,8 @@ function fn_order_modify() { // 유효성체크
 			<tbody>
 			<c:choose>
 				<c:when test="${fn:length(my_detail_sub) > 0}">
-					<c:forEach items="${my_detail_sub }" var="detail_sub">		
+					<c:forEach items="${my_detail_sub }" var="detail_sub">
+					${detail_sub }		
 					<%-- ${detail_sub } --%>			
 						<tr>
 							<td style="text-align:center">
@@ -326,6 +331,7 @@ function fn_order_modify() { // 유효성체크
         
 	</c:forEach>
 
+	</div>
 	</div>
 </div>
 

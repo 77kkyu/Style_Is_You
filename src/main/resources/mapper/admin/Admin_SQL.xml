@@ -80,7 +80,7 @@
 	<select id="order_detail_sub" parameterType="hashmap" resultType="hashmap"> <!-- 주문detail 상세보기 -->
 		<![CDATA[
 			select g.goods_no, g.goods_name, g.GOODS_THUMBNAIL, d.order_detail_color, d.order_detail_size, d.order_detail_amount,
-	        d.order_detail_price, d.coupon_discount, d.order_discount_apply
+	        d.order_detail_price, d.coupon_discount, d.order_discount_apply, COUPON_DISCOUNT, ORDER_DISCOUNT_APPLY
 			
 			from order_detail d, goods g
 			

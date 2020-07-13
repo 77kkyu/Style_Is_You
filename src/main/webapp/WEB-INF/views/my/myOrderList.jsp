@@ -14,9 +14,9 @@
 <title>my주문상태</title>
 
 <!-- 부트스트랩 -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="/stu/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css/dashboard.css" rel="stylesheet">
+<!-- <link href="css/dashboard.css" rel="stylesheet"> -->
 <!-- Custom styles for this template -->
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
@@ -39,6 +39,19 @@ h1 {
     font-size: 2em;
     letter-spacing: 10px;
 }  
+ 
+#OrderList {
+	width : 800px;
+	position: relative;
+	top : -580px;
+	left: 310px;
+}
+
+.container {
+	border: 1px solid red;
+}
+
+
 </style>
 
  <script>
@@ -126,6 +139,7 @@ function order_qna(mem_no, order_no){
 <body>
 <div class="container">
 	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+	<div id="OrderList">
 	<div class="row" align="center">
         <div>
           <h2>주문 배송 내역</h2>
@@ -271,7 +285,7 @@ function order_qna(mem_no, order_no){
 		</form>
 		</table>
 	</div>
-
+	</div>
 </div>
 
 

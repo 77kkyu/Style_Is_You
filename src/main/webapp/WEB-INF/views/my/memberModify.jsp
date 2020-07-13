@@ -52,6 +52,10 @@
 	width:400px;
 	margin-top:30px;
 }
+
+.container {
+	border: 1px solid red;
+}
 </style>
 <body>
 <div class="container">

@@ -16,7 +16,7 @@
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css/dashboard.css" rel="stylesheet">
+<!-- <link href="css/dashboard.css" rel="stylesheet"> -->
 <!-- Custom styles for this template -->
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
@@ -39,6 +39,13 @@ h1 {
     font-size: 2em;
     letter-spacing: 10px;
 }  
+
+#AsList {
+	width : 800px;
+	position: relative;
+	top : -580px;
+	left: 310px;
+}
 </style>
 
 <script>
@@ -86,6 +93,7 @@ $(document).ready(function() {
 <body>
 <div class="container">
 	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+	<div id="AsList">
 	<div class="row" align="center">
         <div>
           <h2>교환/환불/AS내역</h2>
@@ -194,7 +202,7 @@ $(document).ready(function() {
 		</form>
 		</table>
 	</div>
-
+	</div>
 </div>
 
 
