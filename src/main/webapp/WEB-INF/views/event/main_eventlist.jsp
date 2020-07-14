@@ -24,17 +24,18 @@
 <!-- 링크) 커스텀 페이징 js -->
 <script src="<c:url value='/js/common_dw.js'/>" charset="utf-8"></script>
 
+<style>
+img {vertical-align: middle;}
+.h_title {text-align: center; margin: 50px 0 20px 0; font-style: italic; letter-spacing: 15px; font-size: 30px; color: #666;}
+</style>
 </head>
 
 <body>
 
 <!-- include) 사이드바 -->	
 <%@include file="/WEB-INF/tiles/header.jsp" %> 
-<div style="height: auto;">
-<div style="display: flex; justify-content: center; align-items: center;">
-<div style="display: inline-block; color: black; margin-bottom: 20px;">
-	<div style="width: 1200px; margin: 0 50px 0 10%">
-	
+	<div style="text-align: -webkit-center; margin: 0 0 50px 0;">
+	<p class="h_title">EVENT</p>
 		<!-- s 상단 탭 영역 -->
 		<!-- e 상단 탭 영역 -->
 	
@@ -49,17 +50,13 @@
 		</form>
 		</div>
 		
-			<div style="width: 90%; text-align: center; margin: 20px 0 0 0;" id="PAGE_NAVI"></div>
-			<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX" />
+		<div style="width: 100%; text-align: center; margin: 20px 0 0 0;" id="PAGE_NAVI"></div>
+		<input type="hidden" id="PAGE_INDEX" name="PAGE_INDEX" />
 		
 		<form id="commonForm" name="commonForm"></form>
 		
-		<!-- e 하단 리스트 영역 -->
-		
+		<!-- e 하단 리스트 영역 -->	
 	</div>
-</div>
-</div>
-</div>
 </body>
 
 <script>
@@ -109,7 +106,7 @@ function fn_listCallBack(data){
 		$.each(data.list, function(key, value){
 			str += "<tr>"
 					+ "<td style='letter-spacing: 1px; text-align: center; vertical-align: middle;'>"
-					+ 	"<a href='#this' name='eventClick'><img width='1000px' height='200px' style='margin: 20px 0 0 0; border: 1px solid lightgray; border-radius: 10px;' src='/stu/file/" + value.EVENT_THUMBNAIL + "'></a>"
+					+ 	"<a href='#this' name='eventClick'><img alt='image' width='1000px' height='200px' style='margin: 20px 0 0 0; border: 1px solid #DCDCDC; border-radius: 10px;' src='/stu/file/" + value.EVENT_THUMBNAIL + "'></a>"
 					+	"<input type='hidden' id='EVENT_NO' value='"+value.EVENT_NO+"'>"
 					+ "</td>"
 			    + "</tr>";

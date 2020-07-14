@@ -20,6 +20,9 @@ public interface AdminCouponService {
 	//couponUpdate
 	void couponUpdate(Map<String, Object> map) throws Exception;
 	
+	//쿠폰상태 조회
+	String coupon_state(Map<String, Object> map) throws Exception;
+	
 	//쿠폰받기 이벤트
 	boolean couponSave(Map<String, Object> map) throws Exception;
 	

@@ -118,5 +118,20 @@
 			EVENT_GUBUN='1'
 	</select>
 	
+	<!-- 쇼핑몰 메인에서 이벤트 리스트 조회했을 때 종료된 쿠폰이 태그된 이벤트는 비공개로 자동 업데이트 처리 -->
+	<update id="auto_update">
+		<![CDATA[
+		UPDATE EVENT SET
+			EVENT_GUBUN = 0
+		WHERE EVENT_NO IN
+			(SELECT E.EVENT_NO
+				FROM COUPON C,
+				(SELECT EVENT_NO, REPLACE(SUBSTR(EVENT_CONTENT, STAY, 2), '"', '') CP_NO
+				FROM
+				(SELECT EVENT_NO, EVENT_CONTENT, INSTR(EVENT_CONTENT,'<a href="/stu/couponSave.do?COUPON_NO=')+38 STAY FROM EVENT WHERE EVENT_GUBUN = 1)) E
+			WHERE C.COUPON_NO = E.CP_NO
+			AND TO_CHAR(COUPON_E_VALIDITY, 'YYYY-MM-DD') < TO_CHAR(sysdate, 'YYYY-MM-DD'))
+		]]>
+	</update>
 	
 </mapper>

@@ -120,14 +120,21 @@
 		VALUES
 			(COUPON_STATUS_NO_SEQ.NEXTVAL, #{COUPON_NO}, #{session_no}, sysdate)
 	</insert>
-
-
-
-
-
-
-
-
+	
+	<!-- 쿠폰상태 검색 -->
+	<select id="coupon_state" parameterType="hashmap" resultType="String">
+		<![CDATA[
+		SELECT
+			CASE
+			WHEN TO_CHAR(COUPON_E_VALIDITY, 'YYYY-MM-DD') < TO_CHAR(sysdate, 'YYYY-MM-DD') THEN 'end'
+			WHEN TO_CHAR(COUPON_S_VALIDITY, 'YYYY-MM-DD') > TO_CHAR(sysdate, 'YYYY-MM-DD') THEN 'pre'
+			ELSE 'ing'
+			END AS COUPON_STATE
+		FROM COUPON
+		WHERE COUPON_NO = #{COUPON_NO}
+		]]>
+	</select>
+	
 
 
 

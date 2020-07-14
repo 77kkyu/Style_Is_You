@@ -126,9 +126,9 @@ function gfn_renderPaging(params){
 	
 	for(var i=first; i<(first+last); i++){
 		if(i != currentIndex){
-			str += "<a href='#this' class='pad_1' style='padding: 5px;' onclick='_movePage("+i+")'>"+i+"</a>";
+			str += "<a href='#this' class='pad_1' style='padding: 5px;' id='tag' onclick='_movePage("+i+")'>"+i+"</a>";
 		}else{
-			str += "<b><a href='#this' class='pad_1' style='padding: 5px;' onclick='_movePage("+i+")'>"+i+"</a></b>"
+			str += "<b><a href='#this' class='pad_1' style='padding: 5px;' id='tag' onclick='_movePage("+i+")'>"+i+"</a></b>"
 		}
 	}
 	$("#"+divId).append(preStr + str + postStr);

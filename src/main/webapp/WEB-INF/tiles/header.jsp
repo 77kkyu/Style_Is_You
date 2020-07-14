@@ -152,12 +152,14 @@ li {
 					<td><a href="/stu/loginForm.do">로그인</a></td> <td> | </td>
 					<td><a href="/stu/joinForm.do">회원가입</a></td> <td> | </td>
 					<td><a href="/stu/loginForm.do">마이페이지</a></td> <td> | </td>
+					<td><a href="/stu/event/list.do">이벤트</a></td> <td> | </td>
 				</c:when>
 				<c:otherwise>
 					<td>Hi, ${SESSION_NAME }님!</td> <td> | </td>
 					<td><a href="/stu/logout.do">로그아웃</a></td> <td> | </td>
 					<td><a href="/stu/myOrderList.do">마이페이지</a></td> <td> | </td>
 					<td><a href="/stu/basket/basketList.do">장바구니</a></td> <td> | </td>
+					<td><a href="/stu/event/list.do">이벤트</a></td> <td> | </td>
 				</c:otherwise>
 			</c:choose>
 			

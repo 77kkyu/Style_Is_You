@@ -40,6 +40,12 @@ public class AdminEventDao extends AbstractDao{
 		update("event.eventUpdate", map);
 	}
 	
+	// 
+	@SuppressWarnings("unchecked")
+	public void auto_update() throws Exception {
+		update("event.auto_update");
+	}
+	
 	// 메인 이벤트 리스트
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> common_eventList(Map<String, Object> map) throws Exception {
