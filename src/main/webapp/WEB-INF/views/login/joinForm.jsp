@@ -37,6 +37,14 @@
 	left: calc(50% - 200px/ 2);
 	z-index: 100;
 }
+
+h1 {
+	text-align: center;
+	padding: 50px 0;
+	font-weight: normal;
+	font-size: 2em;
+	letter-spacing: 10px;
+}
 </style>
 <body>
 	<!-- 로딩중 -->

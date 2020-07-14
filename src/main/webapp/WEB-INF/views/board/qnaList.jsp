@@ -52,6 +52,14 @@ li {
    text-align: center;
    width: 100%;
 }
+
+h1 {
+	text-align: center;
+	padding: 50px 0;
+	font-weight: normal;
+	font-size: 2em;
+	letter-spacing: 10px;
+}
 </style>
 <body>
 
@@ -122,9 +130,12 @@ li {
          $(".myButton").on("click", function(e){ //제목 
 //             var qnaPass = ${param.QNA_PASSWD};
             var qnaPassId = $(this).parent().children()[0].id;
+            alert(qnaPassId);
             var qnaPass = $('#'+qnaPassId).val(); 
-            var qnaNo = $(this).parent().parent()[0].getElementsByClassName('qnaNo')[0].value;
+            var qnaNo = $(this).parent().parent().parent()[0].getElementsByClassName('qnaNo')[0].value;
+            alert(qnaNo);
             var rnum = $(this).parent().parent()[0].children[0].innerText;
+            alert(rnum);
             var data = {
                QNA_PASSWD : qnaPass,
                QNA_NO : qnaNo
@@ -234,7 +245,7 @@ li {
                            "<input type='hidden' name='title' class='qnaNo' value=" + value.QNA_NO + ">" + 
                         "</td>" +
                         "<td>" + value.QNA_NAME + "</td>" + 
-                        "<td>" + value.QNA_DATE + "</td>";
+                        "<td>" + value.QNA_DATE + "</td> </tr><tr>";
                str += '<td style="display:none;" id="chk' + value.RNUM + '" colspan="4">Password : ';
                str += '<input type="password" id="qnaPasswd' + value.RNUM + '" value="">';
                str += '<a href="#" class="myButton">확인</a>'

@@ -36,6 +36,14 @@ button {
 	margin-top: 10px;
 	font-size: 20px;
 }
+
+h1 {
+	text-align: center;
+	padding: 50px 0;
+	font-weight: normal;
+	font-size: 2em;
+	letter-spacing: 10px;
+}
 </style>
 
 <form action="/stu/loginAction.do" method="POST" id="frm">
