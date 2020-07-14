@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import stu.common.common.CommandMap;
@@ -65,13 +67,13 @@ public class QnaController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/qna/openQnaDetail.do")
+	@RequestMapping(value="/qna/openQnaDetail.do", method = RequestMethod.POST )
 	public ModelAndView openQnaDetail(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/qnaDetail");
 		
 		Map<String,Object> map = qnaService.selectQnaDetail(commandMap.getMap());
 		mv.addObject("map", map.get("map"));
-		mv.addObject("list", map.get("list"));
+//		mv.addObject("list", map.get("list"));
 		
 		return mv;
 	}
@@ -105,5 +107,19 @@ public class QnaController {
 		
 		return mv;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value="/qna/chkPassword", method = RequestMethod.POST)
+	public int chkPassword(@RequestParam Map<String, Object> params) throws Exception{
+		int chkPassword = 0;
+		Map<String, Object> passwordMap = qnaService.selectQnaPassword(params);
+		
+		if(String.valueOf(params.get("QNA_PASSWD")).
+				equals(String.valueOf(passwordMap.get("QNA_PASSWD")))){
+			chkPassword = 1;
+		}
+		
+		return chkPassword;
+	}
+	
 }

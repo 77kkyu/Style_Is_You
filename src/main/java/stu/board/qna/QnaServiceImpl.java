@@ -45,4 +45,9 @@ public class QnaServiceImpl implements QnaService{
 		qnaDAO.deleteQna(map);
 	}
 	
+	@Override
+	public Map<String, Object> selectQnaPassword(Map<String, Object> map) throws Exception {
+		return qnaDAO.selectQnaPassword(map);
+	}
+	
 }

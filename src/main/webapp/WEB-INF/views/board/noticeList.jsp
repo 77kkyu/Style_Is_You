@@ -10,9 +10,7 @@
 	
 	if(sessionName == null || sessionName.equals("")){
 		sessionName = "nomal";
-	}
-
-	
+	}	
 %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
@@ -79,6 +77,7 @@ li {
 <br/><br/><br/>
 	<h2>공지사항</h2>
 	<br/><br/>
+	
 	<table class="board_list">
 		<colgroup>
 			<col width="10%"/>
@@ -153,7 +152,7 @@ li {
 			comAjax.setUrl("<c:url value='/notice/selectNoticeList.do' />");
 			comAjax.setCallback("fn_selectNoticeListCallback");
 			comAjax.addParam("PAGE_INDEX",$("#PAGE_INDEX").val());
-			comAjax.addParam("PAGE_ROW", 15);
+			comAjax.addParam("PAGE_ROW", 10);
 			comAjax.addParam("NOTICE_NO_FE", $("#NOTICE_NO_FE").val());
 			comAjax.ajax();
 		}
@@ -173,6 +172,7 @@ li {
 					divId : "PAGE_NAVI",
 					pageIndex : "PAGE_INDEX",
 					totalCount : total,
+					recordCount: 10,
 					eventName : "fn_selectNoticeList"
 				};
 				gfn_renderPaging(params);

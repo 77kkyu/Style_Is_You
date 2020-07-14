@@ -47,8 +47,14 @@ function logout(){
 		<h2>마이페이지</h2>
 		<p>MYPAGE</p>
 	</div>
+
 		<div style="width: 100%;height: 50px; text-align: center;">
 		<br />
+
+	
+			<p style="text-align: center;"><%=S_no %>님 반갑습니다 ^^/</p>
+			<p style="text-align: center;"><a href="#" onclick="logout()">로그아웃</a>하시겠습니까</p>
+
 		
 			<p style="text-align: center;">${SESSION_NAME}님 반갑습니다 ^^/</p>
 <!-- 			<p style="text-align: center;"><a href="#" onclick="logout()">로그아웃</a>하시겠습니까</p> -->

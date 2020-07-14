@@ -29,7 +29,7 @@ h1 {
 </style>
 <body>
 <br/><br/><br/>
-	<h2>공지사항</h2>
+	<h2>FAQ</h2>
 	<br/><br/>
 	<form id="frm" name="frm" enctype="multipart/form-data">
 		<table class="board_view">
