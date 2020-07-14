@@ -67,6 +67,11 @@ public class AbstractDao {
 		printQueryId(queryId);
 		return sqlSession.update(queryId,params);
 	}
+	//수정2
+	public Object update(String queryId) {
+		printQueryId(queryId);
+		return sqlSession.update(queryId);
+	}
 	//삭제
 	public Object delete(String queryId, Object params) {
 		printQueryId(queryId);
@@ -310,4 +315,6 @@ public class AbstractDao {
 			
 			return sqlSession.selectList(queryId, map);
 		}
+		
+
 }

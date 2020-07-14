@@ -47,11 +47,17 @@ public class AdminCouponServiceImpl implements AdminCouponService{
 	public void couponUpdate(Map<String, Object> map) throws Exception {
 		adminCouponDao.couponUpdate(map);
 	}
-	
+	//쿠폰상태 조회
+	@Override
+	public String coupon_state(Map<String, Object> map) throws Exception {
+		return adminCouponDao.coupon_state(map);
+	}
 	//쿠폰받기 이벤트
 	@Override
 	public boolean couponSave(Map<String, Object> map) throws Exception {
+		
 		boolean result;
+		
 		int cnt = adminCouponDao.common_searchCoupon(map); //동일 쿠폰 발급이력 확인
 		
 		if (cnt == 0) {

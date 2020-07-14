@@ -27,8 +27,9 @@
 
 </head>
 <style>
+.h_title {text-align: center; margin: 50px 0 20px 0; font-style: italic; letter-spacing: 15px; font-size: 30px; color: #666;}
 .eventDetail_bottomDiv {margin: 100px 0 100px 0; border: 1px solid darkgray; width: 900px; padding: 50px 0 50px 50px; border-radius: 30px;}
-.eventDetail_Btn {border: 1px solid #cee; background: #cee; padding: 8px; border-radius: 10px;}
+.eventDetail_Btn {border: 1px solid #DCDCDC; padding: 10px 15px 10px 20px; border-radius: 10px; letter-spacing: 5px;}
 .eventDetail_Btn:hover {font-weight: bold;}
 </style>
 
@@ -36,35 +37,29 @@
 
 <!-- include) 사이드바 -->	
 <%@include file="/WEB-INF/tiles/header.jsp" %> 
-<div style="height: auto;">
-<div style="display: flex; justify-content: center; align-items: center;">
-<div style="display: inline-block; color: black; margin-bottom: 60px;">
-	<div style="text-align: -webkit-center;">
-	
+	<div style="text-align: -webkit-center; margin: 0 0 60px 0;">
+	<p class="h_title">EVENT DETAIL...</p>
 		<!-- s 상단 탭 영역 -->
 		<!-- e 상단 탭 영역 -->
 	
 		<!-- s 하단 리스트 영역 -->
-		<div style="width: 1200px; margin: 20px 0 0 0;">
+		<div style="width: 1000px; text-align: -webkit-center; margin: 50px 0 0 0;">
 		<form>
 			<input type="hidden" id="view_no" value="${param.EVENT_NO}">
-			<table style="width: 80%; text-align: center;" name="eventList" class="table table-striped">
+			<table style="width: 100%; text-align: center; padding: 10px; border: 1px solid #DCDCDC;" name="eventList">
 				<tbody>
 				
 				</tbody>
 			</table>
 		</form>
 		</div>
-		<div style='margin: 40px 0 0 0;'>
-			<a href='#this' id='go_home' class='eventDetail_Btn'>목록으로</a>
+		<div style='margin: 50px 0 0 0;'>
+			<a href='#this' id='go_home' class='eventDetail_Btn'>Back</a>
 		</div>
 		<form id="commonForm" name="commonForm"></form>
 		<!-- e 하단 리스트 영역 -->
 		
 	</div>
-</div>
-</div>
-</div>
 </body>
 <script>
 $(document).ready(function(){

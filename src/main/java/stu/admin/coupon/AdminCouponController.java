@@ -122,28 +122,51 @@ public class AdminCouponController {
 	public ModelAndView couponSave
 	(CommandMap commandMap, HttpServletRequest request, @RequestParam("COUPON_NO") String COUPON_NO, HttpServletResponse response)
 	throws Exception {
+		
+		//변수 선언
 		HttpSession session = request.getSession(); 
 		Object session_no = (Object)session.getAttribute("SESSION_NO");
 		ModelAndView mv = new ModelAndView("/event/redirect");
+		String msg = "",   url = "",   state = (String) adminCouponService.coupon_state(commandMap.getMap());
 		
+		//로그인 정보가 없을 경우
 		if (session_no == null || session_no == "") {
-			mv.addObject("message", "로그인 후 이용 바랍니다.");
-			mv.addObject("urlPage", "/loginForm.do");
-			return mv;
-		} else {
-			commandMap.put("session_no", session_no);
-			boolean result = adminCouponService.couponSave(commandMap.getMap());
-			
-			if (result == true) {
-				mv.addObject("message", "쿠폰발급 완료");
-				mv.addObject("urlPage", "/event/list.do");
-				return mv;
-			} else {
-				mv.addObject("message", "이미 발급된 쿠폰입니다.");
-				mv.addObject("urlPage", "/event/list.do");
-				return mv;
+			msg = "로그인 후 이용 바랍니다.";
+			url = "/loginForm.do";
+		}
+		else {
+			//종료된 쿠폰을 받으려고 할 경우
+			if ("end".equals(state)) {
+				msg = "종료된 쿠폰을 발급받을 수 없습니다.";
+			}
+			else if ("pre".equals(state)) {
+				msg = "현재 발급받을 수 없는 쿠폰입니다.";
+			}
+			//그 외
+			else if ("ing".equals(state)) {
+				commandMap.put("session_no", session_no);
+				boolean result = adminCouponService.couponSave(commandMap.getMap());
+				
+				//동일 쿠폰 발급이력이 없을 경우
+				if (result == true) {
+					msg = "쿠폰발급 완료";
+				} else {
+					msg = "이미 발급된 쿠폰입니다.";
+					url = "javascript:history.back(-2)";
+				}
+			}
+			else {
+				msg = "잘못된 접근입니다.";
 			}
 		}
+		
+		if ("".equals(url)) { url = "/event/list.do"; }
+		
+		mv.addObject("message", msg);
+		mv.addObject("urlPage", url);
+		return mv;
+		
 	}
-	//http://localhost:8080/stu/couponSave.do?COUPON_NO=2
+
+	
 }

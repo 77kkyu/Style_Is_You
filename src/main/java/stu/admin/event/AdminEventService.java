@@ -17,7 +17,7 @@ public interface AdminEventService {
 	List<Map<String, Object>> eventNextVal() throws Exception;
 	
 	// 이벤트 등록/수정처리
-	void eventInsert(Map<String, Object> map, HttpServletRequest request) throws Exception;
+	void adminEventInU(Map<String, Object> map, HttpServletRequest request) throws Exception;
 	
 	// 메인 이벤트 리스트
 	List<Map<String, Object>> common_eventList(Map<String, Object> map) throws Exception;

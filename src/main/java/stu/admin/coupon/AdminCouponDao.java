@@ -39,13 +39,17 @@ public class AdminCouponDao extends AbstractDao{
 	public void couponUpdate(Map<String, Object> map) throws Exception {
 		update("coupon.couponUpdate", map);
 	}
-	
+	//선택된 쿠폰의 현재 상태만 가져오기
+	@SuppressWarnings("unchecked")
+	public String coupon_state(Map<String, Object> map) throws Exception {
+		return (String) selectOne("coupon.coupon_state", map); // end 종료, pre 예정, ing 진행중
+	}
 	//쿠폰받기 클릭시 동일한 쿠폰이 발급되었는지 확인
 	@SuppressWarnings("unchecked")
 	public int common_searchCoupon(Map<String, Object> map) throws Exception {
-		return (int) selectOne("coupon.common_searchCoupon", map);
-	}
-	//동일 쿠폰이 없을 경우 쿠폰 발급(insert)
+		return (int) selectOne("coupon.common_searchCoupon", map); // 0 미발급, 1 기발급
+	}	
+	//발급 가능한 대상인 경우 쿠폰 발급(insert)
 	@SuppressWarnings("unchecked")
 	public void common_insertCoupon(Map<String, Object> map) throws Exception {
 		update("coupon.common_insertCoupon", map);

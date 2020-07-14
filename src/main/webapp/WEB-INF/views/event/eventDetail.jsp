@@ -16,8 +16,6 @@
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 <title>이벤트관리</title>
 <head>
-<!-- CKEditor -->
-<script src="${pageContext.request.contextPath }/ckeditor/ckeditor.js"></script>
 
 <!-- 부트스트랩 -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -102,10 +100,15 @@ $(document).ready(function(){
 
 	 						+ "	<label class='col-sm-2 control-label'>공개여부　</label>"
 	 						+ "	<div class='col-sm-10'>"
-	 						+ "	<select name='EVENT_GUBUN' id='EVENT_GUBUN' class='form-control' style='width: 100px; margin-bottom: 20px;'>"
-	 						+ "	<option value='1'>공개</option>"
-	 		 				+ "	<option value='0'>비공개</option>"
-	 						+ "	</select>"
+	 						+ "<select name='EVENT_GUBUN' id='EVENT_GUBUN' class='form-control' style='width: 100px; margin-bottom: 20px;'>";
+	 					if ($.trim(value.EVENT_STATE) == '공개') {
+	 						str +="<option value='1' selected>공개</option>"
+	 							+ "	<option value='0'>비공개</option>";
+	 					} else {
+	 						str +=" <option value='1'>공개</option>"
+	 							+ " <option value='0' selected>비공개</option>";
+	 					}
+		 				str +="</select>"
 	 						+ "	</div>"
 	 						
 	 						+ "	<label class='col-sm-2 control-label'>상세내용　</label>"
