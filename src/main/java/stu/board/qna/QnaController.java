@@ -33,7 +33,7 @@ public class QnaController {
 	@RequestMapping(value="/qna/selectQnaList.do")
     public ModelAndView selectQnaList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
-    	
+
     	List<Map<String,Object>> list = qnaService.selectQnaList(commandMap.getMap());
     	mv.addObject("list", list);
     	if(list.size() > 0){
@@ -56,9 +56,6 @@ public class QnaController {
 	@RequestMapping(value="/qna/insertQna.do", method = RequestMethod.POST )
 	public ModelAndView insertQna(CommandMap commandMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/qna/openQnaList.do");
-		
-		System.out.print(commandMap);
-		System.out.print(request);
 		
 		qnaService.insertQna(commandMap.getMap(), request);
 		
