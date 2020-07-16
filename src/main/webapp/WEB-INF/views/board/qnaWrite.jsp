@@ -126,7 +126,6 @@
 				e.preventDefault();
 				fn_insertQna();
 			});
-
 		});
 		
 		function fn_openQnaList(){
