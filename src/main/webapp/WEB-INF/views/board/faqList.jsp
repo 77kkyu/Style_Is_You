@@ -11,8 +11,6 @@
 	if(sessionName == null || sessionName.equals("")){
 		sessionName = "nomal";
 	}
-
-	
 %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
