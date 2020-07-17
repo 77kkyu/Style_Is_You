@@ -131,8 +131,6 @@ li {
 			comSubmit.setUrl("<c:url value='/qna/openQnaWrite.do' />");
 			comSubmit.submit();
 		}
-
-		function fn_openQnaDetail(qna_no, rnum) {
 	
 		function fn_openQnaDetail(qna_no){
 			var comSubmit = new ComSubmit();
