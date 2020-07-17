@@ -97,41 +97,40 @@ li {
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			fn_selectQnaList(1);
-			
-		$("#write").on("click", function(e) { //글쓰기 버튼
-			e.preventDefault();
-			fn_openQnaWrite();
-		});
-
-		$(".myButton").on("click", function(e) { //제목 
-			var qnaPassId = $(this).parent().children()[0].id;
-			var qnaPass = $('#' + qnaPassId).val();
-			var qnaNo = $(this).parent().parent()[0].getElementsByClassName('qnaNo')[0].value;
-			var rnum = $(this).parent().parent()[0].children[0].innerText;
-			var data = {QNA_PASSWD : qnaPass, QNA_NO : qnaNo};
+			fn_selectQnaList(1);			
+			$("#write").on("click", function(e) { //글쓰기 버튼
+				e.preventDefault();
+				fn_openQnaWrite();
+			});
+	
+			$(".myButton").on("click", function(e) { //제목 
+				var qnaPassId = $(this).parent().children()[0].id;
+				var qnaPass = $('#' + qnaPassId).val();
+				var qnaNo = $(this).parent().parent()[0].getElementsByClassName('qnaNo')[0].value;
+				var rnum = $(this).parent().parent()[0].children[0].innerText;
+				var data = {QNA_PASSWD : qnaPass, QNA_NO : qnaNo};
 				if (qnaPass.length > 0) {
 					$.ajax({url : "./chkPassword.do", 
 						type : 'POST', data : data, 
 						success : function(res) {
-				if (res == 1) {	
-					e.preventDefault();
-					fn_openQnaDetail(qnaNo,	rnum);
-				} else {
-					alert("PASSWORD ERROR!");
-					}
+							if (res == 1) {	
+								e.preventDefault();
+								fn_openQnaDetail(qnaNo,	rnum);
+							} else {
+								alert("PASSWORD ERROR!");
+							}
+						}
+					});
 				}
 			});
-		}
-	});
-});
+		});
 
 		function fn_openQnaWrite() {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/qna/openQnaWrite.do' />");
 			comSubmit.submit();
 		}
-	
+		
 		function fn_openQnaDetail(qna_no){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/qna/openQnaDetail.do' />");
@@ -167,39 +166,6 @@ li {
 					eventName : "fn_selectQnaList"
 				};
 				gfn_renderPaging(params);
-				
-				var str = "";
-					$.each(data.list, function(key, value) {
-						str += "<tr>"
-							+ "<td class='rnum" + value.RNUM + "' >"
-							+ value.RNUM
-							+ "</td>"
-							+ "<td class='title'>"
-							+ "<a href='#this' class='chk"+ value.RNUM +"' name='title'>"
-							+ value.QNA_TITLE
-							+ "   "
-							+ value.QNA_LEVEL
-							+ "</a>"
-							+ "<input type='hidden' name='title' class='qnaNo' value=" + value.QNA_NO + ">"
-							+ "</td>" + "<td>" + value.QNA_NAME
-							+ "</td>" + "<td>" + value.QNA_DATE
-							+ "</td>";
-						str += '<td style="display:none;" id="chk' + value.RNUM + '" colspan="4">Password : ';
-						str += '<input type="password" id="qnaPasswd' + value.RNUM + '" value="">';
-						str += '<a href="#" class="myButton">확인</a>'
-						str += '</td></tr>';
-					});
-					body.append(str);
-				
-				$("a[name='title']").on("click", function(e) { //제목 
-					e.preventDefault();
-					var chkShow = $(this).attr('class');
-					if ($("." + chkShow).parent().parent().attr('id') == 'on') {
-						$("#" + chkShow).hide();
-						$("." + chkShow).parent().parent().attr('id', 'off');
-					} else {
-						$("#" + chkShow).show();
-						$("." + chkShow).parent().parent().attr('id', 'on');
 				$.each(data.list, function(key, value){
 					str += "<tr>" + 
 								"<td id='rnum" + value.RNUM + "' >" + value.RNUM + "</td>" + 
@@ -227,7 +193,6 @@ li {
 						$("."+chkShow).parent().parent().attr('id', 'on');
 					}
 				});
-
 			}
 		}
 	</script>
