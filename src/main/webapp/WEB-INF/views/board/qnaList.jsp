@@ -133,12 +133,13 @@ li {
 		}
 
 		function fn_openQnaDetail(qna_no, rnum) {
+	
+		function fn_openQnaDetail(qna_no){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/qna/openQnaDetail.do' />");
 			comSubmit.addParam("QNA_NO", qna_no);
 			comSubmit.addParam("RNUM", rnum);
 			comSubmit.submit();
-
 		}
 
 		function fn_selectQnaList(pageNo) {
@@ -201,6 +202,31 @@ li {
 					} else {
 						$("#" + chkShow).show();
 						$("." + chkShow).parent().parent().attr('id', 'on');
+				$.each(data.list, function(key, value){
+					str += "<tr>" + 
+								"<td id='rnum" + value.RNUM + "' >" + value.RNUM + "</td>" + 
+								"<td class='title'>" +
+									"<a href='#this' class='chk"+ value.RNUM +"' name='title'>" + value.QNA_TITLE + "   " +
+									+ value.QNA_LEVEL + "</a>" +
+									"<input type='hidden' name='title' class='qnaNo' value=" + value.QNA_NO + ">" + 
+								"</td>" +
+								"<td>" + value.QNA_NAME + "</td>" + 
+								"<td>" + value.QNA_DATE + "</td> </tr><tr>";
+					str += '<td style="display:none;" id="chk' + value.RNUM + '" colspan="4">Password : ';
+					str += '<input type="password" id="qnaPasswd' + value.RNUM + '" value="">';
+					str += '<a href="#" class="myButton rnum' + value.RNUM + '">확인</a>'
+					str += '</td></tr>';
+				});
+				body.append(str);
+				$("a[name='title']").on("click", function(e){ //제목 
+					e.preventDefault();
+					var chkShow = $(this).attr('class');
+					if($("."+chkShow).parent().parent().attr('id') == 'on'){
+						$("#"+chkShow).hide();
+						$("."+chkShow).parent().parent().attr('id', 'off');
+					}else{
+						$("#"+chkShow).show();
+						$("."+chkShow).parent().parent().attr('id', 'on');
 					}
 				});
 
