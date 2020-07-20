@@ -180,7 +180,7 @@ startApp();
 
 var naverLogin = new naver.LoginWithNaverId({
 	clientId : "N7cehmsKQVMvrJ4lCsgv",
-	callbackUrl : "http://localhost:8090/stu/loginCallback.do",
+	callbackUrl : "http://localhost:8080/stu/loginCallback.do",
 	isPopup : true,
 	loginButton : {
 		color : "green",
