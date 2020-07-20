@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>  
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,7 +11,8 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
 
 <!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 <style>
 
@@ -28,62 +31,67 @@ h1 {
 }  
 </style>
 <body>
-<br/><br/><br/>
+	<br />
+	<br />
+	<br />
 	<h2>공지사항</h2>
-	<br/><br/>
+	<br />
+	<br />
 	<form id="frm" name="frm" class="frm" enctype="multipart/form-data">
+	<input type="hidden" id="member_no" name="MEMBER_NO" value="${SESSION_NO}">
 		<table class="board_view">
 			<colgroup>
 				<col width="15%">
-				<col width="*"/>
+				<col width="*" />
 			</colgroup>
 			<caption>글쓰기</caption>
 			<tbody>
 				<tr>
 					<th scope="row">제목</th>
-					<td><input type="text" id="notice_title" name="NOTICE_TITLE" class="wdp_90"></input></td>
+					<td><input type="text" id="notice_title" name="NOTICE_TITLE"
+						class="wdp_90"></input>
+					</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="view_text">
-						<textarea rows="20" cols="100" title="내용" id="notice_content" name="NOTICE_CONTENT"></textarea>
+					<td colspan="2" class="view_text"><textarea rows="20"
+							cols="100" title="내용" id="notice_content" name="NOTICE_CONTENT"></textarea>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		
-		<a href="#this" class="btn" id="write">작성하기</a>
-		<a href="#this" class="btn" id="list">목록으로</a>
+
+		<a href="#this" class="btn" id="write">작성하기</a> <a href="#this"
+			class="btn" id="list">목록으로</a>
 	</form>
-	
+
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		var gfv_count = 1;
-	
-		$(document).ready(function(){
-			$("#list").on("click", function(e){ //목록으로 버튼
+
+		$(document).ready(function() {
+			$("#list").on("click", function(e) { //목록으로 버튼
 				e.preventDefault();
 				fn_openNoticeList();
 			});
-			
-			$("#write").on("click", function(e){ //작성하기 버튼
+
+			$("#write").on("click", function(e) { //작성하기 버튼
 				e.preventDefault();
 				fn_insertNotice();
 			});
 
 		});
-		
-		function fn_openNoticeList(){
+
+		function fn_openNoticeList() {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/notice/openNoticeList.do' />");
 			comSubmit.submit();
 		}
-		
-		function fn_insertNotice(){
+
+		function fn_insertNotice() {
 			var comSubmit = new ComSubmit("frm");
 			comSubmit.setUrl("<c:url value='/notice/insertNotice.do' />");
 			comSubmit.submit();
 		}
-
 	</script>
 </body>
 </html>

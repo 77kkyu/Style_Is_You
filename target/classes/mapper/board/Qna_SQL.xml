@@ -39,7 +39,7 @@
 			QNA_PASSWD )
 		VALUES
 			( #{QNA_NO} ,
-			2 , 
+			#{MEMBER_NO} , 
 			#{QNA_NAME} ,
 			0 ,
 			#{QNA_CATEGORY} ,
@@ -57,9 +57,10 @@
 				QNA_NO, 
 				QNA_CATEGORY, 
 				TO_CHAR(QNA_DATE, 'YYYY.MM.DD') AS QNA_DATE, 
-				QNA_TITLE, 
-				QNA_CONTENT, 
-				QNA_AN 
+				QNA_TITLE,  
+				QNA_CONTENT,
+				QNA_NAME,
+				QNA_AN
 			FROM 
 				QNA
 			WHERE

@@ -35,6 +35,7 @@ public class QnaController {
     	ModelAndView mv = new ModelAndView("jsonView");
 
     	List<Map<String,Object>> list = qnaService.selectQnaList(commandMap.getMap());
+    	System.out.println(list);
     	mv.addObject("list", list);
     	if(list.size() > 0){
     		mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
