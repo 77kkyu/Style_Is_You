@@ -23,8 +23,8 @@ public class OrderDao extends AbstractDao{
 	}
 
 	public void insertOrder(CommandMap commandMap) throws Exception{
-		insert("order.insertOrder", commandMap.getMap());
-		
+		insert("order.insertOrder", commandMap.getMap()); //ORDER테이블에 INSERT
+		//주문한 상품의 종류가 한개일때
 		if(commandMap.get("goods_no").getClass().getName().equals("java.lang.String")){ 
 		  Map<String,Object> dp = new HashMap<String, Object>(); 
 		  dp.put("GOODS_NO",commandMap.get("goods_no")); 
@@ -46,7 +46,7 @@ public class OrderDao extends AbstractDao{
 		  bod.put("GOODS_ATT_NO", commandMap.get("goods_att_no")); 
 		  bod.put("MEMBER_NO", commandMap.get("MEMBER_NO"));
 		  delete("basket.basketOrderDelete", bod);
-		}else {	 
+		}else {	 //주문한 상품의 종류가 두개 이상일때
 			String[] GOODS_NO = (String[])commandMap.getMap().get("goods_no");
 			String[] GOODS_ATT_NO = (String[])commandMap.getMap().get("goods_att_no");
 			String[] ORDER_DETAIL_PRICE = (String[])commandMap.getMap().get("ORDER_DETAIL_PRICE");
@@ -86,13 +86,12 @@ public class OrderDao extends AbstractDao{
 			bod.put("GOODS_ATT_NO", b);
 			delete("basket.basketOrderDelete", bod);
 		}
+		//사용한 포인트가 있다면 사용포인트 INSERT
 		if(!commandMap.get("ORDER_USE_POINT").equals("0")) {
-
 	         insert("point.usePoint", commandMap.getMap()); 
 	      }
-	      
-	      insert("point.savePoint", commandMap.getMap());	
-		
+	    insert("point.savePoint", commandMap.getMap());	//포인트 적립 INSERT
+		//사용한 쿠폰이 있다면
 		if(!commandMap.get("COUPON_STATUS_NO_1").equals("")) {
 			update("coupon.useCoupon", commandMap.getMap());
 		}

@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%@ taglib prefix="ui" uri= "http://tiles.apache.org/tags-tiles"%>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/uiii.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/myUI.css'/>" />
 
 <!-- json날짜형식 변환 -->
 <script type="text/javascript"
@@ -15,6 +15,14 @@
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
+
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="/stu/css/bootstrap.min.css">
+<!-- Custom styles for this template -->
+<link href="css/dashboard.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="css/justified-nav.css" rel="stylesheet">
+
 </head>
 <style>
 /* 상품문의 */
@@ -29,7 +37,7 @@
 }
 
 .board_list {
-	width: 60%;
+	width: 70%;
 	margin-top: 0px;
 	background: #fff;
 	font-size: 15px;
@@ -112,12 +120,18 @@ p{
 	align:center;
 }
 
+#mgq {
+	/* width : 800px; */
+	position: relative;
+	top : -620px;
+	left: 150px;
 
-
-
+} 
 </style>
 <body>
-<div align="center">
+<div class="container">
+	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+<div id="mgq" align="center">
 <br/><br/><br/>
 	<h2 align="center">나의 상품 Q&A</h2>
 	<br/><br/>
@@ -146,8 +160,8 @@ p{
 	<table align="center" class="board_list">
 		<colgroup>
 			<col width="10%"/>
-			<col width="10%"/>
-			<col width="50%"/>
+			<col width="15%"/>
+			<col width="45%"/>
 			<col width="15%"/>
 			<col width="15%"/>
 		</colgroup>
@@ -171,23 +185,16 @@ p{
 	
 	<br/>
 	
-	
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			fn_selectQnaList(1);
-			
-			
 			$("#show").on("click", function(e){ //제목 
 				console.log("asdasd", $(this).parent().parent());
 				$( '#hide' ).toggle( 'slow' );
 				//$(this).parent().parent().find('#hide').show();
 			});
-
-			
 		});
-		
-		
 		function fn_selectQnaList(pageNo){
 			var comAjax = new ComAjax();
 			comAjax.setUrl("<c:url value='/my/myGoodsQnaList.do' />");
@@ -202,12 +209,9 @@ p{
 			var body = $("#board_list1");
 			body.empty();
 			if(total == 0){
-				var str = "<tr>" + 
-								"<td colspan='5'>등록된 게시물이 없습니다.</td>" + 
-							"</tr>";
+				var str = "<tr>" + "<td colspan='5'>등록된 게시물이 없습니다.</td>" + "</tr>";
 				body.append(str);
-			}
-			else{
+			}else{
 				var params = {
 					divId : "PAGE_NAVI",
 					pageIndex : "PAGE_INDEX",
@@ -215,29 +219,13 @@ p{
 					eventName : "fn_selectQnaList"
 				};
 				gfn_renderPaging(params);
-				
 				var str = "";
 				$.each(data.list, function(key, value){
 					var date = moment(value.GOODS_QNA_DATE).format("YYYY-MM-DD");
 					var Level = value.GOODS_QNA_LEVEL;
 					var Q= "<img src='/stu/img/ico_qna_q.png' align='left'>";
 					var A= "<img src='/stu/img/ico_qna_a.png' align='left'>";
-					/* var Level1 = "0";
-					$.each(Level,function(idx,row){
-						if(Level[idx].NAME == "0"){
-							return Level[idx];	
-						}else if(Level[idx].NAME == "0") {
-							return Level[idx];
-						}
-						return ""
-					});
-					alert(Level);  */
-
-					//var Level = 0;
-					//alert(value.GOODS_QNA_LEVEL == 1);
-					
-					
-					if(Level == 1){
+					if(Level == 1){ //답변 있음
 						str += " <tr > "
 							+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 							+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
@@ -251,9 +239,7 @@ p{
 							+  " <br><br><br> "+A+" &nbsp; <p>"+value.GOODS_QNA_AN+"</p> </td> "
 							+  " </tr>"
 							+  " </div> ";
-								
-							}else{
-
+							}else{ //답변 없음
 							str += " <tr > "
 								+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 								+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
@@ -273,5 +259,6 @@ p{
 			}
 		}
 	</script>	
+	</div>
 </body>
 </html>

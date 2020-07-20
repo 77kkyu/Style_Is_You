@@ -344,10 +344,8 @@ public class GoodsController {
 	@RequestMapping(value = "/shop/insertBasket.do", method = RequestMethod.POST)
 	public ModelAndView insertBasket(CommandMap commandMap, HttpServletRequest request) throws Exception { // 상품디테일에서 장바구니 추가 
 		ModelAndView mv = new ModelAndView("redirect:/shop/goodsDetail.do");
-
-		System.out.println("CommandMap=" + commandMap.getMap());
+		
 		commandMap.remove("resultList");
-
 		Object MEMBER_NO = "";
 		// 세션값 가져오기
 		HttpSession session = request.getSession();
@@ -356,8 +354,9 @@ public class GoodsController {
 		commandMap.remove("MEMBER_NO");
 		// 세션 값으로 적용
 		commandMap.put("MEMBER_NO", MEMBER_NO);
-
-		if (commandMap.get("ORDER_SIZE").getClass().getName().equals("java.lang.String")) { // 일반 스트링으로 왔을 때
+		
+		//장바구니에 넣을 상품이 한개일때
+		if (commandMap.get("ORDER_SIZE").getClass().getName().equals("java.lang.String")) { 
 			Map<String, Object> map = new HashMap<String, Object>();
 			System.out.println("CommandMap1=" + commandMap.getMap());
 			map.put("IDX", commandMap.get("IDX"));
@@ -367,7 +366,7 @@ public class GoodsController {
 			map.put("BASKET_GOODS_AMOUNT", commandMap.get("BASKET_GOODS_AMOUNT"));
 			map.put("GUBUN", "0");
 			goodsService.insertBasket(map, request);
-		} else { // 배열로 왔을 때 
+		} else { //장바구니에 넣을 상품이 두가지 이상일때(색상,사이즈가 다른) 
 			System.out.println("CommandMap2=" + commandMap.getMap());
 			String[] Size = (String[]) commandMap.getMap().get("ORDER_SIZE");
 			String[] Color = (String[]) commandMap.getMap().get("ORDER_COLOR");
@@ -376,7 +375,7 @@ public class GoodsController {
 			System.out.println("다중 사이즈0=" + Goods_No[0]);
 			System.out.println("다중 사이즈1=" + Goods_No[1]);
 			Map<String, Object> map1 = new HashMap<String, Object>();
-
+			
 			for (int j = 0; j <= Size.length - 1; j++) {
 				map1.put("ORDER_SIZE", Size[j]);
 				map1.put("ORDER_COLOR", Color[j]);
@@ -388,7 +387,6 @@ public class GoodsController {
 				goodsService.insertBasket(map1, request);
 			}
 		}
-
 		mv.addObject("IDX", commandMap.getMap().get("IDX"));
 		return mv;
 	}

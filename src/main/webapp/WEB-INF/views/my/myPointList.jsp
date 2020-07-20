@@ -30,14 +30,14 @@
 <script src="/stu/js/common.js" charset="utf-8"></script>
 
 <style type="text/css">
-
+ 
 #pointList {
 	width : 800px;
 	position: relative;
 	top : -600px;
 	left: 320px;
 
-}
+} 
 
 </style>
  

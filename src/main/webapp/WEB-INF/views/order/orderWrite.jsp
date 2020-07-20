@@ -104,8 +104,7 @@ function fn_chkinfo(){
 }
 
 //쿠폰, 포인트 사용
-function fn_price(){
-
+function fn_price(){ 
 	var f = document.orderWrite;
 	var hap_buy = Number(f.ORDER_TOTAL_ORDER_PRICE.value);  //총 주문금액
 	var u_p = ${map.POINT_TOTAL}; //보유포인트
@@ -126,7 +125,6 @@ function fn_price(){
 		array2[i].value = COUPON_DISCOUNT;
 		array3[i].value = Number(array[i].value)-Number(array2[i].value);
 	}
-	
 	if(u_p < o_point ){
 			alert("사용가능 마일리지를 확인해주세요!");
 			return false;
@@ -136,11 +134,11 @@ function fn_price(){
 			location.reload(true);
 			return false;
 	}
-	f.discount.value = hap_discount+o_point;
-	f.pay_price1.value = sum_buy+3000;
+	f.discount.value = hap_discount+o_point; //총 할일된 금액
+	f.pay_price1.value = sum_buy+3000; //배송비를 포함한 결제금액
 	f.ORDER_TOTAL_PAY_PRICE.value = sum_buy+3000;
-	f.POINT_TOTAL.value = sum_point;
-
+	f.POINT_TOTAL.value = sum_point; //사용하고 남은 보유 포인트금액
+	//선택된 쿠폰 인덱스
 	var index = ($("#COUPON_VALUE option").index("#COUPON_VALUE option:selected"))*(-1)-1;
 	var array9 = document.getElementsByName("COUPON_STATUS_NO");
 	var array11 = document.getElementsByName("COUPON_NO");
@@ -194,7 +192,6 @@ function findAddr() {
 	new daum.Postcode( {
 		oncomplete : function(data) {
 			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
 			// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
 			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 			var roadAddr = data.roadAddress; // 도로명 주소 변수
@@ -216,12 +213,10 @@ function findAddr() {
 			if (extraRoadAddr !== '') {
 				extraRoadAddr = ' (' + extraRoadAddr + ')';
 			}
-
 			// 우편번호와 주소 정보를 해당 필드에 넣는다.
 			document.getElementById('ORDER_ZIPCODE').value = data.zonecode;
 			document.getElementById("ORDER_ADDR1").value = roadAddr
 					+ data.jibunAddress;
-
 			// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
 			if (roadAddr !== '') {
 				document.getElementById("ORDER_ADDR2").value = extraRoadAddr;
