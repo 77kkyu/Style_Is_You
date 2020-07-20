@@ -49,11 +49,10 @@ public class JoinServiceImpl implements JoinService {
 	// 이메일 인증
 	@Override
 	public boolean send(String subject, String text, String from, String to, String filePath) {
-		// javax.mail.internet.MimeMessage
+
 		MimeMessage message = javaMailSender.createMimeMessage();
 
 		try {
-			// org.springframework.mail.javamail.MimeMessageHelper
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 			helper.setSubject(subject);
 			helper.setText(text, true);

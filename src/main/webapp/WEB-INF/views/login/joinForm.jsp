@@ -78,9 +78,8 @@
 				<label for="member_zipcode">배송지 주소 *</label>
 				<div class="form-inline">
 					<input type="text" class="form-control" style="width: 100px;"
-						name="MEMBER_ZIPCODE" id="MEMBER_ZIPCODE" placeholder="우편번호" onfocus="this.blur()">
-					<button class="btn btn-default" type="button" id="findAddrBtn" onclick="findAddr()">우편번호
-						찾기</button>
+					name="MEMBER_ZIPCODE" id="MEMBER_ZIPCODE" placeholder="우편번호" onfocus="this.blur()">
+					<button class="btn btn-default" type="button" id="findAddrBtn" onclick="findAddr()">우편번호 찾기</button>
 				</div>
 				<input type="text" class="form-control" style="margin-top: 5px;"
 					name="MEMBER_ADDR1" id="MEMBER_ADDR1" placeholder="주소 입력" onfocus="this.blur()">
@@ -150,18 +149,15 @@
 			</div>
 			<div class="form-group" id="checkboxes">
 				<div>
-					<input type="checkbox" name="check1" id="check1"> <b>서비스
-						이용약관 동의</b><font color="red">(필수)</font>
+					<input type="checkbox" name="check1" id="check1"> <b>서비스 이용약관 동의</b><font color="red">(필수)</font>
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal1">내용보기</button>
 				</div>
 				<div>
-					<input type="checkbox" name="check2" id="check2"> <b>개인정보
-						수집 및 이용 동의</b><font color="red">(필수)</font>
+					<input type="checkbox" name="check2" id="check2"> <b>개인정보 수집 및 이용 동의</b><font color="red">(필수)</font>
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">내용보기</button>
 				</div>
 				<div>
-					<input type="checkbox" name="check3" id="check3"> <b>만
-						14세 이상입니다.</b><font color="red">(필수)</font>
+					<input type="checkbox" name="check3" id="check3"> <b>만 14세 이상입니다.</b><font color="red">(필수)</font>
 				</div>
 			</div>
 			<div class="chk_allAgree">
@@ -220,7 +216,6 @@ $(function() {
 		$("#isCheck_EmailForm").hide();
 	});
 
-	// 아이디 유효성 검사(1 = 중복 / 0 != 중복)
 	$("#MEMBER_ID").keyup(function() {
 		var mem_userid = $('#MEMBER_ID').val();
 			$.ajax({
@@ -257,7 +252,7 @@ $(function() {
 	$("#MEMBER_ID").bind("keyup", function(){
 		re = /[~!@\#$%^&*\()\-=+_']/gi;
 		var temp = $("#MEMBER_ID").val();
-		if (re.test(temp)) { //특수문자가 포함되면 삭제하여 값으로 다시셋팅
+		if (re.test(temp)) {
 			$("#MEMBER_ID").val(temp.replace(re, ""));
 		}
 	});
@@ -379,7 +374,7 @@ $(function() {
 	$("#MEMBER_PHONE").bind("keyup", function() {
 		re = /[~!@\#$%^&*\()\-=+_']/gi;
 		var temp = $("#MEMBER_PHONE").val();
-		if (re.test(temp)) { //특수문자가 포함되면 삭제하여 값으로 다시셋팅
+		if (re.test(temp)) {
 			$("#MEMBER_PHONE").val(temp.replace(re, ""));
 		}
 	});
@@ -398,6 +393,8 @@ $(function() {
 	//이메일 중복,유효성 체크
 	$("#MEMBER_EMAIL").on('keyup', function() {
 		var user_email = $("#MEMBER_EMAIL").val();
+		var user_email2 = $("#MEMBER_EMAIL2").val();
+		if(user_email2 != "") user_email = user_email + "@" + user_email2;
 		$.ajax({
 			url : '${pageContext.request.contextPath}/selectEmailCheck.do?user_email='+ user_email,
 			type : 'get',
@@ -418,7 +415,7 @@ $(function() {
 				$("#isEmailCheck").val("0");
 			} else if (data == 0) {
 				//이메일 유형
-				var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$/;
 				//특수문자
 				var re2 = /[~!@\#$%^&*\()\-=+_']/gi;
 				// 0 : 사용가능
@@ -448,6 +445,8 @@ $(function() {
 	});
 	$("#MEMBER_EMAIL2").on('change', function() {
 		var user_email = $("#MEMBER_EMAIL").val();
+		var user_email2 = $("#MEMBER_EMAIL2").val();
+		if(user_email2 != "") user_email = user_email + "@" + user_email2;
 		$.ajax({
 			url : '${pageContext.request.contextPath}/selectEmailCheck.do?user_email='+ user_email,
 			type : 'get',
@@ -468,7 +467,7 @@ $(function() {
 				$("#isEmailCheck").val("0");
 			} else if (data == 0) {
 				//이메일 유형
-				var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,}))$/;
 				//특수문자
 				var re2 = /[~!@\#$%^&*\()\-=+_']/gi;
 				// 0 : 사용가능
@@ -496,8 +495,6 @@ $(function() {
 			}
 		});
 	});
-	
-
 
 	//이용약관 체크박스 클릭시
 	$("#check1").click(function(){
@@ -603,7 +600,7 @@ $(function() {
 		}
 	}
 
-	//이메일 인증 		
+
 	//   이메일 인증 버튼 클릭시 발생하는 이벤트
 	$(document).on("click","#isCheck_Email",function(e) {
 
@@ -665,7 +662,7 @@ $(function() {
 			}
 		});
 	});
-
+	// modal의 동의하기 버튼 클릭 시 체크박스에 checked 속성 활성화
 	$("#check1_agree").click(function() {
 		$("#check1").prop("checked", true);
 		$('#myModal1').modal('hide');
@@ -683,7 +680,7 @@ $(function() {
 		else
 			$("#checkboxes input").prop('checked', false);
 	});
-
+	// modal의 스크롤바 이동에 따른 동의하기 버튼 활성화/비활성화
 	$(".guide_wrap").scroll(function() {
 		var scrollTop = $(this).scrollTop();
 		var innerHeight = $(this).innerHeight();
@@ -712,43 +709,30 @@ $(function() {
 //주소 찾기
 function findAddr() {
 	new daum.Postcode( {
-		oncomplete : function(data) {
-			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		oncomplete: function(data) {
+            var addr = '';
+            var extraAddr = '';
 
-			// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-			var roadAddr = data.roadAddress; // 도로명 주소 변수
-			var extraRoadAddr = ''; // 참고 항목 변수
-
-			// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-			// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-			if (data.bname !== ''
-					&& /[동|로|가]$/g.test(data.bname)) {
-				extraRoadAddr += data.bname;
-			}
-			// 건물명이 있고, 공동주택일 경우 추가한다.
-			if (data.buildingName !== ''
-					&& data.apartment === 'Y') {
-				extraRoadAddr += (extraRoadAddr !== '' ? ', '
-						+ data.buildingName : data.buildingName);
-			}
-			// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-			if (extraRoadAddr !== '') {
-				extraRoadAddr = ' (' + extraRoadAddr + ')';
-			}
-
-			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-			document.getElementById('MEMBER_ZIPCODE').value = data.zonecode;
-			document.getElementById("MEMBER_ADDR1").value = roadAddr
-					+ data.jibunAddress;
-
-			// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-			if (roadAddr !== '') {
-				document.getElementById("MEMBER_ADDR2").value = extraRoadAddr;
-			} else {
-				document.getElementById("MEMBER_ADDR2").value = '';
-			}
-		}
+            if (data.userSelectedType === 'R') {
+                addr = data.roadAddress;
+            } else {
+                addr = data.jibunAddress;
+            }
+            if(data.userSelectedType === 'R'){
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+            }
+            document.getElementById('MEMBER_ZIPCODE').value = data.zonecode;
+            document.getElementById("MEMBER_ADDR1").value = addr + extraAddr;
+            document.getElementById("MEMBER_ADDR2").focus();
+        }
 	}).open();
 }
 </script>

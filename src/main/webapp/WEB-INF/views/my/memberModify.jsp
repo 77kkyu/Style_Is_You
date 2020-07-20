@@ -254,6 +254,9 @@ $(function() {
 				$("#pw1_check").text('영문,숫자,특수문자를 혼합하여 입력해주세요.');
 				$("#pw1_check").css('color', 'red');
 				$("#pw2_check").val('0');
+			} else {
+				$("#pw1_check").val('1');
+				$("#pw1_check").text('');
 			}
 		} else {
 			$("#pw2_check").val('1');

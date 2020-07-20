@@ -18,6 +18,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta charset="UTF-8" />
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="840345488051-t7d9q5tg8he8kt3om4dmlovpjom64m3q.apps.googleusercontent.com">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Insert title here</title>
@@ -155,7 +158,7 @@ li {
 				</c:when>
 				<c:otherwise>
 					<td>Hi, ${SESSION_NAME }님!</td> <td> | </td>
-					<td><a href="/stu/logout.do">로그아웃</a></td> <td> | </td>
+					<td><a href="#" onClick="signOut();">로그아웃</a></td> <td> | </td>
 					<td><a href="/stu/myOrderList.do">마이페이지</a></td> <td> | </td>
 					<td><a href="/stu/basket/basketList.do">장바구니</a></td> <td> | </td>
 				</c:otherwise>
@@ -202,7 +205,48 @@ li {
 </div>
 
 </div>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
+<script>
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		var data = {};
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/logout.do",
+			data : JSON.stringify(data), 
+			dataType : "json",   
+			contentType:"application/json;charset=UTF-8",
+		    async: false,
+			success : function(data, status, xhr) {
+				console.log(data);
+				if (auth2 != null && auth2 != "undefined") {
+					auth2.signOut().then(function() {
+						console.log('User signed out.');
+						if (!Kakao.Auth.getAccessToken()) {
+							  console.log('Not logged in.');
+							  return;
+						}
+						Kakao.Auth.logout(function() {
+						  alert(Kakao.Auth.getAccessToken());
+						}); 
+					});
+				}
+		 		
+					location.href=data.URL;
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert("에러가 발생했습니다.");
+			}
+		});
 
+	}
+	function onLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+</script>
+<script src = "//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </body>
 </html>
