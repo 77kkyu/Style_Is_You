@@ -22,30 +22,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <head>
-<script type="text/javascript">
-/*  var img=new Array();
-img[0]=new Image(); img[0].src="/stu/img/옷1.JPG";
-img[1]=new Image(); img[1].src="/stu/img/옷2.JPG";
-img[2]=new Image(); img[2].src="/stu/img/옷3.JPG"; 
-var interval=1500;
-var n=0;
-
-var imgs = new Array("/stu/img/옷1.JPG","/stu/img/옷2.JPG","/stu/img/옷3.JPG","/stu/img/옷4.JPG");
-
-function rotate() {
-	
-if(navigator.appName=="Netscape" && document.getElementById) {
-	
-document.getElementById("slide").src=imgs[n];
-
-}else document.images.slide.src=imgs[n];
-(n==(imgs.length-1))?n=0:n++;
-setTimeout("rotate()",interval);
-
-} */
-</script>
 
 <style>
+
+#main-container
+{
+   min-height: 400px;
+   margin: 0 0 0 125px;
+   padding: 20px;
+   border-top: 1px solid #fff;  
+   border-right: 1px solid #fff;     
+   border-left: 1px solid #fff; 
+   border-bottom: 1px solid #fff;    
+}
 
 /* 폰트 */
 .mTitle {
@@ -244,6 +233,26 @@ h1 {
 	margin-left: 15px;
    float: ;
 }
+
+
+
+
+.mTitle {
+    position: relative;
+    text-align: center;
+    padding: 50px 0 40px;
+    font-family: sans-serif;
+    color: #666;
+    font-size: 26px;
+    font-weight: 100;
+    margin: 0;
+    line-height: 0px;
+    align:center;
+}
+
+.imgswap img:last-child{display:none} 
+.imgswap:hover img:first-child{display:none} 
+.imgswap:hover img:last-child{display:inline-block}
 </style>
 
 </head>
@@ -259,16 +268,12 @@ h1 {
 </ul>
 </div>
 
-
-
-
 <div align="center">
 	<h1 class="mTitle">NEW ITEM</h1>
 </div>
 
 <div id="main-container">
-
-<table class="board_list" style="width:'100%'">
+<table class="New_list" style="width:100%">
 		<colgroup>
 			<col width="100%" />
 		</colgroup>
@@ -277,44 +282,20 @@ h1 {
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${newList}" var="newList">
-			<div class="card">
-			<a href="#this" name="title">
-			<img src="/stu/file/${newList.GOODS_THUMBNAIL}" width="400" height="400">
-			<c:set var="PICK" value="${fn:split(newList.GOODS_PICK,',')}"/>
-			<c:forEach var="PICK1" items="${PICK}" varStatus="g">
-				<c:if test="${g.count == 1 }">
-			 <span style="background-color:#ff80bf; line-height: 27px; border-radius: 10px;"><font color="#ffffff" >${PICK1}</font></span>
-				</c:if>
-				<c:if test="${g.count == 2 }">
-			 <span style="background-color:#d456dc; line-height: 27px; border-radius: 10px;"><font color="#ffffff">${PICK1}</font></span>
-				</c:if>
-				<c:if test="${g.count == 3 }">
-			 <span style="background-color:#33b7ff; line-height: 27px; border-radius: 10px;"><font color="#ffffff">${PICK1}</font></span>
-				</c:if>
-			</c:forEach>
-			<br>
-			<font class="font1">${newList.GOODS_NAME}</font><br>
-			<font class="font2"><fmt:formatNumber value="${newList.GOODS_SELL_PRICE}" pattern="#,###"/>원 </font>
-			<input type="hidden" id="IDX" name="IDX" value="${newList.GOODS_NO}"> 
-		</a>
-		</div>
-		</c:forEach>
 		</tbody>
 		</table>
+
+
+
 </div>
 
 
-
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<h1 class="mTitle">BEST ITEM</h1>
-
+<div align="center">
+	<h1 class="mTitle">BEST ITEM</h1>
+</div>
 
 <div id="main-container">
-		
-<table class="board_list" style="width:'100%'">
+<table class="Best_list" style="width:100%">
 		<colgroup>
 			<col width="100%" />
 		</colgroup>
@@ -323,41 +304,29 @@ h1 {
 			</tr>
 		</thead>
 		<tbody>
-		
-		<c:forEach items="${bestList}" var="bestList">
-			<div class="card">
-			<a href="#this" name="title">
-			<img src="/stu/file/${bestList.GOODS_THUMBNAIL}" width="400" height="400">
-			<c:set var="PICK" value="${fn:split(bestList.GOODS_PICK,',')}"/>
-			<c:forEach var="PICK1" items="${PICK}" varStatus="g">
-				<c:if test="${g.count == 1 }">
-			 <span style="background-color:#ff80bf"><font color="#ffffff" >${PICK1}</font></span>
-				</c:if>
-				<c:if test="${g.count == 2 }">
-			 <span style="background-color:#d456dc"><font color="#ffffff">${PICK1}</font></span>
-				</c:if>
-				<c:if test="${g.count == 3 }">
-			 <span style="background-color:#33b7ff"><font color="#ffffff">${PICK1}</font></span>
-				</c:if>
-			</c:forEach>
-			<br>
-			${bestList.GOODS_NAME}<br>
-			<fmt:formatNumber value="${bestList.GOODS_SELL_PRICE}" pattern="#,###"/>원
-			<input type="hidden" id="IDX" name="IDX" value="${bestList.GOODS_NO}">  
-		</a>
-		</div>
-		</c:forEach>
 		</tbody>
 		</table>
-</div> 
+
+
+
+</div>
+
+
 
 <form id="commonForm" name="commonForm"></form>
 
 </body>
 </html>
 
-
 <script type="text/javascript">
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+fn_selectNewItemList(1);
+fn_selectBestItemList(1);
+
 
 $(document).ready(function () {
     $('.bxslider').bxSlider({
@@ -371,7 +340,8 @@ $(document).ready(function () {
         slideWidth: 1260, // 크기
         slideMargin: 0,
         autoDelay: 0,
-        responsive: true,      
+        responsive: true,
+        controls : true,      
     });
 
     $("a[name='title']").on("click", function(e){ //제목 //name 이 title인거
@@ -391,4 +361,221 @@ function fn_openBoardDetail(obj) {
 	
 }
 
+
+		/* 최신상품 아이템 */
+function fn_selectNewItemList(pageNo) {
+	var comAjax = new ComAjax();
+	comAjax.setUrl("<c:url value='/mainList.do' />");
+	comAjax.setCallback("fn_selectNewItemListCallback");
+	comAjax.addParam("PAGE_INDEX", pageNo);
+	comAjax.addParam("PAGE_ROW", 16);
+	comAjax.ajax();
+}
+
+function fn_selectNewItemListCallback(data) {
+	var total = data.TOTAL;
+	var body = $(".New_list");
+	body.empty();
+	
+	if (total == 0) {
+		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>"
+				+ "</tr>";
+		body.append(str);
+	} else {
+		var params = {
+			divId : "PAGE_NAVI",
+			pageIndex : "PAGE_INDEX",
+			totalCount : total,
+			recordCount : 16,
+			eventName : "fn_selectNewItemList"
+		};
+		gfn_renderPaging(params);
+
+		var str = "";
+		$.each(data.NewList, function(key, value) {
+							var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
+
+							var imgpath1 = value.GOODS_IMAGE_STD.split(',');
+							var img0 = imgpath1[0];
+							var img1 = imgpath1[1];
+							
+							var Pick = value.GOODS_PICK.split(',');
+
+							var pick1 = "";
+							var pick2 = "";
+							var pick3 = "";
+							var pick4 = "";
+							var num = "";
+						    for (var i=0; i<Pick.length; i++) {
+									Pick[i];
+									if(Pick[0] == null){
+										pick1 = "";
+									}else{
+										pick1 = Pick[0];
+									}
+									if(Pick[1] == null){
+										pick2 = "";
+									}else {
+										pick2 = Pick[1];
+									}
+									if(Pick[2] == null){
+										pick3 = "";
+									}else {
+										pick3 = Pick[2];
+									}
+									if(Pick[3] == null){
+										pick4 = "";
+									}else{
+										pick4 = Pick[3];
+									}
+								} 
+							
+							
+							str +=    "<div class='card'>"
+								+	  "<a href='#this' name='title'>"
+								+	  "<div class='imgswap'>"
+								+ 	  "<img src='/stu/file/"+img0+"' width='400' height='400'>" 
+								+ 	  "<img src='/stu/file/"+img1+"' width='400' height='400'>"
+								+     " </div> "
+								+     " <c:if test='${"+num+" ne "+pick1+"}'> "
+								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
+								+		pick1 +"</font></span>"
+								+	  " </c:if>"
+								+     " <c:if test='${"+num+" ne "+pick2+"}'> "
+								+     " <span style='background-color:#d456dc; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
+								+	  	pick2 + "</font></span>"
+								+	  " </c:if>"
+								+     " <c:if test='${"+num+" ne "+pick3+" }'> "
+								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
+								+       pick3 + "</font></span>"
+								+	  " </c:if>"
+								+     " <c:if test='${"+num+" ne "+pick4+" }'> "
+								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2' "  
+								+       pick4 + "</font></span>"
+								+	  " </c:if> <br>"
+								+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
+								+     " <font class='font2'>"+numberWithCommas(value.GOODS_SELL_PRICE)+"원</font> "   
+								+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
+								+	  " </a>"
+								+	  " </div>";
+
+						});
+		body.append(str);
+		$("a[name='title']").on("click", function(e){ //제목 
+			e.preventDefault();
+			fn_openBoardDetail($(this));
+		});
+
+		
+	}
+}
+
+
+		/* 베스트 아이템 */
+
+function fn_selectBestItemList(pageNo) {
+	var comAjax = new ComAjax();
+	comAjax.setUrl("<c:url value='/mainList.do' />");
+	comAjax.setCallback("fn_selectBestItemListCallback");
+	comAjax.addParam("PAGE_INDEX", pageNo);
+	comAjax.addParam("PAGE_ROW", 28);
+	comAjax.ajax();
+}
+
+function fn_selectBestItemListCallback(data) {
+	var total = data.TOTAL1;
+	var body = $(".Best_list");
+	body.empty();
+	
+	if (total == 0) {
+		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>"
+				+ "</tr>";
+		body.append(str);
+	} else {
+		var params = {
+			divId : "PAGE_NAVI",
+			pageIndex : "PAGE_INDEX",
+			totalCount : total,
+			recordCount : 28,
+			eventName : "fn_selectBestItemList"
+		};
+		gfn_renderPaging(params);
+
+		var str = "";
+		$.each(data.BestList, function(key, value) {
+							var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>";
+
+							var imgpath1 = value.GOODS_IMAGE_STD.split(',');
+							var img0 = imgpath1[0];
+							var img1 = imgpath1[1];
+							
+							var Pick = value.GOODS_PICK.split(',');
+							var pick1 = "";
+							var pick2 = "";
+							var pick3 = "";
+							var pick4 = "";
+							var num = "";
+							for (var i=0; i<Pick.length; i++) {
+									Pick[i];
+									if(Pick[0] == null){
+										pick1 = "";
+									}else{
+										pick1 = Pick[0];
+									}
+									if(Pick[1] == null){
+										pick2 = "";
+									}else {
+										pick2 = Pick[1];
+									}
+									if(Pick[2] == null){
+										pick3 = "";
+									}else {
+										pick3 = Pick[2];
+									}
+									if(Pick[3] == null){
+										pick4 = "";
+									}else{
+										pick4 = Pick[3];
+									}
+								}
+							
+							
+									
+							
+							str += "<div class='card'>"
+								+		"<a href='#this' name='title'>"
+								+		"<div class='imgswap'>"
+								+ 		"<img src='/stu/file/"+img0+"' width='400' height='400'>" 
+								+ 		"<img src='/stu/file/"+img1+"' width='400' height='400'>"
+								+     " </div> "
+								+     " <c:if test='${"+num+" ne "+pick1+"}'> "
+								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
+								+		pick1 +"</font></span>"	
+								+	  " </c:if>"
+								+     " <c:if test='${"+num+" ne "+pick2+"}'> "
+								+     " <span style='background-color:#d456dc; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
+								+		pick2 + "</font></span>"
+								+	  " </c:if>"
+								+     " <c:if test='${"+num+" ne "+pick3+" }'> "
+								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
+								+       pick3 + "</font></span>"
+								+	  " </c:if>"
+								+     " <c:if test='${"+num+" ne "+pick4+" }'> "
+								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
+								+       pick4 + "</font></span>"
+								+	  " </c:if> <br>"
+								+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
+								+     " <font class='font2'>"+numberWithCommas(value.GOODS_SELL_PRICE)+"원</font> "   
+								+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
+								+	  " </a>"
+								+	  " </div>";
+
+						});
+		body.append(str);
+		$("a[name='title']").on("click", function(e){ //제목 
+			e.preventDefault();
+			fn_openBoardDetail($(this));
+		});
+	}
+}
 </script>

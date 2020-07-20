@@ -23,9 +23,13 @@ public class myDAO extends AbstractDao {
 		return (List<Map<String,Object>>) orderList("my.selectOrderList2",map);
 	}
 	// 회원 정보 수정
+	public String pwdCheck(Map<String, Object> map, String id) throws Exception{
+		return (String) selectOne("my.pwdCheck", map);
+	}
+	
 	@SuppressWarnings("unchecked")
-	public Map<String,Object> memberModify(Map<String, Object> map) throws Exception {
-		return (Map<String,Object>) selectOne("my.memberModify",map);
+	public Map<String,Object> memberModify(String id) throws Exception {
+		return (Map<String,Object>) selectOne("my.memberModify",id);
 	}
 	
 	public void memberModifyAction(Map<String, Object> map) throws Exception {
@@ -49,11 +53,18 @@ public class myDAO extends AbstractDao {
 	public void goodsLikeDelete(CommandMap commandMap) {
 		delete("goods.deleteGoodsLike", commandMap.getMap());
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	public List<Map<String,Object>> myDash(CommandMap map) throws Exception { //adminMain대쉬보드 
 		return (List<Map<String,Object>>) myDash("my.my_side",map);
+	}
+	
+	public List<Map<String, Object>> myQnaList(CommandMap commandMap) {
+		return (List<Map<String,Object>>) selectList("my.myGoodsQnaList",commandMap.getMap());
+	}
+	
+	public List<Map<String, Object>> myReviewList(CommandMap commandMap) {
+		return (List<Map<String,Object>>) selectList("my.myReviewList",commandMap.getMap());
 	}
 
 

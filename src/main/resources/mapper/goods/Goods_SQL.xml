@@ -4,54 +4,62 @@
 
 <mapper namespace="goods">
 
-	<select id="newGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최근순 상품리스트 -->
+	<select id="newGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최신 상품 리스트 -->
 		<![CDATA[
 SELECT
 				AAA.* 
 			FROM( select count(*) over() as total_count, AA.*
 			FROM(
 				select ROW_NUMBER() OVER (ORDER BY GOODS_DATE desc) RNUM,
-				GOODS_NO,
-				GOODS_CATEGORY,
-				GOODS_NAME,
-				GOODS_CONTENT,
-				GOODS_ORIGIN_PRICE,
-				GOODS_SELL_PRICE,
-				GOODS_SALE_PRICE,
-				GOODS_DATE,
-				GOODS_KEYWORD,
-				GOODS_READCNT,
-                GOODS_PICK,
-                GOODS_THUMBNAIL
+				GS.GOODS_NO,
+				GS.GOODS_CATEGORY,
+				GS.GOODS_NAME,
+				GS.GOODS_CONTENT,
+				GS.GOODS_ORIGIN_PRICE,
+				GS.GOODS_SELL_PRICE,
+				GS.GOODS_SALE_PRICE,
+				GS.GOODS_DATE,
+				GS.GOODS_KEYWORD,
+				GS.GOODS_READCNT,
+                GS.GOODS_PICK,
+                GS.GOODS_THUMBNAIL,
+                GI.goods_image_std
 			FROM
-				GOODS
+				GOODS GS, GOODS_IMAGE GI
+			WHERE 
+				GS.GOODS_NO = GI.GOODS_NO
+			AND GUBUN = '0'
 				) AA
 		      ) AAA
 		      WHERE AAA.RNUM BETWEEN 0 AND 12 
 		]]>
 	</select>
 	
-	<select id="bestGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- best 상품리스트 -->
+	<select id="bestGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 베스트 상품 리스트 -->
 		<![CDATA[
 			SELECT
 			AAA.* 
 			FROM( select count(*) over() as total_count, AA.*
 			FROM(
 				select ROW_NUMBER() OVER (ORDER BY GOODS_READCNT desc) RNUM,
-				GOODS_NO,
-				GOODS_CATEGORY,
-				GOODS_NAME,
-				GOODS_CONTENT,
-				GOODS_ORIGIN_PRICE,
-				GOODS_SELL_PRICE,
-				GOODS_SALE_PRICE,
-				GOODS_DATE,
-				GOODS_KEYWORD,
-				GOODS_READCNT,
-				GOODS_PICK,
-				GOODS_THUMBNAIL
+				GS.GOODS_NO,
+				GS.GOODS_CATEGORY,
+				GS.GOODS_NAME,
+				GS.GOODS_CONTENT,
+				GS.GOODS_ORIGIN_PRICE,
+				GS.GOODS_SELL_PRICE,
+				GS.GOODS_SALE_PRICE,
+				GS.GOODS_DATE,
+				GS.GOODS_KEYWORD,
+				GS.GOODS_READCNT,
+                GS.GOODS_PICK,
+                GS.GOODS_THUMBNAIL,
+                GI.goods_image_std
 			FROM
-				GOODS 
+				GOODS GS, GOODS_IMAGE GI 
+			WHERE 
+				GS.GOODS_NO = GI.GOODS_NO
+			AND GUBUN = '0'	
 			) AA
 		      ) AAA
 		      WHERE AAA.RNUM BETWEEN 0 AND 28
@@ -60,58 +68,67 @@ SELECT
 	</select>
 	
 	
-	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 카테고리별 순서출력 -->
+	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 상품 카테고리별 리스트  -->
 		<include refid="common.pagingPre2"/>
-			SELECT GOODS_NO,
-			       GOODS_CATEGORY,
-			       GOODS_NAME,
-			       GOODS_CONTENT,
-			       GOODS_ORIGIN_PRICE,
-			       GOODS_SELL_PRICE,
-			       GOODS_SALE_PRICE, 
-			       GOODS_DATE,
-			       GOODS_KEYWORD,
-			       GOODS_READCNT, 
-			       GOODS_PICK,
-			       GOODS_THUMBNAIL
-		      FROM GOODS GS 
-			 WHERE GOODS_CATEGORY = #{cate}
+			SELECT GS.GOODS_NO,
+			       GS.GOODS_CATEGORY,
+			       GS.GOODS_NAME,
+			       GS.GOODS_CONTENT,
+			       GS.GOODS_ORIGIN_PRICE,
+			       GS.GOODS_SELL_PRICE,
+			       GS.GOODS_SALE_PRICE, 
+			       GS.GOODS_DATE,
+			       GS.GOODS_KEYWORD,
+			       GS.GOODS_READCNT, 
+			       GS.GOODS_PICK,
+			       GS.GOODS_THUMBNAIL,
+			       GS.GUBUN,
+			       GI.GOODS_IMAGE_STD
+		      FROM GOODS GS, GOODS_IMAGE GI
+		      WHERE GS.GOODS_NO = GI.GOODS_NO
+			  AND GOODS_CATEGORY = #{cate}
+			 <if test="keyword != null">
+		   	 AND (GOODS_NAME LIKE '%' || #{keyword} || '%' OR GOODS_KEYWORD LIKE '%' || #{keyword} || '%')
+		   </if>
+		   AND GUBUN = '0'
            <if test="orderBy != '' and orderBy != 'null'">
 		     ORDER BY ${orderBy} ${orderSort} 
 		   </if> 	 
 		<include refid="common.pagingPost2"/>
-		   <if test="keyword != null">
-		   	 AND GOODS_NAME LIKE '%' || #{keyword} || '%'
-		   </if>
+		   
 	</select>
 	
 	
-	<select id="mainSearch" parameterType="hashmap" resultType="hashmap"> <!-- 메인검색 순서출력 -->
+	<select id="mainSearch" parameterType="hashmap" resultType="hashmap"> <!-- 메인검색 리스트 -->
 		<include refid="common.pagingPre2"/>
-			SELECT GOODS_NO,
-			       GOODS_CATEGORY,
-			       GOODS_NAME,
-			       GOODS_CONTENT,
-			       GOODS_ORIGIN_PRICE,
-			       GOODS_SELL_PRICE,
-			       GOODS_SALE_PRICE, 
-			       GOODS_DATE,
-			       GOODS_KEYWORD,
-			       GOODS_READCNT, 
-			       GOODS_PICK,
-			       GOODS_THUMBNAIL
-		      FROM GOODS GS 
+			SELECT GS.GOODS_NO,
+			       GS.GOODS_CATEGORY,
+			       GS.GOODS_NAME,
+			       GS.GOODS_CONTENT,
+			       GS.GOODS_ORIGIN_PRICE,
+			       GS.GOODS_SELL_PRICE,
+			       GS.GOODS_SALE_PRICE, 
+			       GS.GOODS_DATE,
+			       GS.GOODS_KEYWORD,
+			       GS.GOODS_READCNT, 
+			       GS.GOODS_PICK,
+			       GS.GOODS_THUMBNAIL,
+			       GI.GOODS_IMAGE_STD
+		      FROM GOODS GS, GOODS_IMAGE GI
+		      WHERE GS.GOODS_NO = GI.GOODS_NO
+		      <if test="keyword != null">
+		   	 AND (GOODS_NAME LIKE '%' || #{keyword} || '%' OR GOODS_KEYWORD LIKE '%' || #{keyword} || '%')
+		     </if> 
+		     AND GUBUN = '0'
 		     ORDER BY GOODS_NO DESC 
 		<include refid="common.pagingPost2"/>
-		   <if test="keyword != null">
-		   	 AND GOODS_NAME LIKE '%' || #{keyword} || '%'
-		   </if>
+		   
 	</select>
 
 	
 	
 	
-	<select id="selectGoodsDetail" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
+	<select id="selectGoodsDetail" parameterType="hashmap" resultType="hashmap"> <!-- 상품 상세보기 -->
 		<![CDATA[
 			SELECT 
 				GOODS_NO,
@@ -134,7 +151,7 @@ SELECT
 		]]>
 	</select>
 	
-	<select id="selectGoodsAtt" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
+	<select id="selectGoodsAtt" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 컬러랑 사이즈 배열로 가져오기 -->
 		<![CDATA[
 			SELECT 
 				LISTAGG(GOODS_ATT_COLOR,',') WITHIN GROUP(ORDER BY GOODS_ATT_COLOR) AS GOODS_ATT_COLOR,
@@ -147,7 +164,7 @@ SELECT
 		]]>
 	</select>
 	
-	<select id="selectGoodsAttNum" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
+	<select id="selectGoodsAttNum" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 상품옵션 PK값 가져오기 -->
 		<![CDATA[
 			SELECT
 				GOODS_ATT_NO
@@ -163,7 +180,7 @@ SELECT
 	
 	
 	
-	<update id="goodsReadCntUp" parameterType="hashmap">
+	<update id="goodsReadCntUp" parameterType="hashmap"> <!-- 조회수 증가 -->
 		<![CDATA[
 			UPDATE GOODS
 			SET
@@ -174,7 +191,7 @@ SELECT
 	</update>
 	
 
-	<insert id="goodsInsert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="IDX">
+	<insert id="goodsInsert" parameterType="hashmap" useGeneratedKeys="true" keyProperty="IDX"> <!-- 상품 등록 -->
 		<selectKey keyProperty="IDX" resultType="string" order="BEFORE">
 			SELECT GOODS_NO_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
@@ -208,7 +225,7 @@ SELECT
 		]]>
 	</insert>
 	
-	<update id="updateGoods" parameterType="hashmap">
+	<update id="updateGoods" parameterType="hashmap"> <!-- 상품 업데이트 -->
 		<![CDATA[
 			UPDATE  GOODS
 			SET     GOODS_CATEGORY = #{GOODS_CATEGORY},
@@ -224,9 +241,16 @@ SELECT
 		]]>
 	</update>
 	
+	<update id="deleteGoods" parameterType="hashmap"> <!-- 상품 삭제(숨김) -->
+		<![CDATA[
+			UPDATE  GOODS
+			SET     GUBUN = #{GUBUN}
+			WHERE   GOODS_NO = #{IDX}
+		]]>
+	</update>
 	
-
-	<insert id="attributeInsert" parameterType="hashmap">
+	
+	<insert id="attributeInsert" parameterType="hashmap"> <!-- 상품 옵션 등록 -->
 		<![CDATA[
 			INSERT INTO GOODS_ATTRIBUTE(
 										GOODS_ATT_NO,
@@ -248,7 +272,7 @@ SELECT
 		]]>
 	</insert>
 	
-	<delete id="attributeDelete" parameterType="hashmap">
+	<delete id="attributeDelete" parameterType="hashmap"> <!-- 상품 옵션 삭제 -->
 		<![CDATA[
 			DELETE  
 			  FROM  GOODS_ATTRIBUTE
@@ -256,7 +280,7 @@ SELECT
 		]]>
 	</delete>
 	
-	<insert id="insertFile" parameterType="hashmap">
+	<insert id="insertFile" parameterType="hashmap"> <!-- 상품 이미지 등록 -->
 		<![CDATA[
 			INSERT INTO GOODS_IMAGE
 					(
@@ -275,7 +299,26 @@ SELECT
 		]]>
 	</insert>
 	
-	<delete id="deleteFile" parameterType="hashmap">
+	<insert id="insertReviewFile" parameterType="hashmap"> <!-- 상품 Review 이미지 등록 -->
+		<![CDATA[
+			INSERT INTO REVIEW_IMAGE
+					(
+						REVIEW_IMAGE_NUM,
+						GOODS_NO,
+						REVIEW_IMAGE_ORG,
+						REVIEW_IMAGE_STD
+					)
+			VALUES
+					(
+						REVIEW_IMAGE_SEQ.NEXTVAL,
+						#{IDX},
+						'null',
+						#{UPLOAD_SAVE_NAME}
+					)
+		]]>
+	</insert>
+	
+	<delete id="deleteFile" parameterType="hashmap"> <!-- 상품 이미지 삭제 -->
 		<![CDATA[
 			DELETE  
 			  FROM  GOODS_IMAGE
@@ -283,7 +326,7 @@ SELECT
 		]]>
 	</delete>
 	
-	<update id="updateGoodsThumbnail" parameterType="hashmap">
+	<update id="updateGoodsThumbnail" parameterType="hashmap"> <!-- 상품 썸네일 이미지 등록 -->
 		<![CDATA[
 			UPDATE  GOODS 
 			SET     GOODS_THUMBNAIL = #{GOODS_THUMBNAIL}
@@ -291,7 +334,7 @@ SELECT
 		]]>
 	</update>
 	
-	<insert id="insertGoodsLike" parameterType="hashmap">
+	<insert id="insertGoodsLike" parameterType="hashmap"> <!-- 디테일에서 상품 좋아요 등록 -->
 		<![CDATA[
 			INSERT INTO GOODS_LIKE
 					(
@@ -304,13 +347,13 @@ SELECT
 					(
 						LIKE_NO_SEQ.NEXTVAL,
 						#{IDX},
-						2,
+						#{MEMBER_NO},
 						sysdate
 					)
 		]]>
 	</insert>
 	
-	<delete id="deleteGoodsLike" parameterType="hashmap">
+	<delete id="deleteGoodsLike" parameterType="hashmap"> <!-- 상품 좋아요 삭제 -->
 		<![CDATA[
 			DELETE 
 			FROM    GOODS_LIKE 
@@ -319,7 +362,7 @@ SELECT
 		]]>
 	</delete>
 	
-	<insert id="insertBasket" parameterType="hashmap">
+	<insert id="insertBasket" parameterType="hashmap">  <!-- 상품 장바구니 추가 -->
 	<selectKey resultType="string" keyProperty="GOODS_ATT_NO" order="BEFORE">
         SELECT
 				GOODS_ATT_NO
@@ -356,7 +399,7 @@ SELECT
 		]]>
 	</insert>
 	
-	<select id="selectBasketNo" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 -->
+	<select id="selectBasketNo" parameterType="hashmap" resultType="hashmap"> <!-- 상품상세보기 장바구니 PK값 가져오기 -->
 		<![CDATA[
 			SELECT 
         			LISTAGG(BASKET_NO,',') WITHIN GROUP(ORDER BY BASKET_NO) AS BASKET_NO
@@ -391,6 +434,166 @@ SELECT
          
       ]]>
    </update>
+	
+	
+	<select id="selectGoodsQna" parameterType="hashmap" resultType="hashmap"> <!-- 상품 QNA 리스트 -->
+		<![CDATA[
+			
+			SELECT
+				  AAA.* 
+			FROM( select count(*) over() as total_count, AA.*
+			FROM(
+				select ROW_NUMBER() OVER (ORDER BY GOODS_QNA_DATE desc) RNUM,
+				GOODS_QNA_NO,
+				GOODS_NO,
+				MEMBER_NO,
+				GOODS_QNA_LEVEL,
+				GOODS_QNA_TITLE,
+				GOODS_QNA_CONTENT,
+				GOODS_QNA_DATE,
+				GOODS_QNA_SECRET,
+				MEMBER_NAME,
+				GOODS_QNA_AN
+			FROM
+				GOODS_QNA
+				) AA
+		          ) AAA
+               WHERE GOODS_NO = #{IDX}
+              	AND AAA.RNUM BETWEEN 0 AND 9 
+		]]>
+	</select>
+	
+	<insert id="insertGoodsQna" parameterType="hashmap"> <!-- 상품 QNA 등록 상품문의는 등록만되고 삭제 수정안됨 관리자만 삭제가능 -->
+		<![CDATA[
+			INSERT INTO GOODS_QNA(
+								GOODS_QNA_NO,
+								GOODS_NO,
+								MEMBER_NO,
+								GOODS_QNA_LEVEL,
+								GOODS_QNA_TITLE,
+								GOODS_QNA_CONTENT,
+								GOODS_QNA_DATE,
+								MEMBER_NAME,
+								GOODS_QNA_SECRET
+								)
+						values(
+								GOODS_QNA_NO_SEQ.NEXTVAL,
+								#{IDX},
+								#{MEMBER_NO},
+								0,
+								#{GOODS_QNA_TITLE},
+								#{GOODS_QNA_CONTENT},
+								sysdate,
+								#{MEMBER_NAME},
+								#{GOODS_QNA_SECRET}
+							   )
+		]]>
+	</insert>
+	
+	<!-- 답변수정 -->
+ 	<update id="updateGoodsQna" parameterType="hashmap">
+			UPDATE GOODS_QNA
+			SET
+				GOODS_QNA_AN = #{GOODS_QNA_AN}, 
+				GOODS_QNA_LEVEL = 1
+			WHERE
+				GOODS_QNA_NO = #{GOODS_QNA_NO}
+ 	</update>
+	
+	
+	
+	<select id="selectReviewList" parameterType="hashmap" resultType="hashmap"> <!-- 상품 Review 리스트 -->
+		<![CDATA[
+		
+		SELECT 	AAA.* 
+			FROM( 
+				SELECT 	COUNT(*) OVER() AS TOTAL_COUNT1, 
+					AA.*,
+					ROWNUM AS NUM
+				FROM(
+					SELECT
+					REVIEW_NO,
+					MEMBER_NO,
+					ORDER_NO,
+					ORDER_DETAIL_NO,
+					REVIEW_TITLE,
+					REVIEW_CONTENT,
+					REVIEW_RATING,
+					REVIEW_DATE,
+					GOODS_NO,
+					REVIEW_READCNT,
+					REVIEW_IMG,
+					MEMBER_NAME
+					FROM
+						REVIEW
+				WHERE GOODS_NO = #{IDX}
+				ORDER BY REVIEW_NO DESC
+					  ) AA 
+					) AAA 
+				WHERE 	AAA.NUM BETWEEN #{START} AND #{END}
+		]]>
+	</select>
+	
+	<insert id="insertGoodsReview" parameterType="hashmap"> <!-- 상품 Review 등록 -->
+		<![CDATA[
+			INSERT INTO REVIEW(
+								REVIEW_NO,
+								MEMBER_NO,
+								REVIEW_TITLE,
+								REVIEW_CONTENT,
+								REVIEW_DATE,
+								GOODS_NO,
+								REVIEW_IMG,
+								MEMBER_NAME
+								)
+						values(
+								REVIEW_NO_SEQ.NEXTVAL,
+								#{MEMBER_NO},
+								#{REVIEW_TITLE},
+								#{REVIEW_CONTENT},
+								sysdate,
+								#{IDX},
+								#{REVIEW_IMG},
+								#{MEMBER_NAME}
+							   )
+		]]>
+	</insert>
+	
+	
+	<update id="updateReview" parameterType="hashmap"> <!-- 상품 Review 수정 -->
+		<![CDATA[
+			UPDATE  REVIEW
+			  SET   REVIEW_TITLE = #{REVIEW_TITLE},
+			        REVIEW_CONTENT = #{REVIEW_CONTENT},
+			        REVIEW_DATE = #{REVIEW_DATE}
+			WHERE   GOODS_NO = #{IDX}
+			  AND   REVIEW_NO = #{REVIEW_NO}
+			  AND   MEMBER_NO = #{MEMBER_NO}
+		]]>
+	</update>
+	
+	<update id="deleteReview" parameterType="hashmap"> <!-- 상품 Review 삭제(숨김) 만들어놨지만 사용X -->
+		<![CDATA[
+			UPDATE  REVIEW
+			  SET   REVIEW_TITLE = #{REVIEW_TITLE},
+			        REVIEW_CONTENT = #{REVIEW_CONTENT},
+			        REVIEW_DATE = #{REVIEW_DATE}
+			WHERE   GOODS_NO = #{IDX}
+			  AND   REVIEW_NO = #{REVIEW_NO}
+			  AND   MEMBER_NO = #{MEMBER_NO}
+		]]>
+	</update>
+	
+	<delete id="gumeListDelete" parameterType="hashmap"> <!-- 구매목록 초기화 -->
+		<![CDATA[
+			DELETE  
+			  FROM  BASKET
+			WHERE   GUBUN = '1'
+		]]>
+	</delete>
+	
+	
+	
 	
 
 </mapper>

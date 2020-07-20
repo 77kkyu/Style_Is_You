@@ -148,6 +148,8 @@ public class AdminMainServiceImpl implements AdminMainService {
 		adminDao.cashback_final_orderState(commandMap);
 	}
 
-	
+	public List<Map<String, Object>> selectMemberList(Map<String, Object> map) throws Exception {
+		return adminDao.selectMemberList(map);
+	}
 	
 }

@@ -7,24 +7,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>tiles layout</title>
+<title>STYLE IS YOU</title>
 </head>
 
 <body>
 
+
 	<div id="header">
 		<tiles:insertAttribute name="header" ignore="true"/><!-- // header -->
 	</div>
-	
 	<div id="content">
 		<tiles:insertAttribute name="content" ignore="true" />
 	</div>	
-
-
-
-	<%-- <footer id="footer">
+<br>
+<br>
+	<div id="footer">
 		<tiles:insertAttribute name="footer" ignore="true"/>	
-	</footer> --%>
+	</div>
 
 
 </body>

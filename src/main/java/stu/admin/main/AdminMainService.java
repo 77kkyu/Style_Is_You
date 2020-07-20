@@ -48,5 +48,7 @@ public interface AdminMainService {
 	List<Map<String, Object>> point_total(CommandMap commandMap) throws Exception ; // order_no로 사용자의 최근 point_total을 가져옴
 
 	void as_ok_c(CommandMap commandMap) throws Exception;
+	
+	List<Map<String, Object>> selectMemberList(Map<String, Object> map) throws Exception ;
 
 }

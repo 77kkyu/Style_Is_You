@@ -19,6 +19,13 @@
 <script src="<c:url value='/js/common1.js'/>" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/ui.css'/>" />
 
+<!-- bx -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+
+
 <style>
 
 #main-container
@@ -258,6 +265,31 @@ h1 {
 	margin-left: 15px;
    float: ;
 }
+/* 
+.bx-wrapper {
+    -moz-box-shadow: 0 0 5px #ccc;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 #ccc;
+    border: #fff;
+    background: #fff;
+}
+
+.bx-wrapper {
+    position: relative;
+    margin-bottom: 5px;
+    padding: 0;
+    *: ;
+    zoom: 1;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+}
+ */
+ 
+.imgswap img:last-child{display:none} 
+.imgswap:hover img:first-child{display:none} 
+.imgswap:hover img:last-child{display:inline-block}
+
+
 </style>
 
 </head>
@@ -266,8 +298,6 @@ h1 {
 
 <div style="margin-top:0px;">
 <form method="post">		
-				<%-- <input type="text" class="txt" placeholder="Search" name="keyword" id="keyword" value="${keyword}"/>&nbsp;
-				<input type="submit" value="상품검색" class="search_btn" onClick="onSearch()"/> --%>
 				<input type="hidden" id="path" value="${path}" />	
 				<div class="wrap">
 				   <div class="search">
@@ -286,20 +316,20 @@ h1 {
 	<table>
 		<tr>
 			<td>
-			<div style="margin-right:600px">
+			<div style="margin-right:400px">
 				 <%-- 총 ${TOTAL} 개의 상품이 있습니다 --%> 
 			</div>
 			</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/NewItem.do">신상품순</a></td> <td>|</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/favorite.do">인기상품순</a></td> <td>|</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
-			<td class="font1"><a href="http://localhost:8080/stu/shop/goodsList/${category}/high.do">높은가격순</a></td> 
+			<td class="font1"><a href="/stu/shop/goodsList/${category}/NewItem.do">신상품순</a></td> <td>|</td>
+			<td class="font1"><a href="/stu/shop/goodsList/${category}/favorite.do">인기상품순</a></td> <td>|</td>
+			<td class="font1"><a href="/stu/shop/goodsList/${category}/low.do">낮은가격순</a></td> <td>|</td>
+			<td class="font1"><a href="/stu/shop/goodsList/${category}/high.do">높은가격순</a></td> 
 		</tr>
 	</table>
 </div>
 
 <div id="main-container">
-<table class="board_list" style="width:'100%'">
+<table class="board_list" style="width:100%">
 		<colgroup>
 			<col width="100%" />
 		</colgroup>
@@ -324,6 +354,10 @@ h1 {
 <form id="commonForm" name="commonForm"></form>
 
 <script type="text/javascript">
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 $(document).ready(function() {
 	
@@ -363,7 +397,7 @@ function fn_selectGoodsListCallback(data) {
 	body.empty();
 	
 	if (total == 0) {
-		var str = "<tr>" + "<td colspan='4'>조회된 결과가 없습니다.</td>"
+		var str = "<tr>" + "<td colspan='4' align='center'>조회된 결과가 없습니다.</td>"
 				+ "</tr>";
 		body.append(str);
 	} else {
@@ -379,6 +413,12 @@ function fn_selectGoodsListCallback(data) {
 		var str = "";
 		$.each(data.list, function(key, value) {
 							var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
+							//alert(value.GOODS_IMAGE_STD);
+							var imgpath1 = value.GOODS_IMAGE_STD.split(',');
+							var img0 = imgpath1[0];
+							var img1 = imgpath1[1];
+							
+							
 							var Pick = value.GOODS_PICK.split(',');
 							var pick1 = "";
 							var pick2 = "";
@@ -408,13 +448,15 @@ function fn_selectGoodsListCallback(data) {
 										pick4 = Pick[3];
 									}
 								}
+
 							
-							
-									
-							
+											
 							str += "<div class='card'>"
 								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
+								+		"<div class='imgswap'>"
+								+ 		"<img src='/stu/file/"+img0+"' width='400' height='400'>" 
+								+ 		"<img src='/stu/file/"+img1+"' width='400' height='400'>"
+								+     " </div> "
 								+     " <c:if test='${"+num+" ne "+pick1+"}'> "
 								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
 								+		pick1 +"</font></span>"	
@@ -432,53 +474,22 @@ function fn_selectGoodsListCallback(data) {
 								+       pick4 + "</font></span>"
 								+	  " </c:if> <br>"
 								+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
-								+     " <font class='font2'>"+value.GOODS_SELL_PRICE+"원</font> "   
+								+     " <font class='font2'>"+numberWithCommas(value.GOODS_SELL_PRICE)+"원</font> "   
 								+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
 								+	  " </a>"
 								+	  " </div>";
-							
-							/* str += "<div class='card'>"
-								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
-								+     " <c:if test='${!empty "+pick1+"}'> "
-								+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick1 +"</font></span>"	
-								+	  " </c:if>"
-								+     " <c:if test='${!empty "+pick2+"}'> "
-								+     " <span style='background-color:#d456dc; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
-								+		pick2 + "</font></span>"
-								+	  " </c:if>"
-								+     " <c:if test='${!empty "+pick3+"}'> "
-								+     " <span style='background-color:#33b7ff; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "  
-								+       pick3 + "</font></span>"
-								+	  " </c:if>"
-								+		
-								+		value.GOODS_NAME +	"<br>"
-								+		value.GOODS_SELL_PRICE 
-								+  	"<input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
-								+	   "</a>"
-								+	   "</div>"; */
-
-
-					
-							/* str += "<div class='card'>"
-								+		"<a href='#this' name='title'>"
-								+ 			imgpath + "<br>"
-								+ 					Pick +	"<br>"
-								+		value.GOODS_NAME +	"<br>"
-								+		value.GOODS_SELL_PRICE 
-								+  	"<input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
-								+	   "</a>"
-								+	   "</div>"; */
-
-							
+				
 						});
+		
+
 		body.append(str);
 		$("a[name='title']").on("click", function(e){ //제목 
 			e.preventDefault();
 			fn_openBoardDetail($(this));
 		});
+		
 	}
+
 }
 
 </script>

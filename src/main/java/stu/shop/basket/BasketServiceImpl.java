@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import stu.common.common.CommandMap;
+import stu.shop.goods.GoodsDao;
 
 
 
@@ -51,6 +52,7 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 
 	@Override
 	public void insertGoodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		
 		basketDao.insertGoodsLike(commandMap);
 		
 	}

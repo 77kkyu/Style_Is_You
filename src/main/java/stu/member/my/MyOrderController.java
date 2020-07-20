@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import stu.common.common.CommandMap;
+import stu.admin.main.*;
 
 @Controller
 public class MyOrderController {
@@ -26,34 +27,25 @@ Logger log = Logger.getLogger(this.getClass());
 	@Resource(name="myOrderService")
 	private MyOrderService myOrderService;
 	
+	@Resource(name="adminMainService")
+	private AdminMainService adminMainService;
+	
 	/* mvc:annotation-driven을 선언하면 HandlerMethodArgumentResolver가 Map형식일때 동작을 못함 해서
 	 * 기본 Map형식이 아닌 map을 가지는 클래스를 만들어 사용 commandMap */
 	// 마이페이지 - 주문리스트
-	@RequestMapping(value="/myOrderList.do", method = RequestMethod.GET)
+	@RequestMapping(value="/myOrderList.do")
 	public ModelAndView myOrderList(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("/my/myOrderList");
 		
-		Object SESSION_NO = "";
-		  
-		/*
-		//세션값 가져오기
-		HttpSession session = request.getSession();
-		SESSION_NO = (Object)session.getAttribute("SESSION_NO");
-		
-		commandMap.remove("SESSION_NO"); // 기존 회원번호 데이터 삭제
-		commandMap.put("SESSION_NO", SESSION_NO); // 세션 값으로 적용 추후에 바꿈
-		*/
-		
-		//테스트용 세션값
-		String member_no = "2";
-		
-		// 세션이 존재할 때만
-		/*
-		 * if (member_no == null) { mv.addObject("order_msg", "로그인한 사용자만 이용할수 있습니다.");
-		 * return mv; }
-		 */
-		commandMap.put("member_no", member_no);
+		Object MEMBER_NO = ""; 
+		//세션값 가져오기 
+		HttpSession session = request.getSession(); 
+		MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
+		commandMap.remove("MEMBER_NO"); 
+		// 기존 회원번호 데이터 삭제 
+		commandMap.put("member_no", MEMBER_NO); 
+		// 세션 값으로 적용
 		
 		List<Map<String,Object>> my_order = myOrderService.myOrderList(commandMap);
 		mv.addObject("my_order", my_order);
@@ -229,6 +221,25 @@ Logger log = Logger.getLogger(this.getClass());
 		return mv;
 	}
 	
+	// 주문/변경 상세보기 
+	@RequestMapping(value = "/my_detail.do")
+	public ModelAndView my_detail(CommandMap commandMap, HttpServletRequest request) throws Exception {
+
+		ModelAndView mv = new ModelAndView("my/my_detail");
+
+		String order_no = request.getParameter("order_no");
+
+		List<Map<String, Object>> my_detail = adminMainService.order_detail(commandMap);
+		System.out.println("my_detail:" + my_detail);
+
+		List<Map<String, Object>> my_detail_sub = adminMainService.order_detail_sub(commandMap);
+		System.out.println("my_detail_sub:" + my_detail_sub);
+
+		mv.addObject("my_detail", my_detail);
+		mv.addObject("my_detail_sub", my_detail_sub);
+
+		return mv;
+	}
 	
 	
 }

@@ -265,6 +265,11 @@ h1 {
 	margin-left: 15px;
    float: ;
 }
+.imgswap img:last-child{display:none} 
+.imgswap:hover img:first-child{display:none} 
+.imgswap:hover img:last-child{display:inline-block}
+
+
 </style>
 
 </head>
@@ -276,7 +281,7 @@ h1 {
 </div>
 
 <div id="main-container">
-<table class="board_list" style="width:'100%'">
+<table class="board_list" style="width:100%">
 		<colgroup>
 			<col width="100%" />
 		</colgroup>
@@ -299,6 +304,10 @@ h1 {
 <form id="commonForm" name="commonForm"></form>
 
 <script type="text/javascript">
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 $(document).ready(function() {
 	
@@ -354,6 +363,11 @@ function fn_selectGoodsListCallback(data) {
 		var str = "";
 		$.each(data.list, function(key, value) {
 													var imgpath = "<img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='400' height='400'>"
+
+													var imgpath1 = value.GOODS_IMAGE_STD.split(',');
+													var img0 = imgpath1[0];
+													var img1 = imgpath1[1];
+													
 													var Pick = value.GOODS_PICK.split(',');
 													var pick1 = "";
 													var pick2 = "";
@@ -389,7 +403,10 @@ function fn_selectGoodsListCallback(data) {
 													
 													str += "<div class='card'>"
 														+		"<a href='#this' name='title'>"
-														+ 			imgpath + "<br>"
+														+		"<div class='imgswap'>"
+														+ 		"<img src='/stu/file/"+img0+"' width='400' height='400'>" 
+														+ 		"<img src='/stu/file/"+img1+"' width='400' height='400'>"
+														+     " </div> "
 														+     " <c:if test='${"+num+" ne "+pick1+"}'> "
 														+ 	  " <span style='background-color:#ff80bf; line-height: 27px; border-radius: 10px;'><font color='#ffffff' size='2'> "
 														+		pick1 +"</font></span>"	
@@ -407,7 +424,7 @@ function fn_selectGoodsListCallback(data) {
 														+       pick4 + "</font></span>"
 														+	  " </c:if> <br>"
 														+	  " <font class='font1'>"+value.GOODS_NAME+"</font><br>"
-														+     " <font class='font2'>"+value.GOODS_SELL_PRICE+"원</font> "   
+														+     " <font class='font2'>"+numberWithCommas(value.GOODS_SELL_PRICE)+"원</font> "   
 														+  	  " <input type='hidden' id='IDX' name='IDX' value=" + value.GOODS_NO + ">"
 														+	  " </a>"
 														+	  " </div>";

@@ -1,5 +1,6 @@
 package stu.board.qna;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,11 @@ public class QnaDAO extends AbstractDao{
 
 	public void deleteQna(Map<String, Object> map) throws Exception{
 		update("qna.deleteQna", map);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> selectQnaPassword(Map<String, Object> map) {
+		return (Map<String, Object>) selectOne("qna.selectQnaPassword", map);
 	}
 
 }

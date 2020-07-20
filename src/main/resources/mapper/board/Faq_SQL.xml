@@ -43,7 +43,7 @@
 				#{NOTICE_TITLE} ,
 				#{NOTICE_CONTENT} ,
 			    SYSDATE ,
-			    1     
+			    #{MEMBER_NO}     
 			)
 		]]>
 	</insert>

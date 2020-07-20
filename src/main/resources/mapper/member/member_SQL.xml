@@ -3,6 +3,7 @@
 
 <mapper namespace="join">
 	
+	<!-- 회원추가 -->
 	<insert id="insertMember" parameterType="hashmap">
 		<![CDATA[
 			INSERT INTO MEMBER
@@ -19,12 +20,14 @@
 			    MEMBER_ADDR2,
 			    MEMBER_DATE,
 			    MEMBER_GRADE,
-			    MEMBER_LOG
+			    MEMBER_LOG,
+			    EMAIL_AGREE,
+			    SMS_AGREE
 			)
 			VALUES
 			(
 				MEMBER_NO_SEQ.NEXTVAL,
-				TRIM (BOTH FROM #{MEMBER_ID}),
+				#{MEMBER_ID},
 				#{MEMBER_PASSWD},
 				#{MEMBER_NAME},
 				#{MEMBER_BIRTH},
@@ -35,12 +38,21 @@
 				#{MEMBER_ADDR2},
 				sysdate,
 				'NORMAL',
-				sysdate
+				sysdate,
+				#{EMAIL_AGREE},
+				#{SMS_AGREE}
 			)
 		]]>
 	</insert>
 	
+	<!-- 회원가입시 포인트 테이블에 '0' 추가 -->
 	<insert id="insertDefaultPoint" parameterType="hashmap">
+		<selectKey keyProperty="MEMBER_NO" resultType="int" order="BEFORE">
+			SELECT 
+				MAX(MEMBER_NO)
+			FROM 
+				MEMBER
+		</selectKey>
 		<![CDATA[
 			INSERT INTO POINT
 			(
@@ -53,8 +65,8 @@
 			(
 				POINT_NO_SEQ.NEXTVAL,
 				#{MEMBER_NO},
-				0,
-				0
+				10000,
+				10000
 			)
 		]]>
 	</insert>
@@ -62,7 +74,53 @@
 	<!-- 아이디 중복확인-->
 	<select id="selectIdCheck" parameterType="String" resultType="int">
 	<![CDATA[
-		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
+		SELECT 
+			COUNT(*) 
+		FROM 
+			MEMBER 
+		WHERE MEMBER_ID = #{MEMBER_ID}
+	]]>
+	</select>
+	
+	<!-- 주문 후 회원정보 수정 -->
+	<update id="updateMemberTotal" parameterType="hashmap">
+		<![CDATA[
+			UPDATE MEMBER 
+				SET
+    				MEMBER_TOTAL = MEMBER_TOTAL+ ${ORDER_TOTAL_ORDER_PRICE}
+			WHERE
+				MEMBER_NO = ${MEMBER_NO}
+		]]>
+	</update>
+	
+	<!-- 총주문금액 -->
+	<select id="selectMemberTotal" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT MEMBER_TOTAL
+			FROM 
+				MEMBER
+			WHERE 
+				MEMBER_NO= #{MEMBER_NO}
+		]]>
+	</select>
+	
+	<update id="updateMemberGrade" parameterType="hashmap">
+			UPDATE MEMBER 
+				SET
+                    MEMBER_GRADE = #{MEMBER_GRADE}
+			WHERE
+				MEMBER_NO = ${MEMBER_NO}
+	</update>
+	
+	<!-- 이메일 중복확인 -->
+	<select id="selectEmailCheck" parameterType="String" resultType="int">
+	<![CDATA[
+		SELECT
+    		COUNT(MEMBER_EMAIL) cnt
+		FROM
+    		MEMBER
+		WHERE
+    		MEMBER_EMAIL = #{MEMBER_EMAIL}
 	]]>
 	</select>
 		

@@ -31,6 +31,7 @@ public class QnaServiceImpl implements QnaService{
 	public Map<String, Object> selectQnaDetail(Map<String, Object> map) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		Map<String, Object> tempMap = qnaDAO.selectQnaDetail(map);
+		tempMap.put("RNUM", map.get("RNUM"));
 		resultMap.put("map", tempMap);		
 		return resultMap;
 	}
@@ -43,6 +44,11 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	public void deleteQna(Map<String, Object> map) throws Exception {
 		qnaDAO.deleteQna(map);
+	}
+	
+	@Override
+	public Map<String, Object> selectQnaPassword(Map<String, Object> map) throws Exception {
+		return qnaDAO.selectQnaPassword(map);
 	}
 	
 }

@@ -20,10 +20,29 @@
 
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script src="/stu/js/bootstrap.min.js"></script>
-<script src="/stu/js/jquery-3.0.0.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/stu/js/common.js" charset="utf-8"></script>
+
+<!-- 주소검색 API(카카오) -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<style>
+
+a {
+  text-decoration: none;
+  color: #666;
+  text-decoration:none
+}
+
+h1 {
+    text-align: center;
+    padding: 50px 0;
+    font-weight: normal;
+    font-size: 2em;
+    letter-spacing: 10px;
+}  
+</style>
 
 <script type="text/javascript">
 
@@ -33,6 +52,7 @@ function fn_allPrice(){
 	var array1 = document.getElementsByName("goods_sell_price");
 	var array2 = document.getElementsByName("basket_goods_amount");
 	var array3 = document.getElementsByName("ORDER_DETAIL_PRICE");
+	var array4 = document.getElementsByName("ORDER_DISCOUNT_APPLY");
 	
 	var len = array2.length;
 	var hap = 0;
@@ -42,6 +62,7 @@ function fn_allPrice(){
 		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
 		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
 		array3[i].value = pri;	
+		array4[i].value = pri;	
 	}
 	var fee = document.getElementById("ORDER_FEE").value;
 	pay = Number(hap)+Number(fee);
@@ -53,9 +74,9 @@ function fn_allPrice(){
 	var array7 = document.getElementsByName("member_grade");
 	var grade = array7[0].value;
 	var val = 0;
-	if("nomal" == grade){
+	if("NOMAL" == grade){
 		val=0.03;
-	}else if("gold" == grade){
+	}else if("GOLD" == grade){
 		val=0.05;
 	}else{
 		val=0.1;
@@ -83,8 +104,7 @@ function fn_chkinfo(){
 }
 
 //쿠폰, 포인트 사용
-function fn_price(){
-
+function fn_price(){ 
 	var f = document.orderWrite;
 	var hap_buy = Number(f.ORDER_TOTAL_ORDER_PRICE.value);  //총 주문금액
 	var u_p = ${map.POINT_TOTAL}; //보유포인트
@@ -105,7 +125,6 @@ function fn_price(){
 		array2[i].value = COUPON_DISCOUNT;
 		array3[i].value = Number(array[i].value)-Number(array2[i].value);
 	}
-	
 	if(u_p < o_point ){
 			alert("사용가능 마일리지를 확인해주세요!");
 			return false;
@@ -115,11 +134,11 @@ function fn_price(){
 			location.reload(true);
 			return false;
 	}
-	f.discount.value = hap_discount+o_point;
-	f.pay_price1.value = sum_buy+3000;
+	f.discount.value = hap_discount+o_point; //총 할일된 금액
+	f.pay_price1.value = sum_buy+3000; //배송비를 포함한 결제금액
 	f.ORDER_TOTAL_PAY_PRICE.value = sum_buy+3000;
-	f.POINT_TOTAL.value = sum_point;
-
+	f.POINT_TOTAL.value = sum_point; //사용하고 남은 보유 포인트금액
+	//선택된 쿠폰 인덱스
 	var index = ($("#COUPON_VALUE option").index("#COUPON_VALUE option:selected"))*(-1)-1;
 	var array9 = document.getElementsByName("COUPON_STATUS_NO");
 	var array11 = document.getElementsByName("COUPON_NO");
@@ -143,7 +162,7 @@ function fn_order_pay(){
  			return false;
  		}
  		if( f.ORDER_ZIPCODE.value=="" || f.ORDER_ADDR1.value=="" || f.ORDER_ADDR2.value==""){
- 			alert("주소를 입력해주세요.");
+ 			alert("주소를 정확히 입력해주세요.");
  			return false;
  		}
  		if( document.getElementById("OPTION1").checked==false && document.getElementById("OPTION2").checked==false){
@@ -167,6 +186,47 @@ function fn_order_pay(){
 		
 		f.submit();
 }
+
+//주소 찾기
+function findAddr() {
+	new daum.Postcode( {
+		oncomplete : function(data) {
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+			// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var roadAddr = data.roadAddress; // 도로명 주소 변수
+			var extraRoadAddr = ''; // 참고 항목 변수
+
+			// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+			// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+			if (data.bname !== ''
+					&& /[동|로|가]$/g.test(data.bname)) {
+				extraRoadAddr += data.bname;
+			}
+			// 건물명이 있고, 공동주택일 경우 추가한다.
+			if (data.buildingName !== ''
+					&& data.apartment === 'Y') {
+				extraRoadAddr += (extraRoadAddr !== '' ? ', '
+						+ data.buildingName : data.buildingName);
+			}
+			// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+			if (extraRoadAddr !== '') {
+				extraRoadAddr = ' (' + extraRoadAddr + ')';
+			}
+			// 우편번호와 주소 정보를 해당 필드에 넣는다.
+			document.getElementById('ORDER_ZIPCODE').value = data.zonecode;
+			document.getElementById("ORDER_ADDR1").value = roadAddr
+					+ data.jibunAddress;
+			// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+			if (roadAddr !== '') {
+				document.getElementById("ORDER_ADDR2").value = extraRoadAddr;
+			} else {
+				document.getElementById("ORDER_ADDR2").value = '';
+			}
+		}
+	}).open();
+}
+
 </script>
 
 
@@ -221,10 +281,10 @@ function fn_order_pay(){
 						<input type="hidden" name="basket_no" value="${row.BASKET_NO }">
 						<tr>
                   			<td>
-                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }'>
+                  				<img src='/stu/file/${row.GOODS_THUMBNAIL }' width="70px" height="70px">
                   			</td>
 							<td>
-				  				<a href="#">${row.GOODS_NAME }</a> <br>
+				  				<a href="/stu/shop/goodsDetail.do?IDX=${row.GOODS_NO }">${row.GOODS_NAME }</a> <br>
 				  				색상: ${row.GOODS_ATT_COLOR } <br> 
 				  				사이즈:${row.GOODS_ATT_SIZE } <br>
 				  			</td>
@@ -234,10 +294,10 @@ function fn_order_pay(){
 							<td style="text-align:center">
 								<%-- <c:set var="price" value="${row.GOODS_SALE_PRICE }" />
 								<c:choose>
-    								<c:when test="${price eq null}">
+    								<c:when test="${price eq 0}">
         								<input type="text" name="goods_sell_price" value="${row.GOODS_SELL_PRICE }"style="width:60px; text-align:right; border:none;" readonly>원
    					 				</c:when>
-   					 				<c:when test="${price ne null}">
+   					 				<c:when test="${price ne 0}">
         								<input type="text" name="goods_sell_price" value="${row.GOODS_SALE_PRICE }"style="width:60px; text-align:right; border:none;" readonly>원
    					 				</c:when>
 								</c:choose> --%>
@@ -361,16 +421,17 @@ function fn_order_pay(){
               		<td rowspan="3">주소</td>
               		<td style="text-align:left">
                   		<input type="text" name="ORDER_ZIPCODE" id="ORDER_ZIPCODE" value="" style="width:80px;" >
+                  		<button type="button" id="findAddrBtn" onclick="findAddr()">우편번호 찾기</button>
                   	</td>
 				</tr>
 				<tr>
               		<td style="text-align:left">
-                  		<input type="text" name="ORDER_ADDR1" id="ORDER_ADDR1"value="" style="width:250px;" >
+                  		<input type="text" name="ORDER_ADDR1" id="ORDER_ADDR1"value="" style="width:400px;" >
                   	</td>
 				</tr>
 				<tr>
               		<td style="text-align:left">
-                  		<input type="text" name="ORDER_ADDR2" id="ORDER_ADDR2"value="" style="width:250px;" >
+                  		<input type="text" name="ORDER_ADDR2" id="ORDER_ADDR2"value="" style="width:400px;" >
                   	</td>
 				</tr>
               </tbody>

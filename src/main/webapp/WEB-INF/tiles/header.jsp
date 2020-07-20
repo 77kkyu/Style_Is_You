@@ -6,15 +6,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<%
-	String sessionName = (String)session.getAttribute("MEMBER_NAME");
-	String sessionId = (String)session.getAttribute("MEMBER_ID");
-%>
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta charset="UTF-8" />
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="840345488051-t7d9q5tg8he8kt3om4dmlovpjom64m3q.apps.googleusercontent.com">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Insert title here</title>
@@ -29,22 +26,21 @@
 }
 
 body {
-  font-family: Verdana, Arial;
+ /*  font-family: Verdana, Arial; */
+  font-family: 'Open Sans', sans-serif;
 }
 
 a {
   text-decoration: none;
-  color: #000;
+  color: #666;
   
 }
 
 a:hover {
-  background-color: yellow;
+  /* background-color: yellow; */
 }
 
-.pagetop {
-  background-color: rgba(0, 0, 0, 0.1);
-}
+
 
 .wrapper {
 /*   background-color: pink; */
@@ -150,20 +146,18 @@ li {
 					<td><a href="/stu/loginForm.do">로그인</a></td> <td> | </td>
 					<td><a href="/stu/joinForm.do">회원가입</a></td> <td> | </td>
 					<td><a href="/stu/loginForm.do">마이페이지</a></td> <td> | </td>
-					<c:set var="url2" value="/stu/loginForm.do" />
+					<td><a href="/stu/event/list.do">이벤트</a></td> <td> | </td>
 				</c:when>
 				<c:otherwise>
 					<td>Hi, ${SESSION_NAME }님!</td> <td> | </td>
-					<td><a href="/stu/logout.do">로그아웃</a></td> <td> | </td>
+					<td><a href="#" onClick="signOut();">로그아웃</a></td> <td> | </td>
 					<td><a href="/stu/myOrderList.do">마이페이지</a></td> <td> | </td>
-					<td><a href="/stu/my/myPointList.do">포인트</a></td> <td> | </td>
-					<td><a href="/stu/my/myCouponList.do">쿠폰</a></td> <td> | </td>
-					<td><a href="/stu/my/myLikeList.do">좋아요</a></td> <td> | </td>
-					<c:set var="url2" value="/stu/basket/basketList.do" />
+					<td><a href="/stu/basket/basketList.do">장바구니</a></td> <td> | </td>
+					<td><a href="/stu/event/list.do">이벤트</a></td> <td> | </td>
 				</c:otherwise>
 			</c:choose>
 			
-			<td><a href="${url2}">장바구니</a></td> <td> | </td>
+			
 			<td><a href="/stu/faq/openFaqList.do">고객센터</a></td> <td> | </td>
 		</tr>
 	
@@ -185,17 +179,17 @@ li {
 <!-- 메뉴 -->
 <div class="pagemid">
   <div class="wrapper2">
-   <I><h1><a href="http://localhost:8080/stu/main.do">STYLE IS YOU</a></h1></I>
+   <I><h1><a href="/stu/main.do">STYLE IS YOU</a></h1></I>
     <ul class="flex-menu">
       <li>&nbsp;</li>
       <li><a href="#">서비스소개</a></li>
-      <li><a href="http://localhost:8080/stu/shop/bestGoodsList.do">BEST</a></li>
-      <li><a href="http://localhost:8080/stu/shop/newGoodsList.do">NEW</a></li>
-      <li><a href="http://localhost:8080/stu/shop/goodsList/outer/NewItem.do">OUTER</a></li>
-      <li><a href="http://localhost:8080/stu/shop/goodsList/top/NewItem.do">TOP</a></li>
-      <li><a href="http://localhost:8080/stu/shop/goodsList/one-piece/NewItem.do">ONE-PIECE</a></li>
-      <li><a href="http://localhost:8080/stu/shop/goodsList/bottom/NewItem.do">BOTTOM</a></li>
-      <li><a href="http://localhost:8080/stu/shop/goodsList/acc/NewItem.do">ACC</a></li>
+      <li><a href="/stu/shop/bestGoodsList.do">BEST</a></li>
+      <li><a href="/stu/shop/newGoodsList.do">NEW</a></li>
+      <li><a href="/stu/shop/goodsList/outer/NewItem.do">OUTER</a></li>
+      <li><a href="/stu/shop/goodsList/top/NewItem.do">TOP</a></li>
+      <li><a href="/stu/shop/goodsList/one-piece/NewItem.do">ONE-PIECE</a></li>
+      <li><a href="/stu/shop/goodsList/bottom/NewItem.do">BOTTOM</a></li>
+      <li><a href="/stu/shop/goodsList/acc/NewItem.do">ACC</a></li>
     </ul>
     <br>
     <div class="bar">
@@ -204,7 +198,48 @@ li {
 </div>
 
 </div>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
+<script>
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		var data = {};
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/logout.do",
+			data : JSON.stringify(data), 
+			dataType : "json",   
+			contentType:"application/json;charset=UTF-8",
+		    async: false,
+			success : function(data, status, xhr) {
+				console.log(data);
+				if (auth2 != null && auth2 != "undefined") {
+					auth2.signOut().then(function() {
+						console.log('User signed out.');
+						if (!Kakao.Auth.getAccessToken()) {
+							  console.log('Not logged in.');
+							  return;
+						}
+						Kakao.Auth.logout(function() {
+						  alert(Kakao.Auth.getAccessToken());
+						}); 
+					});
+				}
+		 		
+					location.href=data.URL;
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert("에러가 발생했습니다.");
+			}
+		});
 
+	}
+	function onLoad() {
+		gapi.load('auth2', function() {
+			gapi.auth2.init();
+		});
+	}
+</script>
+<script src = "//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </body>
 </html>

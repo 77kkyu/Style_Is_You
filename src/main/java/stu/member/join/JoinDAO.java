@@ -20,9 +20,7 @@ public class JoinDAO extends AbstractDao {
 		return (int)selectOne("join.selectIdCheck", MEMBER_ID);
 	}
 	
-
-
-	
-	
-	
+	public int selectEmailCheck(String MEMBER_EMAIL) throws Exception{
+		return (int)selectOne("join.selectEmailCheck", MEMBER_EMAIL);
+	}
 }

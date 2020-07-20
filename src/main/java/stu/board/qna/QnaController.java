@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import stu.common.common.CommandMap;
@@ -31,8 +33,9 @@ public class QnaController {
 	@RequestMapping(value="/qna/selectQnaList.do")
     public ModelAndView selectQnaList(CommandMap commandMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
-    	
+
     	List<Map<String,Object>> list = qnaService.selectQnaList(commandMap.getMap());
+    	System.out.println(list);
     	mv.addObject("list", list);
     	if(list.size() > 0){
     		mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
@@ -55,9 +58,6 @@ public class QnaController {
 	public ModelAndView insertQna(CommandMap commandMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/qna/openQnaList.do");
 		
-		System.out.print(commandMap);
-		System.out.print(request);
-		
 		qnaService.insertQna(commandMap.getMap(), request);
 		
 		
@@ -65,13 +65,13 @@ public class QnaController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/qna/openQnaDetail.do")
+	@RequestMapping(value="/qna/openQnaDetail.do", method = RequestMethod.POST )
 	public ModelAndView openQnaDetail(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/qnaDetail");
 		
 		Map<String,Object> map = qnaService.selectQnaDetail(commandMap.getMap());
 		mv.addObject("map", map.get("map"));
-		mv.addObject("list", map.get("list"));
+//		mv.addObject("list", map.get("list"));
 		
 		return mv;
 	}
@@ -105,5 +105,19 @@ public class QnaController {
 		
 		return mv;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value="/qna/chkPassword", method = RequestMethod.POST)
+	public int chkPassword(@RequestParam Map<String, Object> params) throws Exception{
+		int chkPassword = 0;
+		Map<String, Object> passwordMap = qnaService.selectQnaPassword(params);
+		
+		if(String.valueOf(params.get("QNA_PASSWD")).
+				equals(String.valueOf(passwordMap.get("QNA_PASSWD")))){
+			chkPassword = 1;
+		}
+		
+		return chkPassword;
+	}
+	
 }

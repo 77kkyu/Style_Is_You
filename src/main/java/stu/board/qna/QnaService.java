@@ -17,4 +17,6 @@ public interface QnaService {
 
 	void deleteQna(Map<String, Object> map) throws Exception;
 
+	Map<String, Object> selectQnaPassword(Map<String, Object> map) throws Exception;
+
 }

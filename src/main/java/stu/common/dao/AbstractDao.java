@@ -67,11 +67,17 @@ public class AbstractDao {
 		printQueryId(queryId);
 		return sqlSession.update(queryId,params);
 	}
+	//수정2
+	public Object update(String queryId) {
+		printQueryId(queryId);
+		return sqlSession.update(queryId);
+	}
 	//삭제
 	public Object delete(String queryId, Object params) {
 		printQueryId(queryId);
 		return sqlSession.delete(queryId,params);
 	}
+	
 	/*
 	 * public Object selectOne(String queryId, Object params) {
 	 * printQueryId(queryId); return sqlSession.selectOne(queryId,params); }
@@ -154,6 +160,10 @@ public class AbstractDao {
 	      public List<Map<String,Object>> change_form_b(String queryId, Object params) { // AS_list에서 정보 가져옴  전부다 
 	         printQueryId(queryId);
 	         return sqlSession.selectList(queryId,params); // 한줄데이터는 object로 가져올것
+	      }
+	      public List<Map<String,Object>> selectMemberList(String queryId, Object params) { // 회원목록/관리에서 회원리스트 가져옴
+	    	  printQueryId(queryId);
+	    	  return sqlSession.selectList(queryId,params);
 	      }
 	      public void change_detail_insert(String queryId, Object params) { // 
 	         printQueryId(queryId);
@@ -310,4 +320,6 @@ public class AbstractDao {
 			
 			return sqlSession.selectList(queryId, map);
 		}
+		
+
 }

@@ -12,7 +12,8 @@
 			    QNA_TITLE,
 			    QNA_NAME,
 			    TO_CHAR(QNA_DATE, 'YYYY.MM.DD') AS QNA_DATE,
-			    QNA_LEVEL
+			    QNA_LEVEL,
+			    QNA_PASSWD
 			FROM
 			    QNA
 		<include refid="common1.pagingPost1"/> 
@@ -38,7 +39,7 @@
 			QNA_PASSWD )
 		VALUES
 			( #{QNA_NO} ,
-			2 , 
+			#{MEMBER_NO} , 
 			#{QNA_NAME} ,
 			0 ,
 			#{QNA_CATEGORY} ,
@@ -58,6 +59,7 @@
 				TO_CHAR(QNA_DATE, 'YYYY.MM.DD') AS QNA_DATE, 
 				QNA_TITLE,  
 				QNA_CONTENT,
+				QNA_NAME,
 				QNA_AN
 			FROM 
 				QNA
@@ -95,5 +97,10 @@
 				QNA_NO = #{QNA_NO}
 		]]>
 	</delete>
+	
+	<select id="selectQnaPassword" parameterType="hashmap" resultType="hashmap">
+		SELECT qna_passwd FROM QNA 
+		WHERE qna_no=#{QNA_NO}
+	</select>
 
 </mapper>

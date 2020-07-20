@@ -1,4 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+   <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -33,6 +33,23 @@
 
 </head>
 
+<style>
+
+a {
+  text-decoration: none;
+  color: #666;
+  text-decoration:none
+}
+
+h1 {
+    text-align: center;
+    padding: 50px 0;
+    font-weight: normal;
+    font-size: 2em;
+    letter-spacing: 10px;
+}  
+</style>
+
 <body>
     <div class="container">
 
@@ -51,7 +68,7 @@
       			</tr>
       			<tr>
       				<td style="text-align:center; font-size:17px; font-weight:bold;">
-      					주문번호는 <a href="/stu/order_detail.do?order_no=${map.ORDER_NO }">${map.ORDER_NO }</a>입니다
+      					주문번호는 <a href="/stu/my_detail.do?order_no=${map.ORDER_NO }">${map.ORDER_NO }</a>입니다
       				</td>
       			</tr>
       		</table>
@@ -60,7 +77,7 @@
            
             <div style="text-align:center">
           		<input type="button" name="main" value="메인으로" onClick="location.href='/stu/main.do'">
-            	<input type="button" name="orderList" value="주문확인" onclick="location.href='#">
+            	<input type="button" name="orderList" value="주문확인" onclick="location.href='/stu/myOrderList.do'">
             </div>
 
   </body>

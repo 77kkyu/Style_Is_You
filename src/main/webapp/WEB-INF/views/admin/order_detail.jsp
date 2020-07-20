@@ -42,7 +42,7 @@ function order_list() {
 </head>
 <body>
 <div class="container">
-
+	<%@include file="/WEB-INF/tiles/adminSide.jsp" %>
 	<div class="row">
         <div>
 			<p><a href="#" onclick="order_list(); return false;">목록으로</a></p>

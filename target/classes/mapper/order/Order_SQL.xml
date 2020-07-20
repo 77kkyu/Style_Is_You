@@ -3,6 +3,7 @@
 
 <mapper namespace="order">
 
+	<!-- 주문페이지에 필요한 회원정보 검색 -->
 	<select id="orderMemberInfo" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT DISTINCT
@@ -17,6 +18,7 @@
 		]]>
 	</select>
 	
+	<!-- 해당 회원이 갖고있는 쿠폰 검색 -->
 	<select id="memberCoupon" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT DISTINCT
@@ -33,6 +35,7 @@
 		]]>
 	</select>
 	
+	<!-- 주문추가 -->
 	<insert id="insertOrder" parameterType="hashmap">
 		<selectKey keyProperty="ORDER_NO" resultType="int" order="BEFORE">
 			SELECT ORDER_NO_SEQ.NEXTVAL FROM DUAL
@@ -83,7 +86,9 @@
 		]]>
 	</insert>
 	
+	<!-- 주문상세 추가 -->
 	<insert id="insertOrderDetail" parameterType="hashmap">
+		<!-- ORDERLIST의 ORDER_NO찾기 -->
 		<selectKey keyProperty="ORDER_NO" resultType="int" order="BEFORE">
 			SELECT DISTINCT
 				ORDER_NO
@@ -125,6 +130,7 @@
 		]]>
 	</insert>
 	
+	<!-- 주문완료 페이지에 뿌려줄 ORDER_NO -->
 	<select id="selectOrder" parameterType="hashmap" resultType="hashmap">
 		<![CDATA[
 			SELECT 
@@ -136,6 +142,20 @@
 		]]>
 	</select>
 	
+	<!-- 주문 배송정보 수정 -->
+	<update id="orderModify" parameterType="hashmap">
+		<![CDATA[
+			UPDATE ORDER_LIST 
+			SET
+				ORDER_NAME = #{ORDER_NAME},
+				ORDER_PHONE = #{ORDER_PHONE},
+				ORDER_ZIPCODE = #{ORDER_ZIPCODE},
+				ORDER_ADDR1 = #{ORDER_ADDR1},
+				ORDER_ADDR2 = #{ORDER_ADDR2}
+			WHERE
+				ORDER_NO = #{ORDER_NO}
+		]]>
+	</update>
 	
 
 </mapper>

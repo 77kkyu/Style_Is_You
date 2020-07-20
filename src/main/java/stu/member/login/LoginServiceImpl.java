@@ -31,11 +31,16 @@ public class LoginServiceImpl implements LoginService {
 		
 	}
 	
-	// 핸드폰으로 비밀번호 찾기
+	// 비밀번호 초기화 전 아이디 얻기
 	@Override
-	public Map<String, Object> selectFindPw(Map<String, Object> map) throws Exception {
-		return (Map<String, Object>) loginDAO.selectFindPw(map);
-		
+	public String selectFindPw(Map<String, Object> map) throws Exception {
+		return loginDAO.selectFindPw(map);
+	}
+	
+	// 임시비밀번호로 변경
+	@Override
+	public void updatePw(Map<String, Object> map) throws Exception {
+		loginDAO.updatePw(map);
 	}
 	
 	// 이메일로 아이디 찾기
