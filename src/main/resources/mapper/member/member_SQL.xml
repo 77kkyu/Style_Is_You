@@ -74,7 +74,11 @@
 	<!-- 아이디 중복확인-->
 	<select id="selectIdCheck" parameterType="String" resultType="int">
 	<![CDATA[
-		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
+		SELECT 
+			COUNT(*) 
+		FROM 
+			MEMBER 
+		WHERE MEMBER_ID = #{MEMBER_ID}
 	]]>
 	</select>
 	

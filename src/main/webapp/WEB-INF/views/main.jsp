@@ -318,7 +318,6 @@ h1 {
 </body>
 </html>
 
-
 <script type="text/javascript">
 
 function numberWithCommas(x) {
