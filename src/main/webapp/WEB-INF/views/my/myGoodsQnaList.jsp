@@ -160,8 +160,8 @@ p{
 	<table align="center" class="board_list">
 		<colgroup>
 			<col width="10%"/>
-			<col width="10%"/>
-			<col width="50%"/>
+			<col width="15%"/>
+			<col width="45%"/>
 			<col width="15%"/>
 			<col width="15%"/>
 		</colgroup>
@@ -189,18 +189,12 @@ p{
 	<script type="text/javascript">
 		$(document).ready(function(){
 			fn_selectQnaList(1);
-			
-			
 			$("#show").on("click", function(e){ //제목 
 				console.log("asdasd", $(this).parent().parent());
 				$( '#hide' ).toggle( 'slow' );
 				//$(this).parent().parent().find('#hide').show();
 			});
-
-			
 		});
-		
-		
 		function fn_selectQnaList(pageNo){
 			var comAjax = new ComAjax();
 			comAjax.setUrl("<c:url value='/my/myGoodsQnaList.do' />");
@@ -215,12 +209,9 @@ p{
 			var body = $("#board_list1");
 			body.empty();
 			if(total == 0){
-				var str = "<tr>" + 
-								"<td colspan='5'>등록된 게시물이 없습니다.</td>" + 
-							"</tr>";
+				var str = "<tr>" + "<td colspan='5'>등록된 게시물이 없습니다.</td>" + "</tr>";
 				body.append(str);
-			}
-			else{
+			}else{
 				var params = {
 					divId : "PAGE_NAVI",
 					pageIndex : "PAGE_INDEX",
@@ -228,29 +219,13 @@ p{
 					eventName : "fn_selectQnaList"
 				};
 				gfn_renderPaging(params);
-				
 				var str = "";
 				$.each(data.list, function(key, value){
 					var date = moment(value.GOODS_QNA_DATE).format("YYYY-MM-DD");
 					var Level = value.GOODS_QNA_LEVEL;
 					var Q= "<img src='/stu/img/ico_qna_q.png' align='left'>";
 					var A= "<img src='/stu/img/ico_qna_a.png' align='left'>";
-					/* var Level1 = "0";
-					$.each(Level,function(idx,row){
-						if(Level[idx].NAME == "0"){
-							return Level[idx];	
-						}else if(Level[idx].NAME == "0") {
-							return Level[idx];
-						}
-						return ""
-					});
-					alert(Level);  */
-
-					//var Level = 0;
-					//alert(value.GOODS_QNA_LEVEL == 1);
-					
-					
-					if(Level == 1){
+					if(Level == 1){ //답변 있음
 						str += " <tr > "
 							+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 							+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
@@ -264,9 +239,7 @@ p{
 							+  " <br><br><br> "+A+" &nbsp; <p>"+value.GOODS_QNA_AN+"</p> </td> "
 							+  " </tr>"
 							+  " </div> ";
-								
-							}else{
-
+							}else{ //답변 없음
 							str += " <tr > "
 								+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 								+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"

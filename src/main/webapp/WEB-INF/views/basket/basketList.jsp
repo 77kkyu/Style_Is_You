@@ -62,9 +62,7 @@ function fn_allchk(){
 		}
 }
 
-//장바구니 상품수량 변경
-function fn_amount(index){
-
+function fn_amount(index){ //장바구니 상품수량 변경
 	var array8 = document.getElementsByName("goods_att_amount"); //재고수량
 	var array1 = document.getElementsByName("basket_goods_amount"); //수량
 	var array4 = document.getElementsByName("chk");
@@ -85,12 +83,10 @@ function fn_amount(index){
 			alert("재고가 부족합니다.");	
 			return false;
 		}
-	}
-	else{
+	}else{
 		alert("유효한 숫자가 아닙니다.");	
 		return false;
 	}
-	
 }
 
 //상품 삭제
@@ -120,28 +116,21 @@ function fn_allDelete(){
 	return false;
 }
 
-//전체주문금액구하기
-function fn_allPrice(){
-	var array1 = document.getElementsByName("goods_sell_price");
-	var array2 = document.getElementsByName("basket_goods_amount");
-	var array3 = document.getElementsByName("order_price");
-	
+function fn_allPrice(){ //전체주문금액구하기
+	var array1 = document.getElementsByName("goods_sell_price"); //상품가격
+	var array2 = document.getElementsByName("basket_goods_amount"); //장바구니 수량
+	var array3 = document.getElementsByName("order_price"); //주문 가격
 	var len = array2.length;
 	var hap = 0;
-	
 	for (var i=0; i<len; i++){
-		var sell = array1[i].value;
+		var sell = array1[i].value; 
 		var amt = array2[i].value;
 		var pri = Number(sell)*Number(amt); //각 상품별 주문금액
 		hap = Number(hap)+Number(pri); //주문금액 총합 구하기
 		array3[i].value = pri;
 	}
-	
 	var fee = document.getElementById("order_fee").value;
 	pay = Number(hap)+Number(fee);
-	
-	//hap = Number(hap).toLocaleString();
-	//pay = Number(pay).toLocaleString();
 	document.getElementById("all_price").value = hap; //상품금액
 	document.getElementById("pay_price").value = pay; //상품금액+배송비
 	document.getElementById("all_order_price").value = pay;
@@ -149,16 +138,11 @@ function fn_allPrice(){
 	var array7 = document.getElementsByName("member_grade");
 	var grade = array7[0].value;
 	var val = 0;
-	if("nomal" == grade){
-		val=0.03;
-	}else if("gold" == grade){
-		val=0.05;
-	}else{
-		val=0.1;
-	}
+	if("nomal" == grade) {val=0.03;}
+	else if("gold" == grade) {val=0.05;}
+	else{val=0.1;}
 	var point = Number(hap)*Number(val); //등급별 적립율
 	document.getElementById("point").value = point;
-	
 }
 
 //선택상품 찜하기
@@ -193,25 +177,23 @@ function fn_like(){
 	
 }
 
-function fn_all_order(){
+function fn_all_order(){ //장바구니 전제주문
 	document.basket.submit();
 }
-
-function fn_select_order(){
+function fn_select_order(){ //선택상품 주문
 	var obj = $("[name=chk]");
     var SELECT_BASKET_NO = new Array(); // 배열 선언
 
+ 	// 체크된 체크박스의 value 값을 가지고 온다.
     $('input:checkbox[name=chk]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
     	SELECT_BASKET_NO.push(this.value);
     });
-    
     if(SELECT_BASKET_NO[0] != null){
     	var comSubmit = new ComSubmit();
 		comSubmit.setUrl("<c:url value='/order/basketSelectOrder.do' />");
 		comSubmit.addParam("SELECT_BASKET_NO", SELECT_BASKET_NO);
 		comSubmit.submit();
-    }
-    else{
+    }else{
     	alert("구매할 상품을 선택해 주세요.");
     }
 }

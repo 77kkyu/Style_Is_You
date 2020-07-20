@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>tiles layout</title>
+<title>STYLE IS YOU</title>
 </head>
 
 <body>

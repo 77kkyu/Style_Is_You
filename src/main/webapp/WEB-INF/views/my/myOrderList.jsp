@@ -13,33 +13,22 @@
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 <title>my주문상태</title>
 
-<!-- 부트스트랩 -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="/stu/css/bootstrap.min.css">
 <!-- Custom styles for this template -->
 <link href="css/dashboard.css" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="css/justified-nav.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="/stu/css/bootstrap-theme.min.css">
 
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="/stu/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery-3.5.1.js"></script>
 
-<script src="<c:url value='/js/common_s.js'/>" charset="utf-8"></script>
-
-<style>
-
-a {
-  text-decoration: none;
-  color: #666;
-  text-decoration:none
-}
-
-h1 {
-    text-align: center;
-    padding: 50px 0;
-    font-weight: normal;
-    font-size: 2em;
-    letter-spacing: 10px;
-}  
-</style>
+<script src="/stu/js/common.js" charset="utf-8"></script>
 
  <script>
  $(document).ready(function(){
@@ -121,11 +110,39 @@ function order_qna(mem_no, order_no){
 }
 
 </script>
+
+<style>
+
+a {
+  text-decoration: none;
+  color: #666;
+  text-decoration:none
+}
+
+h1 {
+    text-align: center;
+    padding: 50px 0;
+    font-weight: normal;
+    font-size: 2em;
+    letter-spacing: 10px;
+}  
+
+/* #orderList {
+	width : 800px;
+	position: relative;
+	top : -600px;
+	left: 320px;
+
+} */
+
+
+</style>
  
 </head>
 <body>
 <div class="container">
 	<%@include file="/WEB-INF/tiles/mySide.jsp" %>
+	<div id="orderList">
 	<div class="row" align="center">
         <div>
           <h2>주문 배송 내역</h2>
@@ -133,36 +150,11 @@ function order_qna(mem_no, order_no){
           <p>수취확인 후에는 반품/교환이 어렵습니다. 기한내 신청 바랍니다.</p>
         </div>
 	</div>
-
-	<div class="row">	
-		<div >
-        <table align="center" width="100%">
-        	<colgroup>
-			<col width="20%" /><col width="20%" /><col width="20%" /><col width="20%" /><col width="30%" />
-			</colgroup>
-			<thead>
-				<tr>
-					<th scope="col">오늘</th>
-					<th scope="col">일주일</th>
-					<th scope="col">1개월</th>
-					<th scope="col">3개월</th>
-					<th scope="col">6개월</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>	
-					<td>기간조회</td>
-				</tr>
-			</tbody>
-		</table>
-		</div>
-	</div>
-
 	<div class="table-responsive">
 		<table class="table table-striped">
 			<colgroup>
 			<col width="20%" />
-			<col width="*" />
+			<col width="45%" />
 			<col width="15%" />
 			<col width="10%" />
 			<col width="10%" />
@@ -270,10 +262,9 @@ function order_qna(mem_no, order_no){
 		</tbody>
 		</form>
 		</table>
+		</div>
 	</div>
-
-</div>
-
+</div>	
 
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 	<script
