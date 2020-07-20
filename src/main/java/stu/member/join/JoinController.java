@@ -109,7 +109,7 @@ public class JoinController {
         sb.append("귀하의 인증 코드는 " + joinCode + " 입니다.");
         return joinService.send(subject, sb.toString(), "1teampjt@gmail.com", user_email, null);
     }
-    
+     
     //이메일 인증확인 - KMK 추가
     @RequestMapping(value = "/emailAuthCheck.do", produces = "application/json")
     @ResponseBody
