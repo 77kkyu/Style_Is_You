@@ -22,6 +22,7 @@
 	<br/><br/>
 	
 	<form id="frm" name="frm" enctype="multipart/form-data">
+	<input type="hidden" id="member_no" name="MEMBER_NO" value="${SESSION_NO}">
 		<table class="board_view">
 			<colgroup>
 				<col width="15%">
@@ -124,7 +125,8 @@
 			
 			$("#write").on("click", function(e){ //작성하기 버튼
 				e.preventDefault();
-				fn_insertQna();
+				chkEmpty();
+// 				fn_insertQna();
 			});
 		});
 		
@@ -139,8 +141,17 @@
 			comSubmit.setUrl("<c:url value='/qna/insertQna.do' />");
 			comSubmit.submit();
 		}
-		
-		
+
+		function chkEmpty(){
+			
+			if($('input[name=QNA_NAME]').val() == undefined || $('input[name=QNA_NAME]').val() == "") {alert("이름을 입력해주세요!");}
+			else if($('input[name=QNA_TITLE]').val() == undefined || $('input[name=QNA_TITLE]').val() == "") {alert("제목을 입력해주세요!");}
+			else if($('textarea[name=QNA_CONTENT]').val() == undefined || $('textarea[name=QNA_CONTENT]').val() == "") {alert("내용을 입력해주세요!");}
+			else if($('input[name=MEMBER_EMAIL]').val() == undefined || $('input[name=MEMBER_EMAIL]').val() == "") {alert("이메일을 입력해주세요!");}
+			else if($('input[name=QNA_CATEGORY]').val() == undefined || $('input[name=QNA_CATEGORY]').val() == "") {alert("문의유형을 입력해주세요!");}
+			else if($('input[name=QNA_SECRET]').val() == undefined || 'input[name=QNA_SECRET]').val() == "") {alert("비밀번호를 입력해주세요!");}
+		}
 	</script>
+	
 </body>
 </html>

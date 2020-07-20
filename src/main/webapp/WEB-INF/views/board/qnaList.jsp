@@ -106,8 +106,13 @@ li {
 			$(".myButton").on("click", function(e) { //제목 
 				var qnaPassId = $(this).parent().children()[0].id;
 				var qnaPass = $('#' + qnaPassId).val();
-				var qnaNo = $(this).parent().parent()[0].getElementsByClassName('qnaNo')[0].value;
-				var rnum = $(this).parent().parent()[0].children[0].innerText;
+// 				var qnaNo = $(this).parent().parent()[0].getElementsByClassName('qnaNo')[0].value;
+
+				var selectListClass = $(this).parent().parent()[0].children[0].className;
+				var selectListTr = $("tr."+ selectListClass);
+				var rnum = selectListTr[0].children[0].textContent;
+				var qnaNo = selectListTr[0].children[1].children[1].value;
+				
 				var data = {QNA_PASSWD : qnaPass, QNA_NO : qnaNo};
 				if (qnaPass.length > 0) {
 					$.ajax({url : "./chkPassword.do", 
@@ -131,7 +136,7 @@ li {
 			comSubmit.submit();
 		}
 		
-		function fn_openQnaDetail(qna_no){
+		function fn_openQnaDetail(qna_no, rnum){
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/qna/openQnaDetail.do' />");
 			comSubmit.addParam("QNA_NO", qna_no);
@@ -167,7 +172,7 @@ li {
 				};
 				gfn_renderPaging(params);
 				$.each(data.list, function(key, value){
-					str += "<tr>" + 
+					str += '<tr class="list' + value.RNUM + '">'  + 
 								"<td id='rnum" + value.RNUM + "' >" + value.RNUM + "</td>" + 
 								"<td class='title'>" +
 									"<a href='#this' class='chk"+ value.RNUM +"' name='title'>" + value.QNA_TITLE + "   " +
@@ -176,7 +181,7 @@ li {
 								"</td>" +
 								"<td>" + value.QNA_NAME + "</td>" + 
 								"<td>" + value.QNA_DATE + "</td> </tr><tr>";
-					str += '<td style="display:none;" id="chk' + value.RNUM + '" colspan="4">Password : ';
+					str += '<td style="display:none;" id="chk' + value.RNUM + '" class="list' + value.RNUM + '" colspan="4">Password : ';
 					str += '<input type="password" id="qnaPasswd' + value.RNUM + '" value="">';
 					str += '<a href="#" class="myButton rnum' + value.RNUM + '">확인</a>'
 					str += '</td></tr>';

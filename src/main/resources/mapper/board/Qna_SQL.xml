@@ -39,7 +39,7 @@
 			QNA_PASSWD )
 		VALUES
 			( #{QNA_NO} ,
-			2 , 
+			#{MEMBER_NO} , 
 			#{QNA_NAME} ,
 			0 ,
 			#{QNA_CATEGORY} ,

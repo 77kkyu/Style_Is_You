@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
@@ -21,6 +22,7 @@
 	<br />
 	<br />
 	<form id="frm" name="frm" enctype="multipart/form-data">
+	<input type="hidden" id="member_no" name="MEMBER_NO" value="${SESSION_NO}"> 
 		<table class="board_view">
 			<colgroup>
 				<col width="15%">
@@ -31,7 +33,9 @@
 				<tr>
 					<th scope="row">제목</th>
 					<td><input type="text" id="notice_title" name="NOTICE_TITLE"
-						class="wdp_90"></input></td>
+						class="wdp_90"></input>
+					</td>
+					
 				</tr>
 				<tr>
 					<td colspan="2" class="view_text"><textarea rows="20"
@@ -49,6 +53,7 @@
 
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
+	
 		var gfv_count = 1;
 
 		$(document).ready(function() {

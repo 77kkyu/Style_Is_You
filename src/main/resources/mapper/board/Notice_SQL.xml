@@ -40,7 +40,7 @@
 				#{NOTICE_CONTENT},
 			    0, 
 			    SYSDATE, 
-			    1
+			    #{MEMBER_NO}
 			)
 		]]>
 	</insert>	
