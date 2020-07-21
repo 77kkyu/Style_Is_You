@@ -47,7 +47,7 @@ function fn_likeDelete(index){
 #myLikeList {
 	width : 800px;
 	position: relative;
-	top : -600px;
+	top : -620px;
 	left: 320px;
 
 }
@@ -66,7 +66,6 @@ function fn_likeDelete(index){
           	<h2>좋아요</h2>
         	</div>
 		</div>
-		<br><br>
 
       <!-- tables -->
       <form id="commonForm" name="commonForm"></form>

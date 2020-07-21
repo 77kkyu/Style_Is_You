@@ -123,8 +123,8 @@ p{
 #mgq {
 	/* width : 800px; */
 	position: relative;
-	top : -620px;
-	left: 150px;
+	top : -675px;
+	left: 140px;
 
 } 
 </style>

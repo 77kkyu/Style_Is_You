@@ -30,7 +30,7 @@
 #myCouponList {
 	width : 800px;
 	position: relative;
-	top : -600px;
+	top : -620px;
 	left: 320px;
 
 }
@@ -48,7 +48,7 @@
           <h2>쿠폰 내역</h2>
         </div>
 	</div>
-	<br><br>
+
 	<div class="table-responsive">
 		<table class="table table-striped">
 			<colgroup>

@@ -148,6 +148,14 @@ li {
 					<td><a href="/stu/loginForm.do">마이페이지</a></td> <td> | </td>
 					<td><a href="/stu/event/list.do">이벤트</a></td> <td> | </td>
 				</c:when>
+				<c:when test="${MEMBER_NO eq 0}">
+					<td>Hi, ${SESSION_NAME }님!</td> <td> | </td>
+					<td><a href="/stu/adminEventList.do">관리자페이지</a></td> <td> | </td>
+					<td><a href="#" onClick="signOut();">로그아웃</a></td> <td> | </td>
+					<td><a href="/stu/myOrderList.do">마이페이지</a></td> <td> | </td>
+					<td><a href="/stu/basket/basketList.do">장바구니</a></td> <td> | </td>
+					<td><a href="/stu/event/list.do">이벤트</a></td> <td> | </td>
+				</c:when>
 				<c:otherwise>
 					<td>Hi, ${SESSION_NAME }님!</td> <td> | </td>
 					<td><a href="#" onClick="signOut();">로그아웃</a></td> <td> | </td>

@@ -34,7 +34,7 @@
 #pointList {
 	width : 800px;
 	position: relative;
-	top : -600px;
+	top : -620px;
 	left: 320px;
 
 } 

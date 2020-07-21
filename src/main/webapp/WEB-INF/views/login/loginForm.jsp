@@ -85,8 +85,9 @@ h1 {
 			아직 회원이 아니신가요? <a href="/stu/joinForm.do">회원가입하기</a>
 
 		</p>
+		<br>
 			<!-- 소셜 로그인 버튼  -->
-			<div style="width:220px; height:65px; margin: 0 auto;">
+			<div style="width:220px; height:55px; margin: 0 auto;">
 				<div style="float:left;">
 					<button id="customBtn" class='btn-social-login' style='background:#D93025'><i class="xi-3x xi-google"></i></button>
 				</div>
