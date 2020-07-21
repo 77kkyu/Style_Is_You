@@ -127,6 +127,9 @@ p{
 
 }
 
+.board_list1 .hide1{display:none;}
+.no{display:table-row;}
+
 </style>
 <body>
 <div class="container">
@@ -152,7 +155,7 @@ p{
 				<th style="text-align:center">작성일</th>
 			</tr>
 		</thead>
-		<tbody id="board_list1" name="board_list1">
+		<tbody class="board_list1" name="board_list1">
 		
 		</tbody>
 	</table>
@@ -167,18 +170,27 @@ p{
 	
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
+
 		$(document).ready(function(){
 			fn_selectReviewList(1);
-			
-			
-			$("#show").on("click", function(e){ //제목 
-				console.log("asdasd", $(this).parent().parent());
-				$( '#hide' ).toggle( 'slow' );
-				//$(this).parent().parent().find('#hide').show();
+			$(".show1").click(function(){ //제목 
+				console.log("토글실행", $(this).parent());
+				$(this).next().toggle( 'slow' );
 			});
-
-			
 		});
+/* 
+		$(document).ready(function(){
+			fn_selectReviewList(1);
+		     // memu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+		     $(".show").click(function(){
+		         // 현재 클릭한 태그가 a 이기 때문에
+		         // a 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
+		         $(this).next("tr").toggleClass("hide");
+		      });
+		  });
+
+		 */	
+
 		
 		
 		function fn_selectReviewList(pageNo){
@@ -192,7 +204,7 @@ p{
 		
 		function fn_selectReviewListCallback(data){
 			var total = data.TOTAL;
-			var body = $("#board_list1");
+			var body = $(".board_list1");
 			body.empty();
 			if (total == 0) {
 				var str = "<tr>" + "<td colspan='5' align='center'>조회된 결과가 없습니다.</td>"
@@ -218,26 +230,26 @@ p{
 									
 									
 									if(REVIEW_IMG == null){
-									str += " <tr> "
+									str += " <tr class='show1'> "
 										+  "<td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 										+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
-										+  " <td id='show' align='center'> "+value.REVIEW_TITLE+"</td> "
+										+  " <td align='center'><a>"+value.REVIEW_TITLE+"</a></td> "
 										+  " <td align='center' > "+value.MEMBER_NAME+"</td>"
 										+  " <td align='center' > "+date+"</td>"
 										+  " </tr> "
-										+  " <tr id='hide' style='display:none;'> "
+										+  " <tr class='hide1' > "
 										+  " <td colspan='5'> "+value.REVIEW_CONTENT+" </td>"
 										+  " </tr> ";
 										
-									}else{
+					 				}else{
 										str += " <tr> "
 											+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 											+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
-											+  " <td id='show' align='center'> "+value.REVIEW_TITLE+" "+img+ "</td> "
+											+  " <td align='center'> "+value.REVIEW_TITLE+" "+img+ "</td> "
 											+  " <td align='center' > "+value.MEMBER_NAME+"</td>"
 											+  " <td align='center' > "+date+"</td>"
 											+  " </tr> "
-											+  " <tr id='hide' style='display:none;'> "
+											+  " <tr class='hide' > "
 											+  " <td colspan='5'> "+imgpath
 											+  " <br><br><br> "+value.REVIEW_CONTENT+" </td>"
 											+  " </tr> ";
