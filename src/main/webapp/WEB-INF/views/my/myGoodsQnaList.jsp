@@ -187,14 +187,15 @@ p{
 	
 	<form id="commonForm" name="commonForm"></form>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			fn_selectQnaList(1);
-			$("#show").on("click", function(e){ //제목 
-				console.log("asdasd", $(this).parent().parent());
-				$( '#hide' ).toggle( 'slow' );
-				//$(this).parent().parent().find('#hide').show();
-			});
+
+	$(document).ready(function(){
+		fn_selectQnaList(1);
+		$(".show1").click(function(){ //제목 
+			console.log("토글실행", $(this).parent());
+			$(this).next().toggle( 'slow' );
 		});
+	});
+	
 		function fn_selectQnaList(pageNo){
 			var comAjax = new ComAjax();
 			comAjax.setUrl("<c:url value='/my/myGoodsQnaList.do' />");
@@ -226,10 +227,10 @@ p{
 					var Q= "<img src='/stu/img/ico_qna_q.png' align='left'>";
 					var A= "<img src='/stu/img/ico_qna_a.png' align='left'>";
 					if(Level == 1){ //답변 있음
-						str += " <tr > "
+						str += " <tr class='show1'> "
 							+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 							+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
-							+  " <td id='show' align='center'> "+value.GOODS_QNA_TITLE+"</td>"
+							+  " <td align='center'> "+value.GOODS_QNA_TITLE+"</td>"
 							+  " <td align='center' > "+date+"</td>"
 							+  " <td align='center'> <span class='btn btn-danger'>답변완료</span></td>"
 							+  " </tr> "
@@ -240,10 +241,10 @@ p{
 							+  " </tr>"
 							+  " </div> ";
 							}else{ //답변 없음
-							str += " <tr > "
+							str += " <tr class='show1'> "
 								+  " <td><img src='/stu/file/"+value.GOODS_THUMBNAIL+"' width='70px' height='70px'></td>"
 								+  " <td><a href='/stu/shop/goodsDetail.do?IDX="+value.GOODS_NO +"' name='title'>" + value.GOODS_NAME + "</a></td>"
-								+  " <td id='show' align='center'> "+value.GOODS_QNA_TITLE+"</td>"
+								+  " <td align='center'> "+value.GOODS_QNA_TITLE+"</td>"
 								+  " <td align='center' > "+date+"</td>"
 								+  " <td align='center'> <span class='btn btn-danger'>답변 준비중</span></td>"
 								+  " </tr> "
