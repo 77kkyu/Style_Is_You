@@ -129,6 +129,7 @@
             fn_insertQna();
          });
       });
+
       
       function fn_openQnaList(){
          var comSubmit = new ComSubmit();
