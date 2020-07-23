@@ -142,6 +142,7 @@
          comSubmit.submit();
       }
 
+
 //       function chkEmpty(){
          
 //          if($('input[name=QNA_NAME]').val() == undefined || $('input[name=QNA_NAME]').val() == "") {alert("이름을 입력해주세요!");}
@@ -153,5 +154,8 @@
 //       }
    </script>
    
+
+	
+
 </body>
 </html>
