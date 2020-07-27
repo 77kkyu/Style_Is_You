@@ -262,30 +262,21 @@ public class myController {
 	
 	//나의 상품QNA 출력
 	@RequestMapping(value="/my/myGoodsQnaList.do")
-	public ModelAndView myGoodsQnaList(CommandMap commandMap, HttpServletRequest request) throws Exception {
-				
+	public ModelAndView myGoodsQnaList(CommandMap commandMap, HttpServletRequest request) throws Exception {			
 		ModelAndView mv = new ModelAndView("jsonView");
 				
-		Object MEMBER_NO = ""; 
-			//세션값 가져오기 
+		Object MEMBER_NO = ""; //세션값 가져오기 
 		HttpSession session = request.getSession(); 
 		MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
-		commandMap.remove("MEMBER_NO"); 
-		// 기존 회원번호 데이터 삭제 
-		commandMap.put("MEMBER_NO", MEMBER_NO); 
-		// 세션 값으로 적용
-				 
-		List<Map<String,Object>> list = myService.myGoodsQnaList(commandMap);
-		//
-		//
-				
+		commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 
+		commandMap.put("MEMBER_NO", MEMBER_NO); // 세션 값으로 적용
+		List<Map<String,Object>> list = myService.myGoodsQnaList(commandMap);	
 		mv.addObject("list", list);
 		if (list.size() > 0) {
 			mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
 		} else {
 			mv.addObject("TOTAL", 0);
 		}
-		System.out.println(list);
 		return mv;
 	}
 	
