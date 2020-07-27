@@ -34,8 +34,9 @@
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu">
 			
-				<li><a href="#" style="background: #F8F8F8;">
-						<b class="fa fa-bar-chart-o fa-fw">나의 쇼핑정보</b> <span class="fa arrow">▼</span>
+				<li>
+				<a href="#" style="background: #F8F8F8;">
+					<b class="fa fa-bar-chart-o fa-fw">나의 쇼핑정보</b> <span class="fa arrow">▼</span>
 				</a>
 					<ul class="nav nav-second-level">
 						<li><a href="/stu/myOrderList.do">- 주문/배송 내역</a></li>
@@ -43,8 +44,8 @@
 						<li><a href="/stu/my/myPointList.do">- 포인트</a></li>
 						<li><a href="/stu/my/myCouponList.do">- 할인쿠폰</a></li>
 						<li><a href="/stu/my/myLikeList.do">- 찜 상품</a></li>
-
-					</ul></li>
+					</ul>
+				</li>
 
 				<li class="active">
 				<a href="#" style="background: #F8F8F8;">
