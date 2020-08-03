@@ -180,7 +180,7 @@ public class GoodsController {
 		if (list.size() != 0) {
 			list.get(0).get("");
 		}
-
+ 
 		mv.addObject("list", list);
 		if (list.size() > 0) {
 			mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
