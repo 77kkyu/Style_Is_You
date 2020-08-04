@@ -53,7 +53,7 @@
 			<div class="group cs">
 				<h4>CS CENTER</h4>
 				<div class="con">
-					<p class="call">070-7169-7733</p>
+					<p class="call">010-0000-0000</p>
 					<p class="s_txt">
 						10:00 ~ 17:00<br> 
 						토/일/공휴일 휴무<br>
@@ -67,10 +67,10 @@
 			<div class="group bank">
 				<h4>BANK ACCOUNT</h4>
 				<div class="con">
-					<p class="call">421701-04-190378</p>
+					<p class="call">12300-00-000000</p>
 					<p class="s_txt">
 						국민은행<br> 
-						예금주 : (주)포에니
+						예금주 : (주)STYLE IS YOU
 					</p>
 				</div>
 			</div>
@@ -101,13 +101,13 @@
 <footer id="y_footer">
 	<div class="footer_wrap">
 	<div class="wrap">
-		<img src="/data/yedda/foot_logo.png">
+		<!-- <img src="/data/yedda/foot_logo.png"> -->
 		<address>
-				<span style="" class="footCopyrightbtn" onclick="onopen();" valign="absmiddle">사업자정보확인</span> 서울 금천구 서부샛길 606 (가산동, 대성디폴리스지식산업센터) B동 1109호<br>
-				 대표자명: 김성훈<span class="bar">｜</span>사업자등록번호: 309-81-06517<span class="bar">｜</span>문의전화: 070-7169-7733<span class="bar">｜</span>팩스: 02-6455-1411<span class="bar"><br>
-				</span> 통신판매신고: 제2018-서울금천-0295호 <span class="bar">｜</span> 개인정보관리책임자: 유용일 (help@yedda.co.kr)<br>
+				<span style="" class="footCopyrightbtn" onclick="onopen();" valign="absmiddle">사업자정보확인</span> 서울 마포구 마포하하 606 (망원동, 망원센터)) B동 1109호<br>
+				 대표자명: 윤철규<span class="bar">｜</span>사업자등록번호: 132-81-000000<span class="bar">｜</span>문의전화: 070-7777-7777<span class="bar">｜</span>팩스: 02-6455-1411<span class="bar"><br>
+				</span> 통신판매신고: 제2018-서울마포-0000호 <span class="bar">｜</span> 개인정보관리책임자: 윤철규 (77kkyu@gmail.com)<br>
 				<br>
-				© 2019 <b> YEDDA </b> ALL RIGHTS RESERVED.
+				© 2019 <b> STYLE IS YOU </b> ALL RIGHTS RESERVED.
 		</address>
 
 	</div>
