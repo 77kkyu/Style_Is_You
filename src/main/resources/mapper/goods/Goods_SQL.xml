@@ -68,8 +68,9 @@ SELECT
 	</select>
 	
 	
-	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 상품 카테고리별 리스트  -->
+	<select id="cateGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 상품 카테고리별 검색 순서 페이징 리스트  -->
 		<include refid="common.pagingPre2"/>
+			
 			SELECT GS.GOODS_NO,
 			       GS.GOODS_CATEGORY,
 			       GS.GOODS_NAME,

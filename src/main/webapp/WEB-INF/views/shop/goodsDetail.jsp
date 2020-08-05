@@ -997,7 +997,6 @@ function fn_selectGoodsListCallback(data) {
 			recordCount : 9,
 			eventName : "fn_selectGoodsList"
 		};
-		gfn_renderPaging(params);
 
 		var str = "";
 		var cnt1 = 1;

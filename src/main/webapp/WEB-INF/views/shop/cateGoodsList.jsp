@@ -289,7 +289,6 @@ h1 {
 .imgswap:hover img:first-child{display:none} 
 .imgswap:hover img:last-child{display:inline-block}
 
-
 </style>
 
 </head>
