@@ -53,7 +53,7 @@ public class EditorContorller {
 						uploadFile.mkdirs();
 					}
 					
-					String fileName1 = fileName.substring(fileName.lastIndexOf("."));
+					String fileName1 = fileName.substring(fileName.lastIndexOf(".")); //확장자 
 					fileName = CommonUtils.getRandomString() + fileName1;
 					//fileName = UUID.randomUUID().toString();
 					System.out.println("fileName="+fileName);
