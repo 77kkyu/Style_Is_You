@@ -47,12 +47,12 @@ public class AbstractDao {
 	    return sqlSession.selectList(queryId, map);
 	}
 	
-	public List<Map<String,Object>> bestGoodsList(String queryId, Object params) { // 踰좎뒪�듃(議고쉶�닔) �긽�뭹
+	public List<Map<String,Object>> bestGoodsList(String queryId, Object params) { 
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
 	
-	public List<Map<String,Object>> newGoodsList(String queryId, Object params) { // 理쒓렐 �긽�뭹 
+	public List<Map<String,Object>> newGoodsList(String queryId, Object params) { 
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId,params);
 	}
@@ -84,7 +84,7 @@ public class AbstractDao {
 	 */
 	
 	
-	// 특정 레코드 한줄 출력
+		// 특정 레코드 한줄 출력
 		public Object selectOne(String queryId) {
 			printQueryId(queryId);
 			return sqlSession.selectOne(queryId);
