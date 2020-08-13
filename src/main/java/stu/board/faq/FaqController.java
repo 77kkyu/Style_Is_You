@@ -17,6 +17,7 @@ import stu.common.common.CommandMap;
 public class FaqController {
 	Logger log = Logger.getLogger(this.getClass());
 	
+	
 	@Resource(name="faqService")
 	private FaqService faqService;
 	
