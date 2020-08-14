@@ -6,7 +6,7 @@
 
 
 
-## Description
+# Description
 
 - 개발 기간: 2020.05.18 ~ 2020.06.17 (약 5주)
 
@@ -38,7 +38,7 @@
 
     
 
-## Views
+# Views
 
 - 메인
 
@@ -64,9 +64,9 @@
 
 
 
-## Implementation
+# Implementation
 
-- ### 메인화면
+- #### 메인화면
 
   <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%EB%A9%94%EC%9D%B8%ED%99%94%EB%A9%B4.png?raw=true"/></p>
 
@@ -94,7 +94,7 @@
 
 
 
-- ### 상품 카테고리
+- #### 상품 카테고리
 
   <img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%ED%99%94%EB%A9%B4.png?raw=true" width="370" /><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%ED%99%94%EB%A9%B42.png?raw=true" width="370"/>
 
@@ -109,7 +109,7 @@
 
 ------
 
-- ### 상품 상세보기1
+- #### 상품 상세보기1
 
   <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%EB%94%94%ED%85%8C%EC%9D%BC1.png?raw=true"/></p>
 
@@ -135,7 +135,7 @@
 
        
 
-- ### 상품 상세보기2
+- #### 상품 상세보기2
 
   <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%EB%94%94%ED%85%8C%EC%9D%BC2.png?raw=true"/></p>
 
@@ -154,7 +154,7 @@
 
 
 
-- ### CRUD
+- # CRUD
 
   <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/crud.png?raw=true"/></p>
 
@@ -171,7 +171,7 @@
 
 ------
 
-- ### Log 설정
+- # Log 설정
 
   <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%EB%A1%9C%EA%B7%B8%EC%84%A4%EC%A0%95.png?raw=true"/></p>
 
@@ -183,7 +183,7 @@
 
        
 
-- ### Tiles 설정
+- # Tiles 설정
 
   <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%ED%83%80%EC%9D%BC%EC%A6%88%EC%84%A4%EC%A0%95.png?raw=true"/></p>
 
@@ -197,7 +197,7 @@
 
        
 
-### Trouble Shooting 
+# Trouble Shooting 
 
 ------
 
@@ -207,7 +207,7 @@
 
 
 
-### 스케쥴 및 유즈케이스
+# 스케쥴 및 유즈케이스
 
 ------
 
