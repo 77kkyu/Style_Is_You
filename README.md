@@ -40,6 +40,28 @@
 
 ## Views
 
+- 메인
+
+  <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/stu_main.gif?raw=true"/></p>
+
+
+
+
+
+- 상품 카테고리 
+
+  <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/stu_cate.gif?raw=true"/></p>
+
+
+
+
+
+- 상품 상세
+
+  <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/stu_detail.gif?raw=true"/></p>
+
+
+
 
 
 ## Implementation
