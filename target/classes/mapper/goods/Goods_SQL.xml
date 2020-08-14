@@ -62,7 +62,7 @@ SELECT
 			AND GUBUN = '0'	
 			) AA
 		      ) AAA
-		      WHERE AAA.RNUM BETWEEN 0 AND 28
+		      WHERE AAA.RNUM BETWEEN 0 AND 12
 		       
 		]]>
 	</select>
