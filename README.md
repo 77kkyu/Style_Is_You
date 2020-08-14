@@ -150,8 +150,6 @@
 
  
 
-------
-
 
 
 - # CRUD
@@ -169,7 +167,7 @@
 
 
 
-------
+
 
 - # Log 설정
 
@@ -199,8 +197,6 @@
 
 # Trouble Shooting 
 
-------
-
 <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%851.png?raw=true"/></p>
 
 <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%852.png?raw=true"/></p>
@@ -208,8 +204,6 @@
 
 
 # 스케쥴 및 유즈케이스
-
-------
 
 <p align="center"><img src="https://github.com/77kkyu/Style_Is_You/blob/master/src/main/webapp/file/%EC%8A%A4%EC%BC%80%EC%A5%B4.png?raw=true"/></p>
 
