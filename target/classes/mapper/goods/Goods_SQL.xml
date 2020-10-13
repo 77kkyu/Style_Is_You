@@ -6,7 +6,7 @@
 
 	<select id="newGoodsList" parameterType="hashmap" resultType="hashmap"> <!-- 최신 상품 리스트 -->
 		<![CDATA[
-SELECT
+			SELECT
 				AAA.* 
 			FROM( select count(*) over() as total_count, AA.*
 			FROM(
