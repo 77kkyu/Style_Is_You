@@ -16,7 +16,7 @@
 
   - Spring 4.0,  Apache Tomcat 9.0,  Tiles3,  BootStrap,  Mybatis
   - Java,  Ajax,  Jquery,  Git,  MVC Pttern
-  - Oracle 11g DataBase,  Apache Tomcat 9.0
+  - Oracle 11g DataBase
 
 - 담당 구현 파트
 
